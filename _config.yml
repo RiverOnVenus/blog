@@ -1,5 +1,5 @@
 
-title: Catbook #Your awesome title
+title: ROV's blog #Your awesome title
 email: #youremail@domain.com
 description: > # this means to ignore newlines until "baseurl"
   Write an awesome description for your new site here. You can edit this
@@ -18,7 +18,7 @@ google_analytics: #UA—XXXXXXXX-X
 disqus_shortname: riveronvenus
 
 user:
-  name: Catbook
+  name: RiverOnVenus
   pic: /assets/img/sakura.jpg
   picAlt: "ROV's blog"
  # job: a category-centric theme
