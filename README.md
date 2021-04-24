@@ -1,4 +1,7 @@
 # riveronvenus.github.io
-blog
-Powered by [Jekyll](http://jekyllrb.com)
-Theme by [catbook](https://github.com/starry99/catbook)
+© [2021,+∞) ROV's Blog.    
+
+Built with [Jekyll](http://jekyllrb.com).  
+
+Get this theme [here](https://github.com/starry99/catbook).
+
