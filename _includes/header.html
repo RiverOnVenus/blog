@@ -9,17 +9,23 @@
       <img src="{{ site.user.pic | relative_url }}" alt="{{ site.user.picAlt }}">
     </a>
     <span class="header_name">{{ site.user.name }}</span>
-    <span class="header_job">{{ site.user.job }}</span>
+    <br/>
+    <span class="header_job"><script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <div id="poem_sentence"></div>
+    <div id="poem_info"></div>
+    <script type="text/javascript">
+    jinrishici.load(function(result) {
+    var sentence = document.querySelector("#poem_sentence")
+    var info = document.querySelector("#poem_info")
+    sentence.innerHTML = result.data.content
+    info.innerHTML = '【' + result.data.origin.dynasty + '】' + result.data.origin.author + '《' + result.data.origin.title + '》'
+    });
+    </script></span>
+    
     <span class="header_mes">{{ site.user.message }}</span>
 
     <nav class="nav">
-      {% if site.user.aboutme %}
-      <ul class="nav_list">
-        <li class="nav_item">
-          <a href="{{ site.baseurl }}/aboutme.html">about</a>
-        </li>
-      </ul>
-      {% endif %}
+     
       {% for category in site.categories %}
       {% capture cat_name %}{{ category | first }}{% endcapture %}
       <ul class="nav_list">
@@ -29,6 +35,14 @@
         </li>
       </ul>
       {% endfor %}
+      
+       {% if site.user.aboutme %}
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="{{ site.baseurl }}/aboutme.html">about</a>
+        </li>
+      </ul>
+      {% endif %}
     </nav>
   </div>
 
