@@ -2,7 +2,7 @@ title: ROV的书屋 #Your awesome title
 description: 书屋里面当然没有书啦
 email: RiverOnVenus@gmail.com
 baseurl: # the subpath of the site
-url: http://riveronvenus.github.io # the base hostname & protocol for your site
+url: https://rov.la/ # the base hostname & protocol for your site
 
 permalink: /:year-:month/:title
 timezone:
