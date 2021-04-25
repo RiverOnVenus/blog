@@ -1,6 +1,6 @@
 ---
 title: Hello World!
-categories: [writing]
+categories: [dev]
 comments: true
 ---
 

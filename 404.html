@@ -3,16 +3,8 @@ permalink: /404.html
 ---
 
 <!DOCTYPE html>
-<html lang="en">
-  {% include head.html %}
-<body>
-  <section class="fourzerofour">
-      <p>
-        <img src="{{ '/assets/img/cat_404.jpg' | relative_url }}" width="300px"><br>
-        404 page not found <br>
-        Go <a href="{{ '/' | relative_url }}">home</a> :)
-      </p>
-  </section>
+  <link rel="shortcut icon" href="{{ site.favicon | relative_url }}" type="image/x-icon" />
+  <link rel="icon" href="{{ site.favicon | relative_url }}" type="image/x-icon" />
 
-</body>
+<script src="//cdn.zhaolinlang.com/cdn.dnpw.org/404/v1.min.js" maincolor="#2196F3" jumptime="-1" jumptarget="/" tips="404" error="" charset="utf-8"></script>
 </html>
