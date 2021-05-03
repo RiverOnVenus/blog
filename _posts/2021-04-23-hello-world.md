@@ -4,6 +4,8 @@ categories: [dev]
 comments: true
 ---
 
+![image](https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/hello-world/hello-world.jpg )
+
  <dfn info="Hello,World! | 你好，世界！">Hover</dfn> me.
 
 ```c
