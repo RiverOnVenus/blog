@@ -7,14 +7,14 @@ url: https://rov.la # the base hostname & protocol for your site
 permalink: /:year-:month/:title
 timezone:
 
-favicon: https://cdn.jsdelivr.net/gh/riveronvenus/riveronvenus.github.io/assets/img/avatar.jpg
+favicon: https://cdn.jsdelivr.net/gh/riveronvenus/riveronvenus.github.io/assets/img/favicon.ico
 
 google_analytics: #UA—XXXXXXXX-X
 disqus_shortname: riveronvenus
 
 user:
   name: RiverOnVenus
-  pic: /assets/img/avatar.jpg
+  pic: https://cdn.jsdelivr.net/gh/riveronvenus/riveronvenus.github.io/assets/img/avatar.jpg
   picAlt: "RiverOnVenus"
 
 
