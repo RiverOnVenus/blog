@@ -1,15 +1,14 @@
 title: ROV的书屋 #Your awesome title
 description: 书屋当然没有书啦
 email: RiverOnVenus@gmail.com
-baseurl: # the subpath of the site
 url: https://rov.la # the base hostname & protocol for your site
 
 permalink: /:year-:month/:title
-timezone:
+timezone: Asia/Shanghai
 
 favicon: https://cdn.jsdelivr.net/gh/riveronvenus/riveronvenus.github.io/assets/img/favicon.ico
 
-google_analytics: #UA—XXXXXXXX-X
+#google_analytics: #UA—XXXXXXXX-X
 disqus_shortname: riveronvenus
 
 user:
