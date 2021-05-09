@@ -7,6 +7,12 @@
     </li>
 
     {% endif %}
+    {% if site.user.search %}
+    <li class="nav_item">
+      <a href="{{ site.baseurl }}/search.html">search</a>
+    </li>
+
+    {% endif %}
     {% for category in site.categories %}
     {% capture cat_name %}{{ category | first }}{% endcapture %}
 

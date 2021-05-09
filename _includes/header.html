@@ -28,6 +28,13 @@
       </ul>
       {% endfor %}
       
+         {% if site.user.search %}
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="{{ site.baseurl }}/search.html">search</a>
+        </li>
+      </ul>
+      {% endif %}
        {% if site.user.aboutme %}
       <ul class="nav_list">
         <li class="nav_item">
