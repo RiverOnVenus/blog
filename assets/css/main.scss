@@ -19,7 +19,7 @@
     --archive_title_hover: #87CDBD;
     --name_font: #FFAA00;
     --job_font: #003845;
-    --nav_font: #8d7edc;
+    --nav_font: #4FCEF7;
     --nav_font_hover: #D4CEF2;
     --shadow_color: rgba(160, 160, 160, 0.05);
     --post_title: #003845;
@@ -27,7 +27,7 @@
     --post_text: #4c4c4c;
     --post_h3: #4c4c4c;
     --post_link: #46a891;
-    --post_link_hover: #87CDBD;
+    --post_link_hover: #4FCEF7;
     --inlinecode_text: #FFAA00;
     --blockquote: #333;
     --footer_font: #858585;
@@ -52,7 +52,7 @@
     --post_date: #e9ead7;
     --post_text: #CACCCE;
     --post_h3: #fff;
-    --post_link: #8d7edc;
+    --post_link: #4FCEF7;
     --post_link_hover: #D4CEF2;
     --inlinecode_text: #FFAA00;
     --blockquote: #CACCCE;
@@ -170,7 +170,7 @@ img {
     }
 }
 
-.aboutme {
+.about {
     @include breakpoint(medium) {
         max-width: 30rem;
         margin-top: 5.5rem;
@@ -715,8 +715,6 @@ img {
     }
 }
 
-  strong {
-    color: #16a085; }
     
 /* 7. Etc 
    =============================================================================*/
