@@ -4,9 +4,9 @@ title: Search
 ---
 
 <!-- HTML elements for search -->
-<br>
-<br>
-<br>
+</br>
+</br>
+</br>
 <input type="text" id="search-input" placeholder="press / to search" style="width:315px;height:30px"/>
 <ul id="results-container"></ul>
 
@@ -20,7 +20,7 @@ SimpleJekyllSearch({
     resultsContainer: document.getElementById('results-container'),
     json: '/search.json',
     searchResultTemplate: '<li><a href="{url}" title="{desc}"><strong>{title}</strong></a></li>',
-    noResultsText: 'No result found!',
+    noResultsText: '<li><strong> result found!</strong></li>',
     limit: 20,
     fuzzy: false
   })
