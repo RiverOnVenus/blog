@@ -15,7 +15,7 @@ user:
   name: RiverOnVenus
   pic: https://cdn.jsdelivr.net/gh/riveronvenus/riveronvenus.github.io/assets/img/avatar.jpg
   picAlt: "RiverOnVenus"
-  #search: true
+  search: true
 
  # job: a category-centric theme
   about: true # comment this out if you don't need the 'about' page.
