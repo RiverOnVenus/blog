@@ -1,0 +1,12 @@
+#markdown-toc::before {
+    content: "目录";
+    font-weight: bold;
+}
+
+
+#markdown-toc {
+    border: 1px solid #aaa;
+    padding: 1.5em;
+    list-style: decimal;
+    display: inline-block;
+} 
