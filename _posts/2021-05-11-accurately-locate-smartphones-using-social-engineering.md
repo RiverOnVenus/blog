@@ -70,9 +70,9 @@ NearYou模板最简单，输入 0 回车即可。
 
 [1] Google Dirve: 
 
-Google Drive模板，需要填入了一个对应的Google Drive共享文件的url。（填与模板对应的url增加可靠性）
+Google Drive模板需要填一个URL，什么URL都行，不过填 Google Drive File 的URL更具欺骗性。
 
-url的作用：钓鱼网页成功获取位置信息后跳转的正常网页。
+URL的作用：钓鱼网页成功获取位置信息后跳转的正常网页。
 
 <a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img03.png"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img03.png">
 
@@ -98,7 +98,7 @@ ngrok http 8080
 
 <a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img04.png"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img04.png">
 
-通过ngrok生成了2个链接，选择其中一个发给目标，等待即可。
+通过ngrok生成了2个URL，选择其中一个发给目标，等待即可。
 
 ## 目标手机端
 
@@ -158,9 +158,15 @@ Telegram:
 
 ### ngrok
 
-当目标手机打开由ngrok生成的链接时，在ngrok界面可以看到相关请求。
+当目标手机打开由ngrok生成的链接时，在ngrok界面可以看到相关的请求和响应。
 
 <a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img05.png"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img05.png">
+
+ngrok更多用法:
+
+```bash
+ngrok --help
+```
 
 ### seeker
 
