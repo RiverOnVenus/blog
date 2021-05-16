@@ -7,7 +7,7 @@ math: false
 
 <a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img00.jpg"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img00.jpg">
 
-> Photo by <a href="https://unsplash.com/@sajad_sqs9966b?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Sajad Nori</a>{:target="_blank"} on <a href="https://unsplash.com/s/photos/network?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>{:target="_blank"}
+> Photo by <a href="https://unsplash.com/@sajad_sqs9966b?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Sajad Nori</a> on <a href="https://unsplash.com/s/photos/network?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Unsplash</a>
 
 * TOC
 {:toc}
