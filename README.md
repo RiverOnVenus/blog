@@ -3,7 +3,7 @@
 
 © 2021 RiverOnVenus.
 
-Built with [Jekyll](http://jekyllrb.com).  
+Built with [Jekyll](http://jekyllrb.com){:target="_blank"}.  
 
-Get this theme [here](https://github.com/starry99/catbook).
+Get this theme [here](https://github.com/starry99/catbook){:target="_blank"}.
 
