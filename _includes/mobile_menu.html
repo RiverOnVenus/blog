@@ -1,18 +1,25 @@
 <nav class="mobile_menu">
 
   <ul class="nav_list">
+  
+    {% if site.user.rss %}
+    <li class="nav_item">
+      <a href="https://rov.la/feed.xml">rss</a>
+    </li>
+    {% endif %}
+  
     {% if site.user.about %}
     <li class="nav_item">
       <a href="{{ site.baseurl }}/about.html">about</a>
     </li>
-
     {% endif %}
+    
     {% if site.user.search %}
     <li class="nav_item">
       <a href="{{ site.baseurl }}/search.html">search</a>
     </li>
-
     {% endif %}
+    
     {% for category in site.categories %}
     {% capture cat_name %}{{ category | first }}{% endcapture %}
 
