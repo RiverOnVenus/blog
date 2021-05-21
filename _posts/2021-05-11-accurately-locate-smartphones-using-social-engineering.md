@@ -160,12 +160,6 @@ Telegram:
 
 <a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img05.png"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img05.png">
 
-ngrok更多用法:
-
-```bash
-ngrok --help
-```
-
 ### seeker
 
 当目标手机允许网站获取位置权限后，在seeker界面看到成功获取的信息。
