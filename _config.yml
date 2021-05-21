@@ -1,12 +1,12 @@
-title: RiverOnVenus' Blog #Your awesome title
-description: RiverOnVenus' Blog.
+title: 79号桃花源 #Your awesome title
+description: RiverOnVenus的博客
 email: RiverOnVenus@gmail.com
 url: https://rov.la # the base hostname & protocol for your site
 
 permalink: /:year-:month/:title
 timezone: Asia/Shanghai
 
-favicon: https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/favicon/favicon.ico
+favicon: https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/favicon.ico
 
 #google_analytics: #UA—XXXXXXXX-X
 disqus_shortname: riveronvenus
