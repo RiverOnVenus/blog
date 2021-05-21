@@ -160,6 +160,8 @@ Telegram:
 
 <a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img05.png"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img05.png">
 
+打开`http://127.0.0.1:4040`可以看到更详细的信息。
+
 ### seeker
 
 当目标手机允许网站获取位置权限后，在seeker界面看到成功获取的信息。
