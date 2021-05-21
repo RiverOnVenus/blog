@@ -1,6 +1,6 @@
 ---
 title: 利用社会工程学准确定位智能手机
-categories: [tool]
+categories: [linux,tool]
 comments: true
 math: false
 ---
@@ -19,15 +19,13 @@ math: false
 
 我们为什么不应该随意点击未知链接？为什么不应该随便授予重要权限？这会造成什么后果？
 
-Seeker背后的概念很简单，就像我们用钓鱼网页来获取凭证一样，用一个假的网页来请求你的位置。
-
-**在 <dfn info="在计算机科学中，社会工程学指的是通过与他人的合法交流，来使其心理受到影响，做出某些动作或者是透露一些机密信息的方式。这通常被认为是欺诈他人以收集信息、行骗和入侵计算机系统的行为。在英美普通法系，这一行为一般是被认作侵犯隐私权的。  --by wikipedia">社会工程学</dfn>中，它属于典型的 <dfn info="是一种企图从电子通信中，透过伪装成信誉卓著的法人媒体以获得如用户名、密码和信用卡明细等个人敏感信息的犯罪诈骗过程。--by wikipedia">钓鱼式攻击</dfn>。**
+Seeker背后的概念很简单，就像我们用钓鱼网页来获取凭证一样，用一个假的网页来获取你的位置。
 
 # 安装
 
-> <https://github.com/thewhiteh4t/seeker#installation>{:target="_blank"}
+其它系统见[项目安装文档](https://github.com/thewhiteh4t/seeker#installation){:target="_blank"}。
 
-## archlinux
+Archlinux
 
 ```bash
 sudo pacman -S ngrok
@@ -90,7 +88,7 @@ Telegram同样需要填写一些群组信息。
 
 ### 启动ngrok
 
-再开一个终端，启动<dfn info="一个隧道、反向代理，通过在公共的端点和本地运行的Web 服务器之间建立一个安全的通道">ngrok</dfn>。
+再开一个终端，启动ngrok。
 
 ```bash
 ngrok http 8080
@@ -130,7 +128,7 @@ Telegram:
 
 <a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img07.png"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img07.png">
 
-除Google Drive模板在点击允许后，会从的钓鱼网页进入到Google Drive的共享文件的url界面外，其余三个模板均只有个弹窗并保持在钓鱼网页。
+除Google Drive模板在点击允许后，会从的钓鱼网页进入到Google Drive的共享文件的URL界面外，其余三个模板均只有个弹窗并保持在钓鱼网页。
 
 <a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img08.png">
 
