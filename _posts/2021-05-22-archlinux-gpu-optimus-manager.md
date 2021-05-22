@@ -15,7 +15,7 @@ math: false
 
 # 前言
 
-之前一直用的optimus-manager + bbswitch来管理双显卡，那时**没有在意Hybrid模式**，一直用的Integrated和Nvidia两个模式。
+之前一直用的`Askannz/optimus-manager`来管理双显卡，那时**没有在意Hybrid模式**，一直用的Integrated和Nvidia两个模式。
 
 最近gcc更新到了`gcc version 11.1.0`，导致bbswitch-dkms构建失败，去查看了上游才知道bbswitch已经很久没人维护了。然后看见了百合仙子博客里Nvidia Prime的文章，就改用了NVIDIA官方的方案。
 
@@ -33,9 +33,9 @@ math: false
 
 > 使用NVIDIA PRIME时，N卡处于待机状态，即使不在上面运行任何应用程序，它也会继续消耗电能。由于N卡会自动降频，因此耗电量相对较低，但仍比仅用核显时高很多。
 
-所以我使用的双显卡方案是 [Askannz/optimus-manager]( https://github.com/Askannz/optimus-manager){:target="blank"}
-
 ## 介绍
+
+> 项目地址： [Askannz/optimus-manager]( https://github.com/Askannz/optimus-manager){:target="blank"}
 
 optimus-manager有三个模式：
 
@@ -113,6 +113,6 @@ switching=bbswitch
 
 # 最后
 
-使用optimus-manager + bbswitch来管理双显卡，目前在我的笔记本电脑上运行良好，尚未发现问题。
+optimus-manager目前在我的笔记本电脑上运行良好，尚未发现问题。
 
 因为没认真看完文档导致在原地兜了一圈，所以请一定要认真阅读项目文档！
