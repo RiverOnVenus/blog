@@ -111,6 +111,8 @@ switching=bbswitch
 
 安装配置完成后需要重启系统，重启系统前请认真阅读项目[README](https://github.com/Askannz/optimus-manager/blob/master/README.md){:target="blank"} 和 [Wiki](https://github.com/Askannz/optimus-manager/wiki){:target="_blank"}，确保配置没有问题再重启系统。做好修复系统的准备。
 
+重启后，使用`systemctl status optimus-manager.service`命令查看服务状态，使用`optimus-manager --status`命令查看当前模式。
+
 # 最后
 
 optimus-manager目前在我的笔记本电脑上运行良好，尚未发现问题。
