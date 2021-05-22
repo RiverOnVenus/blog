@@ -5,7 +5,7 @@ comments: true
 math: false
 ---
 
-<a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/optimus/optimus.jpg"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/optimus/optimus.jpg">
+<a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/optimus/image01.jpg"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/optimus/image01.jpg">
 
 > Photo by [Anna Jiménez Calaf](https://unsplash.com/@annajimenez?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText){:target="blank"} on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText){:target="blank"}  
 
