@@ -33,7 +33,7 @@ math: false
 
 > 使用NVIDIA PRIME时，N卡处于待机状态，即使不在上面运行任何应用程序，它也会继续消耗电能。由于N卡会自动降频，因此耗电量相对较低，但仍比仅用核显时高很多。
 
-所以我使用的双显卡方案是 [Askannz/optimus-manager]( https://github.com/Askannz/optimus-manager){:target="blank"} + [bbswitch](https://github.com/Bumblebee-Project/bbswitch){:target="blank"}
+所以我使用的双显卡方案是 [Askannz/optimus-manager]( https://github.com/Askannz/optimus-manager){:target="blank"}
 
 ## 介绍
 
@@ -41,7 +41,7 @@ optimus-manager有三个模式：
 
 - Integrated--仅用核显
 - Nvidia--仅用独显
-- Hybrid--Nvidia可以在offload模式下使用
+- Hybrid--Nvidia offload
 
 Hybrid配合Nvidia-prime使用
 
@@ -54,6 +54,8 @@ sudo pacman -S nvidia-prime
 ## 安装
 
 [项目安装文档](https://github.com/Askannz/optimus-manager#installation){:target="blank"}
+
+使用optimus-manager需要配合正确的电源管理，否则可能无法切换模式，在我的笔记本电脑上用的[bbswitch](https://github.com/Bumblebee-Project/bbswitch){:target="blank"}。
 
 ```bash
 sudo pacman -S optimus-manager bbswitch
@@ -107,7 +109,7 @@ switching=bbswitch
 
 > 注意：切换模式会自动注销，所以请确保你已经保存你的工作，并关闭所有的应用程序。
 
-安装配置完成后需要重启系统。重启系统前请认真阅读项目[README](https://github.com/Askannz/optimus-manager/blob/master/README.md){:target="blank"} 和 [Wiki](https://github.com/Askannz/optimus-manager/wiki){:target="_blank"}，确保配置没有问题再重启系统。做好修复系统的准备。
+安装配置完成后需要重启系统，重启系统前请认真阅读项目[README](https://github.com/Askannz/optimus-manager/blob/master/README.md){:target="blank"} 和 [Wiki](https://github.com/Askannz/optimus-manager/wiki){:target="_blank"}，确保配置没有问题再重启系统。做好修复系统的准备。
 
 # 最后
 
