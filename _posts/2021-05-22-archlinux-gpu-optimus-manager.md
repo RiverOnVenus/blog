@@ -55,7 +55,7 @@ sudo pacman -S nvidia-prime
 
 [项目安装文档](https://github.com/Askannz/optimus-manager#installation){:target="blank"}
 
-使用optimus-manager需要配合正确的电源管理，否则可能无法切换模式，在我的笔记本电脑上用的[bbswitch](https://github.com/Bumblebee-Project/bbswitch){:target="blank"}。
+使用optimus-manager需要配置正确的电源管理才能切换模式，在我的笔记本电脑上用的[bbswitch](https://github.com/Bumblebee-Project/bbswitch){:target="blank"}。
 
 ```bash
 sudo pacman -S optimus-manager bbswitch
