@@ -21,7 +21,7 @@ math: false
 
 用了几天发现续航没有用optimus-manager的Integrated模式好，于是想找到一个既可以在我用电池时仅使用核显的模式又可以在接通电源时使用Nvidia offload模式的方案。
 
-「然，此举乃`optimus-manager`也，呜呼哀哉，前被吾略之`Hybrid`即`Nvidia offload`。」
+<span class="spoiler" >「然，此举乃"optimus-manager"也，呜呼哀哉，前被吾略之"Hybrid"即"Nvidia offload"。」</span>
 
 # 正文
 
