@@ -15,7 +15,7 @@ math: false
 
 # 前言
 
-之前一直用的`Askannz/optimus-manager`来管理双显卡，那时**没有在意Hybrid模式**，一直用的Integrated和Nvidia两个模式。
+之前一直用的`Askannz/optimus-manager`来管理双显卡，那时**没有认真阅读项目文档**，对Hybrid模式不了解，一直用的Integrated和Nvidia两个模式。
 
 最近gcc更新到了`gcc version 11.1.0`，导致bbswitch-dkms构建失败，去查看了上游才知道bbswitch已经很久没人维护了。然后看见了百合仙子博客里Nvidia Prime的文章，就改用了NVIDIA官方的方案。
 
@@ -117,4 +117,4 @@ switching=bbswitch
 
 optimus-manager目前在我的笔记本电脑上运行良好，尚未发现问题。
 
-因为没认真看完文档导致在原地兜了一圈，所以请一定要认真阅读项目文档！
+因为没认真看完文档导致在原地兜了一圈，所以请一定要**认真阅读项目文档**！
