@@ -107,7 +107,7 @@ switching=bbswitch
 - `optimus-manager --switch integrated` 切换到核显并关闭Nvidia的电源
 - `optimus-manager --switch hybrid` 切换到Nvidia offload
 
-> 注意：切换模式会自动注销，所以请确保你已经保存你的工作，并关闭所有的应用程序。
+> 注意：切换模式会自动注销（用户态切换），所以请确保你已经保存你的工作，并关闭所有的应用程序。
 
 安装配置完成后需要重启系统，重启系统前请认真阅读项目[README](https://github.com/Askannz/optimus-manager/blob/master/README.md){:target="blank"} 和 [Wiki](https://github.com/Askannz/optimus-manager/wiki){:target="_blank"}，确保配置没有问题再重启系统。做好修复系统的准备。
 
