@@ -11,7 +11,7 @@ math: false
 {:toc}
 # 前言
 
-前段时间我一直在尝试不同的内核，想以此来提高电脑的性能。官方支持的内核中我使用过[linux-zen](https://archlinux.org/packages/?name=linux-zen), 非官方支持的内核中我使用过[linux-ck](https://aur.archlinux.org/packages/linux-ck/){:target="blank"}, [linux-lqx](https://aur.archlinux.org/packages/linux-lqx/){:target="blank"}, [linux-xanmod](https://aur.archlinux.org/packages/linux-xanmod/){:target="blank"}, [linux-xanmod-cacule](https://aur.archlinux.org/packages/linux-xanmod-cacule/){:target="blank"}, [linux-cacule](https://aur.archlinux.org/packages/?K=linux-cacule){:target="blank"}。其中，使用linux-zen, linux-ck时cgproxy正常，而使用其它几个内核时启动却出错。
+前段时间我一直在尝试不同的内核，想以此来提高电脑的性能。官方支持的内核中我使用过[linux-zen](https://archlinux.org/packages/?name=linux-zen){:target="blank"}, 非官方支持的内核中我使用过[linux-ck](https://aur.archlinux.org/packages/linux-ck/){:target="blank"}, [linux-lqx](https://aur.archlinux.org/packages/linux-lqx/){:target="blank"}, [linux-xanmod](https://aur.archlinux.org/packages/linux-xanmod/){:target="blank"}, [linux-xanmod-cacule](https://aur.archlinux.org/packages/linux-xanmod-cacule/){:target="blank"}, [linux-cacule](https://aur.archlinux.org/packages/?K=linux-cacule){:target="blank"}。其中，使用linux-zen, linux-ck时cgproxy正常，而使用其它几个内核时启动却出错。
 
 # 出错
 
