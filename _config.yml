@@ -15,7 +15,7 @@ cusdis:
 
 user:
   name: RiverOnVenus
-  pic: https://cdn.jsdelivr.net/gh/riveronvenus/riveronvenus.github.io/assets/img/avatar.jpg
+  pic: https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/avatar/avatar.jpg
   picAlt: "RiverOnVenus"
   search: true
  # job: a category-centric theme
