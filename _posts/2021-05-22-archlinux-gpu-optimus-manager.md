@@ -35,6 +35,8 @@ math: false
 
 ## 介绍
 
+开始之前，请确定已经按照[ArchWiki](https://wiki.archlinux.org/title/NVIDIA){:target="blank"}安装好了相应驱动。
+
 > 项目地址： [Askannz/optimus-manager]( https://github.com/Askannz/optimus-manager){:target="blank"}
 
 optimus-manager有三个模式：
