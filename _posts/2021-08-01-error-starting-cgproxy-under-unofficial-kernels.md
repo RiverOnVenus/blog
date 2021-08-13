@@ -47,7 +47,7 @@ cgproxyd[472]: error: execsnoop thread timeout, maybe failed
 
 - 对于linux-cacule系列的内核，将其PKGBUILD中禁用*CONFIG_FTRACE*的语句`scripts/config --disable CONFIG_FTRACE`注释掉或删掉以启用*CONFIG_FTRACE_SYSCALLS*
 - 对于linux-lqx, 在其PKGBUILD中加入语句`scripts/config --enable CONFIG_FTRACE_SYSCALLS`以启用*CONFIG_FTRACE_SYSCALLS*
-- 对于linux-xanmod, linux-xanmod-cacule, 在其在其PKGBUILD中加入两条语句`scripts/config --enable CONFIG_FTRACE`和 `scripts/config --enable CONFIG_FTRACE_SYSCALLS`以启用*CONFIG_FTRACE_SYSCALLS*
+- 对于linux-xanmod, linux-xanmod-cacule, 在其PKGBUILD中加入两条语句`scripts/config --enable CONFIG_FTRACE`和 `scripts/config --enable CONFIG_FTRACE_SYSCALLS`以启用*CONFIG_FTRACE_SYSCALLS*
 
 # 最后
 
