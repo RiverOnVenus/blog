@@ -39,13 +39,16 @@ cgproxyd[472]: failed to attach BPF programs
 cgproxyd[472]: error: execsnoop thread timeout, maybe failed
 ```
 
-经过分析已有信息和对比各个内核的config以及最后测试，确定了是这些内核在config中直接或间接禁用了**CONFIG_FTRACE_SYSCALLS**造成的。
+经过分析已有信息和对比各个内核的config以及最后测试，确定了是这些内核直接或间接禁用了**CONFIG_FTRACE_SYSCALLS**造成的。
 
 # 解决
 
+（最后更新时间 2021-08-13，由于内核更新较快，且PKGBUILD和config也会有所改变，所以以下方法可能过时，仅供参考）
+
 编译内核时在config中启用*CONFIG_FTRACE_SYSCALLS*或*CONFIG_FTRACE*即可解决。
 
-- 对于linux-cacule系列的内核，将其PKGBUILD中禁用*CONFIG_FTRACE*的语句`scripts/config --disable CONFIG_FTRACE`注释掉或删掉以启用*CONFIG_FTRACE_SYSCALLS*
+- ~~对于linux-cacule系列的内核，将其PKGBUILD中禁用*CONFIG_FTRACE*的语句`scripts/config --disable CONFIG_FTRACE`注释掉或删掉以启用*CONFIG_FTRACE_SYSCALLS*~~
+- (2021-08-13更新) 对于linux-cacule系列内核，在config中设置`CONFIG_FTRACE=y`和`CONFIG_FTRACE_SYSCALLS=y`
 - 对于linux-lqx, 在其PKGBUILD中加入语句`scripts/config --enable CONFIG_FTRACE_SYSCALLS`以启用*CONFIG_FTRACE_SYSCALLS*
 - 对于linux-xanmod, linux-xanmod-cacule, 在其PKGBUILD中加入两条语句`scripts/config --enable CONFIG_FTRACE`和 `scripts/config --enable CONFIG_FTRACE_SYSCALLS`以启用*CONFIG_FTRACE_SYSCALLS*
 
