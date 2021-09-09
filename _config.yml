@@ -9,9 +9,9 @@ timezone: Asia/Shanghai
 favicon: https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/favicon/favicon.ico
 
 #google_analytics: #UA—XXXXXXXX-X
-disqus_shortname: 
+disqus_shortname: riveronvenus
 cusdis:
-    app_id: 14ce0dca-d476-4a9d-bd9d-41c5e9f650f8
+    app_id:
 
 user:
   name: RiverOnVenus
