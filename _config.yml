@@ -1,6 +1,6 @@
 title: 79号桃花源 #Your awesome title
-description: RiverOnVenus的博客
-email: RiverOnVenus@gmail.com
+description: RiverOnVenus' blog | 息土的博客
+email: 
 url: https://rov.la # the base hostname & protocol for your site
 
 permalink: /:year-:month/:title
@@ -14,7 +14,7 @@ cusdis:
     app_id: 221dd64e-139e-4054-93b0-315443b15fbc
 
 user:
-  name: RiverOnVenus
+  name: 息土
   pic: https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/avatar/avatar.jpg
   picAlt: "RiverOnVenus"
   search: true
