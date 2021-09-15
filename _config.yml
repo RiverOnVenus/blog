@@ -1,6 +1,6 @@
 title: 79号桃花源 #Your awesome title
-description: “缘溪行，忘路之远近。”--《桃花源记》
-email: RiverOnVenus@gmail.com && xitu@tuta.io
+#description:
+#email:
 url: https://rov.la # the base hostname & protocol for your site
 
 permalink: /:year-:month/:title
