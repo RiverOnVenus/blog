@@ -34,7 +34,6 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-youtube
-  - jekyll-spaceship
 
 exclude:
   - README.md
