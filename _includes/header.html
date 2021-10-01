@@ -42,7 +42,15 @@
         </li>
       </ul>
       {% endif %}
-      
+
+        {% if site.user.key %}
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="https://github.com/riveronvenus.gpg">key</a>
+        </li>
+      </ul>
+      {% endif %}
+
        {% if site.user.rss %}
       <ul class="nav_list">
         <li class="nav_item">
