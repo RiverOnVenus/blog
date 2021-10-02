@@ -25,7 +25,7 @@ user:
   picAlt: "RiverOnVenus"
   search: true
  # job: a category-centric theme
-  about: true # comment this out if you don't need the 'about' page.
+  about: true
   key: true
   rss: true
 

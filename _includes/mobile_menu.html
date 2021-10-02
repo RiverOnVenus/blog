@@ -2,17 +2,18 @@
 
   <ul class="nav_list">
   
+      {% if site.user.rss %}
+    <li class="nav_item">
+      <a href="https://rov.la/feed.xml">rss</a>
+    </li>
+    {% endif %}
+    
       {% if site.user.key %}
     <li class="nav_item">
       <a href="https://github.com/riveronvenus.gpg">key</a>
     </li>
     {% endif %}
 
-    {% if site.user.rss %}
-    <li class="nav_item">
-      <a href="https://rov.la/feed.xml">rss</a>
-    </li>
-    {% endif %}
   
     {% if site.user.about %}
     <li class="nav_item">
