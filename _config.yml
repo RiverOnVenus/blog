@@ -16,8 +16,8 @@ favicon: https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/favicon/favicon.i
 
 giscus: true
 
-cusdis:
-    app_id: 221dd64e-139e-4054-93b0-315443b15fbc
+#cusdis:
+    #app_id:
 
 user:
   name: RiverOnVenus
