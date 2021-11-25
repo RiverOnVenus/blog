@@ -1,0 +1,27 @@
+---
+layout: page
+title: Search
+---
+
+<!-- HTML elements for search -->
+</br>
+</br>
+</br>
+<input type="text" id="search-input" placeholder="press / to search" style="width:315px;height:30px"/>
+<ul id="results-container"></ul>
+
+<!-- script pointing to jekyll-search.js -->
+<script src="/assets/js/simple-jekyll-search.min.js"></script>
+
+
+<script>
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search-input'),
+    resultsContainer: document.getElementById('results-container'),
+    json: '/assets/search.json',
+    searchResultTemplate: '<ul><li><a href="{url}" title="{desc}"><strong>{title}</strong></a></li></ul>',
+    noResultsText: '<ul><li><strong> result found!</strong></li></ul>',
+    limit: 20,
+    fuzzy: false
+  })
+</script>
