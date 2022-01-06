@@ -20,7 +20,7 @@ giscus: true
     #app_id:
 
 user:
-  name: RiverOnVenus
+  name: RiverOnVenus(追)
   pic: https://cdn.jsdelivr.net/gh/riveronvenus/blog/assets/img/avatar.jpg
   picAlt: "RiverOnVenus"
   search: true
