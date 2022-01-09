@@ -17,11 +17,11 @@ math: false
 
 之前一直用的`Askannz/optimus-manager`来管理双显卡，那时**没有认真阅读项目文档**，对Hybrid模式不了解，一直用的Integrated和Nvidia两个模式。
 
-最近gcc更新到了`gcc version 11.1.0`，导致bbswitch-dkms构建失败，去查看了上游才知道bbswitch已经很久没人维护了。然后看见了百合仙子博客里Nvidia Prime的文章，就改用了NVIDIA官方的方案。
+后来改用了NVIDIA官方的方案。
 
 用了几天发现续航没有用optimus-manager的Integrated模式好，于是想找到一个既可以在我用电池时仅使用核显的模式又可以在接通电源时使用Nvidia offload模式的方案。
 
-<span class="spoiler" >「然，此举乃"optimus-manager"也，呜呼哀哉，前被吾略之"Hybrid"即"Nvidia offload"。」</span>
+<span class="spoiler" >「没想到，"Hybrid"即"Nvidia offload"。所以又换回了optimus-manager。在Integrated和Hybrid之间切换」</span>
 
 # 正文
 
@@ -48,7 +48,7 @@ optimus-manager有三个模式：
 Hybrid配合Nvidia-prime使用
 
 ```bash
-sudo pacman -S nvidia-prime
+pacman -S nvidia-prime
 ```
 
 > Hybrid模式文档 [Nvidia GPU offloading for "hybrid" mode](https://github.com/Askannz/optimus-manager/wiki/Nvidia-GPU-offloading-for-%22hybrid%22-mode){:target="blank"}
@@ -60,7 +60,7 @@ sudo pacman -S nvidia-prime
 使用optimus-manager需要配置正确的电源管理才能切换模式，在我的笔记本电脑上用的[bbswitch](https://github.com/Bumblebee-Project/bbswitch){:target="blank"}。
 
 ```bash
-sudo pacman -S optimus-manager bbswitch
+pacman -S optimus-manager bbswitch
 ```
 
 > 注意：bbswitch很久没更新了，在较新的笔记本电脑上可能没用，甚至产生一些其它问题。且bbswitch只是optimus-manager项目的电源管理方案 [A guide  to power management options](https://github.com/Askannz/optimus-manager/wiki/A-guide--to-power-management-options){:target="blank"}之一，所以请根据电脑环境选择合理的方案。
@@ -114,6 +114,12 @@ switching=bbswitch
 安装配置完成后需要重启系统，重启系统前请认真阅读项目[README](https://github.com/Askannz/optimus-manager/blob/master/README.md){:target="blank"} 和 [Wiki](https://github.com/Askannz/optimus-manager/wiki){:target="_blank"}，确保配置没有问题再重启系统。做好修复系统的准备。
 
 重启后，使用`systemctl status optimus-manager.service`命令查看服务状态，使用`optimus-manager --status`命令查看当前模式。
+
+# 可选
+
+[optimus-manager-qt](https://github.com/Shatur/optimus-manager-qt){:target="blank"}，这是Optimus Manager的一个界面，允许使用托盘菜单配置和切换Optimus笔记本电脑上的GPU。
+
+如果需要，使用AUR助手安装。
 
 # 最后
 
