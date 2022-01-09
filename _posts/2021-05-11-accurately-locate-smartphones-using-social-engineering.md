@@ -23,27 +23,25 @@ Seeker背后的概念很简单，就像我们用钓鱼网页来获取凭证一�
 
 # 安装
 
-其它系统见[项目安装文档](https://github.com/thewhiteh4t/seeker#installation){:target="_blank"}。
+这是在Arch Linux中安装，其它系统见[项目安装文档](https://github.com/thewhiteh4t/seeker#installation){:target="_blank"}。
 
-Archlinux
+下面是需要的包，如果没安装，使用 pacman 和 AUR助手（ngrok在AUR）进行安装
 
-```bash
-sudo pacman -S ngrok
+```
+python python-pip php openssh ngrok
 ```
 
 ```bash
 git clone https://github.com/thewhiteh4t/seeker.git
 cd seeker
-sudo ./arch_install.sh
+pip3 install requests
 ```
-
-<a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img01.png"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img01.png">
 
 # 演示
 
 ## 环境
 
-- 电脑: Archlinux
+- 电脑: Arch Linux
 - 目标手机: Android 10
 
 ## 开始
