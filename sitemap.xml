@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://zhui.dev/</loc>
+  <lastmod>2022-03-17T04:46:13+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://zhui.dev/categories/dev</loc>
+  <lastmod>2022-03-17T04:46:13+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://zhui.dev/categories/linux</loc>
+  <lastmod>2022-03-17T04:46:13+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://zhui.dev/categories/tool</loc>
+  <lastmod>2022-03-17T04:46:13+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://zhui.dev/search.html</loc>
+  <lastmod>2022-03-17T04:46:13+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://zhui.dev/about.html</loc>
+  <lastmod>2022-03-17T04:46:13+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://zhui.dev/2021-08/error-starting-cgproxy-under-unofficial-kernels</loc>
+  <lastmod>2022-03-17T04:46:13+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://zhui.dev/2021-05/archlinux-gpu-optimus-manager</loc>
+  <lastmod>2022-03-17T04:46:13+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://zhui.dev/2021-05/accurately-locate-smartphones-using-social-engineering</loc>
+  <lastmod>2022-03-17T04:46:13+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://zhui.dev/2021-04/hello-world</loc>
+  <lastmod>2022-03-17T04:46:13+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+
+
+</urlset>
