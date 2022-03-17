@@ -1,7 +1,7 @@
 title: 79号桃花源 #Your awesome title
 #description:
 #email:
-url: https://rov.la # the base hostname & protocol for your site
+url: https://zhui.dev # the base hostname & protocol for your site
 
 permalink: /:year-:month/:title
 timezone: Asia/Shanghai
