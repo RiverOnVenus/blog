@@ -30,7 +30,6 @@ user:
   rss: true
 
 plugins:
-  - jekyll-include-cache
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-youtube
