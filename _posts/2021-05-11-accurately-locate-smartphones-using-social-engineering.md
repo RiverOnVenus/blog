@@ -5,7 +5,7 @@ comments: true
 math: false
 ---
 
-<a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img00.jpg"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img00.jpg">
+<a data-fancybox="gallery" href="../assets/img/post/seeker/img00.jpg"><img src="../assets/img/post/seeker/img00.jpg">
 
 > Photo by <a href="https://unsplash.com/@sajad_sqs9966b?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Sajad Nori</a> on <a href="https://unsplash.com/s/photos/network?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Unsplash</a>
 
@@ -52,7 +52,7 @@ pip3 install requests
 python3 seeker.py -t manual
 ```
 
-<a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img02.png"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img02.png">
+<a data-fancybox="gallery" href="../assets/img/post/seeker/img02.png"><img src="../assets/img/post/seeker/img02.png">
 
 接下来就是选择钓鱼模板，默认为四选一。
 
@@ -62,7 +62,7 @@ python3 seeker.py -t manual
 
 NearYou模板最简单，输入 0 回车即可。
 
-<a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img17.png"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img17.png">
+<a data-fancybox="gallery" href="../assets/img/post/seeker/img17.png"><img src="../assets/img/post/seeker/img17.png">
 
 [1] Google Dirve: 
 
@@ -70,19 +70,19 @@ Google Drive模板需要填一个URL，什么URL都行，不过填 Google Drive 
 
 URL的作用：钓鱼网页成功获取位置信息后跳转的正常网页。
 
-<a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img03.png"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img03.png">
+<a data-fancybox="gallery" href="../assets/img/post/seeker/img03.png"><img src="../assets/img/post/seeker/img03.png">
 
 [2] WhatsApp: 
 
 WhatsApp模板需填入 Group Title 和 Group img。
 
-<a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img12.png"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img12.png">
+<a data-fancybox="gallery" href="../assets/img/post/seeker/img12.png"><img src="../assets/img/post/seeker/img12.png">
 
 [3] Telegram: 
 
 Telegram同样需要填写一些群组信息。
 
-<a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img14.png"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img14.png">
+<a data-fancybox="gallery" href="../assets/img/post/seeker/img14.png"><img src="../assets/img/post/seeker/img14.png">
 
 ### 启动ngrok
 
@@ -92,7 +92,7 @@ Telegram同样需要填写一些群组信息。
 ngrok http 8080
 ```
 
-<a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img04.png"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img04.png">
+<a data-fancybox="gallery" href="../assets/img/post/seeker/img04.png"><img src="../assets/img/post/seeker/img04.png">
 
 通过ngrok生成了2个URL，选择其中一个发给目标，等待即可。
 
@@ -106,31 +106,31 @@ ngrok http 8080
 
 NearYou: 
 
-<a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img18.png"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img18.png">
+<a data-fancybox="gallery" href="../assets/img/post/seeker/img18.png"><img src="../assets/img/post/seeker/img18.png">
 
 Google Dirve: 
 
-<a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img16.png"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img16.png">
+<a data-fancybox="gallery" href="../assets/img/post/seeker/img16.png"><img src="../assets/img/post/seeker/img16.png">
 
 WhatsApp: 
 
-<a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img13.png"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img13.png">
+<a data-fancybox="gallery" href="../assets/img/post/seeker/img13.png"><img src="../assets/img/post/seeker/img13.png">
 
 Telegram: 
 
-<a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img15.png"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img15.png">
+<a data-fancybox="gallery" href="../assets/img/post/seeker/img15.png"><img src="../assets/img/post/seeker/img15.png">
 
 ### 权限
 
 若目标点击`CONTINUE`、`Request access`、`JOIN CHAT`、`VIEW IN TELEGRAM`则会弹出权限请求。
 
-<a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img07.png"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img07.png">
+<a data-fancybox="gallery" href="../assets/img/post/seeker/img07.png"><img src="../assets/img/post/seeker/img07.png">
 
 除Google Drive模板在点击允许后，会从的钓鱼网页进入到Google Drive的共享文件的URL界面外，其余三个模板均只有个弹窗并保持在钓鱼网页。
 
-<a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img08.png">
+<a data-fancybox="gallery" href="../assets/img/post/seeker/img08.png">
 
-<img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img08.png">
+<img src="../assets/img/post/seeker/img08.png">
 
 在获取位置权限的事情上：
 
@@ -156,7 +156,7 @@ Telegram:
 
 当目标手机打开由ngrok生成的链接时，在ngrok界面可以看到相关的请求和响应。
 
-<a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img05.png"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img05.png">
+<a data-fancybox="gallery" href="../assets/img/post/seeker/img05.png"><img src="../assets/img/post/seeker/img05.png">
 
 打开`http://127.0.0.1:4040`可以看到更详细的信息。
 
@@ -164,7 +164,7 @@ Telegram:
 
 当目标手机允许网站获取位置权限后，在seeker界面看到成功获取的信息。
 
-<a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img19.png"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/seeker/img19.png">
+<a data-fancybox="gallery" href="../assets/img/post/seeker/img19.png"><img src="../assets/img/post/seeker/img19.png">
 
 （图中相关隐私信息已做处理）
 

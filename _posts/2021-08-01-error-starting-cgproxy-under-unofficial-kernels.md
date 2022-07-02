@@ -1,21 +1,23 @@
 ---
 title: 非官方内核下启动cgproxy出错
-categories: [linux,tool]
+categories: [linux,tool,kernel]
 comments: true
 math: false
 ---
 
-<a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/kernels-cgproxy/image01.png"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/kernels-cgproxy/image01.png">
+<a data-fancybox="gallery" href="../assets/img/post/kernels-cgproxy/image01.png"><img src="../assets/img/post/kernels-cgproxy/image01.png">
 
  * TOC
 {:toc}
 # 前言
 
-前段时间我一直在尝试不同的内核，想以此来提高电脑的性能。官方支持的内核中我使用过[linux-zen](https://archlinux.org/packages/?name=linux-zen){:target="blank"}, 非官方支持的内核中我使用过[linux-ck](https://aur.archlinux.org/packages/linux-ck/){:target="blank"}, [linux-lqx](https://aur.archlinux.org/packages/linux-lqx/){:target="blank"}, [linux-xanmod](https://aur.archlinux.org/packages/linux-xanmod/){:target="blank"}, [linux-xanmod-cacule](https://aur.archlinux.org/packages/linux-xanmod-cacule/){:target="blank"}, [linux-cacule](https://aur.archlinux.org/packages/?K=linux-cacule){:target="blank"}。其中，使用linux-zen, linux-ck时cgproxy正常，而使用其它几个内核时启动却出错，导致无法使用。
+前段时间我一直在尝试不同的内核，想以此来提高桌面环境下的体验。官方支持的内核中我使用过[linux-zen](https://archlinux.org/packages/?name=linux-zen){:target="blank"}, 非官方支持的内核中我使用过[linux-ck](https://aur.archlinux.org/packages/linux-ck/){:target="blank"}, [linux-lqx](https://aur.archlinux.org/packages/linux-lqx/){:target="blank"}, [linux-xanmod](https://aur.archlinux.org/packages/linux-xanmod/){:target="blank"}, [linux-xanmod-cacule](https://aur.archlinux.org/packages/linux-xanmod-cacule/){:target="blank"}, [linux-cacule](https://aur.archlinux.org/packages/?K=linux-cacule){:target="blank"}。其中，使用linux-zen, linux-ck时cgproxy正常，而使用其它几个内核时启动却出错，导致无法使用。
 
 # 出错
 
-在Arch Linux下我一直使用[qv2ray](https://github.com/Qv2ray/Qv2ray){:target="blank"} + [cgproxy](https://github.com/springzfx/cgproxy){:target="blank"}来使用代理，非常好用，在这里我不一一赘述了。查看出错时的服务状态`systemctl status cgproxy.service`:
+在Arch Linux下我一直使用[qv2ray](https://github.com/Qv2ray/Qv2ray){:target="blank"} + [cgproxy](https://github.com/springzfx/cgproxy){:target="blank"}来使用代理，但在尝试不同内核时，我的网络崩掉了，然后发现cgproxy在一些内核下无法正常运行。
+
+查看出错时的服务状态`systemctl status cgproxy.service`:
 
 ```
 ● cgproxy.service - cgproxy service
@@ -54,4 +56,4 @@ cgproxyd[472]: error: execsnoop thread timeout, maybe failed
 
 # 最后
 
-经过几个月的使用和不太专业的测试，相对于默认内核，使用这些内核在系统响应能力上有一些提升。
+经过几个月的使用和测试，在我的工作负载下，这些内核给我的体验都很好，有的侧重于系统的吞吐量，有的侧重于系统的响应。鱼与熊掌不可兼得，获得更高的吞吐量往往以响应时间为代价，想要系统更快的响应也会牺牲吞吐量。

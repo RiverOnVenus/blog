@@ -1,14 +1,14 @@
-title: 79号桃花源 #Your awesome title
+title: 79号桃花源
 #description:
 #email:
-url: https://zhui.dev # the base hostname & protocol for your site
+url: https://zhui.dev
 
 permalink: /:year-:month/:title
 timezone: Asia/Shanghai
 
-favicon: https://cdn.jsdelivr.net/gh/riveronvenus/blog/assets/img/favicon.ico
+favicon: ../assets/img/favicon.ico
 
-#google_analytics: #UA—XXXXXXXX-X
+#google_analytics: 
 
 #disqus_shortname:
 
@@ -21,7 +21,7 @@ giscus: true
 
 user:
   name: RiverOnVenus(追)
-  pic: https://cdn.jsdelivr.net/gh/riveronvenus/blog/assets/img/avatar.jpg
+  pic: ../assets/img/avatar.jpg
   picAlt: "RiverOnVenus"
   search: true
  # job: a category-centric theme

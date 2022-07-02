@@ -2,17 +2,17 @@
 
   <ul class="nav_list">
   
-      {% if site.user.rss %}
+<!--      {% if site.user.rss %}
     <li class="nav_item">
-      <a href="https://rov.la/feed.xml">rss</a>
+      <a href="{{ site.baseurl }}/feed.xml">rss</a>
     </li>
-    {% endif %}
+    {% endif %}-->
     
-      {% if site.user.key %}
+<!--      {% if site.user.key %}
     <li class="nav_item">
       <a href="https://github.com/riveronvenus.gpg">key</a>
     </li>
-    {% endif %}
+    {% endif %}-->
 
   
     {% if site.user.about %}
@@ -21,11 +21,11 @@
     </li>
     {% endif %}
     
-    {% if site.user.search %}
+<!--    {% if site.user.search %}
     <li class="nav_item">
       <a href="{{ site.baseurl }}/search.html">search</a>
     </li>
-    {% endif %}
+    {% endif %}-->
     
     {% for category in site.categories %}
     {% capture cat_name %}{{ category | first }}{% endcapture %}

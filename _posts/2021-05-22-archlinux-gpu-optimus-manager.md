@@ -5,7 +5,7 @@ comments: true
 math: false
 ---
 
-<a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/optimus/image01.jpg"><img src="https://cdn.jsdelivr.net/gh/riveronvenus/blog-pic/img/optimus/image01.jpg">
+<a data-fancybox="gallery" href="../assets/img/post/optimus/image01.jpg"><img src="../assets/img/post/optimus/image01.jpg">
 
 > Photo by [Anna Jiménez Calaf](https://unsplash.com/@annajimenez?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText){:target="blank"} on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText){:target="blank"}  
 
@@ -122,6 +122,4 @@ switching=bbswitch
 
 # 最后
 
-optimus-manager目前在我的笔记本电脑上运行良好，尚未发现问题。
-
-因为没认真看完文档导致在原地兜了一圈，所以请一定要**认真阅读项目文档**！
+optimus-manager目前在我的笔记本电脑上运行良好，尚未发现问题。另外，一定要**认真阅读项目文档**。
