@@ -3,9 +3,7 @@
 
 © 2021-2022 RiverOnVenus.
 
-[![Build and Deploy to Github Pages](https://github.com/RiverOnVenus/blog/actions/workflows/build-jekyll.yml/badge.svg)](https://github.com/RiverOnVenus/blog/actions/workflows/build-jekyll.yml)
-
-Built with [Jekyll](http://jekyllrb.com) and [GitHub Pages](https://pages.github.com/).
+Built with [Jekyll](http://jekyllrb.com).
 
 Get this theme [here](https://github.com/starry99/catbook).
 
