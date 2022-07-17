@@ -1,0 +1,58 @@
+[
+  
+    {
+
+      "title"    : "使用Modprobed-db减少内核编译时间",
+      "url"      : "https://zhui.dev/2022-05/reduce-kernel-compilation-time-with-modprobed-db",
+      "category" : "linux, tool, kernel",
+      "tags"     : "",
+      "date"     : "2022-05-07 00:00:00 +0800",
+      "discription" : ""
+
+    } ,
+  
+    {
+
+      "title"    : "非官方内核下启动cgproxy出错",
+      "url"      : "https://zhui.dev/2021-08/error-starting-cgproxy-under-unofficial-kernels",
+      "category" : "linux, tool, kernel",
+      "tags"     : "",
+      "date"     : "2021-08-01 00:00:00 +0800",
+      "discription" : ""
+
+    } ,
+  
+    {
+
+      "title"    : "Archlinux的双显卡配置",
+      "url"      : "https://zhui.dev/2021-05/archlinux-gpu-optimus-manager",
+      "category" : "linux",
+      "tags"     : "",
+      "date"     : "2021-05-22 00:00:00 +0800",
+      "discription" : ""
+
+    } ,
+  
+    {
+
+      "title"    : "利用社会工程学准确定位智能手机",
+      "url"      : "https://zhui.dev/2021-05/accurately-locate-smartphones-using-social-engineering",
+      "category" : "linux, tool",
+      "tags"     : "",
+      "date"     : "2021-05-11 00:00:00 +0800",
+      "discription" : ""
+
+    } ,
+  
+    {
+
+      "title"    : "Hello World!",
+      "url"      : "https://zhui.dev/2021-04/hello-world",
+      "category" : "dev",
+      "tags"     : "",
+      "date"     : "2021-04-23 00:00:00 +0800",
+      "discription" : ""
+
+    } 
+  
+] 

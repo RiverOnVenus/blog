@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://zhui.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zhui.dev/" rel="alternate" type="text/html" /><updated>2022-07-17T19:44:51+08:00</updated><id>https://zhui.dev/feed.xml</id><title type="html">79号桃花源</title><entry><title type="html">使用Modprobed-db减少内核编译时间</title><link href="https://zhui.dev/2022-05/reduce-kernel-compilation-time-with-modprobed-db" rel="alternate" type="text/html" title="使用Modprobed-db减少内核编译时间" /><published>2022-05-07T00:00:00+08:00</published><updated>2022-05-07T00:00:00+08:00</updated><id>https://zhui.dev/2022-05/reduce-kernel-compilation-time-with-modprobed-db</id><content type="html" xml:base="https://zhui.dev/2022-05/reduce-kernel-compilation-time-with-modprobed-db"><![CDATA[<p><a data-fancybox="modprobed-db" href="../assets/img/post/modprobed-db/image01.jpg"><img src="../assets/img/post/modprobed-db/image01.jpg" /></a></p>
+
+<blockquote>
+  <p>Photo by <a href="https://unsplash.com/@aronvisuals?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Aron Visuals</a> on <a href="https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></p>
+</blockquote>
+
+<p>自从开始尝试自定义内核，便陷入其中。在内核方面，我是业余的，仅仅是在内核中打上一些我想使用的补丁以及简单修改一些配置。每当主线内核发布或有新的补丁时，我就会重新编译内核。就我的笔记本电脑来说，每次编译内核都会花费一个多小时的时间，而当我使用了Modprobed-db后，编译时间显著减少了。</p>
+
+<h1 id="modprobed-db是什么">Modprobed-db是什么？</h1>
+
+<p>Modprobed-db是一个通过<a href="https://www.kernel.org/doc/html/latest/admin-guide/README.html?highlight=localmodconfig#configuring-the-kernel" target="blank">make localmodconfig</a>建立最小内核的工具。它会根据你当前的config和由Modprobed-db生成的模块列表创建一个新的config，其余不需要的模块都将被它禁用。这样就得到了一个属于你的、精简的内核。</p>
+
+<h1 id="如何使用它呢">如何使用它呢？</h1>
+
+<h2 id="安装和初始化配置">安装和初始化配置</h2>
+
+<blockquote>
+  <p>项目地址：<strong><a href="https://github.com/graysky2/modprobed-db" target="_blank">graysky2/modprobed-db</a></strong></p>
+</blockquote>
+
+<p>对于Arch Linux，安装<a href="https://aur.archlinux.org/packages/modprobed-db" target="blank">modprobed-db</a>。</p>
+
+<p>安装完后首先运行<code class="language-plaintext highlighter-rouge">modprobed-db</code>，它会创建Modprobed-db配置文件$XDG_CONFIG_HOME/modprobed-db.conf。</p>
+
+<p>在~/.config/modprobed-db.conf中，可以添加你想忽略的模块。一些由其它软件包提供的模块需要添加进去，如Nvidia。</p>
+
+<p>默认配置中包括了一些常见的、需要被忽略的模块：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>IGNORE=(nvidia nvidia_drm nvidia_modeset nvidia_uvm vboxdrv vboxnetadp vboxnetflt vboxpci lirc_dev lirc_i2c osscore oss_hdaudio oss_usb tp_smapi thinkpad_ec zavl znvpair zunicode zcommon zpios zfs spl splat)
+</code></pre></div></div>
+
+<h2 id="填充数据库">填充数据库</h2>
+
+<p>配置好modprobed-db.conf后，运行<code class="language-plaintext highlighter-rouge">modprobed-db store</code>，它会探测到当前加载的模块，并创建Modprobed-db数据库文件$XDG_CONFIG_HOME/modprobed.db，数据库文件是一个文本文件，其内容就是被探测到的模块列表。这个数据库文件是可以积累的，每次运行<code class="language-plaintext highlighter-rouge">modprobed-db store</code>都会记录下之前沒有出现过的模块。使用<code class="language-plaintext highlighter-rouge">modprobed-db list</code>可以显示当前数据库文件中的模块。</p>
+
+<h3 id="自动更新数据库">自动更新数据库</h3>
+
+<p>启用：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl --user enable --now modprobed-db
+</code></pre></div></div>
+
+<p>modprobed-db.service每隔6小时运行一次<code class="language-plaintext highlighter-rouge">modprobed-db store</code>，在开机和关机时也会各运行一次。</p>
+
+<p>service和timer可以用下面命令查看：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl --user status modprobed-db
+systemctl --user list-timers
+</code></pre></div></div>
+
+<h3 id="手动编辑数据库">手动编辑数据库</h3>
+
+<p>使用自动定期数据库更新或手动运行<code class="language-plaintext highlighter-rouge">modprobed-db store</code>并不是万无一失的。</p>
+
+<ul>
+  <li>有些模块在两次定期数据库更新之间被加载然后卸载，可能不会被捕获。</li>
+  <li>有些模块在启动时使用，不被modprobed-db捕获（如efivarfs），它们需要被手动添加到modprobed.db文件中。</li>
+</ul>
+
+<p>前面提到过，modprobed.db数据库文件是一个简单的文本文件，每行包含一个内核模块名称：它可以被手动编辑以添加/删除一个模块，可以将自己要用的模块加入其中。在手动编辑后运行一次<code class="language-plaintext highlighter-rouge">modprobed-db store</code>，这些模块会自动重新排序。</p>
+
+<p>下面是一些常用的模块，如果你的数据库中没有，可以对照着手动添加。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ntfs3
+ext4
+fat
+vfat
+loop
+isofs
+cifs
+efivarfs
+usb_storage
+usbhid
+bridge
+</code></pre></div></div>
+
+<p>在完善数据库后，就可以使用Modprobed-db来构建内核了。</p>
+
+<h2 id="使用modprobed-db构建内核">使用Modprobed-db构建内核</h2>
+
+<p>对于<a href="https://wiki.archlinux.org/title/Kernel/Traditional_compilation" target="blank">传统编译内核</a>的方式，在配置好.config后运行<code class="language-plaintext highlighter-rouge">make LSMOD=$HOME/.config/modprobed.db localmodconfig</code>就行。</p>
+
+<p>如果使用Arch官方内核的<a href="https://github.com/archlinux/svntogit-packages/blob/packages/linux/trunk/PKGBUILD" target="blank">PKGBUILD</a>构建内核，对PKGBUILD做以下更改：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
+  echo "Setting config..."
+  cp ../config .config
+  make olddefconfig
+  
+  make LSMOD=$HOME/.config/modprobed.db localmodconfig
+  
+  diff -u ../config .config || :
+
+  make -s kernelrelease &gt; version
+  echo "Prepared $pkgbase version $(&lt;version)"
+ ...
+</code></pre></div></div>
+
+<h1 id="那么它减少了多少编译时间">那么，它减少了多少编译时间？</h1>
+
+<p>我的笔记本电脑CPU是Intel Core i5-8250U (8) @ 1.6GHz，4核8线程。</p>
+
+<p>编译的内核是主线的5.17.5，config是Arch Linux默认内核的config。</p>
+
+<p>使用gcc编译需要55m35s，使用clang编译同时启用FULL LTO需要1h21m57s；在使用Modprobed-db后，使用gcc编译需要11m50s，使用clang编译同时启用FULL LTO需要24m11s。</p>
+
+<p><a data-fancybox="modprobed-db" href="../assets/img/post/modprobed-db/image02.jpeg"><img src="../assets/img/post/modprobed-db/image02.jpeg" /></a></p>
+
+<p>为什么时间减少了这么多呢？因为一个正常的内核大概有5000多个模块，而modprobed-db数据库中就200个模块。</p>
+
+<p><a data-fancybox="modprobed-db" href="../assets/img/post/modprobed-db/image03.png"><img src="../assets/img/post/modprobed-db/image03.png" /></a></p>
+
+<p>内核构建大部分时间花费在了模块上，而其中许多模块也用不到。</p>
+
+<h1 id="一些经验和建议">一些经验和建议</h1>
+
+<p>如果使用dkms需要将对应模块放入到忽略模块列表中，如bbswitch，acpi_call等。</p>
+
+<p>将需要加载内核模块的程序都运行一下，以及插入USB等设备，然后运行<code class="language-plaintext highlighter-rouge">modprobed-db store</code>完善数据库。</p>
+
+<p>在当前使用的内核上使用一段时间Modprobed-db后，再用它编译内核。</p>
+
+<p>使用Modprobed-db构建最小内核是有风险的，记得选择一个稳定的内核备用。</p>]]></content><author><name></name></author><category term="linux" /><category term="tool" /><category term="kernel" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">非官方内核下启动cgproxy出错</title><link href="https://zhui.dev/2021-08/error-starting-cgproxy-under-unofficial-kernels" rel="alternate" type="text/html" title="非官方内核下启动cgproxy出错" /><published>2021-08-01T00:00:00+08:00</published><updated>2021-08-01T00:00:00+08:00</updated><id>https://zhui.dev/2021-08/error-starting-cgproxy-under-unofficial-kernels</id><content type="html" xml:base="https://zhui.dev/2021-08/error-starting-cgproxy-under-unofficial-kernels"><![CDATA[<p><a data-fancybox="gallery" href="../assets/img/post/kernels-cgproxy/image01.png"><img src="../assets/img/post/kernels-cgproxy/image01.png" /></a></p>
+
+<ul id="markdown-toc">
+  <li><a href="#前言" id="markdown-toc-前言">前言</a></li>
+  <li><a href="#出错" id="markdown-toc-出错">出错</a></li>
+  <li><a href="#解决" id="markdown-toc-解决">解决</a></li>
+  <li><a href="#最后" id="markdown-toc-最后">最后</a></li>
+</ul>
+<h1 id="前言">前言</h1>
+
+<p>前段时间我一直在尝试不同的内核，想以此来提高桌面环境下的体验。官方支持的内核中我使用过<a href="https://archlinux.org/packages/?name=linux-zen" target="blank">linux-zen</a>, 非官方支持的内核中我使用过<a href="https://aur.archlinux.org/packages/linux-ck/" target="blank">linux-ck</a>, <a href="https://aur.archlinux.org/packages/linux-lqx/" target="blank">linux-lqx</a>, <a href="https://aur.archlinux.org/packages/linux-xanmod/" target="blank">linux-xanmod</a>, <a href="https://aur.archlinux.org/packages/linux-xanmod-cacule/" target="blank">linux-xanmod-cacule</a>, <a href="https://aur.archlinux.org/packages/?K=linux-cacule" target="blank">linux-cacule</a>。其中，使用linux-zen, linux-ck时cgproxy正常，而使用其它几个内核时启动却出错，导致无法使用。</p>
+
+<h1 id="出错">出错</h1>
+
+<p>在Arch Linux下我一直使用<a href="https://github.com/Qv2ray/Qv2ray" target="blank">qv2ray</a> + <a href="https://github.com/springzfx/cgproxy" target="blank">cgproxy</a>来使用代理，但在尝试不同内核时，我的网络崩掉了，然后发现cgproxy在一些内核下无法正常运行。</p>
+
+<p>查看出错时的服务状态<code class="language-plaintext highlighter-rouge">systemctl status cgproxy.service</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>● cgproxy.service - cgproxy service
+     Loaded: loaded (/usr/lib/systemd/system/cgproxy.service; enabled; vendor preset: disabled)
+     Active: active (running)
+   Main PID: 472 (cgproxy)
+      Tasks: 2 (limit: 9255)
+     Memory: 5.4M
+        CPU: 115ms
+     CGroup: /system.slice/cgproxy.service
+             └─472 /usr/bin/cgproxy --daemon --execsnoop
+
+cgproxyd[472]: info: socketserver thread started
+cgproxyd[472]: info: loading /usr/lib/cgproxy/libexecsnoop.so
+cgproxyd[472]: info: dlsym startThread func success
+cgproxyd[472]: libbpf: elf: skipping unrecognized data section(10) .eh_frame
+cgproxyd[472]: libbpf: elf: skipping relo section(11) .rel.eh_frame for section(10) .eh_frame
+cgproxyd[472]: libbpf: failed to determine tracepoint 'syscalls/sys_enter_execve' perf event ID: No such file or directory
+cgproxyd[472]: libbpf: prog 'syscall_enter_execve': failed to create tracepoint 'syscalls/sys_enter_execve' perf event: No such file or directory
+cgproxyd[472]: failed to attach BPF programs
+cgproxyd[472]: error: execsnoop thread timeout, maybe failed
+</code></pre></div></div>
+
+<p>经过分析已有信息和对比各个内核的config以及最后测试，确定了是这些内核直接或间接禁用了<strong>CONFIG_FTRACE_SYSCALLS</strong>造成的。</p>
+
+<h1 id="解决">解决</h1>
+
+<p>（最后更新时间 2021-08-20，由于内核更新较快，且PKGBUILD和config也会有所改变，所以以下方法可能过时，仅供参考）</p>
+
+<p>编译内核时在config中启用<em>CONFIG_FTRACE_SYSCALLS</em>或<em>CONFIG_FTRACE</em>即可解决。</p>
+
+<ul>
+  <li><del>对于linux-cacule系列的内核，将其PKGBUILD中禁用<em>CONFIG_FTRACE</em>的语句<code class="language-plaintext highlighter-rouge">scripts/config --disable CONFIG_FTRACE</code>注释掉或删掉以启用<em>CONFIG_FTRACE_SYSCALLS</em></del></li>
+  <li>(2021-08-20更新) 对于linux-cacule系列内核，在其PKGBUILD中加入两条语句<code class="language-plaintext highlighter-rouge">scripts/config --enable CONFIG_FTRACE</code>和 <code class="language-plaintext highlighter-rouge">scripts/config --enable CONFIG_FTRACE_SYSCALLS</code>以启用<em>CONFIG_FTRACE_SYSCALLS</em></li>
+  <li>对于linux-lqx, 在其PKGBUILD中加入语句<code class="language-plaintext highlighter-rouge">scripts/config --enable CONFIG_FTRACE_SYSCALLS</code>以启用<em>CONFIG_FTRACE_SYSCALLS</em></li>
+  <li>对于linux-xanmod系列内核，在其PKGBUILD中加入两条语句<code class="language-plaintext highlighter-rouge">scripts/config --enable CONFIG_FTRACE</code>和 <code class="language-plaintext highlighter-rouge">scripts/config --enable CONFIG_FTRACE_SYSCALLS</code>以启用<em>CONFIG_FTRACE_SYSCALLS</em></li>
+</ul>
+
+<h1 id="最后">最后</h1>
+
+<p>经过几个月的使用和测试，在我的工作负载下，这些内核给我的体验都很好，有的侧重于系统的吞吐量，有的侧重于系统的响应。鱼与熊掌不可兼得，获得更高的吞吐量往往以响应时间为代价，想要系统更快的响应也会牺牲吞吐量。</p>]]></content><author><name></name></author><category term="linux" /><category term="tool" /><category term="kernel" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Archlinux的双显卡配置</title><link href="https://zhui.dev/2021-05/archlinux-gpu-optimus-manager" rel="alternate" type="text/html" title="Archlinux的双显卡配置" /><published>2021-05-22T00:00:00+08:00</published><updated>2021-05-22T00:00:00+08:00</updated><id>https://zhui.dev/2021-05/archlinux-gpu-optimus-manager</id><content type="html" xml:base="https://zhui.dev/2021-05/archlinux-gpu-optimus-manager"><![CDATA[<p><a data-fancybox="gallery" href="../assets/img/post/optimus/image01.jpg"><img src="../assets/img/post/optimus/image01.jpg" /></a></p>
+
+<blockquote>
+  <p>Photo by <a href="https://unsplash.com/@annajimenez?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="blank">Anna Jiménez Calaf</a> on <a href="https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="blank">Unsplash</a></p>
+</blockquote>
+
+<ul id="markdown-toc">
+  <li><a href="#前言" id="markdown-toc-前言">前言</a></li>
+  <li><a href="#正文" id="markdown-toc-正文">正文</a>    <ul>
+      <li><a href="#介绍" id="markdown-toc-介绍">介绍</a></li>
+      <li><a href="#安装" id="markdown-toc-安装">安装</a></li>
+      <li><a href="#配置" id="markdown-toc-配置">配置</a></li>
+    </ul>
+  </li>
+  <li><a href="#可选" id="markdown-toc-可选">可选</a></li>
+  <li><a href="#最后" id="markdown-toc-最后">最后</a></li>
+</ul>
+<p>【注】如果没有特殊需求，使用NVIDIA官方的方案是明智的选择，详情见官方文档<a href="http://download.nvidia.com/XFree86/Linux-x86_64/435.21/README/primerenderoffload.html" target="_blank">PRIME Render Offload</a>或依云的博客<a href="https://blog.lilydjwg.me/2019/9/3/nvidia-prime-setup.214768.html" target="blank">NVIDIA PRIME 配置笔记</a>。</p>
+
+<h1 id="前言">前言</h1>
+
+<p>之前一直用的<code class="language-plaintext highlighter-rouge">Askannz/optimus-manager</code>来管理双显卡，那时<strong>没有认真阅读项目文档</strong>，对Hybrid模式不了解，一直用的Integrated和Nvidia两个模式。</p>
+
+<p>后来改用了NVIDIA官方的方案。</p>
+
+<p>用了几天发现续航没有用optimus-manager的Integrated模式好，于是想找到一个既可以在我用电池时仅使用核显的模式又可以在接通电源时使用Nvidia offload模式的方案。</p>
+
+<p><span class="spoiler">「没想到，”Hybrid”即”Nvidia offload”。所以又换回了optimus-manager。在Integrated和Hybrid之间切换」</span></p>
+
+<h1 id="正文">正文</h1>
+
+<p>我的需求：</p>
+
+<ol>
+  <li>没有接通电源时有<del>较好</del>极好的续航</li>
+  <li>偶尔使用Nvidia跑一些应用程序</li>
+</ol>
+
+<blockquote>
+  <p>使用NVIDIA PRIME时，N卡处于待机状态，即使不在上面运行任何应用程序，它也会继续消耗电能。由于N卡会自动降频，因此耗电量相对较低，但仍比仅用核显时高很多。</p>
+</blockquote>
+
+<h2 id="介绍">介绍</h2>
+
+<p>开始之前，请确定已经按照<a href="https://wiki.archlinux.org/title/NVIDIA" target="blank">ArchWiki</a>安装好了相应驱动。</p>
+
+<blockquote>
+  <p>项目地址： <a href="https://github.com/Askannz/optimus-manager" target="blank">Askannz/optimus-manager</a></p>
+</blockquote>
+
+<p>optimus-manager有三个模式：</p>
+
+<ul>
+  <li>Integrated–仅用核显</li>
+  <li>Nvidia–仅用独显</li>
+  <li>Hybrid–Nvidia offload</li>
+</ul>
+
+<p>Hybrid配合Nvidia-prime使用</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pacman <span class="nt">-S</span> nvidia-prime
+</code></pre></div></div>
+
+<blockquote>
+  <p>Hybrid模式文档 <a href="https://github.com/Askannz/optimus-manager/wiki/Nvidia-GPU-offloading-for-%22hybrid%22-mode" target="blank">Nvidia GPU offloading for “hybrid” mode</a></p>
+</blockquote>
+
+<h2 id="安装">安装</h2>
+
+<p><a href="https://github.com/Askannz/optimus-manager#installation" target="blank">项目安装文档</a></p>
+
+<p>使用optimus-manager需要配置正确的电源管理才能切换模式，在我的笔记本电脑上用的<a href="https://github.com/Bumblebee-Project/bbswitch" target="blank">bbswitch</a>。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pacman <span class="nt">-S</span> optimus-manager bbswitch
+</code></pre></div></div>
+
+<blockquote>
+  <p>注意：bbswitch很久没更新了，在较新的笔记本电脑上可能没用，甚至产生一些其它问题。且bbswitch只是optimus-manager项目的电源管理方案 <a href="https://github.com/Askannz/optimus-manager/wiki/A-guide--to-power-management-options" target="blank">A guide  to power management options</a>之一，所以请根据电脑环境选择合理的方案。</p>
+</blockquote>
+
+<h2 id="配置">配置</h2>
+
+<p><a href="https://github.com/Askannz/optimus-manager/#configuration" target="blank">项目配置文档</a></p>
+
+<p>主配置文件位于<code class="language-plaintext highlighter-rouge">/etc/optimus-manager/optimus-manager.conf</code></p>
+
+<p>这是我的配置：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[intel]
+DRI=3
+accel=
+driver=modesetting
+modeset=yes
+tearfree=
+
+[nvidia]
+DPI=96
+PAT=yes
+allow_external_gpus=yes
+dynamic_power_management=no
+ignore_abi=yes
+modeset=yes
+options=triple_buffer
+
+[optimus]
+auto_logout=yes
+pci_power_control=no
+pci_remove=no
+pci_reset=no
+startup_auto_battery_mode=integrated
+startup_auto_extpower_mode=hybrid
+startup_mode=auto
+switching=bbswitch
+</code></pre></div></div>
+
+<p>启动系统时，根据是否接通电源自动选择模式。使用电池为Integrated模式，N卡被禁，提高了续航。接通电源为Hybrid模式，使用<code class="language-plaintext highlighter-rouge">prime-run</code>命令指定应用程序使用N卡。</p>
+
+<p>也可以手动切换：</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">optimus-manager --switch nvidia</code> 切换到Nvidia</li>
+  <li><code class="language-plaintext highlighter-rouge">optimus-manager --switch integrated</code> 切换到核显并关闭Nvidia的电源</li>
+  <li><code class="language-plaintext highlighter-rouge">optimus-manager --switch hybrid</code> 切换到Nvidia offload</li>
+</ul>
+
+<blockquote>
+  <p>注意：切换模式会自动注销（用户态切换），所以请确保你已经保存你的工作，并关闭所有的应用程序。</p>
+</blockquote>
+
+<p>安装配置完成后需要重启系统，重启系统前请认真阅读项目<a href="https://github.com/Askannz/optimus-manager/blob/master/README.md" target="blank">README</a> 和 <a href="https://github.com/Askannz/optimus-manager/wiki" target="_blank">Wiki</a>，确保配置没有问题再重启系统。做好修复系统的准备。</p>
+
+<p>重启后，使用<code class="language-plaintext highlighter-rouge">systemctl status optimus-manager.service</code>命令查看服务状态，使用<code class="language-plaintext highlighter-rouge">optimus-manager --status</code>命令查看当前模式。</p>
+
+<h1 id="可选">可选</h1>
+
+<p><a href="https://github.com/Shatur/optimus-manager-qt" target="blank">optimus-manager-qt</a>，这是Optimus Manager的一个界面，允许使用托盘菜单配置和切换Optimus笔记本电脑上的GPU。</p>
+
+<p>如果需要，使用AUR助手安装。</p>
+
+<h1 id="最后">最后</h1>
+
+<p>optimus-manager目前在我的笔记本电脑上运行良好，尚未发现问题。另外，一定要<strong>认真阅读项目文档</strong>。</p>]]></content><author><name></name></author><category term="linux" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">利用社会工程学准确定位智能手机</title><link href="https://zhui.dev/2021-05/accurately-locate-smartphones-using-social-engineering" rel="alternate" type="text/html" title="利用社会工程学准确定位智能手机" /><published>2021-05-11T00:00:00+08:00</published><updated>2021-05-11T00:00:00+08:00</updated><id>https://zhui.dev/2021-05/accurately-locate-smartphones-using-social-engineering</id><content type="html" xml:base="https://zhui.dev/2021-05/accurately-locate-smartphones-using-social-engineering"><![CDATA[<p><a data-fancybox="gallery" href="../assets/img/post/seeker/img00.jpg"><img src="../assets/img/post/seeker/img00.jpg" /></a></p>
+
+<blockquote>
+  <p>Photo by <a href="https://unsplash.com/@sajad_sqs9966b?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="_blank">Sajad Nori</a> on <a href="https://unsplash.com/s/photos/network?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="_blank">Unsplash</a></p>
+</blockquote>
+
+<ul id="markdown-toc">
+  <li><a href="#前言" id="markdown-toc-前言">前言</a></li>
+  <li><a href="#安装" id="markdown-toc-安装">安装</a></li>
+  <li><a href="#演示" id="markdown-toc-演示">演示</a>    <ul>
+      <li><a href="#环境" id="markdown-toc-环境">环境</a></li>
+      <li><a href="#开始" id="markdown-toc-开始">开始</a>        <ul>
+          <li><a href="#启动seeker" id="markdown-toc-启动seeker">启动seeker</a></li>
+          <li><a href="#启动ngrok" id="markdown-toc-启动ngrok">启动ngrok</a></li>
+        </ul>
+      </li>
+      <li><a href="#目标手机端" id="markdown-toc-目标手机端">目标手机端</a>        <ul>
+          <li><a href="#链接" id="markdown-toc-链接">链接</a></li>
+          <li><a href="#权限" id="markdown-toc-权限">权限</a></li>
+        </ul>
+      </li>
+      <li><a href="#电脑端" id="markdown-toc-电脑端">电脑端</a>        <ul>
+          <li><a href="#ngrok" id="markdown-toc-ngrok">ngrok</a></li>
+          <li><a href="#seeker" id="markdown-toc-seeker">seeker</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#最后" id="markdown-toc-最后">最后</a></li>
+</ul>
+
+<h1 id="前言">前言</h1>
+
+<blockquote>
+  <p>项目地址：<strong><a href="https://github.com/thewhiteh4t/seeker" target="_blank">thewhiteh4t/seeker</a></strong></p>
+</blockquote>
+
+<p>我们为什么不应该随意点击未知链接？为什么不应该随便授予重要权限？这会造成什么后果？</p>
+
+<p>Seeker背后的概念很简单，就像我们用钓鱼网页来获取凭证一样，用一个假的网页来获取你的位置。</p>
+
+<h1 id="安装">安装</h1>
+
+<p>这是在Arch Linux中安装，其它系统见<a href="https://github.com/thewhiteh4t/seeker#installation" target="_blank">项目安装文档</a>。</p>
+
+<p>下面是需要的包，如果没安装，使用 pacman 和 AUR助手（ngrok在AUR）进行安装</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python python-pip php openssh ngrok
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/thewhiteh4t/seeker.git
+<span class="nb">cd </span>seeker
+pip3 <span class="nb">install </span>requests
+</code></pre></div></div>
+
+<h1 id="演示">演示</h1>
+
+<h2 id="环境">环境</h2>
+
+<ul>
+  <li>电脑: Arch Linux</li>
+  <li>目标手机: Android 10</li>
+</ul>
+
+<h2 id="开始">开始</h2>
+
+<h3 id="启动seeker">启动seeker</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">python3</span> <span class="n">seeker</span><span class="p">.</span><span class="n">py</span> <span class="o">-</span><span class="n">t</span> <span class="n">manual</span>
+</code></pre></div></div>
+
+<p><a data-fancybox="gallery" href="../assets/img/post/seeker/img02.png"><img src="../assets/img/post/seeker/img02.png" /></a></p>
+
+<p>接下来就是选择钓鱼模板，默认为四选一。</p>
+
+<blockquote>
+  <p>模板根据实际情况进行选择或更改、制作</p>
+</blockquote>
+
+<p>[0] NearYou:</p>
+
+<p>NearYou模板最简单，输入 0 回车即可。</p>
+
+<p><a data-fancybox="gallery" href="../assets/img/post/seeker/img17.png"><img src="../assets/img/post/seeker/img17.png" /></a></p>
+
+<p>[1] Google Dirve:</p>
+
+<p>Google Drive模板需要填一个URL，什么URL都行，不过填 Google Drive File 的URL更具欺骗性。</p>
+
+<p>URL的作用：钓鱼网页成功获取位置信息后跳转的正常网页。</p>
+
+<p><a data-fancybox="gallery" href="../assets/img/post/seeker/img03.png"><img src="../assets/img/post/seeker/img03.png" /></a></p>
+
+<p>[2] WhatsApp:</p>
+
+<p>WhatsApp模板需填入 Group Title 和 Group img。</p>
+
+<p><a data-fancybox="gallery" href="../assets/img/post/seeker/img12.png"><img src="../assets/img/post/seeker/img12.png" /></a></p>
+
+<p>[3] Telegram:</p>
+
+<p>Telegram同样需要填写一些群组信息。</p>
+
+<p><a data-fancybox="gallery" href="../assets/img/post/seeker/img14.png"><img src="../assets/img/post/seeker/img14.png" /></a></p>
+
+<h3 id="启动ngrok">启动ngrok</h3>
+
+<p>再开一个终端，启动ngrok。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ngrok http 8080
+</code></pre></div></div>
+
+<p><a data-fancybox="gallery" href="../assets/img/post/seeker/img04.png"><img src="../assets/img/post/seeker/img04.png" /></a></p>
+
+<p>通过ngrok生成了2个URL，选择其中一个发给目标，等待即可。</p>
+
+<h2 id="目标手机端">目标手机端</h2>
+
+<p>先看看在目标手机端打开链接会发生什么。</p>
+
+<h3 id="链接">链接</h3>
+
+<p>在目标手机上用浏览器打开链接，看到的就是之前模板生成的钓鱼网页。</p>
+
+<p>NearYou:</p>
+
+<p><a data-fancybox="gallery" href="../assets/img/post/seeker/img18.png"><img src="../assets/img/post/seeker/img18.png" /></a></p>
+
+<p>Google Dirve:</p>
+
+<p><a data-fancybox="gallery" href="../assets/img/post/seeker/img16.png"><img src="../assets/img/post/seeker/img16.png" /></a></p>
+
+<p>WhatsApp:</p>
+
+<p><a data-fancybox="gallery" href="../assets/img/post/seeker/img13.png"><img src="../assets/img/post/seeker/img13.png" /></a></p>
+
+<p>Telegram:</p>
+
+<p><a data-fancybox="gallery" href="../assets/img/post/seeker/img15.png"><img src="../assets/img/post/seeker/img15.png" /></a></p>
+
+<h3 id="权限">权限</h3>
+
+<p>若目标点击<code class="language-plaintext highlighter-rouge">CONTINUE</code>、<code class="language-plaintext highlighter-rouge">Request access</code>、<code class="language-plaintext highlighter-rouge">JOIN CHAT</code>、<code class="language-plaintext highlighter-rouge">VIEW IN TELEGRAM</code>则会弹出权限请求。</p>
+
+<p><a data-fancybox="gallery" href="../assets/img/post/seeker/img07.png"><img src="../assets/img/post/seeker/img07.png" /></a></p>
+
+<p>除Google Drive模板在点击允许后，会从的钓鱼网页进入到Google Drive的共享文件的URL界面外，其余三个模板均只有个弹窗并保持在钓鱼网页。</p>
+
+<p><a data-fancybox="gallery" href="../assets/img/post/seeker/img08.png"></a></p>
+
+<p><img src="../assets/img/post/seeker/img08.png" /></p>
+
+<p>在获取位置权限的事情上：</p>
+
+<ul>
+  <li>NearYou设计为 <em>Find People, Make Friends</em>，获取位置权限是可以被接受的。</li>
+  <li>其它模板获取位置权限较为生硬。</li>
+  <li>Google Drive在后来跳转到真实的共享文件，在一定程度上降低了可疑性。</li>
+</ul>
+
+<p>至此，目标手机完成了以下过程：</p>
+
+<ol>
+  <li>点开链接进入钓鱼网页</li>
+  <li>允许钓鱼网页获取位置权限</li>
+  <li>进入到Google Drive共享文件页面（或停留在钓鱼网页）</li>
+</ol>
+
+<p>注：</p>
+
+<blockquote>
+  <p>若由于某些原因（如目标手机未开启 位置信息/GPS 功能等）钓鱼网页未能获取到位置信息，对于Google Drive模板则不会跳转到后面的url网页。</p>
+</blockquote>
+
+<h2 id="电脑端">电脑端</h2>
+
+<p>回到电脑端，看看在目标手机点击链接时发生了什么。</p>
+
+<h3 id="ngrok">ngrok</h3>
+
+<p>当目标手机打开由ngrok生成的链接时，在ngrok界面可以看到相关的请求和响应。</p>
+
+<p><a data-fancybox="gallery" href="../assets/img/post/seeker/img05.png"><img src="../assets/img/post/seeker/img05.png" /></a></p>
+
+<p>打开<code class="language-plaintext highlighter-rouge">http://127.0.0.1:4040</code>可以看到更详细的信息。</p>
+
+<h3 id="seeker">seeker</h3>
+
+<p>当目标手机允许网站获取位置权限后，在seeker界面看到成功获取的信息。</p>
+
+<p><a data-fancybox="gallery" href="../assets/img/post/seeker/img19.png"><img src="../assets/img/post/seeker/img19.png" /></a></p>
+
+<p>（图中相关隐私信息已做处理）</p>
+
+<p>seeker成功获取到了目标手机的<code class="language-plaintext highlighter-rouge">经度</code>、<code class="language-plaintext highlighter-rouge">维度</code>。点击<code class="language-plaintext highlighter-rouge">Google Maps链接</code>即可看到目标手机当前位置。除此之外，它还获取到了一些<code class="language-plaintext highlighter-rouge">未经许可的设备信息</code>。</p>
+
+<p><strong>一般地，如果目标接受位置渗透，定位精度将精确到大约30米</strong>。</p>
+
+<p>本次演示的定位精度为40米左右。</p>
+
+<p>准确度取决于多种因素，如：</p>
+
+<ul>
+  <li>设备 - 在GPS损坏的笔记本电脑或手机上无法工作</li>
+  <li>浏览器 - 一些浏览器阻止了javascripts</li>
+  <li>GPS校准 - 如果GPS没有被校准</li>
+</ul>
+
+<h1 id="最后">最后</h1>
+
+<p>这个工具是一个「概念证明」，仅用于教育目的，Seeker显示了一个恶意网站可以收集关于你和你的设备的哪些数据，以及为什么你不应该点击未知链接和允许重要权限，如位置等。</p>]]></content><author><name></name></author><category term="linux" /><category term="tool" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Hello World!</title><link href="https://zhui.dev/2021-04/hello-world" rel="alternate" type="text/html" title="Hello World!" /><published>2021-04-23T00:00:00+08:00</published><updated>2021-04-23T00:00:00+08:00</updated><id>https://zhui.dev/2021-04/hello-world</id><content type="html" xml:base="https://zhui.dev/2021-04/hello-world"><![CDATA[<p><a data-fancybox="hello_world" href="../assets/img/post/hello-world/hello-world.jpg"><img src="../assets/img/post/hello-world/hello-world.jpg" /></a></p>
+
+<p><dfn info="Hello,World! | 你好，世界！">Hover</dfn> me.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s">"Hello, World!"</span><span class="p">);</span>
+   <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>]]></content><author><name></name></author><category term="dev" /><summary type="html"><![CDATA[]]></summary></entry></feed>

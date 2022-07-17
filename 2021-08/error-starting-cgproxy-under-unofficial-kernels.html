@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+
+
+
+<head>
+  <title>非官方内核下启动cgproxy出错 | 79号桃花源</title>
+   <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>非官方内核下启动cgproxy出错 | 79号桃花源</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="非官方内核下启动cgproxy出错" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="https://zhui.dev/2021-08/error-starting-cgproxy-under-unofficial-kernels" />
+<meta property="og:url" content="https://zhui.dev/2021-08/error-starting-cgproxy-under-unofficial-kernels" />
+<meta property="og:site_name" content="79号桃花源" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-08-01T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="非官方内核下启动cgproxy出错" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2021-08-01T00:00:00+08:00","datePublished":"2021-08-01T00:00:00+08:00","headline":"非官方内核下启动cgproxy出错","mainEntityOfPage":{"@type":"WebPage","@id":"https://zhui.dev/2021-08/error-starting-cgproxy-under-unofficial-kernels"},"url":"https://zhui.dev/2021-08/error-starting-cgproxy-under-unofficial-kernels"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="author" content="RiverOnVenus(追)">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="/assets/css/main.css" media="all">
+  <link rel="canonical" href="https://zhui.dev/2021-08/error-starting-cgproxy-under-unofficial-kernels">
+  <link rel="alternate" type="application/rss+xml" title="79号桃花源"
+    href="/feed.xml" />
+
+  <!-- favicon -->
+  <link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon" />
+
+  <!-- font -->
+  <link href="https://fonts.googleapis.com/css?family=Titillium+Web:400,400i" rel="stylesheet">
+</head>
+
+
+<body>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+
+  <div class="content">
+
+    <header class="header">
+
+  <div class="header_content">
+    <label class="theme_changer">
+      <input theme_toggle type="checkbox">
+      <div class="button"></div>
+    </label>
+    <a class="header_circle" href="/">
+      <img src="/assets/img/avatar.jpg" alt="RiverOnVenus">
+    </a>
+    <span class="header_name">RiverOnVenus(追)</span>
+
+    <span class="header_job">
+    <span id="jinrishici-sentence">正在加载今日诗词....</span>
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script></span>
+    
+    <span class="header_mes"></span>
+
+    <nav class="nav">
+     
+      
+      
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="/categories/dev" id="aa">dev
+            (1)</a>
+        </li>
+      </ul>
+      
+      
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="/categories/linux" id="aa">linux
+            (4)</a>
+        </li>
+      </ul>
+      
+      
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="/categories/tool" id="aa">tool
+            (3)</a>
+        </li>
+      </ul>
+      
+      
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="/categories/kernel" id="aa">kernel
+            (2)</a>
+        </li>
+      </ul>
+      
+      
+         
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="/search.html">search</a>
+        </li>
+      </ul>
+      
+       
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="/about.html">about</a>
+        </li>
+      </ul>
+      
+
+        
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="https://github.com/riveronvenus.gpg">key</a>
+        </li>
+      </ul>
+      
+
+       
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="/feed.xml">rss</a>
+        </li>
+      </ul>
+      
+      
+    </nav>
+  </div>
+
+</header>
+
+
+
+    <nav class="mobile_menu">
+
+  <ul class="nav_list">
+  
+<!--      
+    <li class="nav_item">
+      <a href="/feed.xml">rss</a>
+    </li>
+    -->
+    
+<!--      
+    <li class="nav_item">
+      <a href="https://github.com/riveronvenus.gpg">key</a>
+    </li>
+    -->
+
+  
+    
+    <li class="nav_item">
+      <a href="/about.html">about</a>
+    </li>
+    
+    
+<!--    
+    <li class="nav_item">
+      <a href="/search.html">search</a>
+    </li>
+    -->
+    
+    
+    
+
+    <li class="nav_item">
+      <a href="/categories/dev" id="aa">dev (1)</a>
+    </li>
+    
+    
+
+    <li class="nav_item">
+      <a href="/categories/linux" id="aa">linux (4)</a>
+    </li>
+    
+    
+
+    <li class="nav_item">
+      <a href="/categories/tool" id="aa">tool (3)</a>
+    </li>
+    
+    
+
+    <li class="nav_item">
+      <a href="/categories/kernel" id="aa">kernel (2)</a>
+    </li>
+    
+  </ul>
+
+</nav>
+
+    
+    <main class="main">
+
+    <div class="post">
+  <div>
+    
+    <p class="post_title">非官方内核下启动cgproxy出错</p>
+    
+  </div>
+  <div class="post_data">
+    
+    <span class="post_date">Aug 1, 2021</span>
+    
+    
+    <span class="post_categories">
+      &raquo; 
+      <a href="/categories/linux">linux</a>,
+      
+      <a href="/categories/tool">tool</a>,
+      
+      <a href="/categories/kernel">kernel</a>
+    </span>
+    
+  </div>
+  <div class="post_content">
+    <p><a data-fancybox="gallery" href="../assets/img/post/kernels-cgproxy/image01.png"><img src="../assets/img/post/kernels-cgproxy/image01.png" /></a></p>
+
+<ul id="markdown-toc">
+  <li><a href="#前言" id="markdown-toc-前言">前言</a></li>
+  <li><a href="#出错" id="markdown-toc-出错">出错</a></li>
+  <li><a href="#解决" id="markdown-toc-解决">解决</a></li>
+  <li><a href="#最后" id="markdown-toc-最后">最后</a></li>
+</ul>
+<h1 id="前言">前言</h1>
+
+<p>前段时间我一直在尝试不同的内核，想以此来提高桌面环境下的体验。官方支持的内核中我使用过<a href="https://archlinux.org/packages/?name=linux-zen" target="blank">linux-zen</a>, 非官方支持的内核中我使用过<a href="https://aur.archlinux.org/packages/linux-ck/" target="blank">linux-ck</a>, <a href="https://aur.archlinux.org/packages/linux-lqx/" target="blank">linux-lqx</a>, <a href="https://aur.archlinux.org/packages/linux-xanmod/" target="blank">linux-xanmod</a>, <a href="https://aur.archlinux.org/packages/linux-xanmod-cacule/" target="blank">linux-xanmod-cacule</a>, <a href="https://aur.archlinux.org/packages/?K=linux-cacule" target="blank">linux-cacule</a>。其中，使用linux-zen, linux-ck时cgproxy正常，而使用其它几个内核时启动却出错，导致无法使用。</p>
+
+<h1 id="出错">出错</h1>
+
+<p>在Arch Linux下我一直使用<a href="https://github.com/Qv2ray/Qv2ray" target="blank">qv2ray</a> + <a href="https://github.com/springzfx/cgproxy" target="blank">cgproxy</a>来使用代理，但在尝试不同内核时，我的网络崩掉了，然后发现cgproxy在一些内核下无法正常运行。</p>
+
+<p>查看出错时的服务状态<code class="language-plaintext highlighter-rouge">systemctl status cgproxy.service</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>● cgproxy.service - cgproxy service
+     Loaded: loaded (/usr/lib/systemd/system/cgproxy.service; enabled; vendor preset: disabled)
+     Active: active (running)
+   Main PID: 472 (cgproxy)
+      Tasks: 2 (limit: 9255)
+     Memory: 5.4M
+        CPU: 115ms
+     CGroup: /system.slice/cgproxy.service
+             └─472 /usr/bin/cgproxy --daemon --execsnoop
+
+cgproxyd[472]: info: socketserver thread started
+cgproxyd[472]: info: loading /usr/lib/cgproxy/libexecsnoop.so
+cgproxyd[472]: info: dlsym startThread func success
+cgproxyd[472]: libbpf: elf: skipping unrecognized data section(10) .eh_frame
+cgproxyd[472]: libbpf: elf: skipping relo section(11) .rel.eh_frame for section(10) .eh_frame
+cgproxyd[472]: libbpf: failed to determine tracepoint 'syscalls/sys_enter_execve' perf event ID: No such file or directory
+cgproxyd[472]: libbpf: prog 'syscall_enter_execve': failed to create tracepoint 'syscalls/sys_enter_execve' perf event: No such file or directory
+cgproxyd[472]: failed to attach BPF programs
+cgproxyd[472]: error: execsnoop thread timeout, maybe failed
+</code></pre></div></div>
+
+<p>经过分析已有信息和对比各个内核的config以及最后测试，确定了是这些内核直接或间接禁用了<strong>CONFIG_FTRACE_SYSCALLS</strong>造成的。</p>
+
+<h1 id="解决">解决</h1>
+
+<p>（最后更新时间 2021-08-20，由于内核更新较快，且PKGBUILD和config也会有所改变，所以以下方法可能过时，仅供参考）</p>
+
+<p>编译内核时在config中启用<em>CONFIG_FTRACE_SYSCALLS</em>或<em>CONFIG_FTRACE</em>即可解决。</p>
+
+<ul>
+  <li><del>对于linux-cacule系列的内核，将其PKGBUILD中禁用<em>CONFIG_FTRACE</em>的语句<code class="language-plaintext highlighter-rouge">scripts/config --disable CONFIG_FTRACE</code>注释掉或删掉以启用<em>CONFIG_FTRACE_SYSCALLS</em></del></li>
+  <li>(2021-08-20更新) 对于linux-cacule系列内核，在其PKGBUILD中加入两条语句<code class="language-plaintext highlighter-rouge">scripts/config --enable CONFIG_FTRACE</code>和 <code class="language-plaintext highlighter-rouge">scripts/config --enable CONFIG_FTRACE_SYSCALLS</code>以启用<em>CONFIG_FTRACE_SYSCALLS</em></li>
+  <li>对于linux-lqx, 在其PKGBUILD中加入语句<code class="language-plaintext highlighter-rouge">scripts/config --enable CONFIG_FTRACE_SYSCALLS</code>以启用<em>CONFIG_FTRACE_SYSCALLS</em></li>
+  <li>对于linux-xanmod系列内核，在其PKGBUILD中加入两条语句<code class="language-plaintext highlighter-rouge">scripts/config --enable CONFIG_FTRACE</code>和 <code class="language-plaintext highlighter-rouge">scripts/config --enable CONFIG_FTRACE_SYSCALLS</code>以启用<em>CONFIG_FTRACE_SYSCALLS</em></li>
+</ul>
+
+<h1 id="最后">最后</h1>
+
+<p>经过几个月的使用和测试，在我的工作负载下，这些内核给我的体验都很好，有的侧重于系统的吞吐量，有的侧重于系统的响应。鱼与熊掌不可兼得，获得更高的吞吐量往往以响应时间为代价，想要系统更快的响应也会牺牲吞吐量。</p>
+
+  </div>
+
+  <div id="backtop">
+   <a href="#">TOP</a>
+</div> 
+
+  
+  
+  <div class="post_comment">
+
+    
+
+    
+
+    
+
+    
+
+<script src="https://giscus.app/client.js"
+        data-repo="RiverOnVenus/blog"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkzNjA1MjczNTg="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOFX01_s4B_DEB"
+        data-mapping="pathname"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-theme="transparent_dark"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+
+
+  </div>
+  
+  
+<style>
+iframe[src*=ads-iframe]{display:none!important;}
+div[id*=disqus][style*=margin]{display:none!important;}
+</style>
+
+</div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+    </main>
+
+  </div>
+
+  <footer class="footer">
+  <div>
+
+    &copy; 2021-2022 RiverOnVenus.
+    <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a><br/>
+    Built with <a href="https://jekyllrb.com" target="_blank">Jekyll</a>
+    Get this theme
+    <a href="https://github.com/starry99/catbook" target="_blank">here</a>.
+  </div>
+</footer>
+
+  <!-- js from https://codepen.io/MrGrigri/pen/XQmWBv -->
+
+<script>
+// @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&dn=expat.txt Expat
+    const themePreference = () => {
+        const hasLocalStorage = localStorage.getItem('theme');
+        let supports = false;
+        let theme = undefined;
+
+        if (hasLocalStorage === 'light') {
+            theme = 'light';
+        }
+        if (hasLocalStorage === 'dark') {
+            theme = 'dark';
+        }
+
+        if (window.matchMedia(`(prefers_color: dark)`).matches) {
+            theme = hasLocalStorage ? hasLocalStorage : 'dark';
+            supports = true;
+        };
+        if (window.matchMedia(`(prefers_color: light)`).matches) {
+            theme = hasLocalStorage ? hasLocalStorage : 'light';
+            supports = true;
+        };
+        if (window.matchMedia(`(prefers_color: no-preference)`).matches) {
+            theme = hasLocalStorage ? hasLocalStorage : 'none';
+            supports = true;
+        };
+
+        return {
+            supports,
+            theme
+        };
+    }
+
+    document.addEventListener('DOMContentLoaded', e => {
+        console.clear();
+
+        const userThemePreference = themePreference();
+        const toggle = document.querySelector('[theme_toggle]');
+        const html = document.documentElement;
+
+        const setTheme = () => {
+            switch (userThemePreference.theme) {
+                case 'dark':
+                    toggle.checked = true;
+                    html.classList.add('dark');
+                    html.classList.remove('light');
+                    break;
+                case 'light':
+                    toggle.checked = false;
+                    html.classList.remove('dark');
+                    html.classList.add('light');
+                    break;
+            }
+        }
+        setTheme();
+        toggle.addEventListener('click', e => {
+            if (toggle.checked) {
+                html.classList.add('dark');
+                html.classList.remove('light');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.classList.remove('dark');
+                html.classList.add('light');
+                localStorage.setItem('theme', 'light');
+            }
+        }, false);
+    }, false);
+// @license-end
+</script>
+
+  
+</body>
+</html>

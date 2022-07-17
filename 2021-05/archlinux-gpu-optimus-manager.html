@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html>
+
+
+
+<head>
+  <title>Archlinux的双显卡配置 | 79号桃花源</title>
+   <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Archlinux的双显卡配置 | 79号桃花源</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Archlinux的双显卡配置" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="https://zhui.dev/2021-05/archlinux-gpu-optimus-manager" />
+<meta property="og:url" content="https://zhui.dev/2021-05/archlinux-gpu-optimus-manager" />
+<meta property="og:site_name" content="79号桃花源" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-05-22T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Archlinux的双显卡配置" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2021-05-22T00:00:00+08:00","datePublished":"2021-05-22T00:00:00+08:00","headline":"Archlinux的双显卡配置","mainEntityOfPage":{"@type":"WebPage","@id":"https://zhui.dev/2021-05/archlinux-gpu-optimus-manager"},"url":"https://zhui.dev/2021-05/archlinux-gpu-optimus-manager"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="author" content="RiverOnVenus(追)">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="/assets/css/main.css" media="all">
+  <link rel="canonical" href="https://zhui.dev/2021-05/archlinux-gpu-optimus-manager">
+  <link rel="alternate" type="application/rss+xml" title="79号桃花源"
+    href="/feed.xml" />
+
+  <!-- favicon -->
+  <link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon" />
+
+  <!-- font -->
+  <link href="https://fonts.googleapis.com/css?family=Titillium+Web:400,400i" rel="stylesheet">
+</head>
+
+
+<body>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+
+  <div class="content">
+
+    <header class="header">
+
+  <div class="header_content">
+    <label class="theme_changer">
+      <input theme_toggle type="checkbox">
+      <div class="button"></div>
+    </label>
+    <a class="header_circle" href="/">
+      <img src="/assets/img/avatar.jpg" alt="RiverOnVenus">
+    </a>
+    <span class="header_name">RiverOnVenus(追)</span>
+
+    <span class="header_job">
+    <span id="jinrishici-sentence">正在加载今日诗词....</span>
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script></span>
+    
+    <span class="header_mes"></span>
+
+    <nav class="nav">
+     
+      
+      
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="/categories/dev" id="aa">dev
+            (1)</a>
+        </li>
+      </ul>
+      
+      
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="/categories/linux" id="aa">linux
+            (4)</a>
+        </li>
+      </ul>
+      
+      
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="/categories/tool" id="aa">tool
+            (3)</a>
+        </li>
+      </ul>
+      
+      
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="/categories/kernel" id="aa">kernel
+            (2)</a>
+        </li>
+      </ul>
+      
+      
+         
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="/search.html">search</a>
+        </li>
+      </ul>
+      
+       
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="/about.html">about</a>
+        </li>
+      </ul>
+      
+
+        
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="https://github.com/riveronvenus.gpg">key</a>
+        </li>
+      </ul>
+      
+
+       
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="/feed.xml">rss</a>
+        </li>
+      </ul>
+      
+      
+    </nav>
+  </div>
+
+</header>
+
+
+
+    <nav class="mobile_menu">
+
+  <ul class="nav_list">
+  
+<!--      
+    <li class="nav_item">
+      <a href="/feed.xml">rss</a>
+    </li>
+    -->
+    
+<!--      
+    <li class="nav_item">
+      <a href="https://github.com/riveronvenus.gpg">key</a>
+    </li>
+    -->
+
+  
+    
+    <li class="nav_item">
+      <a href="/about.html">about</a>
+    </li>
+    
+    
+<!--    
+    <li class="nav_item">
+      <a href="/search.html">search</a>
+    </li>
+    -->
+    
+    
+    
+
+    <li class="nav_item">
+      <a href="/categories/dev" id="aa">dev (1)</a>
+    </li>
+    
+    
+
+    <li class="nav_item">
+      <a href="/categories/linux" id="aa">linux (4)</a>
+    </li>
+    
+    
+
+    <li class="nav_item">
+      <a href="/categories/tool" id="aa">tool (3)</a>
+    </li>
+    
+    
+
+    <li class="nav_item">
+      <a href="/categories/kernel" id="aa">kernel (2)</a>
+    </li>
+    
+  </ul>
+
+</nav>
+
+    
+    <main class="main">
+
+    <div class="post">
+  <div>
+    
+    <p class="post_title">Archlinux的双显卡配置</p>
+    
+  </div>
+  <div class="post_data">
+    
+    <span class="post_date">May 22, 2021</span>
+    
+    
+    <span class="post_categories">
+      &raquo; 
+      <a href="/categories/linux">linux</a>
+    </span>
+    
+  </div>
+  <div class="post_content">
+    <p><a data-fancybox="gallery" href="../assets/img/post/optimus/image01.jpg"><img src="../assets/img/post/optimus/image01.jpg" /></a></p>
+
+<blockquote>
+  <p>Photo by <a href="https://unsplash.com/@annajimenez?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="blank">Anna Jiménez Calaf</a> on <a href="https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="blank">Unsplash</a></p>
+</blockquote>
+
+<ul id="markdown-toc">
+  <li><a href="#前言" id="markdown-toc-前言">前言</a></li>
+  <li><a href="#正文" id="markdown-toc-正文">正文</a>    <ul>
+      <li><a href="#介绍" id="markdown-toc-介绍">介绍</a></li>
+      <li><a href="#安装" id="markdown-toc-安装">安装</a></li>
+      <li><a href="#配置" id="markdown-toc-配置">配置</a></li>
+    </ul>
+  </li>
+  <li><a href="#可选" id="markdown-toc-可选">可选</a></li>
+  <li><a href="#最后" id="markdown-toc-最后">最后</a></li>
+</ul>
+<p>【注】如果没有特殊需求，使用NVIDIA官方的方案是明智的选择，详情见官方文档<a href="http://download.nvidia.com/XFree86/Linux-x86_64/435.21/README/primerenderoffload.html" target="_blank">PRIME Render Offload</a>或依云的博客<a href="https://blog.lilydjwg.me/2019/9/3/nvidia-prime-setup.214768.html" target="blank">NVIDIA PRIME 配置笔记</a>。</p>
+
+<h1 id="前言">前言</h1>
+
+<p>之前一直用的<code class="language-plaintext highlighter-rouge">Askannz/optimus-manager</code>来管理双显卡，那时<strong>没有认真阅读项目文档</strong>，对Hybrid模式不了解，一直用的Integrated和Nvidia两个模式。</p>
+
+<p>后来改用了NVIDIA官方的方案。</p>
+
+<p>用了几天发现续航没有用optimus-manager的Integrated模式好，于是想找到一个既可以在我用电池时仅使用核显的模式又可以在接通电源时使用Nvidia offload模式的方案。</p>
+
+<p><span class="spoiler">「没想到，”Hybrid”即”Nvidia offload”。所以又换回了optimus-manager。在Integrated和Hybrid之间切换」</span></p>
+
+<h1 id="正文">正文</h1>
+
+<p>我的需求：</p>
+
+<ol>
+  <li>没有接通电源时有<del>较好</del>极好的续航</li>
+  <li>偶尔使用Nvidia跑一些应用程序</li>
+</ol>
+
+<blockquote>
+  <p>使用NVIDIA PRIME时，N卡处于待机状态，即使不在上面运行任何应用程序，它也会继续消耗电能。由于N卡会自动降频，因此耗电量相对较低，但仍比仅用核显时高很多。</p>
+</blockquote>
+
+<h2 id="介绍">介绍</h2>
+
+<p>开始之前，请确定已经按照<a href="https://wiki.archlinux.org/title/NVIDIA" target="blank">ArchWiki</a>安装好了相应驱动。</p>
+
+<blockquote>
+  <p>项目地址： <a href="https://github.com/Askannz/optimus-manager" target="blank">Askannz/optimus-manager</a></p>
+</blockquote>
+
+<p>optimus-manager有三个模式：</p>
+
+<ul>
+  <li>Integrated–仅用核显</li>
+  <li>Nvidia–仅用独显</li>
+  <li>Hybrid–Nvidia offload</li>
+</ul>
+
+<p>Hybrid配合Nvidia-prime使用</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pacman <span class="nt">-S</span> nvidia-prime
+</code></pre></div></div>
+
+<blockquote>
+  <p>Hybrid模式文档 <a href="https://github.com/Askannz/optimus-manager/wiki/Nvidia-GPU-offloading-for-%22hybrid%22-mode" target="blank">Nvidia GPU offloading for “hybrid” mode</a></p>
+</blockquote>
+
+<h2 id="安装">安装</h2>
+
+<p><a href="https://github.com/Askannz/optimus-manager#installation" target="blank">项目安装文档</a></p>
+
+<p>使用optimus-manager需要配置正确的电源管理才能切换模式，在我的笔记本电脑上用的<a href="https://github.com/Bumblebee-Project/bbswitch" target="blank">bbswitch</a>。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pacman <span class="nt">-S</span> optimus-manager bbswitch
+</code></pre></div></div>
+
+<blockquote>
+  <p>注意：bbswitch很久没更新了，在较新的笔记本电脑上可能没用，甚至产生一些其它问题。且bbswitch只是optimus-manager项目的电源管理方案 <a href="https://github.com/Askannz/optimus-manager/wiki/A-guide--to-power-management-options" target="blank">A guide  to power management options</a>之一，所以请根据电脑环境选择合理的方案。</p>
+</blockquote>
+
+<h2 id="配置">配置</h2>
+
+<p><a href="https://github.com/Askannz/optimus-manager/#configuration" target="blank">项目配置文档</a></p>
+
+<p>主配置文件位于<code class="language-plaintext highlighter-rouge">/etc/optimus-manager/optimus-manager.conf</code></p>
+
+<p>这是我的配置：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[intel]
+DRI=3
+accel=
+driver=modesetting
+modeset=yes
+tearfree=
+
+[nvidia]
+DPI=96
+PAT=yes
+allow_external_gpus=yes
+dynamic_power_management=no
+ignore_abi=yes
+modeset=yes
+options=triple_buffer
+
+[optimus]
+auto_logout=yes
+pci_power_control=no
+pci_remove=no
+pci_reset=no
+startup_auto_battery_mode=integrated
+startup_auto_extpower_mode=hybrid
+startup_mode=auto
+switching=bbswitch
+</code></pre></div></div>
+
+<p>启动系统时，根据是否接通电源自动选择模式。使用电池为Integrated模式，N卡被禁，提高了续航。接通电源为Hybrid模式，使用<code class="language-plaintext highlighter-rouge">prime-run</code>命令指定应用程序使用N卡。</p>
+
+<p>也可以手动切换：</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">optimus-manager --switch nvidia</code> 切换到Nvidia</li>
+  <li><code class="language-plaintext highlighter-rouge">optimus-manager --switch integrated</code> 切换到核显并关闭Nvidia的电源</li>
+  <li><code class="language-plaintext highlighter-rouge">optimus-manager --switch hybrid</code> 切换到Nvidia offload</li>
+</ul>
+
+<blockquote>
+  <p>注意：切换模式会自动注销（用户态切换），所以请确保你已经保存你的工作，并关闭所有的应用程序。</p>
+</blockquote>
+
+<p>安装配置完成后需要重启系统，重启系统前请认真阅读项目<a href="https://github.com/Askannz/optimus-manager/blob/master/README.md" target="blank">README</a> 和 <a href="https://github.com/Askannz/optimus-manager/wiki" target="_blank">Wiki</a>，确保配置没有问题再重启系统。做好修复系统的准备。</p>
+
+<p>重启后，使用<code class="language-plaintext highlighter-rouge">systemctl status optimus-manager.service</code>命令查看服务状态，使用<code class="language-plaintext highlighter-rouge">optimus-manager --status</code>命令查看当前模式。</p>
+
+<h1 id="可选">可选</h1>
+
+<p><a href="https://github.com/Shatur/optimus-manager-qt" target="blank">optimus-manager-qt</a>，这是Optimus Manager的一个界面，允许使用托盘菜单配置和切换Optimus笔记本电脑上的GPU。</p>
+
+<p>如果需要，使用AUR助手安装。</p>
+
+<h1 id="最后">最后</h1>
+
+<p>optimus-manager目前在我的笔记本电脑上运行良好，尚未发现问题。另外，一定要<strong>认真阅读项目文档</strong>。</p>
+
+  </div>
+
+  <div id="backtop">
+   <a href="#">TOP</a>
+</div> 
+
+  
+  
+  <div class="post_comment">
+
+    
+
+    
+
+    
+
+    
+
+<script src="https://giscus.app/client.js"
+        data-repo="RiverOnVenus/blog"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkzNjA1MjczNTg="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOFX01_s4B_DEB"
+        data-mapping="pathname"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-theme="transparent_dark"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+
+
+  </div>
+  
+  
+<style>
+iframe[src*=ads-iframe]{display:none!important;}
+div[id*=disqus][style*=margin]{display:none!important;}
+</style>
+
+</div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+    </main>
+
+  </div>
+
+  <footer class="footer">
+  <div>
+
+    &copy; 2021-2022 RiverOnVenus.
+    <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a><br/>
+    Built with <a href="https://jekyllrb.com" target="_blank">Jekyll</a>
+    Get this theme
+    <a href="https://github.com/starry99/catbook" target="_blank">here</a>.
+  </div>
+</footer>
+
+  <!-- js from https://codepen.io/MrGrigri/pen/XQmWBv -->
+
+<script>
+// @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&dn=expat.txt Expat
+    const themePreference = () => {
+        const hasLocalStorage = localStorage.getItem('theme');
+        let supports = false;
+        let theme = undefined;
+
+        if (hasLocalStorage === 'light') {
+            theme = 'light';
+        }
+        if (hasLocalStorage === 'dark') {
+            theme = 'dark';
+        }
+
+        if (window.matchMedia(`(prefers_color: dark)`).matches) {
+            theme = hasLocalStorage ? hasLocalStorage : 'dark';
+            supports = true;
+        };
+        if (window.matchMedia(`(prefers_color: light)`).matches) {
+            theme = hasLocalStorage ? hasLocalStorage : 'light';
+            supports = true;
+        };
+        if (window.matchMedia(`(prefers_color: no-preference)`).matches) {
+            theme = hasLocalStorage ? hasLocalStorage : 'none';
+            supports = true;
+        };
+
+        return {
+            supports,
+            theme
+        };
+    }
+
+    document.addEventListener('DOMContentLoaded', e => {
+        console.clear();
+
+        const userThemePreference = themePreference();
+        const toggle = document.querySelector('[theme_toggle]');
+        const html = document.documentElement;
+
+        const setTheme = () => {
+            switch (userThemePreference.theme) {
+                case 'dark':
+                    toggle.checked = true;
+                    html.classList.add('dark');
+                    html.classList.remove('light');
+                    break;
+                case 'light':
+                    toggle.checked = false;
+                    html.classList.remove('dark');
+                    html.classList.add('light');
+                    break;
+            }
+        }
+        setTheme();
+        toggle.addEventListener('click', e => {
+            if (toggle.checked) {
+                html.classList.add('dark');
+                html.classList.remove('light');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.classList.remove('dark');
+                html.classList.add('light');
+                localStorage.setItem('theme', 'light');
+            }
+        }, false);
+    }, false);
+// @license-end
+</script>
+
+  
+</body>
+</html>

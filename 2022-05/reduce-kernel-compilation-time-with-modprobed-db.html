@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html>
+
+
+
+<head>
+  <title>使用Modprobed-db减少内核编译时间 | 79号桃花源</title>
+   <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>使用Modprobed-db减少内核编译时间 | 79号桃花源</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="使用Modprobed-db减少内核编译时间" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="https://zhui.dev/2022-05/reduce-kernel-compilation-time-with-modprobed-db" />
+<meta property="og:url" content="https://zhui.dev/2022-05/reduce-kernel-compilation-time-with-modprobed-db" />
+<meta property="og:site_name" content="79号桃花源" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-05-07T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="使用Modprobed-db减少内核编译时间" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-05-07T00:00:00+08:00","datePublished":"2022-05-07T00:00:00+08:00","headline":"使用Modprobed-db减少内核编译时间","mainEntityOfPage":{"@type":"WebPage","@id":"https://zhui.dev/2022-05/reduce-kernel-compilation-time-with-modprobed-db"},"url":"https://zhui.dev/2022-05/reduce-kernel-compilation-time-with-modprobed-db"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="author" content="RiverOnVenus(追)">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="/assets/css/main.css" media="all">
+  <link rel="canonical" href="https://zhui.dev/2022-05/reduce-kernel-compilation-time-with-modprobed-db">
+  <link rel="alternate" type="application/rss+xml" title="79号桃花源"
+    href="/feed.xml" />
+
+  <!-- favicon -->
+  <link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon" />
+
+  <!-- font -->
+  <link href="https://fonts.googleapis.com/css?family=Titillium+Web:400,400i" rel="stylesheet">
+</head>
+
+
+<body>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+
+  <div class="content">
+
+    <header class="header">
+
+  <div class="header_content">
+    <label class="theme_changer">
+      <input theme_toggle type="checkbox">
+      <div class="button"></div>
+    </label>
+    <a class="header_circle" href="/">
+      <img src="/assets/img/avatar.jpg" alt="RiverOnVenus">
+    </a>
+    <span class="header_name">RiverOnVenus(追)</span>
+
+    <span class="header_job">
+    <span id="jinrishici-sentence">正在加载今日诗词....</span>
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script></span>
+    
+    <span class="header_mes"></span>
+
+    <nav class="nav">
+     
+      
+      
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="/categories/dev" id="aa">dev
+            (1)</a>
+        </li>
+      </ul>
+      
+      
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="/categories/linux" id="aa">linux
+            (4)</a>
+        </li>
+      </ul>
+      
+      
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="/categories/tool" id="aa">tool
+            (3)</a>
+        </li>
+      </ul>
+      
+      
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="/categories/kernel" id="aa">kernel
+            (2)</a>
+        </li>
+      </ul>
+      
+      
+         
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="/search.html">search</a>
+        </li>
+      </ul>
+      
+       
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="/about.html">about</a>
+        </li>
+      </ul>
+      
+
+        
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="https://github.com/riveronvenus.gpg">key</a>
+        </li>
+      </ul>
+      
+
+       
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="/feed.xml">rss</a>
+        </li>
+      </ul>
+      
+      
+    </nav>
+  </div>
+
+</header>
+
+
+
+    <nav class="mobile_menu">
+
+  <ul class="nav_list">
+  
+<!--      
+    <li class="nav_item">
+      <a href="/feed.xml">rss</a>
+    </li>
+    -->
+    
+<!--      
+    <li class="nav_item">
+      <a href="https://github.com/riveronvenus.gpg">key</a>
+    </li>
+    -->
+
+  
+    
+    <li class="nav_item">
+      <a href="/about.html">about</a>
+    </li>
+    
+    
+<!--    
+    <li class="nav_item">
+      <a href="/search.html">search</a>
+    </li>
+    -->
+    
+    
+    
+
+    <li class="nav_item">
+      <a href="/categories/dev" id="aa">dev (1)</a>
+    </li>
+    
+    
+
+    <li class="nav_item">
+      <a href="/categories/linux" id="aa">linux (4)</a>
+    </li>
+    
+    
+
+    <li class="nav_item">
+      <a href="/categories/tool" id="aa">tool (3)</a>
+    </li>
+    
+    
+
+    <li class="nav_item">
+      <a href="/categories/kernel" id="aa">kernel (2)</a>
+    </li>
+    
+  </ul>
+
+</nav>
+
+    
+    <main class="main">
+
+    <div class="post">
+  <div>
+    
+    <p class="post_title">使用Modprobed-db减少内核编译时间</p>
+    
+  </div>
+  <div class="post_data">
+    
+    <span class="post_date">May 7, 2022</span>
+    
+    
+    <span class="post_categories">
+      &raquo; 
+      <a href="/categories/linux">linux</a>,
+      
+      <a href="/categories/tool">tool</a>,
+      
+      <a href="/categories/kernel">kernel</a>
+    </span>
+    
+  </div>
+  <div class="post_content">
+    <p><a data-fancybox="modprobed-db" href="../assets/img/post/modprobed-db/image01.jpg"><img src="../assets/img/post/modprobed-db/image01.jpg" /></a></p>
+
+<blockquote>
+  <p>Photo by <a href="https://unsplash.com/@aronvisuals?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Aron Visuals</a> on <a href="https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></p>
+</blockquote>
+
+<p>自从开始尝试自定义内核，便陷入其中。在内核方面，我是业余的，仅仅是在内核中打上一些我想使用的补丁以及简单修改一些配置。每当主线内核发布或有新的补丁时，我就会重新编译内核。就我的笔记本电脑来说，每次编译内核都会花费一个多小时的时间，而当我使用了Modprobed-db后，编译时间显著减少了。</p>
+
+<h1 id="modprobed-db是什么">Modprobed-db是什么？</h1>
+
+<p>Modprobed-db是一个通过<a href="https://www.kernel.org/doc/html/latest/admin-guide/README.html?highlight=localmodconfig#configuring-the-kernel" target="blank">make localmodconfig</a>建立最小内核的工具。它会根据你当前的config和由Modprobed-db生成的模块列表创建一个新的config，其余不需要的模块都将被它禁用。这样就得到了一个属于你的、精简的内核。</p>
+
+<h1 id="如何使用它呢">如何使用它呢？</h1>
+
+<h2 id="安装和初始化配置">安装和初始化配置</h2>
+
+<blockquote>
+  <p>项目地址：<strong><a href="https://github.com/graysky2/modprobed-db" target="_blank">graysky2/modprobed-db</a></strong></p>
+</blockquote>
+
+<p>对于Arch Linux，安装<a href="https://aur.archlinux.org/packages/modprobed-db" target="blank">modprobed-db</a>。</p>
+
+<p>安装完后首先运行<code class="language-plaintext highlighter-rouge">modprobed-db</code>，它会创建Modprobed-db配置文件$XDG_CONFIG_HOME/modprobed-db.conf。</p>
+
+<p>在~/.config/modprobed-db.conf中，可以添加你想忽略的模块。一些由其它软件包提供的模块需要添加进去，如Nvidia。</p>
+
+<p>默认配置中包括了一些常见的、需要被忽略的模块：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>IGNORE=(nvidia nvidia_drm nvidia_modeset nvidia_uvm vboxdrv vboxnetadp vboxnetflt vboxpci lirc_dev lirc_i2c osscore oss_hdaudio oss_usb tp_smapi thinkpad_ec zavl znvpair zunicode zcommon zpios zfs spl splat)
+</code></pre></div></div>
+
+<h2 id="填充数据库">填充数据库</h2>
+
+<p>配置好modprobed-db.conf后，运行<code class="language-plaintext highlighter-rouge">modprobed-db store</code>，它会探测到当前加载的模块，并创建Modprobed-db数据库文件$XDG_CONFIG_HOME/modprobed.db，数据库文件是一个文本文件，其内容就是被探测到的模块列表。这个数据库文件是可以积累的，每次运行<code class="language-plaintext highlighter-rouge">modprobed-db store</code>都会记录下之前沒有出现过的模块。使用<code class="language-plaintext highlighter-rouge">modprobed-db list</code>可以显示当前数据库文件中的模块。</p>
+
+<h3 id="自动更新数据库">自动更新数据库</h3>
+
+<p>启用：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl --user enable --now modprobed-db
+</code></pre></div></div>
+
+<p>modprobed-db.service每隔6小时运行一次<code class="language-plaintext highlighter-rouge">modprobed-db store</code>，在开机和关机时也会各运行一次。</p>
+
+<p>service和timer可以用下面命令查看：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl --user status modprobed-db
+systemctl --user list-timers
+</code></pre></div></div>
+
+<h3 id="手动编辑数据库">手动编辑数据库</h3>
+
+<p>使用自动定期数据库更新或手动运行<code class="language-plaintext highlighter-rouge">modprobed-db store</code>并不是万无一失的。</p>
+
+<ul>
+  <li>有些模块在两次定期数据库更新之间被加载然后卸载，可能不会被捕获。</li>
+  <li>有些模块在启动时使用，不被modprobed-db捕获（如efivarfs），它们需要被手动添加到modprobed.db文件中。</li>
+</ul>
+
+<p>前面提到过，modprobed.db数据库文件是一个简单的文本文件，每行包含一个内核模块名称：它可以被手动编辑以添加/删除一个模块，可以将自己要用的模块加入其中。在手动编辑后运行一次<code class="language-plaintext highlighter-rouge">modprobed-db store</code>，这些模块会自动重新排序。</p>
+
+<p>下面是一些常用的模块，如果你的数据库中没有，可以对照着手动添加。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ntfs3
+ext4
+fat
+vfat
+loop
+isofs
+cifs
+efivarfs
+usb_storage
+usbhid
+bridge
+</code></pre></div></div>
+
+<p>在完善数据库后，就可以使用Modprobed-db来构建内核了。</p>
+
+<h2 id="使用modprobed-db构建内核">使用Modprobed-db构建内核</h2>
+
+<p>对于<a href="https://wiki.archlinux.org/title/Kernel/Traditional_compilation" target="blank">传统编译内核</a>的方式，在配置好.config后运行<code class="language-plaintext highlighter-rouge">make LSMOD=$HOME/.config/modprobed.db localmodconfig</code>就行。</p>
+
+<p>如果使用Arch官方内核的<a href="https://github.com/archlinux/svntogit-packages/blob/packages/linux/trunk/PKGBUILD" target="blank">PKGBUILD</a>构建内核，对PKGBUILD做以下更改：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
+  echo "Setting config..."
+  cp ../config .config
+  make olddefconfig
+  
+  make LSMOD=$HOME/.config/modprobed.db localmodconfig
+  
+  diff -u ../config .config || :
+
+  make -s kernelrelease &gt; version
+  echo "Prepared $pkgbase version $(&lt;version)"
+ ...
+</code></pre></div></div>
+
+<h1 id="那么它减少了多少编译时间">那么，它减少了多少编译时间？</h1>
+
+<p>我的笔记本电脑CPU是Intel Core i5-8250U (8) @ 1.6GHz，4核8线程。</p>
+
+<p>编译的内核是主线的5.17.5，config是Arch Linux默认内核的config。</p>
+
+<p>使用gcc编译需要55m35s，使用clang编译同时启用FULL LTO需要1h21m57s；在使用Modprobed-db后，使用gcc编译需要11m50s，使用clang编译同时启用FULL LTO需要24m11s。</p>
+
+<p><a data-fancybox="modprobed-db" href="../assets/img/post/modprobed-db/image02.jpeg"><img src="../assets/img/post/modprobed-db/image02.jpeg" /></a></p>
+
+<p>为什么时间减少了这么多呢？因为一个正常的内核大概有5000多个模块，而modprobed-db数据库中就200个模块。</p>
+
+<p><a data-fancybox="modprobed-db" href="../assets/img/post/modprobed-db/image03.png"><img src="../assets/img/post/modprobed-db/image03.png" /></a></p>
+
+<p>内核构建大部分时间花费在了模块上，而其中许多模块也用不到。</p>
+
+<h1 id="一些经验和建议">一些经验和建议</h1>
+
+<p>如果使用dkms需要将对应模块放入到忽略模块列表中，如bbswitch，acpi_call等。</p>
+
+<p>将需要加载内核模块的程序都运行一下，以及插入USB等设备，然后运行<code class="language-plaintext highlighter-rouge">modprobed-db store</code>完善数据库。</p>
+
+<p>在当前使用的内核上使用一段时间Modprobed-db后，再用它编译内核。</p>
+
+<p>使用Modprobed-db构建最小内核是有风险的，记得选择一个稳定的内核备用。</p>
+
+  </div>
+
+  <div id="backtop">
+   <a href="#">TOP</a>
+</div> 
+
+  
+  
+  <div class="post_comment">
+
+    
+
+    
+
+    
+
+    
+
+<script src="https://giscus.app/client.js"
+        data-repo="RiverOnVenus/blog"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkzNjA1MjczNTg="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOFX01_s4B_DEB"
+        data-mapping="pathname"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-theme="transparent_dark"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+
+
+  </div>
+  
+  
+<style>
+iframe[src*=ads-iframe]{display:none!important;}
+div[id*=disqus][style*=margin]{display:none!important;}
+</style>
+
+</div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+    </main>
+
+  </div>
+
+  <footer class="footer">
+  <div>
+
+    &copy; 2021-2022 RiverOnVenus.
+    <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a><br/>
+    Built with <a href="https://jekyllrb.com" target="_blank">Jekyll</a>
+    Get this theme
+    <a href="https://github.com/starry99/catbook" target="_blank">here</a>.
+  </div>
+</footer>
+
+  <!-- js from https://codepen.io/MrGrigri/pen/XQmWBv -->
+
+<script>
+// @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&dn=expat.txt Expat
+    const themePreference = () => {
+        const hasLocalStorage = localStorage.getItem('theme');
+        let supports = false;
+        let theme = undefined;
+
+        if (hasLocalStorage === 'light') {
+            theme = 'light';
+        }
+        if (hasLocalStorage === 'dark') {
+            theme = 'dark';
+        }
+
+        if (window.matchMedia(`(prefers_color: dark)`).matches) {
+            theme = hasLocalStorage ? hasLocalStorage : 'dark';
+            supports = true;
+        };
+        if (window.matchMedia(`(prefers_color: light)`).matches) {
+            theme = hasLocalStorage ? hasLocalStorage : 'light';
+            supports = true;
+        };
+        if (window.matchMedia(`(prefers_color: no-preference)`).matches) {
+            theme = hasLocalStorage ? hasLocalStorage : 'none';
+            supports = true;
+        };
+
+        return {
+            supports,
+            theme
+        };
+    }
+
+    document.addEventListener('DOMContentLoaded', e => {
+        console.clear();
+
+        const userThemePreference = themePreference();
+        const toggle = document.querySelector('[theme_toggle]');
+        const html = document.documentElement;
+
+        const setTheme = () => {
+            switch (userThemePreference.theme) {
+                case 'dark':
+                    toggle.checked = true;
+                    html.classList.add('dark');
+                    html.classList.remove('light');
+                    break;
+                case 'light':
+                    toggle.checked = false;
+                    html.classList.remove('dark');
+                    html.classList.add('light');
+                    break;
+            }
+        }
+        setTheme();
+        toggle.addEventListener('click', e => {
+            if (toggle.checked) {
+                html.classList.add('dark');
+                html.classList.remove('light');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.classList.remove('dark');
+                html.classList.add('light');
+                localStorage.setItem('theme', 'light');
+            }
+        }, false);
+    }, false);
+// @license-end
+</script>
+
+  
+</body>
+</html>
