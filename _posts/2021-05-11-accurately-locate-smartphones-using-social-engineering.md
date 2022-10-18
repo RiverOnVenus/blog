@@ -23,19 +23,16 @@ Seeker 背后的概念很简单，就像我们用钓鱼网页来获取凭证一�
 
 # 安装
 
-这是在 Arch Linux 中安装，其它系统见[项目安装文档](https://github.com/thewhiteh4t/seeker#installation){:target="_blank"}。
-
-下面是需要的包，如果没安装，使用 pacman 和 AUR 助手（ngrok 在 AUR）进行安装
-
-```
-python python-pip php openssh ngrok
-```
+**一定要在 venv 中进行**
 
 ```bash
 git clone https://github.com/thewhiteh4t/seeker.git
-cd seeker
-pip3 install requests
+cd seeker/
+chmod +x install.sh
+./install.sh
 ```
+
+使用 AUR 助手安装 ngrok
 
 # 演示
 
@@ -49,7 +46,7 @@ pip3 install requests
 ### 启动 seeker
 
 ```python
-python3 seeker.py -t manual
+python seeker.py
 ```
 
 <a data-fancybox="gallery" href="../assets/img/post/seeker/img02.png"><img src="../assets/img/post/seeker/img02.png">
@@ -85,6 +82,8 @@ Telegram 同样需要填写一些群组信息。
 <a data-fancybox="gallery" href="../assets/img/post/seeker/img14.png"><img src="../assets/img/post/seeker/img14.png">
 
 ### 启动ngrok
+
+注：ngrok 现在需要注册账户才能使用
 
 再开一个终端，启动 ngrok。
 
