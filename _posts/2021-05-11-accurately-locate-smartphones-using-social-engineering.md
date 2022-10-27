@@ -2,7 +2,6 @@
 title: 利用社会工程学准确定位智能手机
 categories: [linux,tool]
 comments: true
-math: false
 ---
 
 <a data-fancybox="gallery" href="../assets/img/post/seeker/img00.jpg"><img src="../assets/img/post/seeker/img00.jpg">

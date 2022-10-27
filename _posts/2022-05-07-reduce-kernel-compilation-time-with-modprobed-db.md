@@ -2,7 +2,6 @@
 title: 使用Modprobed-db减少内核编译时间
 categories: [linux,tool,kernel]
 comments: true
-math: false
 ---
 
 <a data-fancybox="modprobed-db" href="../assets/img/post/modprobed-db/image01.jpg"><img src="../assets/img/post/modprobed-db/image01.jpg"></a>

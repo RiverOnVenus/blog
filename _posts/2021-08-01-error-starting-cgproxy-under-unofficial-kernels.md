@@ -2,7 +2,6 @@
 title: 非官方内核下启动cgproxy出错
 categories: [linux,tool,kernel]
 comments: true
-math: false
 ---
 
 <a data-fancybox="gallery" href="../assets/img/post/kernels-cgproxy/image01.png"><img src="../assets/img/post/kernels-cgproxy/image01.png">

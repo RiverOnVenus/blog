@@ -2,7 +2,6 @@
 title: Archlinux的双显卡配置
 categories: [linux]
 comments: true
-math: false
 ---
 
 <a data-fancybox="gallery" href="../assets/img/post/optimus/image01.jpg"><img src="../assets/img/post/optimus/image01.jpg">

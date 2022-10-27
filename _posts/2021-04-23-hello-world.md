@@ -2,7 +2,6 @@
 title: Hello World!
 categories: [dev]
 comments: true
-math: false
 ---
 
 <a data-fancybox="hello_world" href="../assets/img/post/hello-world/hello-world.jpg"><img src="../assets/img/post/hello-world/hello-world.jpg"></a>
