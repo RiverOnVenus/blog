@@ -124,3 +124,7 @@ switching=bbswitch
 # 最后
 
 optimus-manager 目前在我的笔记本电脑上运行良好，尚未发现问题。另外，一定要**认真阅读项目文档**。
+
+# 参考资料
+
+- [https://github.com/Askannz/optimus-manager](https://github.com/Askannz/optimus-manager){:target="blank"}

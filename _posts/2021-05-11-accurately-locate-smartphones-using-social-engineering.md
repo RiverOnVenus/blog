@@ -10,7 +10,7 @@ comments: true
 
 * TOC
 {:toc}
-
+*最后更新时间：Thu Oct 27 09:06:07 PM CST 2022*
 
 # 前言
 
@@ -185,3 +185,7 @@ seeker 成功获取到了目标手机的`经度`、`维度`。点击`Google Maps
 # 最后
 
 这个工具是一个「概念证明」，仅用于教育目的，Seeker 显示了一个恶意网站可以收集关于你和你的设备的哪些数据，以及为什么你不应该点击未知链接和允许重要权限，如位置等。
+
+# 参考资料
+
+- [https://github.com/thewhiteh4t/seeker](https://github.com/thewhiteh4t/seeker){:target="blank"}

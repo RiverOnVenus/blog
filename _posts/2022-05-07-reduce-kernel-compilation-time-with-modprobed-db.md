@@ -8,6 +8,8 @@ comments: true
 
 > Photo by <a href="https://unsplash.com/@aronvisuals?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Aron Visuals</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
+*最后更新时间：Thu Nov 10 12:59:25 PM CST 2022*
+
 自从开始尝试自定义内核，便陷入其中。在内核方面，我是业余的，仅仅是在内核中打上一些我想使用的补丁以及简单修改一些配置。每当主线内核发布或有新的补丁时，我就会重新编译内核。就我的笔记本电脑来说，每次编译内核都会花费一个多小时的时间，而当我使用了  Modprobed-db 后，编译时间显著减少了。
 
 # Modprobed-db是什么？
@@ -125,4 +127,10 @@ bridge
 
 在当前使用的内核上使用一段时间 Modprobed-db 后，再用它编译内核。
 
+随着时间的推移，有些旧的模块可能没用了，使用`modprobed-db rebuild`重构数据库，删除其中过时的模块。
+
 使用 Modprobed-db 构建最小内核是有风险的，记得选择一个稳定的内核备用。
+
+# 参考资料
+
+- man 8 modprobed-db
