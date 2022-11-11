@@ -4,7 +4,7 @@ categories: [code]
 comments: true
 ---
 
-<a data-fancybox="cpu-schedulers" href="../assets/img/post/endianness-little-endian-and-big-endian/samsung-memory-mDP3qpqLIh4-unsplash.jpg"><img src="../assets/img/post/endianness-little-endian-and-big-endian/samsung-memory-mDP3qpqLIh4-unsplash.jpg">
+<a data-fancybox="gallery" href="../assets/img/post/endianness-little-endian-and-big-endian/samsung-memory-mDP3qpqLIh4-unsplash.jpg"><img src="../assets/img/post/endianness-little-endian-and-big-endian/samsung-memory-mDP3qpqLIh4-unsplash.jpg">
 
 >Photo by <a href="https://unsplash.com/@samsungmemory?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Samsung Memory</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Unsplash</a>
 

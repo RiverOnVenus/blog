@@ -4,7 +4,7 @@ categories: [code]
 comments: true
 ---
 
-<a data-fancybox="cpu-schedulers" href="../assets/img/post/link-queue/anne-nygard-Sl69Jw-o0rU-unsplash.jpg"><img src="../assets/img/post/link-queue/anne-nygard-Sl69Jw-o0rU-unsplash.jpg">
+<a data-fancybox="gallery" href="../assets/img/post/link-queue/anne-nygard-Sl69Jw-o0rU-unsplash.jpg"><img src="../assets/img/post/link-queue/anne-nygard-Sl69Jw-o0rU-unsplash.jpg">
 
 >Photo by <a href="https://unsplash.com/@polarmermaid?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Anne Nygård</a> on <a href="https://unsplash.com/s/photos/queue?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Unsplash</a>
 
