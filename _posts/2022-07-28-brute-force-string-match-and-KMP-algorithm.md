@@ -40,7 +40,7 @@ void brute_force_match(char *S, char *T) {
 
 ```c
 //算出KMP的next数组
-void get_next(char T[], int next[]) {
+void get_next(char *T, int *next) {
     int i = 1;
     next[1] = 0; //恒为零
     int j = 0;
@@ -56,7 +56,7 @@ void get_next(char T[], int next[]) {
 }
 
 //KMP匹配算法
-void kmp(char S[], char T[], int next[], int pos) {
+void kmp(char *S, char *T, int *next, int pos) {
     int i = pos; //开始查找的起始位置
     int j = 1;
     while (i <= S[0] && j <= T[0]) {
@@ -113,7 +113,7 @@ void brute_force_match(char *S, char *T) {
 }
 
 //算出KMP的next数组
-void get_next(char T[], int next[]) {
+void get_next(char *T, int *next) {
     int i = 1;
     next[1] = 0; //恒为零
     int j = 0;
@@ -129,7 +129,7 @@ void get_next(char T[], int next[]) {
 }
 
 //KMP匹配算法
-void kmp(char S[], char T[], int next[], int pos) {
+void kmp(char *S, char *T, int *next, int pos) {
     int i = pos; //开始查找的起始位置
     int j = 1;
     while (i <= S[0] && j <= T[0]) {
