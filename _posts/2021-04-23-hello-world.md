@@ -1,6 +1,6 @@
 ---
 title: Hello World!
-categories: [dev]
+categories: [code]
 comments: true
 ---
 

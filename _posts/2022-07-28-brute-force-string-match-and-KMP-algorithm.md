@@ -1,12 +1,12 @@
 ---
 title: 字符串的暴力匹配和KMP算法
-categories: [dev]
+categories: [code]
 comments: true
 ---
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/brute-force-string-match-and-KMP-algorithm/piotr-laskawski-gL7oJLJOb_I-unsplash.jpg"><img src="../assets/img/post/brute-force-string-match-and-KMP-algorithm/piotr-laskawski-gL7oJLJOb_I-unsplash.jpg">
 
-Photo by <a href="https://unsplash.com/@tot87?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Piotr Łaskawski</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Unsplash</a>
+> Photo by <a href="https://unsplash.com/@tot87?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Piotr Łaskawski</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Unsplash</a>
 
 # 什么是暴力匹配？
 

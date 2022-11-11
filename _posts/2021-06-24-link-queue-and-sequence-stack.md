@@ -1,6 +1,6 @@
 ---
 title: 链式队列和顺序栈
-categories: [dev]
+categories: [code]
 comments: true
 ---
 

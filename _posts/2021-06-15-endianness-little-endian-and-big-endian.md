@@ -1,6 +1,6 @@
 ---
 title: 字节顺序──小端序和大端序
-categories: [dev]
+categories: [code]
 comments: true
 ---
 
