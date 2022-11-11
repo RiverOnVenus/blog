@@ -106,7 +106,7 @@ void brute_force_match(char *S, char *T) {
         }
     }
     if (j > T[0])  //匹配成功
-        printf("匹配成功，匹配成功的起始位置是第%d个字符\n", i - T[0]);
+        printf("匹配成功，匹配成功的起始位置是源串的第%d个字符\n", i - T[0]);
     else
         printf("匹配失败\n");
 
@@ -141,7 +141,7 @@ void kmp(char *S, char *T, int *next, int pos) {
         }
     }
     if (j > T[0]) //匹配成功
-        printf("匹配成功，匹配成功的起始位置是第%d个字符\n", i - T[0]);
+        printf("匹配成功，匹配成功的起始位置是源串的第%d个字符\n", i - T[0]);
     else
         printf("匹配失败\n");
 
@@ -192,8 +192,8 @@ int main() {
 ```
 源串：BBC ABCDAB ABCDABCDABDE
 模式串：ABCDABD
-暴力匹配：匹配成功，匹配成功的起始位置是第16个字符
+暴力匹配：匹配成功，匹配成功的起始位置是源串的第16个字符
 next数组为：0 1 1 1 1 2 3 
-KMP: 匹配成功，匹配成功的起始位置是第16个字符
+KMP: 匹配成功，匹配成功的起始位置是源串的第16个字符
 ```
 
