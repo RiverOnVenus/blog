@@ -55,7 +55,7 @@ Little-endian: 0x79abcdef
 Big-endian:    0xefcdab79
 ```
 
-`__builtin_bswap32` 是 [GCC内置函数](https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html){:target="blank"}。
+`__builtin_bswap32` 是 [GCC内置函数](https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/other-built-in-functions-provided-by-gcc.html#_CPPv417__builtin_bswap328uint32_t){:target="blank"}。
 
 > - Built-in Function: *uint16_t* **__builtin_bswap16** *(uint16_t x)*
 >
@@ -76,3 +76,5 @@ Big-endian:    0xefcdab79
 # 参考资料
 
 - [https://stackoverflow.com/questions/19275955/convert-little-endian-to-big-endian](https://stackoverflow.com/questions/19275955/convert-little-endian-to-big-endian){:target="blank"}
+- [https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/other-built-in-functions-provided-by-gcc.html](https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/other-built-in-functions-provided-by-gcc.html){:target="blank"}
+
