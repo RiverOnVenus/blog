@@ -30,7 +30,7 @@ Byte Order:                      Little Endian
 
 # 0x01 大小端的转换
 
-最简单的方法是用`__builtin_bswapXX`函数
+最简单的方法是用`__builtin_bswap32`函数
 
 ```c
 #include <inttypes.h>
@@ -55,7 +55,7 @@ Little-endian: 0x79abcdef
 Big-endian:    0xefcdab79
 ```
 
-`__builtin_bswapXX` 是 [GCC内置函数](https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html){:target="blank"}。
+`__builtin_bswap32` 是 [GCC内置函数](https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html){:target="blank"}。
 
 > - Built-in Function: *uint16_t* **__builtin_bswap16** *(uint16_t x)*
 >
