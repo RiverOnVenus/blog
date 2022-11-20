@@ -56,6 +56,8 @@ L3 Cache:	6.00 MB x 1
 
 Arch Linux [默认内核](https://github.com/archlinux/linux){:target="blank"}加不同的调度器。
 
+内核版本：6.0.7
+
 **测试方法**
 
 使用 [geekbench v5](https://www.geekbench.com/){:target="blank"} 对 CPU 进行性能测试。
@@ -125,6 +127,8 @@ geekbench:
 
 ## CFS
 
+切勿将 5.15 CFS 与 6.0 CFS 混用。后者真的得到了改善。
+
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/CFS-geekbench.png"><img src="../assets/img/post/linux-cpu-schedulers/CFS-geekbench.png"></a>
 
 平均分：Single-Core: 959, Multi-Core: 2919
@@ -165,17 +169,13 @@ geekbench:
 
 - 响应能力：BMQ > PDS > TT--CFS > CacULE > Bore > CFS
 
-> 注：不同的 CPU 调度器在不同的硬件上的表现存在差异。
-
 [这里](https://browser.geekbench.com/user/445125){:target="blank"} 可以看到 geekbench 所有的测试结果，和更详细的系统信息。
 
 # 实际使用感受
 
-从实际使用来看，BMQ 在很多 AMD 用户那里很差劲，甚至会导致冻结桌面，但是在一些 intel 用户那里表现的很好。 Bore 的重点是提供更低的延迟，主要是在重负荷下有更好的响应，它是在 CFS 上进行了一些修改，在游戏上也有更多的 FPS, 得到了很多用户的称赞。BMQ/PDS 大多不适合多任务负载，Bore/TT--CFS 在高负载（编译、渲染）下的体验要比它们好得多。
+在高负载的环境下，BMQ 和 TT--CFS 很丝滑（确信这不是心理作用:joy:），PDS 会有一些明显的卡顿。另外3个则是介于「很丝滑」和「明显卡顿」之间，它们之间实在是没感受都差异。当高负载达到某个程度时，BMQ会冻结桌面。而吞吐方面，区别不大。
 
-> 注：不同的 CPU 调度器在不同的硬件上的表现存在差异。
-
-我的使用感受是，在高负载的环境下，BMQ 和 TT--CFS 很丝滑（我确信这不是心理作用:joy:），PDS 会有一些明显的卡顿。另外3个则是介于「很丝滑」和「明显卡顿」之间，它们之间实在是没感受都差异。而性能方面，我没看到多大的区别，游戏的 FPS 的确有那么几帧差异，但也就那么几帧。在我这小笔记本上也没必要折腾性能。
+BMQ 在大多数 AMD 设备上很差劲，甚至会导致冻结桌面，但是在一些 intel 设备上表现的很好。 Bore 的重点是在高负载环境下提供更低的延迟，有更好的响应，它是在 CFS 上进行了一些修改，吞吐方面与 CFS 几乎一样。BMQ/PDS 大多不适合多任务负载，Bore/TT--CFS 在高负载（编译、渲染）下的体验要比它们好得多。
 
 > 注：不同的 CPU 调度器在不同的硬件上的表现存在差异。
 
