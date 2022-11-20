@@ -129,7 +129,7 @@ geekbench:
 
 ## CFS
 
-6. 0 CFS 与 5.15 CFS 相比，前者真的得到了改善。
+6.0 CFS 与 5.15 CFS 相比，前者真的得到了改善。
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/CFS-geekbench.png"><img src="../assets/img/post/linux-cpu-schedulers/CFS-geekbench.png"></a>
 
