@@ -10,7 +10,9 @@ comments: true
 
 * TOC
 {:toc}
-【注】如果没有特殊需求，使用 NVIDIA 官方的方案是明智的选择，详情见官方文档 [PRIME Render Offload](http://download.nvidia.com/XFree86/Linux-x86_64/435.21/README/primerenderoffload.html){:target="_blank"} 或依云的博客 [NVIDIA PRIME 配置笔记](https://blog.lilydjwg.me/2019/9/3/nvidia-prime-setup.214768.html){:target="blank"}。
+*最后更新时间：Tue Nov 22 06:10:38 PM CST 2022*
+
+【注】如果没有特殊需求，使用 NVIDIA 官方的方案 PRIME render offload 是明智的选择，详情见[官方文档](http://download.nvidia.com/XFree86/Linux-x86_64/525.53/README/primerenderoffload.html){:target="_blank"} 和 [ArchWiki](https://wiki.archlinux.org/title/PRIME#PRIME_render_offload){:target="_blank"}。
 
 # 前言
 
@@ -31,7 +33,7 @@ comments: true
 
 > 使用 NVIDIA PRIME 时，N卡处于待机状态，即使不在上面运行任何应用程序，它也会继续消耗电能。由于N卡会自动降频，因此耗电量相对较低，但仍比仅用核显时高很多。
 
-2022-10-12: 现在笔记本整天接着电源，回到了 NVIDIA 官方的 prime
+2022-10-12: 现在笔记本整天接着电源，改用 NVIDIA 官方的 PRIME render offload
 
 ## 介绍
 
