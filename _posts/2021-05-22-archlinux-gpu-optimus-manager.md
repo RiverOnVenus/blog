@@ -1,5 +1,5 @@
 ---
-title: Archlinux的双显卡配置
+title: Arch Linux 的双显卡配置
 categories: [linux]
 comments: true
 ---

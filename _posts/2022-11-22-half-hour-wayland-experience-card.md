@@ -1,5 +1,5 @@
 ---
-title: 半小时Wayland体验卡
+title: 半小时 Wayland 体验卡
 categories: [linux]
 comments: true
 ---

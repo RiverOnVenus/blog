@@ -1,5 +1,5 @@
 ---
-title: Linux CPU调度器之我见
+title: Linux CPU 调度器之我见
 categories: [linux,kernel]
 comments: true
 ---

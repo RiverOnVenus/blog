@@ -1,5 +1,5 @@
 ---
-title: 非官方内核下启动cgproxy出错
+title: 非官方内核下启动 cgproxy 出错
 categories: [linux,tool,kernel]
 comments: true
 ---

@@ -1,5 +1,5 @@
 ---
-title: 使用Modprobed-db减少内核编译时间
+title: 使用 Modprobed-db 减少内核编译时间
 categories: [linux,tool,kernel]
 comments: true
 ---

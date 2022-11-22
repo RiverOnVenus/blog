@@ -1,5 +1,5 @@
 ---
-title: 字符串的暴力匹配和KMP算法
+title: 字符串的暴力匹配和 KMP 算法
 categories: [code]
 comments: true
 ---
