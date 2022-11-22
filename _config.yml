@@ -37,12 +37,12 @@ plugins:
   - jekyll-seo-tag
   - jekyll-spaceship
 
-jekyll-spaceship:
-  element-processor:
-    css:
-      - a:                                     # Replace all `a` tags
-          props:                               #
-            loading: lazy                      # Replace `loading` value to `lazy`
+# jekyll-spaceship:
+#   element-processor:
+#     css:
+#       - a:                                     # Replace all `a` tags
+#           props:                               #
+#             loading: lazy                      # Replace `loading` value to `lazy`
 
 exclude:
   - README.md
