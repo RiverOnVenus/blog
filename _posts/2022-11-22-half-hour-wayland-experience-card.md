@@ -4,6 +4,10 @@ categories: [linux]
 comments: true
 ---
 
+<a data-fancybox="wayland" href="../assets/img/post/wayland/Wayland_Logo.svg.png"><img src="../assets/img/post/wayland/Wayland_Logo.svg.png">
+
+> Logo from <a href="https://de.wikipedia.org/wiki/Wayland_(Display-Server-Protokoll)#/media/Datei:Wayland_Logo.svg" target="_blank">Wikipedia</a>
+
 好吧，其实没有半小时:upside_down_face:
 
 半小时前：今天开始就转到 Wayland:kissing_closed_eyes:
