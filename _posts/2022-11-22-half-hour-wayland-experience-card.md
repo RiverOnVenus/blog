@@ -14,6 +14,6 @@ comments: true
 
 好吧，是因为我懒，暂时不想去解决:relieved:
 
-于是退回了 X11:yum:
+于是回到了 X11:yum:
 
 好:droplet:一文章:neutral_face:
