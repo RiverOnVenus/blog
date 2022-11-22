@@ -8,7 +8,7 @@ comments: true
 
 >Photo by <a href="https://unsplash.com/@luchox23?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Luis Gonzalez</a> on <a href="https://unsplash.com/s/photos/ryzen?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Unsplash</a>
 
-*最后更新时间：Sun Nov 20 10:05:07 AM CST 2022*
+*最后更新时间：Tue Nov 22 09:49:03 PM CST 2022*
 
 对于各种 CPU 调度器，很多人的看法和得到的反馈不一样。有的人想要“压榨” CPU 的性能，将其发挥到极致，他们通常会因为某个调度器带来的一点点性能提升而高兴；有的人真实的感受到了在高负载环境下系统的响应能力提升；有的人对此嗤之以鼻；有的人无所谓这点性能或响应能力；有的人在不同调度器上得到了负优化；有的人。。。。。。
 
@@ -179,6 +179,55 @@ geekbench:
 
 BMQ 在大多数 AMD 设备上很差劲，甚至会导致冻结桌面，但是在一些 intel 设备上表现的很好。 Bore 的重点是在高负载环境下提供更低的延迟，有更好的响应，它是在 CFS 上进行了一些修改，吞吐方面与 CFS 几乎一样。BMQ/PDS 大多不适合多任务负载，Bore/TT--CFS 在高负载（编译、渲染）下的体验要比它们好得多。
 
-> 注：不同的 CPU 调度器在不同的硬件上的表现存在差异。
+注：不同的 CPU 调度器在不同的硬件上的表现存在差异。
+
+# Q&A
+
+下面是节选的一些有参考价值的问答:speech_balloon:
+
+:one:
+
+Q:
+
+> Which best scheduler of them?
+
+A:
+
+> It's the same old saying: Test against your workload
+
+:two:
+
+Q:
+
+> Unexpectedly about the TT. I.e. it's the best for the desktop right now, but still in the support stage?
+
+A:
+
+> Yes, so far possible. The project is from Hamad, so far I understood he is maybe working again on some updates someday.
+>
+> You cant say the best to anything, it have to suit to your needs, if its cfs, bore,tt,cacule or pds. But so far it showed that TT runs better on older hardware.
+
+:three:
+
+Q:
+
+> Sorry I am sounding ignorant.
+> If a scheduler is giving better results.
+> Why would someone use the other one?
+> Or is it that every kernel specialises in something?
+>
+> How do you deem a scheduler to be best for the majority?
+
+A:
+
+> Thank you for questioning.
+> I say with my greatest respect to Hamad Al Marri, Alfred Chen, Con Kolivas, Ingo Molnar and other great scheduler developers,
+> BORE is not "the best for any possible use."
+> In fact, NO scheduler is known to be "always best for anything," despite all the developers are eagerly trying to create one that is.
+> For some computing demands TT is obviously known to be the best.
+> For some other workloads, BMQ or PDS-mq may work better.
+> Similar that you may find the RT kernel useful to your needs, when some others prefer Voluntary preemption kernel.
+> It is encouraged to find by yourself your best choice.
+> Thank you, and thank you all guys here for sharing the joy.
 
 完。
