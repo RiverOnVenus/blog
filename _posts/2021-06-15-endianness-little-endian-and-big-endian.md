@@ -1,5 +1,5 @@
 ---
-title: 字节顺序──小端序和大端序
+title: 字节顺序——小端序和大端序
 categories: [code]
 comments: true
 ---
@@ -75,6 +75,6 @@ Big-endian:    0xefcdab79
 
 # 参考资料
 
-- [https://stackoverflow.com/questions/19275955/convert-little-endian-to-big-endian](https://stackoverflow.com/questions/19275955/convert-little-endian-to-big-endian){:target="blank"}
-- [https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/other-built-in-functions-provided-by-gcc.html](https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/other-built-in-functions-provided-by-gcc.html){:target="blank"}
+1. [https://stackoverflow.com/questions/19275955/convert-little-endian-to-big-endian](https://stackoverflow.com/questions/19275955/convert-little-endian-to-big-endian){:target="blank"}
+2. [https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/other-built-in-functions-provided-by-gcc.html](https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/other-built-in-functions-provided-by-gcc.html){:target="blank"}
 

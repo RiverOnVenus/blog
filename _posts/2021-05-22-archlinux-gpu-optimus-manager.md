@@ -129,4 +129,4 @@ optimus-manager 目前在我的笔记本电脑上运行良好，尚未发现问�
 
 # 参考资料
 
-- [https://github.com/Askannz/optimus-manager](https://github.com/Askannz/optimus-manager){:target="blank"}
+1. [https://github.com/Askannz/optimus-manager](https://github.com/Askannz/optimus-manager){:target="blank"}

@@ -133,4 +133,4 @@ bridge
 
 # 参考资料
 
-- man 8 modprobed-db
+1. man 8 modprobed-db

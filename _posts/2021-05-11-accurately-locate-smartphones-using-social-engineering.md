@@ -188,4 +188,4 @@ seeker 成功获取到了目标手机的`经度`、`维度`。点击`Google Maps
 
 # 参考资料
 
-- [https://github.com/thewhiteh4t/seeker](https://github.com/thewhiteh4t/seeker){:target="blank"}
+1. [https://github.com/thewhiteh4t/seeker](https://github.com/thewhiteh4t/seeker){:target="blank"}
