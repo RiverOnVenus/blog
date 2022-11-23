@@ -25,7 +25,6 @@ user:
   pic: ../assets/img/avatar.jpg
   picAlt: "RiverOnVenus"
   search: true
- # job: a category-centric theme
   about: true
   key: true
   rss: true
@@ -36,13 +35,6 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-spaceship
-
-# jekyll-spaceship:
-#   element-processor:
-#     css:
-#       - a:                                     # Replace all `a` tags
-#           props:                               #
-#             loading: lazy                      # Replace `loading` value to `lazy`
 
 exclude:
   - README.md
