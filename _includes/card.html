@@ -5,30 +5,10 @@
   -->
  <script>
 
-(async function () {
-  'use strict';
-
-  if (inIframe()) {
-    console.log('iframe中不加载');
-    return false;
-  }
-
   const 引流 = [
-    "https://space.bilibili.com/672328094",
-    "https://www.bilibili.com/video/BV1FZ4y1F7HH",
-    "https://www.bilibili.com/video/BV1FX4y1g7u8",
-    "https://www.bilibili.com/video/BV1aK4y1P7Cg",
-    "https://www.bilibili.com/video/BV17A411V7Uh",
-    "https://www.bilibili.com/video/BV1AV411v7er",
-    "https://www.bilibili.com/video/BV1564y1173Q",
-
-    "https://www.bilibili.com/video/BV1MX4y1N75X",
-    "https://www.bilibili.com/video/BV1ry4y1Y71t",
-    "https://www.bilibili.com/video/BV1Sy4y1n7c4",
-    "https://www.bilibili.com/video/BV1PN411X7QW",
-    "https://www.bilibili.com/video/BV1bi4y1P7Eh",
-    "https://www.bilibili.com/video/BV1vQ4y1Z7C2",
-    "https://www.bilibili.com/video/BV1oU4y1h7Sc",
+    "https://zhui.dev/about",
+    "https://github.com/RiverOnVenus",
+    "https://twitter.com/RiverOnVenus",
   ]
 
   const CUSTOM_CSS = `#pio-container {
@@ -90,13 +70,13 @@
 
   // 用到的库
   const LIBS = [
-    'https://cdn.jsdelivr.net/gh/journey-ad/blog-img@94eb7e2/live2d/lib/pio.css',
-    'https://cdn.jsdelivr.net/npm/greensock@1.20.2/dist/TweenLite.js',
-    'https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js',
-    'https://cdn.jsdelivr.net/npm/pixi.js@5.3.6/dist/pixi.min.js',
-    'https://cdn.jsdelivr.net/npm/pixi-live2d-display@0.3.1/dist/cubism4.min.js',
-    'https://cdn.jsdelivr.net/gh/journey-ad/blog-img@94eb7e2/live2d/lib/pio_sdk4.js',
-    'https://cdn.jsdelivr.net/gh/journey-ad/blog-img@94eb7e2/live2d/lib/pio.js'
+    '../assets/js/live2d/lib/pio.css',
+    '../assets/js/npm/greensock@1.20.2/dist/TweenLite.js',
+    '../assets/js/live2d/sdk-web/cubismcore/live2dcubismcore.min.js',
+    '../assets/js/npm/pixi.js@5.3.6/dist/pixi.min.js',
+    '../assets/js/npm/pixi-live2d-display@0.3.1/dist/cubism4.min.js',
+    '../assets/js/live2d/lib/pio_sdk4.js',
+    '../assets/js/live2d/lib/pio.js'
   ]
 
   const reqArr = LIBS.map(src => loadSource(src))
@@ -106,9 +86,6 @@
 
   // 队列执行完毕后
   doTask.then(() => {
-    // 移除自带看板娘
-    const haruna = document.getElementById('my-dear-haruna-vm')
-    haruna && haruna.remove()
 
     // 初始化pio
     _pio_initialize_pixi()
@@ -416,5 +393,4 @@
     }
   }
 
-})();
 </script>
