@@ -36,7 +36,7 @@ void brute_force_match(char *S, char *T) {
 
 # 什么是KMP算法？
 
-这里直接引用阮一峰老师的文章--[字符串匹配的KMP算法](https://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html){:target="blank"}
+这里直接引用阮一峰老师的文章——[字符串匹配的KMP算法](https://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html){:target="blank"}。
 
 ```c
 //算出KMP的next数组
