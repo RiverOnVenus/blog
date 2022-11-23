@@ -80,7 +80,7 @@ Telegram 同样需要填写一些群组信息。
 
 <a data-fancybox="gallery" href="../assets/img/post/seeker/img14.png"><img src="../assets/img/post/seeker/img14.png">
 
-### 启动ngrok
+### 启动 ngrok
 
 注：ngrok 现在需要注册账户才能使用
 
@@ -144,7 +144,7 @@ Telegram:
 
 注：
 
-> 若由于某些原因（如目标手机未开启 位置信息/GPS 功能等）钓鱼网页未能获取到位置信息，对于Google Drive模板则不会跳转到后面的url网页。
+> 若由于某些原因（如目标手机未开启 位置信息/GPS 功能等）钓鱼网页未能获取到位置信息，对于 Google Drive 模板则不会跳转到后面的url网页。
 
 ## 电脑端
 
@@ -170,7 +170,7 @@ seeker 成功获取到了目标手机的`经度`、`维度`。点击`Google Maps
 
 **一般地，如果目标接受位置渗透，定位精度将精确到大约30米**。 
 
-本次演示的定位精度为40米左右。
+本次演示的定位精度为 40 米左右。
 
 准确度取决于多种因素，如：
 
