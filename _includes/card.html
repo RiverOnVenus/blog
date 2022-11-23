@@ -5,6 +5,14 @@
   -->
  <script>
 
+(async function () {
+  'use strict';
+
+  if (inIframe()) {
+    console.log('iframe中不加载');
+    return false;
+  }
+
   const 引流 = [
     "https://zhui.dev/about",
     "https://github.com/RiverOnVenus",
@@ -393,4 +401,5 @@
     }
   }
 
+})();
 </script>
