@@ -10,7 +10,7 @@ comments: true
 
 * TOC
 {:toc}
-*最后更新时间：Thu Oct 27 09:06:07 PM CST 2022*
+*最后更新时间：Thu Nov 24 10:17:01 PM CST 2022*
 
 # 前言
 
@@ -22,7 +22,7 @@ Seeker 背后的概念很简单，就像我们用钓鱼网页来获取凭证一�
 
 # 安装
 
-**一定要在 venv 中进行**
+安装前先检查脚本内容，建议 python 项目在 venv 中进行。
 
 ```bash
 git clone https://github.com/thewhiteh4t/seeker.git
