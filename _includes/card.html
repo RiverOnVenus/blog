@@ -78,13 +78,13 @@
 
   // 用到的库
   const LIBS = [
-    '../assets/js/live2d/lib/pio.css',
+    '../assets/live2d/lib/pio.css',
     '../assets/js/npm/greensock@1.20.2/dist/TweenLite.js',
-    '../assets/js/live2d/sdk-web/cubismcore/live2dcubismcore.min.js',
+    '../assets/js/sdk-web/cubismcore/live2dcubismcore.min.js',
     '../assets/js/npm/pixi.js@5.3.6/dist/pixi.min.js',
     '../assets/js/npm/pixi-live2d-display@0.3.1/dist/cubism4.min.js',
-    '../assets/js/live2d/lib/pio_sdk4.js',
-    '../assets/js/live2d/lib/pio.js'
+    '../assets/live2d/lib/pio_sdk4.js',
+    '../assets/live2d/lib/pio.js'
   ]
 
   const reqArr = LIBS.map(src => loadSource(src))
@@ -122,8 +122,8 @@
     },
     model: [
       // 待加载的模型列表
-      "https://cdn.jsdelivr.net/gh/journey-ad/blog-img/live2d/Diana/Diana.model3.json",
-      "https://cdn.jsdelivr.net/gh/journey-ad/blog-img/live2d/Ava/Ava.model3.json",
+      "../assets/live2d/Diana/Diana.model3.json",
+      "../assets/live2d/Ava/Ava.model3.json",
     ],
     tips: true, // 时间问好
     onModelLoad: onModelLoad // 模型加载完成回调
