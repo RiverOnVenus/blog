@@ -11,14 +11,14 @@ title: Search
 <ul id="results-container"></ul>
 
 <!-- script pointing to jekyll-search.js -->
-<script src="/assets/js/simple-jekyll-search.min.js"></script>
+<script src="./assets/js/search/simple-jekyll-search.min.js"></script>
 
 
 <script>
 SimpleJekyllSearch({
     searchInput: document.getElementById('search-input'),
     resultsContainer: document.getElementById('results-container'),
-    json: '/assets/search.json',
+    json: './assets/json/search.json',
     searchResultTemplate: '<ul><li><a href="{url}" title="{desc}"><strong>{title}</strong></a></li></ul>',
     noResultsText: '<ul><li><strong> result found!</strong></li></ul>',
     limit: 20,
