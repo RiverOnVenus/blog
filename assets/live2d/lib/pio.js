@@ -168,20 +168,9 @@ var Paul_Pio = function (prop) {
                 window.open(prop.content.link || "https://paugram.com/coding/add-poster-girl-with-plugin.html");
             };
             elements.info.onmouseover = function () {
-                modules.render("想了解更多关于我的信息吗？");
+                modules.render("想了解更多关于追的信息吗？");
             };
             current.menu.appendChild(elements.info);
-
-            // 夜间模式
-            if (prop.night) {
-                elements.night.onclick = function () {
-                    eval(prop.night);
-                };
-                elements.night.onmouseover = function () {
-                    modules.render("夜间点击这里可以保护眼睛呢");
-                };
-                current.menu.appendChild(elements.night);
-            }
 
             // 关闭看板娘
             elements.close.onclick = function () {
