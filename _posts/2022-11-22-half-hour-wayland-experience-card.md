@@ -20,4 +20,4 @@ comments: true
 
 于是回到了 X11:yum:
 
-好:droplet:一文章:neutral_face:
+<span class="spoiler" >好:droplet:一文章:neutral_face:</span>
