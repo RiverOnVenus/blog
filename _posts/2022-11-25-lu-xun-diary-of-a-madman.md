@@ -1,5 +1,5 @@
 ---
-title: 《狂人日记》
+title: 鲁迅《狂人日记》
 categories: [misc]
 comments: true
 ---
