@@ -7,7 +7,7 @@ url: https://zhui.dev
 permalink: /:year-:month/:title
 timezone: Asia/Shanghai
 
-favicon: ../assets/img/favicon.ico
+favicon: /assets/img/favicon.ico
 
 #google_analytics: 
 
@@ -22,7 +22,7 @@ giscus: true
 
 user:
   name: RiverOnVenus(追)
-  pic: ../assets/img/avatar.jpg
+  pic: /assets/img/avatar.jpg
   picAlt: "RiverOnVenus"
   search: true
   about: true

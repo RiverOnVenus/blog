@@ -1,32 +1,17 @@
 <!DOCTYPE html>
 <html>
-
-{% include head.html %}
-
-<body>
-
-{% include snow.html %}
-
-  <div class="content">
-
-    {% include header.html %}
-
-    {% include mobile_menu.html %}
-    
-    <main class="main">
-
-    {{ content }}
-
-    </main>
-
-  </div>
-  
-  {% include js.html %}
-  
-  {% include card.html %}
-  
-  {% include footer.html %}
-  
-</body>
-
+   {% include head.html %}
+   <body>
+      {% include snow.html %}
+      <div class="content">
+         {% include header.html %}
+         {% include mobile_menu.html %}
+         <main class="main">
+            {{ content }}
+         </main>
+      </div>
+      {% include js.html %}
+      {% include card.html %}
+      {% include footer.html %}
+   </body>
 </html>
