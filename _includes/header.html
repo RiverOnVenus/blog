@@ -46,17 +46,17 @@
             </li>
          </ul>
          {% endif %}
-         {% if site.user.key %}
-         <ul class="nav_list">
-            <li class="nav_item">
-               <a href="https://github.com/riveronvenus.gpg">key</a>
-            </li>
-         </ul>
-         {% endif %}
          {% if site.user.feed %}
          <ul class="nav_list">
             <li class="nav_item">
                <a href="{{ site.baseurl }}/feed.xml">feed</a>
+            </li>
+         </ul>
+         {% endif %}
+          {% if site.user.key %}
+         <ul class="nav_list">
+            <li class="nav_item">
+               <a href="https://github.com/riveronvenus.gpg">key</a>
             </li>
          </ul>
          {% endif %}
