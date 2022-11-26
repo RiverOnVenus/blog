@@ -368,7 +368,7 @@ img {
         display: none;
 
         &+div {
-            //background: url('https://zhui.dev/assets/img/light.png') no-repeat  center;
+            background: url('/assets/img/s.png') no-repeat  center;
             width: 30px;
             height: 30px;
             border-radius: 50%;
@@ -388,7 +388,7 @@ img {
 
             &:after {
                 
-                //background: url('https://zhui.dev/assets/img/dark.png') no-repeat center;
+                background: url('/assets/img/m.png') no-repeat center;
                 border-radius: 50%;
                 content: '';
                 width: 30px;
