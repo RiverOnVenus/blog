@@ -1,8 +1,14 @@
 title: 79号桃花源
 #description: 
-author: zhui (RiverOnVenus)
-#email: 
+baseurl: "" # the subpath of your site, e.g. /blog
 url: https://zhui.dev
+
+author:
+  name: zhui (RiverOnVenus)
+  email: "RiverOnVenus囧gmail点com"
+
+twitter:
+  username: RiverOnVenus
 
 permalink: /:year-:month/:title
 timezone: Asia/Shanghai
@@ -12,11 +18,8 @@ favicon: /assets/img/favicon.ico
 #google_analytics: 
 
 #disqus_shortname:
-
 #gitalk:
-
 giscus: true
-
 #cusdis:
     #app_id:
 
@@ -26,8 +29,8 @@ user:
   picAlt: "RiverOnVenus"
   search: true
   about: true
+  feed: true
   key: true
-  rss: true
 
 plugins:
   - jekyll-include-cache
@@ -47,7 +50,7 @@ defaults:
       type: posts
     values:
       layout: post
-      comment: true   
+      comment: true
 
 markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 markdown: kramdown 
