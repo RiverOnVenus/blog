@@ -39,6 +39,13 @@ plugins:
   - jekyll-seo-tag
   - jekyll-spaceship
 
+jekyll-spaceship:
+  element-processor:
+    css:
+      - a:
+          props:
+            loading: lazy
+
 exclude:
   - README.md
   - LICENSE
