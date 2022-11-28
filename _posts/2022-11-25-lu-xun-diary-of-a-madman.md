@@ -1,6 +1,6 @@
 ---
 title: 鲁迅《狂人日记》
-categories: [misc]
+categories: [writing]
 comments: true
 ---
 
