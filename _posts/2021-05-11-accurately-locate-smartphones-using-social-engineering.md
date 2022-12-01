@@ -10,7 +10,7 @@ comments: true
 
 * TOC
 {:toc}
-*最后更新时间：Thu Nov 24 10:17:01 PM CST 2022*
+*最后更新时间：Thu Dec  1 07:42:35 PM CST 2022*
 
 # 前言
 
@@ -50,7 +50,7 @@ python seeker.py
 
 <a data-fancybox="gallery" href="../assets/img/post/seeker/img02.png"><img src="../assets/img/post/seeker/img02.png">
 
-接下来就是选择钓鱼模板，默认为四选一。
+接下来就是选择钓鱼模板，默认为四选一。（更新：现在有了更多模板。）
 
 > 模板根据实际情况进行选择或更改、制作
 
@@ -82,7 +82,13 @@ Telegram 同样需要填写一些群组信息。
 
 ### 启动 ngrok
 
-注：ngrok 现在需要注册账户才能使用
+注：ngrok 现在需要注册账户才能使用，按照指引配置好 `ngrok.yml` 后即可使用。
+
+```bash
+➜ cat ~/.config/ngrok/ngrok.yml
+version: "2"
+authtoken: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
 
 再开一个终端，启动 ngrok。
 
