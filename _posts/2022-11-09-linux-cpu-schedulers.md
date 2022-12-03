@@ -233,6 +233,8 @@ Bore 在最近发布的版本上 ( >= 1.7.x) 做了很多改进，正如它的�
 
 另外，BMQ 在本次测量响应时冻结了桌面，可能是负载过大造成的。
 
+同样，[这里](https://browser.geekbench.com/user/445125){:target="blank"} 可以看到 geekbench 所有的测试结果。
+
 # Q&A
 
 下面是节选的一些有参考价值的问答:speech_balloon:
