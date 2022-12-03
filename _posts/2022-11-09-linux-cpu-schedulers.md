@@ -193,7 +193,7 @@ BMQ 在大多数 AMD 设备上很差劲，甚至会导致冻结桌面，但是�
 jitterdebugger -D 10m -c 'stress-ng --cpu-method loop -c 256'
 ```
 
-# Bore 1.7.3
+## Bore 1.7.3
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/Bore-geekbench-2.png"><img src="../assets/img/post/linux-cpu-schedulers/Bore-geekbench-2.png">
 
@@ -203,7 +203,7 @@ jitterdebugger -D 10m -c 'stress-ng --cpu-method loop -c 256'
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/BORE-plot-256.png"><img src="../assets/img/post/linux-cpu-schedulers/BORE-plot-256.png">
 
-# CFS
+## CFS
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/CFS-geekbench-2.png"><img src="../assets/img/post/linux-cpu-schedulers/CFS-geekbench-2.png">
 
@@ -213,7 +213,7 @@ jitterdebugger -D 10m -c 'stress-ng --cpu-method loop -c 256'
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/CFS-plot-256.png"><img src="../assets/img/post/linux-cpu-schedulers/CFS-plot-256.png">
 
-# TT--CFS
+## TT--CFS
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/TT-geekbench-2.png"><img src="../assets/img/post/linux-cpu-schedulers/TT-geekbench-2.png">
 
@@ -223,7 +223,7 @@ jitterdebugger -D 10m -c 'stress-ng --cpu-method loop -c 256'
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/TT-plot-256.png"><img src="../assets/img/post/linux-cpu-schedulers/TT-plot-256.png">
 
-# 测量结果
+## 测量结果
 
 - 单核性能：TT--CFS > CFS > Bore
 - 多核性能：Bore > CFS > TT--CFS
