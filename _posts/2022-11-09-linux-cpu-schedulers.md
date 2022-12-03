@@ -8,7 +8,7 @@ comments: true
 
 >Photo by <a href="https://unsplash.com/@luchox23?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Luis Gonzalez</a> on <a href="https://unsplash.com/s/photos/ryzen?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Unsplash</a>
 
-*最后更新时间：Tue Nov 22 09:49:03 PM CST 2022*
+*最后更新时间：Sat Dec  3 11:07:05 PM CST 2022*
 
 对于各种 CPU 调度器，很多人的看法和得到的反馈不一样。有的人想要“压榨” CPU 的性能，将其发挥到极致，他们通常会因为某个调度器带来的一点点性能提升而高兴；有的人真实的感受到了在高负载环境下系统的响应能力提升；有的人对此嗤之以鼻；有的人无所谓这点性能或响应能力；有的人在不同调度器上得到了负优化；有的人......
 
@@ -17,12 +17,12 @@ comments: true
 - [Baby](https://github.com/hamadmarri/Baby-CPU-Scheduler){:target="blank"} - A very basic and lightweight yet very performant CPU scheduler. Can be used for learning purposes as a base ground CPU scheduler on Linux.
 - [BFS](https://www.phoronix.com/scan.php?page=search&q=Brain+Fuck+Scheduler){:target="blank"} - BFS (Brain Fuck Scheduler) is a process scheduler designed for the linux kernel as an alternative to the Completely Fair Scheduler.
 - [BMQ](https://gitlab.com/alfredchen/linux-prjc){:target="blank"} - BMQ (BitMap Queue) is a linux CPU scheduler, inspired By Google's Zircon.
-- [Bore](https://github.com/firelzrd/bore-scheduler){:target="blank"} - BORE (Burst-Oriented Response Enhancer) CPU Schedule
+- [Bore](https://github.com/firelzrd/bore-scheduler){:target="blank"} - BORE (Burst-Oriented Response Enhancer) CPU Scheduler.
 - [CacULE](https://github.com/hamadmarri/cacule-cpu-scheduler){:target="blank"} - The CacULE CPU scheduler is based on interactivity score mechanism. The interactivity score is inspired by the ULE scheduler (FreeBSD scheduler).
 - [CFS](https://www.kernel.org/doc/html/latest/scheduler/sched-design-CFS.html){:target="blank"} - CFS (Completely Fair Scheduler) is the new desktop process scheduler implemented in Linux 2.6.23 as a replacement for the previous vanilla scheduler’s SCHED_OTHER interactivity code. It is the current linux task scheduler.
 - [MuQSS](http://ck.kolivas.org/patches/muqss/sched-MuQSS.txt){:target="blank"} - Multiple Queue Skiplist Scheduler (MuQSS) is a rewritten implementation of the Brain Fuck Scheduler (BFS) concept.
 - [PDS](https://gitlab.com/alfredchen/linux-prjc){:target="blank"} - PDS (Priority and Deadline based Skiplist multiple queue scheduler) is a linux CPU scheduler whose design principles are to be a simple CPU process scheduler yet efficient and scalable.
-- [TT](https://github.com/hamadmarri/TT-CPU-Scheduler){:target="blank"} - Task Type (TT) is an alternative CPU Scheduler for linux.
+- [TT](https://github.com/hamadmarri/TT-CPU-Scheduler){:target="blank"} - The goal of the Task Type (TT) scheduler is to detect tasks types based  on their behaviours and control the schedulling based on their types.
 
 （按照字母排序）
 
@@ -180,6 +180,58 @@ geekbench:
 BMQ 在大多数 AMD 设备上很差劲，甚至会导致冻结桌面，但是在一些 intel 设备上表现的很好。 Bore 的重点是在高负载环境下提供更低的延迟，有更好的响应，它是在 CFS 上进行了一些修改，吞吐方面与 CFS 几乎一样。BMQ/PDS 大多不适合多任务负载，Bore/TT--CFS 在高负载（编译、渲染）下的体验要比它们好得多。
 
 注：不同的 CPU 调度器在不同的硬件上的表现存在差异。
+
+# 2022-12-03 更新
+
+在 6.0.11 内核上再次对 Bore, CFS, TT--CFS 进行测试。
+
+测试方法和上面基本相同。
+
+但响应测试加大了负载，改为了：
+
+```
+jitterdebugger -D 10m -c 'stress-ng --cpu-method loop -c 256'
+```
+
+# Bore 1.7.3
+
+<a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/Bore-geekbench-2.png"><img src="../assets/img/post/linux-cpu-schedulers/Bore-geekbench-2.png">
+
+平均分：Single-Core: 957, Multi-Core: 2949.33
+
+延迟直方图：
+
+<a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/BORE-plot-256.png"><img src="../assets/img/post/linux-cpu-schedulers/BORE-plot-256.png">
+
+# CFS
+
+<a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/CFS-geekbench-2.png"><img src="../assets/img/post/linux-cpu-schedulers/CFS-geekbench-2.png">
+
+平均分：Single-Core: 957.66, Multi-Core: 2909.33
+
+延迟直方图：
+
+<a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/CFS-plot-256.png"><img src="../assets/img/post/linux-cpu-schedulers/CFS-plot-256.png">
+
+# TT--CFS
+
+<a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/TT-geekbench-2.png"><img src="../assets/img/post/linux-cpu-schedulers/TT-geekbench-2.png">
+
+平均分：Single-Core: 958.66, Multi-Core: 2878.66
+
+延迟直方图：
+
+<a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/TT-plot-256.png"><img src="../assets/img/post/linux-cpu-schedulers/TT-plot-256.png">
+
+# 测量结果
+
+- 单核性能：TT--CFS > CFS > Bore
+- 多核性能：Bore > CFS > TT--CFS
+- 响应能力：TT--CFS > Bore > CFS
+
+Bore 在最近发布的版本上 ( >= 1.7.x) 做了很多改进，正如它的作者所说，Bore 的吞吐明显有了提高，响应略微高于 CFS，测量结果也验证了这一点。Bore 的单次多核分数达到了 2953 (这是这台机器上目前测量到的最高分数，在上一次测量中 PDS 最高也达到了 2953)。在响应方面 TT 仍然表现最好，它的吞吐量较低也在意料之中。CFS 倒是没有明显的变化。
+
+另外，BMQ 在本次测量响应时冻结了桌面，可能是负载过大造成的。
 
 # Q&A
 
