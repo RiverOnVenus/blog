@@ -8,7 +8,7 @@ comments: true
 
 >Photo by <a href="https://unsplash.com/@luchox23?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Luis Gonzalez</a> on <a href="https://unsplash.com/s/photos/ryzen?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Unsplash</a>
 
-*最后更新时间：Sat Dec  3 11:07:05 PM CST 2022*
+*最后更新时间：Sat Dec 10 11:13:09 AM CST 2022*
 
 对于各种 CPU 调度器，很多人的看法和得到的反馈不一样。有的人想要“压榨” CPU 的性能，将其发挥到极致，他们通常会因为某个调度器带来的一点点性能提升而高兴；有的人真实的感受到了在高负载环境下系统的响应能力提升；有的人对此嗤之以鼻；有的人无所谓这点性能或响应能力；有的人在不同调度器上得到了负优化；有的人......
 
@@ -17,7 +17,7 @@ comments: true
 - [Baby](https://github.com/hamadmarri/Baby-CPU-Scheduler){:target="blank"} - A very basic and lightweight yet very performant CPU scheduler. Can be used for learning purposes as a base ground CPU scheduler on Linux.
 - [BFS](https://www.phoronix.com/scan.php?page=search&q=Brain+Fuck+Scheduler){:target="blank"} - BFS (Brain Fuck Scheduler) is a process scheduler designed for the linux kernel as an alternative to the Completely Fair Scheduler.
 - [BMQ](https://gitlab.com/alfredchen/linux-prjc){:target="blank"} - BMQ (BitMap Queue) is a linux CPU scheduler, inspired By Google's Zircon.
-- [Bore](https://github.com/firelzrd/bore-scheduler){:target="blank"} - BORE (Burst-Oriented Response Enhancer) CPU Scheduler.
+- [Bore](https://github.com/firelzrd/bore-scheduler){:target="blank"} - BORE (Burst-Oriented Response Enhancer) is a modification to the Completely Fair Scheduler, the Linux default CPU scheduler.
 - [CacULE](https://github.com/hamadmarri/cacule-cpu-scheduler){:target="blank"} - The CacULE CPU scheduler is based on interactivity score mechanism. The interactivity score is inspired by the ULE scheduler (FreeBSD scheduler).
 - [CFS](https://www.kernel.org/doc/html/latest/scheduler/sched-design-CFS.html){:target="blank"} - CFS (Completely Fair Scheduler) is the new desktop process scheduler implemented in Linux 2.6.23 as a replacement for the previous vanilla scheduler’s SCHED_OTHER interactivity code. It is the current linux task scheduler.
 - [MuQSS](http://ck.kolivas.org/patches/muqss/sched-MuQSS.txt){:target="blank"} - Multiple Queue Skiplist Scheduler (MuQSS) is a rewritten implementation of the Brain Fuck Scheduler (BFS) concept.
