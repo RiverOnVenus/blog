@@ -11,3 +11,4 @@ group :jekyll_plugins do
 end
 
 gem "webrick"
+gem "jekyll-sass-converter", "~> 2.0"
