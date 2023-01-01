@@ -30,7 +30,7 @@ comments: true
 
 Boot menu 空空如也。
 
-好吧，我意识到那颗孤独的螺丝不简单，于是我把它拿出来仔细看了一下:facepunch:
+好吧，我意识到那颗孤独的螺丝不简单，于是我把它拿出来仔细看了一下。
 
 <a data-fancybox="gallery" href="../assets/img/post/my-old-buddy/img03.jpg"><img src="../assets/img/post/my-old-buddy/img03.jpg">
 
