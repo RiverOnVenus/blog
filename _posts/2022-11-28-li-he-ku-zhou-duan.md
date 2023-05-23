@@ -1,5 +1,5 @@
 ---
-title: 【转】李贺《苦昼短》
+title: [转] 李贺《苦昼短》
 categories: [writing]
 comments: true
 ---
