@@ -1,5 +1,5 @@
 ---
-title: [转] 鲁迅《狂人日记》
+title: 【转】鲁迅《狂人日记》
 categories: [writing]
 comments: true
 ---
