@@ -8,8 +8,8 @@ comments: true
 
 1. 问题：MIUI EU 智能卡中设置「双击电源键唤起卡面页面」程序崩溃
 2. 解决方法：把「小米智能卡」com.miui.tsmclient 转为系统应用
-3. 附件：Magisk 模块 [TsmclientPatch.zip](https://drive.google.com/file/d/1-1tn_ohRvQZUVSR5IhHJ3qEr3y-C28pb/view?usp=drivesdk){:target="blank"}
-3. 注：刷模块前需要先安装「小米智能卡」
+3. 附件：Magisk 模块 [TsmclientPatch.zip](https://drive.google.com/file/d/1-jzNw-d5V7uUS_sfoCpS0-qu2B_T4bnR/view?usp=drivesdk){:target="blank"}
+3. 注：刷模块前需要先安装「小米智能卡」app
 
 > 刷任何模块之前都应该拆开看看内容，以及做好救砖的准备。这个模块会把「小米智能卡」com.miui.tsmclient 转为系统应用
 
