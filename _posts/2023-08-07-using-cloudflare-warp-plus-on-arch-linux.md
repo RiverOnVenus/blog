@@ -10,7 +10,7 @@ comments: true
 
 # 安装
 
-从 AUR 上或者信得过的第三方仓库安装         
+从 AUR 上或者信得过的第三方仓库安装  
 
 ```
 ➜ paru -Ss cloudflare-warp-bin
@@ -22,7 +22,7 @@ aur/cloudflare-warp-bin 2023.7.40-1 [+41 ~3.15] [Installed]
 
 # 使用
 
-先启动 warp-svc server，第一次使用需要先注册，因为默认是全局代理，可以选择设置为代理模式，然后连接，最后设置保持连接。
+先启动 warp-svc server，第一次使用需要先注册，因为默认是全局代理，可以选择设置为代理模式，然后连接。
 
 ```
 ➜ sudo systemctl start warp-svc.service // 启动服务
@@ -34,9 +34,6 @@ Success
 Success
 
 ➜ warp-cli connect // 连接
-Success
-
-➜ warp-cli enable-always-on // 保持连接
 Success
 ```
 
