@@ -22,7 +22,7 @@ aur/cloudflare-warp-bin 2023.7.40-1 [+41 ~3.15] [Installed]
 
 # 使用
 
-先启动 warp-svc server，第一次使用需要先注册，因为默认是全局代理，可以选择设置为代理模式，然后连接。
+先启动 warp-svc server，第一次使用需要先注册，然后连接
 
 ```
 ➜ sudo systemctl start warp-svc.service // 启动服务
@@ -30,10 +30,29 @@ aur/cloudflare-warp-bin 2023.7.40-1 [+41 ~3.15] [Installed]
 ➜ warp-cli register // 注册
 Success
 
-➜ warp-cli set-mode proxy // 默认端口是 40000, 127.0.0.1:40000
-Success
-
 ➜ warp-cli connect // 连接
+Success
+```
+
+mode 有多种，根据需求设置
+
+```
+➜ warp-cli set-mode -h
+Set the mode
+
+Usage: warp-cli set-mode <MODE>
+
+Arguments:
+  <MODE>  [possible values: warp, doh, warp+doh, dot, warp+dot, proxy, tunnel_only]
+
+Options:
+  -h, --help  Print help
+```
+
+我需要 proxy 模式
+
+```
+➜ warp-cli set-mode proxy // 默认端口是 40000, 127.0.0.1:40000
 Success
 ```
 
