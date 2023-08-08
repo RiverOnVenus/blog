@@ -1,6 +1,6 @@
 ---
 title: 在 Arch Linux 上使用 Cloudflare WARP+
-categories: [tool]
+categories: [linux,tool]
 comments: true
 ---
 
@@ -22,7 +22,9 @@ aur/cloudflare-warp-bin 2023.7.40-1 [+41 ~3.15] [Installed]
 
 # 使用
 
-只需要几个命令就能使用，先启动 `warp-svc.server`，第一次使用时需要 `register` 进行身份验证，然后 `connect` 将启用客户端，创建从设备到 Cloudflare 网络的 WireGuard 隧道。
+## WARP
+
+只需要 3 个命令就能使用 WARP，先启动 `warp-svc.server`，第一次使用时需要 `register` 进行身份验证，然后 `connect` 将启用客户端，创建从设备到 Cloudflare 网络的 WireGuard 隧道。
 
 ```
 ➜ sudo systemctl start warp-svc.service // 启动服务
@@ -34,7 +36,7 @@ Success
 Success
 ```
 
-此时查看帐户信息可以看到 `Account type: Free`，此时并不是 WARP+，而是 WARP
+此时查看帐户信息可以看到 `Account type: Free`
 
 ```
 ➜ warp-cli account
@@ -42,7 +44,20 @@ Account type: Free
 ...
 ```
 
-需要去 [Warp+ Bot](https://t.me/generatewarpplusbot){:target="blank"} 获得 WARP+ **License Key**，然后 `set-license`
+通过 cloudflare trace 看到 `warp=on`
+
+```
+➜ curl https://www.cloudflare.com/cdn-cgi/trace/
+...
+warp=on
+...
+```
+
+至此 WARP 就可以使用了。
+
+## WARP+
+
+使用  WARP+ 需要去 [Warp+ Bot](https://t.me/generatewarpplusbot){:target="blank"} 获得 **License Key**，然后 `set-license`使用 Key
 
 ```
 ❯ warp-cli set-license xxxxxxxx-xxxxxxxx-xxxxxxxx // 得到的 License Key
@@ -59,7 +74,7 @@ Quota: 24598562000000000
 Premium Data: 24598562000000000
 ```
 
-还可以通过 cloudflare trace 看到 `warp=plus`
+通过 cloudflare trace 看到 `warp=plus`
 
 ```
 ➜ curl https://www.cloudflare.com/cdn-cgi/trace/
@@ -67,6 +82,10 @@ Premium Data: 24598562000000000
 warp=plus
 ...
 ```
+
+至此 WARP+ 就可以使用了。
+
+## MODE
 
 mode 有多种，根据需求设置
 
@@ -111,7 +130,7 @@ Success
 
 # 使用体验
 
-起初我主要用来看视频，因为买的节点太贵了，消耗不起 : ( ，现在基本一直用 WARP+ ，只有在它访问不了某些服务或速度不行时才用节点。速度大多数时候是很快的，看视频绰绰有余，当然也有很慢的时候。在 win 和 android 上也在用 ，在 android 上几乎是 24h 挂着，因为它启动后会一直运行，除非手动关闭，偶尔会被杀掉。WARP+ 帮我省了一大笔钱 :D
+起初我主要用来看视频和下载大文件，因为买的节点太贵了，消耗不起 : ( ，现在基本一直用 WARP+ ，只有在它访问不了某些服务或速度太慢时才用节点。速度大多数时候是很快的，看视频绰绰有余，当然也有很慢的时候。在 win 和 android 上也在用 ，在 android 上几乎是 24h 挂着，因为它启动后会一直运行，除非手动关闭，偶尔会被杀掉。WARP+ 帮我省了一大笔钱 :D
 
 # 参考资料
 
