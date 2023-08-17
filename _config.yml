@@ -4,7 +4,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: https://zhui.dev
 
 author:
-  name: 追
+  name: Mr. Error 追
   email: "RiverOnVenus囧gmail点com"
 
 twitter:
@@ -24,7 +24,7 @@ giscus: true
     #app_id:
 
 user:
-  name: 追
+  name: Mr. Error 追
   pic: /assets/img/avatar.jpg
   picAlt: "RiverOnVenus"
   search: true
