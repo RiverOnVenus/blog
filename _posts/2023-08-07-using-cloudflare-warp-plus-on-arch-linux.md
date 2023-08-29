@@ -132,6 +132,10 @@ Success
 
 起初我主要用来看视频和下载大文件，因为买的节点太贵了，消耗不起 : ( ，现在基本一直用 WARP+ ，只有在它访问不了某些服务或速度太慢时才用节点。速度大多数时候是很快的，看视频绰绰有余，当然也有很慢的时候。在 win 和 android 上也在用 ，在 android 上几乎是 24h 挂着，因为它启动后会一直运行，除非手动关闭，偶尔会被杀掉。WARP+ 帮我省了一大笔钱 :D
 
+-----
+
+最近体验不太好，只能用来发发消息之类的，日用还是挂节点舒服，WARP 就用来当备用的吧。
+
 # 参考资料
 
 1. [https://developers.cloudflare.com/warp-client/get-started/linux/](https://developers.cloudflare.com/warp-client/get-started/linux/){:target="blank"}
