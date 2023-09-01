@@ -4,6 +4,8 @@ categories: [linux,tool]
 comments: true
 ---
 
+WARP+ 是 Cloudflare 提供的一项网络加速服务，用于改善互联网连接的速度和安全性。WARP+ 旨在通过优化网络路径，减少延迟，并提供更快的网络连接体验。
+
 这里说的 WARP+ 属于 WARP+ Limited，流量是有限的，通过推广获得免费的服务，但是通过 Warp+ Bot 可以获得 24.59PB 流量，也可以说是 Unlimited 了。而真正的 WARP+ Unlimited 属于付费服务。
 
 关于它们的区别：[What is the difference between WARP, WARP+, and WARP+ Unlimited?](https://support.cloudflarewarp.com/hc/en-us/articles/360025731113-What-is-the-difference-between-WARP-WARP-and-WARP-Unlimited-){:target="blank"}
@@ -130,11 +132,7 @@ Success
 
 # 使用体验
 
-起初我主要用来看视频和下载大文件，因为买的节点太贵了，消耗不起 : ( ，现在基本一直用 WARP+ ，只有在它访问不了某些服务或速度太慢时才用节点。速度大多数时候是很快的，看视频绰绰有余，当然也有很慢的时候。在 win 和 android 上也在用 ，在 android 上几乎是 24h 挂着，因为它启动后会一直运行，除非手动关闭，偶尔会被杀掉。WARP+ 帮我省了一大笔钱 :D
-
------
-
-最近体验不太好，只能用来发发消息之类的，日用还是挂节点舒服，WARP 就用来当备用的吧。
+日用勉强，更适合备用。
 
 # 参考资料
 
