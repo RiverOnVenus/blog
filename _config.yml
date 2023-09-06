@@ -15,7 +15,7 @@ timezone: Asia/Shanghai
 
 favicon: /assets/img/favicon.ico
 
-#google_analytics: 
+google_analytics: G-S5EFHRZ8YD
 
 #disqus_shortname:
 #gitalk:
