@@ -133,5 +133,5 @@ bridge
 
 # 参考资料
 
-1. [https://wiki.archlinux.org/index.php/Modprobed-db](https://wiki.archlinux.org/index.php/Modprobed-db)
+1. [https://wiki.archlinux.org/index.php/Modprobed-db](https://wiki.archlinux.org/index.php/Modprobed-db){:target="blank"}
 1. man 8 modprobed-db
