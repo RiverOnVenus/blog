@@ -10,4 +10,4 @@ comments: true
 
 没想到今晚 Magisk Delta 更到 v26.1 了，更没想到作者说 : "Switched to KernelSU on my primary device. Still use Magisk on secondary device."
 
-EU 以前不需要模块就能过 Play Integrity 和 SafetyNet, 现在需要安装 [kdrag0n/safetynet-fix](kdrag0n/safetynet-fix){:target="blank"} 才行。
+EU 以前不需要模块就能过 Play Integrity 和 SafetyNet, 现在需要安装 [chiteroman/PlayIntegrityFix](https://github.com/chiteroman/PlayIntegrityFix){:target="blank"} 才行。
