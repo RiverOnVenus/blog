@@ -13,16 +13,16 @@
 /* 0. Variables
    ========================================================================== */
 
-@mixin darkMode {
-    --bg_color: #FDDB29;
-    --header_bg: #FDDB29;
+@mixin lightMode {
+    --bg_color: #FFCC00;
+    --header_bg: #fece0d;
     --content_bg: #FDDB29;
     --archive_font: #000;
-    --archive_title: #46a891;
+    --archive_title: #000;
     --archive_title_hover: #87CDBD;
-    --name_font: #FFAA00;
+    --name_font: #000;
     --job_font: #003845;
-    --nav_font: #8d7edc;
+    --nav_font: #000;
     --nav_font_hover: #D4CEF2;
     --shadow_color: rgba(160, 160, 160, 0.05);
     --post_title: #000;
@@ -31,7 +31,7 @@
     --post_h3: #4c4c4c;
     --post_link: #46a891;
     --post_link_hover: #8d7edc;
-    --inlinecode_text: #FFAA00;
+    --inlinecode_text: #000;
     --blockquote: #333;
     --footer_font: #858585;
     --footer_font_a: #000;
@@ -40,7 +40,7 @@
 
 
 
-@mixin lightMode {
+@mixin darkMode {
     --bg_color: #1C1C1E;
     --header_bg: #24292E;
     --content_bg: #2F3437;
@@ -720,7 +720,7 @@ img {
 }
 
  strong {
-    color: #88c0d0; }
+    color: #E81A1A; }
     
 /* 7. Etc 
    =============================================================================*/
