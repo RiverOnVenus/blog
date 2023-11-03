@@ -14,9 +14,9 @@
    ========================================================================== */
 
 @mixin darkMode {
-    --bg_color: #eee;
-    --header_bg: #fafafa;
-    --content_bg: #fff;
+    --bg_color: #FDDB29;
+    --header_bg: #FDDB29;
+    --content_bg: #FDDB29;
     --archive_font: #000;
     --archive_title: #46a891;
     --archive_title_hover: #87CDBD;
@@ -25,7 +25,7 @@
     --nav_font: #8d7edc;
     --nav_font_hover: #D4CEF2;
     --shadow_color: rgba(160, 160, 160, 0.05);
-    --post_title: #003845;
+    --post_title: #000;
     --post_date: #003845;
     --post_text: #4c4c4c;
     --post_h3: #4c4c4c;
@@ -36,8 +36,9 @@
     --footer_font: #858585;
     --footer_font_a: #000;
     --border_radius: 15px;
-
 }
+
+
 
 @mixin lightMode {
     --bg_color: #1C1C1E;
