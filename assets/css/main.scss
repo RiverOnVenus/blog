@@ -23,18 +23,18 @@
     --name_font: #000;
     --job_font: #003845;
     --nav_font: #000;
-    --nav_font_hover: #D4CEF2;
+    --nav_font_hover: #807c92;
     --shadow_color: rgba(160, 160, 160, 0.05);
     --post_title: #000;
     --post_date: #003845;
-    --post_text: #4c4c4c;
-    --post_h3: #4c4c4c;
-    --post_link: #46a891;
-    --post_link_hover: #8d7edc;
+    --post_text: #000;
+    --post_h3: #000;
+    --post_link: #E81A1A;
+    --post_link_hover: #f91c1c;
     --inlinecode_text: #000;
     --blockquote: #333;
-    --footer_font: #858585;
-    --footer_font_a: #000;
+    --footer_font: #000;
+    --footer_font_a: #E81A1A;
     --border_radius: 15px;
 }
 
@@ -720,7 +720,7 @@ img {
 }
 
  strong {
-    color: #E81A1A; }
+    color: #000; }
     
 /* 7. Etc 
    =============================================================================*/
