@@ -13,13 +13,5 @@
       {% include js.html %}
       {% include card.html %}
       {% include footer.html %}
-      {% assign site_url = site.url %}
-      {% for link in site.data.your_links %}
-        {% if link.url contains site_url %}
-          <a href="{{ link.url }}">{{ link.title | escape }}</a>
-        {% else %}
-          <a href="{{ link.url }}" class="external-link">{{ link.title | escape }}</a>
-        {% endif %}
-      {% endfor %}
    </body>
 </html>
