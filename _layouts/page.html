@@ -13,20 +13,13 @@
       {% include js.html %}
       {% include card.html %}
       {% include footer.html %}
-
-      {% assign external_link = false %}
-      {% assign link_href = page.url | absolute_url %}
-
-      {% if link_href contains site.url %}
-        {% assign external_link = false %}
-      {% else %}
-        {% assign external_link = true %}
-      {% endif %}
-
-      {% if external_link %}
-        <a href="{{ page.url }}" class="external-link">{{ page.title | escape }}</a>
-      {% else %}
-        <a href="{{ page.url }}">{{ page.title | escape }}</a>
-      {% endif %}
+      {% assign site_url = site.url %}
+      {% for link in site.data.your_links %}
+        {% if link.url contains site_url %}
+          <a href="{{ link.url }}">{{ link.title | escape }}</a>
+        {% else %}
+          <a href="{{ link.url }}" class="external-link">{{ link.title | escape }}</a>
+        {% endif %}
+      {% endfor %}
    </body>
 </html>
