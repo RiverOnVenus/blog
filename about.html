@@ -34,3 +34,13 @@ layout: page
 </section>
 <div class="post">
 {% include giscus.html %}
+
+<style>
+   .post_content a {
+      text-decoration: none;
+   }
+
+   .post_content a[href^="http"] {
+      text-decoration: underline;
+   }
+</style>
