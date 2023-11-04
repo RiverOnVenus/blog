@@ -15,15 +15,15 @@
 
 @mixin lightMode {
     --bg_color: #FFCC00;
-    --header_bg: #fece0d;
+    --header_bg: #FFD700;
     --content_bg: #FDDB29;
     --archive_font: #000;
     --archive_title: #000;
-    --archive_title_hover: #807c92;
+    --archive_title_hover: #555361;
     --name_font: #000;
     --job_font: #003845;
     --nav_font: #000;
-    --nav_font_hover: #807c92;
+    --nav_font_hover: #555361;
     --shadow_color: rgba(160, 160, 160, 0.05);
     --post_title: #000;
     --post_date: #003845;
