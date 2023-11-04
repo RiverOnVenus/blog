@@ -27,6 +27,7 @@ user:
   name: Mr. Error 追
   pic: /assets/img/avatar.jpg
   picAlt: "RiverOnVenus"
+  job: Life often requires some excitement, joy, and anticipation.
   search: true
   about: true
   feed: true
