@@ -1,10 +1,11 @@
+<div class="empty_space"></div>
 <nav class="mobile_menu">
    <ul class="nav_list">
-      <!--      {% if site.user.rss %}
+      <!-- {% if site.user.rss %}
          <li class="nav_item">
            <a href="{{ site.baseurl }}/feed.xml">rss</a>
          </li>
-         {% endif %}-->
+      {% endif %}-->
       {% if site.user.key %}
       <li class="nav_item">
          <a href="https://github.com/riveronvenus.gpg">key</a>
@@ -15,11 +16,11 @@
          <a href="{{ site.baseurl }}/about.html">about</a>
       </li>
       {% endif %}
-      <!--    {% if site.user.search %}
+      <!-- {% if site.user.search %}
          <li class="nav_item">
            <a href="{{ site.baseurl }}/search.html">search</a>
          </li>
-         {% endif %}-->
+      {% endif %}-->
       {% for category in site.categories %}
       {% capture cat_name %}{{ category | first }}{% endcapture %}
       <li class="nav_item">
