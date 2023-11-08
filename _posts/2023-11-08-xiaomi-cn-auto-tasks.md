@@ -4,7 +4,13 @@ categories: [misc]
 comments: true
 ---
 
-今天[小米社区](https://www.xiaomi.cn/){:target="blank"}对 Bootloader 解锁权限发布了公告：要求通过《解锁资格答题测试》，社区成长等级达到 5 段；完成实名认证，才能申请解锁，申请一次有效期只有一年，每年最多支持三台设备解锁，解锁等待期为 72 小时。
+今天[小米社区](https://www.xiaomi.cn/){:target="blank"}对 Bootloader 解锁权限发布了公告，要求：
+
+1. 通过《解锁资格答题测试》
+2. 社区成长等级达到 5 段
+3. 完成实名认证
+
+才能申请解锁，申请一次有效期只有一年，每年最多支持三台设备解锁，解锁等待期为 72 小时。
 
 试着去答了一下《解锁资格答题测试》，很简单，90 多分，都是一些常识和常用命令，但是我社区等级才 2 级，小米社区升级太慢了，又经常忘记签到做任务，于是找到了 [miui-auto-tasks](https://github.com/0-8-4/miui-auto-tasks){:target="blank"} - 一个自动化完成小米社区任务的脚本。照着它的 [wiki](https://github.com/0-8-4/miui-auto-tasks/wiki){:target="blank"} 配置，功能全开（~~用就不要怕~~）
 
@@ -33,25 +39,6 @@ accounts:
     # 社区可能会出现限时的“加入圈子”任务，启用功能意味着你愿意自行承担相关风险
     carrot-pull: true
     # 社区拔萝卜，启用功能意味着你愿意自行承担相关风险
-
-# 若有多个账户，按照以下模板进行修改，使用时删除前端 #注释
-#  - uid: 100001
-#    password: abc123
-#    user-agent: 'Mozilla/5.0 (Android 11; Mobile; rv:95.0) Gecko/95.0 Firefox/95.0'
-#    check-in: false
-#    browse-user-page: false
-#    browse-post: false
-#    thumb-up: false
-#    browse-specialpage: false
-#    board-follow: false
-#    carrot-pull: false
-ONEPUSH:
-  notifier: telegram
-  params:
-    title:
-    markdown: false
-    token:
-    userid:
 
 logging: false
 # 归档日志到本地文件
