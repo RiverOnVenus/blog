@@ -24,9 +24,9 @@ Modprobed-db 是一个通过 [make localmodconfig](https://www.kernel.org/doc/ht
 
 对于 Arch Linux，安装 [modprobed-db](https://aur.archlinux.org/packages/modprobed-db){:target="blank"}。
 
-安装完后首先运行`modprobed-db`，它会创建 Modprobed-db 配置文件 $XDG_CONFIG_HOME/modprobed-db.conf。
+安装完后首先运行`modprobed-db`，它会创建 Modprobed-db 配置文件 `$XDG_CONFIG_HOME/modprobed-db.conf`。
 
-在 ~/.config/modprobed-db.conf 中，可以添加你想忽略的模块。一些由其它软件包提供的模块需要添加进去，如 Nvidia。
+在 `~/.config/modprobed-db.conf` 中，可以添加你想忽略的模块。一些由其它软件包提供的模块需要添加进去，如 Nvidia。
 
 默认配置中包括了一些常见的、需要被忽略的模块：
 
@@ -36,7 +36,7 @@ IGNORE=(nvidia nvidia_drm nvidia_modeset nvidia_uvm vboxdrv vboxnetadp vboxnetfl
 
 ## 填充数据库
 
-配置好 modprobed-db.conf 后，运行`modprobed-db store`，它会探测到当前加载的模块，并创建 Modprobed-db 数据库文件 $XDG_CONFIG_HOME/modprobed.db，数据库文件是一个文本文件，其内容就是被探测到的模块列表。这个数据库文件是可以积累的，每次运行`modprobed-db store`都会记录下之前沒有出现过的模块。使用`modprobed-db list`可以显示当前数据库文件中的模块。
+配置好 `modprobed-db.conf` 后，运行`modprobed-db store`，它会探测到当前加载的模块，并创建 Modprobed-db 数据库文件 `$XDG_CONFIG_HOME/modprobed.db`，数据库文件是一个文本文件，其内容就是被探测到的模块列表。这个数据库文件是可以积累的，每次运行`modprobed-db store`都会记录下之前沒有出现过的模块。使用`modprobed-db list`可以显示当前数据库文件中的模块。
 
 ### 自动更新数据库
 
@@ -46,9 +46,9 @@ IGNORE=(nvidia nvidia_drm nvidia_modeset nvidia_uvm vboxdrv vboxnetadp vboxnetfl
 systemctl --user enable --now modprobed-db
 ```
 
-modprobed-db.service 每隔6小时运行一次`modprobed-db store`，在开机和关机时也会各运行一次。
+`modprobed-db.service` 每隔6小时运行一次`modprobed-db store`，在开机和关机时也会各运行一次。
 
-service 和 timer 可以用下面命令查看：
+[Service] 和 [Timer] 可以用下面命令查看：
 
 ```
 systemctl --user status modprobed-db
@@ -84,7 +84,7 @@ bridge
 
 ## 使用Modprobed-db构建内核
 
-对于[传统编译内核](https://wiki.archlinux.org/title/Kernel/Traditional_compilation){:target="blank"}的方式，在配置好 .config 后运行`make LSMOD=$HOME/.config/modprobed.db localmodconfig`就行。
+对于[传统编译内核](https://wiki.archlinux.org/title/Kernel/Traditional_compilation){:target="blank"}的方式，在配置好 `.config` 后运行`make LSMOD=$HOME/.config/modprobed.db localmodconfig`就行。
 
 如果使用 Arch 官方内核的 [PKGBUILD](https://github.com/archlinux/svntogit-packages/blob/packages/linux/trunk/PKGBUILD){:target="blank"} 构建内核，对 PKGBUILD 做以下更改：
 

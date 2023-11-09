@@ -32,7 +32,7 @@ fastboot flash boot boot.img
 fastboot flash boot_ab boot.img
 ```
 
-在 ROM 的脚本 **linux_fastboot_first_install_with_data_format.sh** 里发现了这行
+在 ROM 的脚本 `linux_fastboot_first_install_with_data_format.sh` 里发现了这行
 
 ```bash
 $fastboot flash boot_ab images/boot.img

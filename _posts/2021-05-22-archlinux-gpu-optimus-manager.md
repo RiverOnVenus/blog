@@ -16,7 +16,7 @@ comments: true
 
 # 前言
 
-之前一直用的`Askannz/optimus-manager`来管理双显卡，那时**没有认真阅读项目文档**，对 Hybrid 模式不了解，一直用的 Integrated 和 Nvidia 两个模式。
+之前一直用的 Askannz/optimus-manager 来管理双显卡，那时**没有认真阅读项目文档**，对 Hybrid 模式不了解，一直用的 Integrated 和 Nvidia 两个模式。
 
 后来改用了 NVIDIA 官方的方案。
 

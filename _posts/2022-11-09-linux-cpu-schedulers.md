@@ -22,7 +22,7 @@ comments: true
 - [Bore](https://github.com/firelzrd/bore-scheduler){:target="blank"} - BORE (Burst-Oriented Response Enhancer) is a modification to the Completely Fair Scheduler, the Linux default CPU scheduler.
 - [CacULE](https://github.com/hamadmarri/cacule-cpu-scheduler){:target="blank"} - The CacULE CPU scheduler is based on interactivity score mechanism. The interactivity score is inspired by the ULE scheduler (FreeBSD scheduler).
 - [CFS](https://www.kernel.org/doc/html/latest/scheduler/sched-design-CFS.html){:target="blank"} - CFS (Completely Fair Scheduler) is the new desktop process scheduler implemented in Linux 2.6.23 as a replacement for the previous vanilla scheduler’s SCHED_OTHER interactivity code. ~~It is the current linux task scheduler.~~
-- [EEVDF](https://lwn.net/Articles/927530/){:target="blank"} - EEVDF is based on the Earliest Eligible Virtual Deadline First approach. [Initial EEVDF paper](https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=805acf7726282721504c8f00575d91ebfd750564){:target="blank"}. The EEVDF scheduler has been merged for the Linux 6.6 kernel and replaces the existing CFS scheduler.
+- [EEVDF](https://lwn.net/Articles/927530/){:target="blank"} - EEVDF is based on the Earliest Eligible Virtual Deadline First approach. ([Initial EEVDF paper](https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=805acf7726282721504c8f00575d91ebfd750564){:target="blank"}). **The EEVDF scheduler has been merged for the Linux 6.6 kernel and replaces the existing CFS scheduler.**
 - [MuQSS](http://ck.kolivas.org/patches/muqss/sched-MuQSS.txt){:target="blank"} - Multiple Queue Skiplist Scheduler (MuQSS) is a rewritten implementation of the Brain Fuck Scheduler (BFS) concept.
 - [PDS](https://gitlab.com/alfredchen/linux-prjc){:target="blank"} - PDS (Priority and Deadline based Skiplist multiple queue scheduler) is a linux CPU scheduler whose design principles are to be a simple CPU process scheduler yet efficient and scalable.
 - [TT](https://github.com/hamadmarri/TT-CPU-Scheduler){:target="blank"} - The goal of the Task Type (TT) scheduler is to detect tasks types based  on their behaviours and control the schedulling based on their types.
@@ -71,7 +71,7 @@ Arch Linux [默认内核](https://github.com/archlinux/linux){:target="blank"}�
 
 **性能测试**
 
-进行3次 geekbench 测试，取平均数。
+进行3次 `geekbench` 测试，取平均数。
 
 ```
 geekbench
@@ -79,7 +79,7 @@ geekbench
 
 **响应测试**
 
-用 jitterdebugger 模拟交互任务，用 'stress-ng --cpu 24' 模拟 CPU 高负载工作环境，测量10分钟。
+用 `jitterdebugger` 模拟交互任务，用 `stress-ng --cpu 24` 模拟 CPU 高负载工作环境，测量10分钟。
 
 ```
 jitterdebugger -D 10m -c 'stress-ng --cpu 24'
