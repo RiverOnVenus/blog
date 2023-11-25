@@ -8,6 +8,8 @@ comments: true
 
 >Photo by <a href="https://unsplash.com/@samsungmemory?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Samsung Memory</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Unsplash</a>
 
+*最后更新时间：Sat Nov 25 02:04:47 PM CST 2023*
+
 # 0x00 什么是字节顺序
 
 字节顺序，又称端序或尾序，在计算机科学领域中，指电脑内存中或在数字通信链路中，占内存多于一个字节类型的数据在内存中的存放顺序。 在几乎所有的机器上，多字节对象都被存储为连续的字节序列。例如在C语言中，在32位的环境下，一个类型为`int`的变量`x`地址为`0x79abcdef`，那么其对应地址表达式`&x`的值为`0x79abcdef`.
@@ -72,6 +74,8 @@ Big-endian:    0xefcdab79
 > - Built-in Function: *uint128_t* **__builtin_bswap128** *(uint128_t x)*
 >
 >   Similar to `__builtin_bswap64`, except the argument and return types are 128-bit.  Only supported on targets when 128-bit types are supported.
+
+在网络编程中，通常使用 `uint32_t htonl(uint32_t hostlong)` `uint16_t htons(uint16_t hostshort)` `uint32_t ntohl(uint32_t netlong)` `uint16_t ntohs(uint16_t netshort)`在网络和主机之间进行大小段的转换。
 
 # 参考资料
 
