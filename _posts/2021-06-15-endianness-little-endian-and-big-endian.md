@@ -75,7 +75,7 @@ Big-endian:    0xefcdab79
 >
 >   Similar to `__builtin_bswap64`, except the argument and return types are 128-bit.  Only supported on targets when 128-bit types are supported.
 
-在网络编程中，通常使用 `uint32_t htonl(uint32_t hostlong)` `uint16_t htons(uint16_t hostshort)` `uint32_t ntohl(uint32_t netlong)` `uint16_t ntohs(uint16_t netshort)`在网络和主机之间进行大小段的转换。
+在网络编程中，通常使用 `uint32_t htonl(uint32_t hostlong)` , `uint16_t htons(uint16_t hostshort)` , `uint32_t ntohl(uint32_t netlong)` , `uint16_t ntohs(uint16_t netshort)`在网络和主机之间进行大小段的转换。
 
 # 参考资料
 
