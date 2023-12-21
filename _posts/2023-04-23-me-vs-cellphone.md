@@ -4,15 +4,11 @@ categories: [misc]
 comments: true
 ---
 
-今年年初，用了几年的手机坏了 :frowning_face:
-
-正好红米 K60 发布，在 K50 Ultra 和 K60 之间纠结了会儿，最后选了 K60。
+今年年初，用了几年的手机坏了，正好红米 K60 发布，在 K50 Ultra 和 K60 之间纠结了会儿，最后选了 K60。
 
 到手后开始接触了刷机，小米手机相关的刷机资源和教程还挺多。
 
-了解一些知识后开始解 BL 锁，不得不说等待的 7 天过得真慢 :neutral_face:
-
-等待的时候开始选要用的 ROM，原来手机 ROM 有这么多，最后选择了 Xiaomi.eu WEEKLY ROM :blush:
+了解一些知识后开始解 BL 锁，不得不说等待的 7 天过得真慢，等待的时候开始选要用的 ROM，原来手机 ROM 有这么多，最后选择了 Xiaomi.eu WEEKLY ROM.
 
 BL 解锁完成，EU 刷入完成。
 
@@ -47,7 +43,10 @@ $fastboot flash boot_ab images/boot.img
 3. 修补 boot.img
 4. 刷入 boot.img
 
-虽然不麻烦，但是有些麻烦。所以后来不是每周都更新，一是看心情，二是看更新了什么内容。
+----
 
-到今天，已经用了三个多月了，Root 后没有遇见什么奇奇怪怪的问题，指纹人脸也没有掉，Root 隐藏得也很好。倒是刷了一些奇奇怪怪的模块，模块数量从少变多再变少。<span class="spoiler" >另外，听说刷机得在中午刷。</span>
+ 六月初从 Magisk Delta 换到了 KernelSU.
 
+----
+
+前几天从 MIUI14.0.23.9.18.DEV ---> HyperOS1.0.23.12.04.DEV 发现 EU 又内置了过设备完整性`MEETS_DEVICE_INTEGRITY`的方法（内置了一个 [XiaomiEUModule.apk](https://sourceforge.net/projects/xiaomi-eu-multilang-miui-roms/files/xiaomi.eu/Xiaomi.eu-app/){:target="blank"}），不需要额外的模块了。
