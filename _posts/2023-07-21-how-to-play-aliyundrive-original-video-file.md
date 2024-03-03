@@ -4,7 +4,7 @@ categories: [tool]
 comments: true
 ---
 
-原始视频文件清晰度有 1080p/2k/4k , 但在阿里云盘官方软件没会员只有 480p ，这谁受得了？为了能播放最高清晰度的视频我找到了[阿里云盘小白羊版](https://github.com/liupan1890/aliyunpan){:target="blank"}，通过 mpv 等播放器能够播放原始清晰度。最近发现原版有些 bug 很难受，又找到了 [fork 版1](https://github.com/odomu/aliyunpan){:target="blank"}和 [fork 版2](https://github.com/gaozhangmin/aliyunpan){:target="blank"} ，前者也停更了，不知道第二个能坚持多久。
+原始视频文件清晰度有 1080p/2k/4k , 但在阿里云盘官方软件没会员只有 480p ，这谁受得了？为了能播放最高清晰度的视频我找到了[阿里云盘小白羊版](https://github.com/liupan1890/aliyunpan){:target="blank"}，通过 mpv 等播放器能够播放原始清晰度。最近发现原版没人维护，有些 bug 很难受，又找到了 [fork 版1](https://github.com/odomu/aliyunpan){:target="blank"}和 [fork 版2](https://github.com/gaozhangmin/aliyunpan){:target="blank"}.
 
 虽然小白羊版在电脑上能播放原始文件的清晰度，但是手机上却没找到这种工具。
 
