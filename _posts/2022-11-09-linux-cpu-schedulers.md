@@ -25,6 +25,7 @@ comments: true
 - [EEVDF](https://lwn.net/Articles/927530/){:target="blank"} - EEVDF is based on the Earliest Eligible Virtual Deadline First approach. ([Initial EEVDF paper](https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=805acf7726282721504c8f00575d91ebfd750564){:target="blank"}). **The EEVDF scheduler has been merged for the Linux 6.6 kernel and replaces the existing CFS scheduler.**
 - [MuQSS](http://ck.kolivas.org/patches/muqss/sched-MuQSS.txt){:target="blank"} - Multiple Queue Skiplist Scheduler (MuQSS) is a rewritten implementation of the Brain Fuck Scheduler (BFS) concept.
 - [PDS](https://gitlab.com/alfredchen/linux-prjc){:target="blank"} - PDS (Priority and Deadline based Skiplist multiple queue scheduler) is a linux CPU scheduler whose design principles are to be a simple CPU process scheduler yet efficient and scalable.
+- [sched-ext](https://github.com/sched-ext/scx){:target="blank"} - sched_ext is a Linux kernel feature which enables implementing kernel thread schedulers in BPF and dynamically loading them. This repository contains various scheduler implementations and support utilities.
 - [TT](https://github.com/hamadmarri/TT-CPU-Scheduler){:target="blank"} - The goal of the Task Type (TT) scheduler is to detect tasks types based  on their behaviours and control the schedulling based on their types.
 
 （按照字母排序）
