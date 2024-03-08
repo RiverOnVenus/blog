@@ -4,7 +4,7 @@ categories: [misc]
 comments: true
 ---
 
-<a data-fancybox="kde6-wallpapers" href="../assets/img/post/kde6-wallpapers/screenshot-from-kde-megarelease6.png"><img src="../assets/img/post/kde6-wallpapers/screenshot-from-kde megarelease6.png">
+<a data-fancybox="kde6-wallpapers" href="../assets/img/post/kde6-wallpapers/screenshot-from-kde-megarelease6.png"><img src="../assets/img/post/kde6-wallpapers/screenshot-from-kde-megarelease6.png">
 
 > Screenshot from [KDE MegaRelease6](https://kde.org/announcements/megarelease/6/){:target="blank"}
 
