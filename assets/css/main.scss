@@ -130,7 +130,6 @@ body {
 
 a {
     text-decoration: none;
-    word-wrap: break-word;
 }
 
 img {
@@ -582,6 +581,9 @@ img {
 
     a {
         color: var(--post_link);
+        text-decoration: underline;
+        word-wrap: break-word;
+        max-width: 100%;
 
         &:hover,
         &:focus {
