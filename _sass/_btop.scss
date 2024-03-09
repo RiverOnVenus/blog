@@ -12,6 +12,11 @@
     border: none;
     outline: none;
     bottom: 10px;
-    right: 30px;
+    right: 10px;
     background-color: hsla(0,0%,50.2%,.3);
 } 
+@media (min-width: 768px) {
+    #backtop a {
+        display: none;
+    }
+}
