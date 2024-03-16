@@ -12,7 +12,7 @@ TCP 三次握手看过很多次了，当时也是理解了，但是总是忘记�
 
 <a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/system-notify.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/system-notify.png" style="text-align:center;" >
 
-如果你也不喜欢 systemd-oomd 试试 [earlyoom](https://github.com/rfjakob/earlyoom).
+如果你也不喜欢 systemd-oomd 试试 [earlyoom](https://github.com/rfjakob/earlyoom){:target="blank"}.
 
 ```
 earlyoom[454]: Will avoid killing process names that match regex '(^|/)(init|systemd|Xorg|sshd)$'
@@ -48,17 +48,17 @@ earlyoom[454]: process exited after 2.8 seconds
 
 接下来逐条分析 [SYN]，[SYN, ACK]，[ACK] 三个包中的各个值是否和上述一致。
 
-第一次握手：客户端 `192.168.100.191` 发送了一个 [SYN] 包给服务端 `172.67.149.132`，此时，Seq = `0x4ce45750`, Flags: (SYN).
+第一次握手：客户端 192.168.100.191 发送了一个 [SYN] 包给服务端 172.67.149.132，此时，Seq = 0x4ce45750, Flags: (SYN).
 
 <a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img03.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img03.png">
 
-第二次握手：服务端 `172.67.149.132`收到 [SYN] 包，回应了一个 [SYN, ACK] 包给客户端 `192.168.100.191`，此时，Ack = `0x4ce45751`, Seq = `0xc112f693`,Flags: (SYN, ACK).
+第二次握手：服务端 172.67.149.132收到 [SYN] 包，回应了一个 [SYN, ACK] 包给客户端 192.168.100.191，此时，Ack = 0x4ce45751, Seq = 0xc112f693,Flags: (SYN, ACK).
 
 <a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img04.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img04.png">
 
 <a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img05.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img05.png">
 
-第三次握手：最后，客户端 `192.168.100.191` 回应一个 [ACK] 包，此时，Ack = `0xc112f694`, Seq = `0x4ce45751`, Flags: (ACK).
+第三次握手：最后，客户端 192.168.100.191 回应一个 [ACK] 包，此时，Ack = 0xc112f694, Seq = 0x4ce45751, Flags: (ACK).
 
 <a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img06.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img06.png">
 
@@ -67,3 +67,7 @@ earlyoom[454]: process exited after 2.8 seconds
 客户端服务器建立连接完成。
 
 之前见过一个 TCP 相关的笑话来着，找不到了:upside_down_face:
+
+参考资料：
+
+1. [https://en.wikipedia.org/wiki/Transmission_Control_Protocol](https://en.wikipedia.org/wiki/Transmission_Control_Protocol){:target="blank"}
