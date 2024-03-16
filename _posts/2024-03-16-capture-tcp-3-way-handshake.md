@@ -10,7 +10,7 @@ TCP 三次握手看过很多次了，当时也是理解了，但是总是忘记�
 
 <span class="spoiler" >earlyoom 的通知怎么又好了（</span>
 
-<a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/system-notify.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/system-notify.png" style="text-align:center;" >
+<a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/system-notify.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/system-notify.png" >
 
 如果你也不喜欢 systemd-oomd 试试 [earlyoom](https://github.com/rfjakob/earlyoom){:target="blank"}.
 
@@ -30,7 +30,7 @@ earlyoom[454]: process exited after 2.8 seconds
 
 好像偏题了。
 
-开始抓包，抓取的是访问博客产生的包，下面的 NO.1343, NO.1344, NO.1345 这三条产生的 [SYN], [SYN, ACK], [ACK] 三个包分别对应三次握手的过程，
+开始抓包，抓取的是本地访问博客产生的 TCP 数据包，下面的 NO.1343 -- [SYN], NO.1344 -- [SYN, ACK], NO.1345 -- [ACK] 三个包分别对应三次握手的过程，
 
 <a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img01.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img01.png">
 
@@ -44,9 +44,13 @@ earlyoom[454]: process exited after 2.8 seconds
 2. [SYN, ACK]：服务器回应一个 [SYN, ACK] 包。确认号 Ack 被设置为接收到的序列号加 1，即 x + 1，服务器的数据包序列号 Seq 设置为另一个随机数 y。此时，标志位 SYN = 1, 标志位 ACK = 1, 确认号 Ack = x + 1, 序列号 Seq = y.
 3. [ACK]：最后，客户端向服务器发送一个 ACK 包。数据包的序列号 Seq 被设置为接收到的确认号 Ack，即 x + 1，确认号 Ack 被设置为接收到的序列号加 1，即 y + 1。此时，标志位 ACK = 1, 序列号 Seq = x + 1, 确认号 Ack = y + 1.
 
-理论分析完毕。
+记录一下刚开始接触 TCP 三次握手时容易迷糊的地方：
 
-接下来逐条分析 [SYN]，[SYN, ACK]，[ACK] 三个包中的各个值是否和上述一致。
+- 首先是 ACK 标志位 (Acknowledgment flag) 和 Ack 确认号 (Acknowledgment number)。上图中也提了一下，在 TCP 协议中，"Acknowledgment (ACK)" 是 TCP 数据包表头中的一个标志位，为了更好的区别我在这里加了一个 flag 后缀，它用来指示一个 TCP 数据包是否包含“确认”。当 ACK 标志位被置为 1 时，表示该数据包确认了已经收到的数据。而 "Acknowledgment Number" 是 TCP 数据包表头中的一个字段，用来指示发送方期望接收到的下一个序列号。当一个 TCP 数据包被发送方设置了 ACK 标志位为 1 时，该数据包的 Acknowledgment Number 字段指示了发送方期望接收到的下一个序列号。简而言之，ACK 标志位用于表示一个 TCP 数据包是否包含确认，而 Acknowledgment Number 字段用于指示发送方期望接收到的下一个序列号。看看 TCP 数据包表头结构就明白了。
+- 抓包的时候可以看见 Ack = 1 (Ack 确认号)，这里的 1 是相对确认号，可以理解为偏移量，不是真正的确认号（相对序列号同理），也不要和 ACK = 1 (ACK 标志位) 混淆。本文中，全大写的 ACK 是标志位，首字母大写的 Ack 是确认号。
+- 下面的 Flags: (SYN), Flags: (SYN, ACK) 表示对应的标志位为 1.
+
+接下来逐包分析 [SYN]，[SYN, ACK]，[ACK] 三个包中的各个值是否和上述一致。
 
 第一次握手：客户端 192.168.100.191 发送了一个 [SYN] 包给服务端 172.67.149.132，此时，Seq = 0x4ce45750, Flags: (SYN).
 
