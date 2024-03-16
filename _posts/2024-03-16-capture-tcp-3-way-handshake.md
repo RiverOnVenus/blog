@@ -4,6 +4,8 @@ categories: [misc]
 comments: true
 ---
 
+# 前言
+
 TCP 三次握手看过很多次了，当时也是理解了，但是总是忘记。比如这次，又忘了，所有来抓包加深记忆和理解，要是还忘了，就来这儿看看:joy:
 
 抓包工具本来想试试 termshark 来着，因为没用过，但是中途内存泄漏被 earlyoom 杀死了，还是用 wireshark.
@@ -29,6 +31,8 @@ earlyoom[454]: process exited after 2.8 seconds
 ```
 
 好像偏题了。
+
+# 正文
 
 开始抓包，抓取的是本地访问博客产生的 TCP 数据包，下面的 NO.1343 -- [SYN], NO.1344 -- [SYN, ACK], NO.1345 -- [ACK] 三个包分别对应三次握手的过程，
 
@@ -72,6 +76,6 @@ earlyoom[454]: process exited after 2.8 seconds
 
 之前见过一个 TCP 相关的笑话来着，找不到了:upside_down_face:
 
-参考资料：
+# 参考资料
 
 1. [https://en.wikipedia.org/wiki/Transmission_Control_Protocol](https://en.wikipedia.org/wiki/Transmission_Control_Protocol){:target="blank"}
