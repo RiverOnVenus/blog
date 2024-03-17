@@ -1,6 +1,6 @@
 ---
 title: 记录一次抓 TCP 三次握手
-categories: [misc]
+categories: [network]
 comments: true
 ---
 
