@@ -50,7 +50,7 @@ earlyoom[454]: process exited after 2.8 seconds
 
 为了更好的理解 TCP 三次握手作以下补充说明：
 
-- ACK 标志位 (Acknowledgment) 和 Ack 确认号 (Acknowledgment number) 不要混淆。在 TCP 协议中，"Acknowledgment (ACK)" 是 TCP 数据包表头中的一个标志位，本文中为了更好的区分它们，我在上图中为 "Acknowledgment (ACK)" 加了一个 flag 后缀，它用来指示一个 TCP 数据包是否包含“确认”。当 ACK 标志位被置为 1 时，表示该数据包确认了已经收到的数据。而 "Acknowledgment Number" 是 TCP 数据包表头中的一个字段，用来指示发送方期望接收到的下一个序列号。当一个 TCP 数据包被发送方设置了 ACK 标志位为 1 时，该数据包的 Acknowledgment Number 字段指示了发送方期望接收到的下一个序列号。简而言之，ACK 标志位用于表示一个 TCP 数据包是否包含“确认”，而 Acknowledgment Number 字段用于指示发送方期望接收到的下一个序列号。
+- ACK 标志位 (Acknowledgment) 和 Ack 确认号字段 (Acknowledgment number) 不要混淆。在 TCP 协议中，"Acknowledgment (ACK)" 是 TCP 报文段头部的一个标志位，本文中为了更好的区分它们，我在上图中为 "Acknowledgment (ACK)" 加了一个 ~~flag~~ 后缀，它用来指示一个 TCP 报文段是否包含“确认”。当 ACK 标志位被置为 1 时，表示该报文段确认了已经收到的数据。 "Acknowledgment Number" 是 TCP 报文段头部的一个字段，用来指示发送方期望接收到的下一个序列号。当一个 TCP 报文段被发送方设置了 ACK 标志位为 1 时，该报文段的 Acknowledgment Number 字段指示了发送方期望接收到的下一个序列号。简而言之，ACK 标志位 (Acknowledgment) 用于表示一个 TCP 报文段是否包含“确认”，而 Ack 确认号字段 (Acknowledgment number) 用于指示发送方期望接收到的下一个序列号。
 - 抓包的时候可以看见 Ack = 1 (Ack 确认号)，这里的 1 是相对确认号，可以理解为偏移量，不是真正的确认号（相对序列号同理），也不要和 ACK = 1 (ACK 标志位) 混淆。本文中，全大写的 ACK 是标志位，首字母大写的 Ack 是确认号。
 - 下面的 Flags: (SYN), Flags: (SYN, ACK) 表示对应的标志位为 1.
 
