@@ -48,7 +48,7 @@ earlyoom[454]: process exited after 2.8 seconds
 
 > Screenshot from [Wikipedia](https://en.wikipedia.org/wiki/Transmission_Control_Protocol){:target="blank"}
 
-先结合上面三张图分析 TCP 三次握手过程，然后再分析抓包的数据：
+结合上面三张图分析 TCP 三次握手过程，然后分析抓包的数据：
 
 1. [SYN]：客户端向服务器发送一个 SYN 包来发起主动连接，客户端将数据包的序列号 Seq 设置为一个随机数 x. 此时，标志位 SYN = 1, 序列号 Seq = x.
 2. [SYN, ACK]：服务器回应一个 [SYN, ACK] 包。确认号 Ack 被设置为接收到的序列号加 1，即 x + 1，服务器的数据包序列号 Seq 设置为另一个随机数 y。此时，标志位 SYN = 1, 标志位 ACK = 1, 确认号 Ack = x + 1, 序列号 Seq = y.
