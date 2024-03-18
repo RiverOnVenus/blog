@@ -42,7 +42,13 @@ earlyoom[454]: process exited after 2.8 seconds
 
 <a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img02.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img02.png" >
 
-结合上面两张图分析 TCP 三次握手：
+再看看 TCP 报文段头部格式：
+
+<a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img03.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img03.png">
+
+> Screenshot from [Wikipedia](https://en.wikipedia.org/wiki/Transmission_Control_Protocol){:target="blank"}
+
+先结合上面三张图分析 TCP 三次握手过程，然后再分析抓包的数据：
 
 1. [SYN]：客户端向服务器发送一个 SYN 包来发起主动连接，客户端将数据包的序列号 Seq 设置为一个随机数 x. 此时，标志位 SYN = 1, 序列号 Seq = x.
 2. [SYN, ACK]：服务器回应一个 [SYN, ACK] 包。确认号 Ack 被设置为接收到的序列号加 1，即 x + 1，服务器的数据包序列号 Seq 设置为另一个随机数 y。此时，标志位 SYN = 1, 标志位 ACK = 1, 确认号 Ack = x + 1, 序列号 Seq = y.
@@ -50,27 +56,27 @@ earlyoom[454]: process exited after 2.8 seconds
 
 为了更好的理解 TCP 三次握手作以下补充说明：
 
-- ACK 标志位 (Acknowledgment) 和 Ack 确认号字段 (Acknowledgment number) 不要混淆。在 TCP 协议中，"Acknowledgment (ACK)" 是 TCP 报文段头部的一个标志位，本文中为了更好的区分它们，我在上图中为 "Acknowledgment (ACK)" 加了一个 ~~flag~~ 后缀，它用来指示一个 TCP 报文段是否包含“确认”。当 ACK 标志位被置为 1 时，表示该报文段确认了已经收到的数据。 "Acknowledgment Number" 是 TCP 报文段头部的一个字段，用来指示发送方期望接收到的下一个序列号。当一个 TCP 报文段被发送方设置了 ACK 标志位为 1 时，该报文段的 Acknowledgment Number 字段指示了发送方期望接收到的下一个序列号。简而言之，ACK 标志位 (Acknowledgment) 用于表示一个 TCP 报文段是否包含“确认”，而 Ack 确认号字段 (Acknowledgment number) 用于指示发送方期望接收到的下一个序列号。
-- 抓包的时候可以看见 Ack = 1 (Ack 确认号)，这里的 1 是相对确认号，可以理解为偏移量，不是真正的确认号（相对序列号同理），也不要和 ACK = 1 (ACK 标志位) 混淆。本文中，全大写的 ACK 是标志位，首字母大写的 Ack 是确认号。
+- ACK 标志位 (Acknowledgment) 和 Ack 确认号字段 (Acknowledgment number) 不要混淆。在 TCP 协议中，"Acknowledgment (ACK)" 是 TCP 报文段头部的一个标志位，它用来表示一个 TCP 报文段是否包含“确认”。当 ACK 标志位被置为 1 时，表示该报文段确认了已经收到的数据。 "Acknowledgment Number" 是 TCP 报文段头部的一个字段，用来表示发送方期望接收到的下一个序列号。当一个 TCP 报文段被发送方设置了 ACK 标志位为 1 时，该报文段的 Acknowledgment Number 字段表明了发送方期望接收到的下一个序列号。
+- 抓包的时候可以看见 Ack = 1 (Ack 确认号)，这里的 1 是相对确认号，可以理解为偏移量，不是真正的确认号（相对序列号同理），也不要和 ACK = 1 (Acknowledgment) 混淆。本文中，全大写的 ACK 是标志位，首字母大写的 Ack 是确认号。
 - 下面的 Flags: (SYN), Flags: (SYN, ACK) 表示对应的标志位为 1.
 
-接下来逐包分析 [SYN]，[SYN, ACK]，[ACK] 三个包中的各个值是否和上述一致。
+接下来逐包分析 [SYN]，[SYN, ACK]，[ACK] 三个包中的各个数据之间的关系是否和上述一致。
 
 第一次握手：客户端 192.168.100.191 发送了一个 [SYN] 包给服务端 172.67.149.132，此时，Seq = 0x4ce45750, Flags: (SYN).
 
-<a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img03.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img03.png">
+<a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img04.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img04.png">
 
 第二次握手：服务端 172.67.149.132收到 [SYN] 包，回应了一个 [SYN, ACK] 包给客户端 192.168.100.191，此时，Ack = 0x4ce45751, Seq = 0xc112f693,Flags: (SYN, ACK).
 
-<a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img04.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img04.png">
-
 <a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img05.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img05.png">
-
-第三次握手：最后，客户端 192.168.100.191 回应一个 [ACK] 包，此时，Ack = 0xc112f694, Seq = 0x4ce45751, Flags: (ACK).
 
 <a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img06.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img06.png">
 
+第三次握手：最后，客户端 192.168.100.191 回应一个 [ACK] 包，此时，Ack = 0xc112f694, Seq = 0x4ce45751, Flags: (ACK).
+
 <a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img07.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img07.png">
+
+<a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img08.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img08.png">
 
 客户端服务器建立连接完成。
 
