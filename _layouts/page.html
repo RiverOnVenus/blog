@@ -13,5 +13,15 @@
       {% include js.html %}
       {% include card.html %}
       {% include footer.html %}
+
+      <script>
+    var links = document.querySelectorAll('a');
+    links.forEach(function(link) {
+        if (link.host !== window.location.host) {
+            link.setAttribute('target', '_blank');
+        }
+    });
+      </script>
+
    </body>
 </html>
