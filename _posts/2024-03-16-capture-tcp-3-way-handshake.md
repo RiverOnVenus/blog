@@ -4,6 +4,10 @@ categories: [network]
 comments: true
 ---
 
+* TOC
+{:toc}
+
+
 # 前言
 
 TCP 三次握手看过很多次了，当时也是理解了，但是总是忘记。比如这次，又忘了，所有来抓包加深记忆和理解，要是还忘了，就来这儿看看:joy:
@@ -34,6 +38,8 @@ earlyoom[454]: process exited after 2.8 seconds
 
 # 正文
 
+## 理论
+
 开始抓包，抓取的是本地访问博客产生的 TCP 数据包，下面的 NO.1343 -- [SYN], NO.1344 -- [SYN, ACK], NO.1345 -- [ACK] 三个包分别对应三次握手的过程，
 
 <a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img01.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img01.png">
@@ -61,6 +67,8 @@ earlyoom[454]: process exited after 2.8 seconds
 - 下面的 Flags: (SYN), Flags: (SYN, ACK) 表示对应的标志位为 1.
 
 接下来逐包分析 [SYN]，[SYN, ACK]，[ACK] 三个包中的各个数据之间的关系是否和上述一致。
+
+## 实践
 
 第一次握手：客户端 192.168.100.191 发送了一个 [SYN] 包给服务端 172.67.149.132，此时，Seq = 0x4ce45750, Flags: (SYN).
 
