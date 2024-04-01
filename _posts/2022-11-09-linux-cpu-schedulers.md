@@ -10,9 +10,15 @@ comments: true
 
 *最后更新时间：Sun Mar 31 09:08:15 PM CST 2024*
 
+[TOC]
+
+# 前言
+
 对于各种 CPU 调度器，很多人的看法和得到的反馈不一样。有的人想要“压榨” CPU 的性能，将其发挥到极致，他们通常会因为某个调度器带来的一点点性能提升而高兴；有的人真实的感受到了在高负载环境下系统的响应能力提升；有的人对此嗤之以鼻；有的人无所谓这点性能或响应能力；有的人在不同调度器上得到了负优化。
 
 下面这些是我目前了解到的 CPU 调度器。BFS 和 MuQSS 曾经都是由 Con Kolivas 开发维护，但两者现在都处于无人维护的状态。Baby, CacULE 和 TT 都是由 Hamad Al Marri 开发维护，其中 Baby 是让 CPU 调度器爱好者学习用的，在 CK 宣布[放弃维护 MuQSS](https://ck-hack.blogspot.com/2021/08/514-and-future-of-muqss-and-ck-once.html){:target="blank"} (截止到 5.12) 后，Hamad 也随后放弃维护 CacULE (截止到 5.14), Peter Jung 接手 CacULE (5.15 - 6.1)的维护工作 (6.1 后他也不再维护 CacULE)，两个月后 Hamad 发布了新的 CPU 调度器——TT, 由于精力有限，他只维护 TT 的 LTS 版本 。Bore 是在 CFS 上进行一些修改，由 mu(Masahito Suzuki) 开发维护。BMQ 和 PDS 现在都属于 Project C, 由 Alfred Chen 开发维护。EEVDF 由 Intel Linux 工程师 Peter Zijlstra 开发维护。
+
+# 调度器
 
 从 Linux 6.6 开始，**EEVDF 合并到主线取代了 CFS**, TT 不再维护，Hamad 在 Baby 调度器之上从头开始重新实现了 TT, 名为 ECHO.
 
@@ -22,7 +28,7 @@ comments: true
 - [Bore](https://github.com/firelzrd/bore-scheduler){:target="blank"} - BORE (Burst-Oriented Response Enhancer) is a modification to the Completely Fair Scheduler, the Linux default CPU scheduler.
 - [CacULE](https://github.com/hamadmarri/cacule-cpu-scheduler){:target="blank"} - The CacULE CPU scheduler is based on interactivity score mechanism. The interactivity score is inspired by the ULE scheduler (FreeBSD scheduler).
 - [CFS](https://www.kernel.org/doc/html/latest/scheduler/sched-design-CFS.html){:target="blank"} - CFS (Completely Fair Scheduler) is the new desktop process scheduler implemented in Linux 2.6.23 as a replacement for the previous vanilla scheduler’s SCHED_OTHER interactivity code. ~~It is the current linux task scheduler.~~
-- [ECHO](https://github.com/hamadmarri/ECHO-CPU-Scheduler) - Enhanced CPU Handling Orchestrator.
+- [ECHO](https://github.com/hamadmarri/ECHO-CPU-Scheduler) - Enhanced CPU Handling Orchestrator, implemented on top of Baby scheduler.
 - [EEVDF](https://lwn.net/Articles/927530/){:target="blank"} - EEVDF is based on the Earliest Eligible Virtual Deadline First approach. ([Initial EEVDF paper](https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=805acf7726282721504c8f00575d91ebfd750564){:target="blank"}). **The EEVDF scheduler has been merged for the Linux 6.6 kernel and replaces the existing CFS scheduler.**
 - [MuQSS](http://ck.kolivas.org/patches/muqss/sched-MuQSS.txt){:target="blank"} - Multiple Queue Skiplist Scheduler (MuQSS) is a rewritten implementation of the Brain Fuck Scheduler (BFS) concept.
 - [PDS](https://gitlab.com/alfredchen/linux-prjc){:target="blank"} - PDS (Priority and Deadline based Skiplist multiple queue scheduler) is a linux CPU scheduler whose design principles are to be a simple CPU process scheduler yet efficient and scalable.
@@ -33,7 +39,7 @@ comments: true
 
 这些调度器是否真的对性能或响应有改善呢？
 
-# 测试
+# 部分调度器测试
 
 **系统信息**
 
@@ -248,11 +254,17 @@ Bore 在最近发布的版本上 ( >= 1.7.x) 做了很多改进，正如它的�
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/6.8.1-vanilla-plot-256.png"><img src="../assets/img/post/linux-cpu-schedulers/6.8.1-vanilla-plot-256.png">
 
-# ECHO
+## ECHO
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/6.8.1-echo-plot-256.png"><img src="../assets/img/post/linux-cpu-schedulers/6.8.1-echo-plot-256.png">
 
 结果还是比较明显。
+
+实际使用感受也很明显，边编译内核边看视频，聊天，逛论坛，EEVDF 有较多的卡顿，会明显感知到后台在跑什么东西。ECHO 丝滑很多，有时候甚至不会感知到后台在编译内核，但是偶尔在启动应用时也会卡顿一下。
+
+目前来说，ECHO 是我用过延迟最低的调度器。
+
+性能尚未测试。
 
 # Q&A
 
