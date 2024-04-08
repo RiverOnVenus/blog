@@ -8,7 +8,7 @@ comments: true
 
 >Photo by <a href="https://unsplash.com/@polarmermaid?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Anne Nygård</a> on <a href="https://unsplash.com/s/photos/queue?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Unsplash</a>
 
-# 链式队列
+## 链式队列
 
 队列，一种抽象数据类型，是先进先出（FIFO, First-In-First-Out）的线性表。通常用链表或者数组来实现。队列只允许在后端（称为rear）进行插入操作，在前端（称为front）进行删除操作。
 
@@ -206,7 +206,7 @@ int main() {
 当前队列中有：3  4  5  
 ```
 
-# 顺序栈
+## 顺序栈
 
 栈，一种抽象数据类型，只允许在有序的线性资料集合的一端（称为栈顶）进行加入数据和移除数据的运算。因而按照后进先出（LIFO, Last In First Out）的原理运作，栈常用一维数组或链表来实现。
 

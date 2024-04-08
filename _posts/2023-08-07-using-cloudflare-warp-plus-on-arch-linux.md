@@ -10,7 +10,7 @@ WARP+ 是 Cloudflare 提供的一项网络加速服务，用于改善互联网�
 
 关于它们的区别：[What is the difference between WARP, WARP+, and WARP+ Unlimited?](https://support.cloudflarewarp.com/hc/en-us/articles/360025731113-What-is-the-difference-between-WARP-WARP-and-WARP-Unlimited-){:target="blank"}
 
-# 安装
+## 安装
 
 从 AUR 上或者信得过的第三方仓库安装  
 
@@ -22,9 +22,9 @@ aur/cloudflare-warp-bin 2023.7.40-1 [+41 ~3.15] [Installed]
     Cloudflare Warp Client
 ```
 
-# 使用
+## 使用
 
-## WARP
+### WARP
 
 只需要 3 个命令就能使用 WARP，先启动 `warp-svc.server`，第一次使用时需要 `register` 进行身份验证，然后 `connect` 将启用客户端，创建从设备到 Cloudflare 网络的 WireGuard 隧道。
 
@@ -57,7 +57,7 @@ warp=on
 
 至此 WARP 就可以使用了。
 
-## WARP+
+### WARP+
 
 使用  WARP+ 需要去 [Warp+ Bot](https://t.me/generatewarpplusbot){:target="blank"} 获得 **License Key**，然后 `set-license`使用 Key
 
@@ -87,7 +87,7 @@ warp=plus
 
 至此 WARP+ 就可以使用了。
 
-## MODE
+### MODE
 
 mode 有多种，根据需求设置
 
@@ -130,10 +130,10 @@ Success
 
 更多命令`warp-cli --help`
 
-# 使用体验
+## 使用体验
 
 日用勉强，更适合备用。
 
-# 参考资料
+## 参考资料
 
 1. [https://developers.cloudflare.com/warp-client/get-started/linux/](https://developers.cloudflare.com/warp-client/get-started/linux/){:target="blank"}

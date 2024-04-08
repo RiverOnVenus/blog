@@ -12,13 +12,13 @@ comments: true
 
 自从开始尝试自定义内核，便陷入其中。在内核方面，我是业余的，仅仅是在内核中打上一些我想使用的补丁以及简单修改一些配置。每当主线内核发布或有新的补丁时，我就会重新编译内核。就我的笔记本电脑来说，每次编译内核都会花费一个多小时的时间，而当我使用了  Modprobed-db 后，编译时间显著减少了。
 
-# Modprobed-db是什么？
+## Modprobed-db是什么？
 
 Modprobed-db 是一个通过 [make localmodconfig](https://www.kernel.org/doc/html/latest/admin-guide/README.html?highlight=localmodconfig#configuring-the-kernel){:target="blank"} 建立最小内核的工具。它会根据你当前的 config 和由 Modprobed-db 生成的模块列表创建一个新的 config，其余不需要的模块都将被它禁用。这样就得到了一个属于你的、精简的内核。
 
-# 如何使用它呢？
+## 如何使用它呢？
 
-## 安装和初始化配置
+### 安装和初始化配置
 
 > 项目地址：**[graysky2/modprobed-db](https://github.com/graysky2/modprobed-db){:target="_blank"}**  
 
@@ -34,11 +34,11 @@ Modprobed-db 是一个通过 [make localmodconfig](https://www.kernel.org/doc/ht
 IGNORE=(nvidia nvidia_drm nvidia_modeset nvidia_uvm vboxdrv vboxnetadp vboxnetflt vboxpci lirc_dev lirc_i2c osscore oss_hdaudio oss_usb tp_smapi thinkpad_ec zavl znvpair zunicode zcommon zpios zfs spl splat)
 ```
 
-## 填充数据库
+### 填充数据库
 
 配置好 `modprobed-db.conf` 后，运行`modprobed-db store`，它会探测到当前加载的模块，并创建 Modprobed-db 数据库文件 `$XDG_CONFIG_HOME/modprobed.db`，数据库文件是一个文本文件，其内容就是被探测到的模块列表。这个数据库文件是可以积累的，每次运行`modprobed-db store`都会记录下之前沒有出现过的模块。使用`modprobed-db list`可以显示当前数据库文件中的模块。
 
-### 自动更新数据库
+#### 自动更新数据库
 
 启用：
 
@@ -55,7 +55,7 @@ systemctl --user status modprobed-db
 systemctl --user list-timers
 ```
 
-### 手动编辑数据库
+#### 手动编辑数据库
 
 使用自动定期数据库更新或手动运行`modprobed-db store`并不是万无一失的。
 
@@ -82,7 +82,7 @@ bridge
 
 在完善数据库后，就可以使用 Modprobed-db 来构建内核了。
 
-## 使用Modprobed-db构建内核
+### 使用Modprobed-db构建内核
 
 对于[传统编译内核](https://wiki.archlinux.org/title/Kernel/Traditional_compilation){:target="blank"}的方式，在配置好 `.config` 后运行`make LSMOD=$HOME/.config/modprobed.db localmodconfig`就行。
 
@@ -103,7 +103,7 @@ bridge
  ...
 ```
 
-# 那么，它减少了多少编译时间？
+## 那么，它减少了多少编译时间？
 
 我的笔记本电脑 CPU 是 Intel Core i5-8250U (8) @ 1.6GHz，4核8线程。
 
@@ -119,7 +119,7 @@ bridge
 
 内核构建大部分时间花费在了模块上，而其中许多模块也用不到。
 
-# 一些经验和建议
+## 一些经验和建议
 
 如果使用 dkms 需要将对应模块放入到忽略模块列表中，如 bbswitch，acpi_call 等。
 
@@ -131,7 +131,7 @@ bridge
 
 使用 Modprobed-db 构建最小内核是有风险的，记得选择一个稳定的内核备用。
 
-# 参考资料
+## 参考资料
 
 1. [https://wiki.archlinux.org/index.php/Modprobed-db](https://wiki.archlinux.org/index.php/Modprobed-db){:target="blank"}
 1. man 8 modprobed-db

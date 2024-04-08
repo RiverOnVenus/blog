@@ -10,7 +10,7 @@ comments: true
 
 *最后更新时间：Sat Nov 25 02:04:47 PM CST 2023*
 
-# 0x00 什么是字节顺序
+## 0x00 什么是字节顺序
 
 字节顺序，又称端序或尾序，在计算机科学领域中，指电脑内存中或在数字通信链路中，占内存多于一个字节类型的数据在内存中的存放顺序。 在几乎所有的机器上，多字节对象都被存储为连续的字节序列。例如在C语言中，在32位的环境下，一个类型为`int`的变量`x`地址为`0x79abcdef`，那么其对应地址表达式`&x`的值为`0x79abcdef`.
 
@@ -30,7 +30,7 @@ Byte Order:                      Little Endian
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/endianness-little-endian-and-big-endian/endianess.png"><img src="../assets/img/post/endianness-little-endian-and-big-endian/endianess.png" style="text-align:center;" >
 
-# 0x01 大小端的转换
+## 0x01 大小端的转换
 
 最简单的方法是用`__builtin_bswap32`函数
 
@@ -77,7 +77,7 @@ Big-endian:    0xefcdab79
 
 在网络编程中，通常使用 `uint32_t htonl(uint32_t hostlong)` , `uint16_t htons(uint16_t hostshort)` , `uint32_t ntohl(uint32_t netlong)` , `uint16_t ntohs(uint16_t netshort)`在网络和主机之间进行大小端的转换。
 
-# 参考资料
+## 参考资料
 
 1. [https://stackoverflow.com/questions/19275955/convert-little-endian-to-big-endian](https://stackoverflow.com/questions/19275955/convert-little-endian-to-big-endian){:target="blank"}
 2. [https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/other-built-in-functions-provided-by-gcc.html](https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/other-built-in-functions-provided-by-gcc.html){:target="blank"}

@@ -8,7 +8,7 @@ comments: true
 
 > Photo by <a href="https://unsplash.com/@tot87?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Piotr Łaskawski</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Unsplash</a>
 
-# 什么是暴力匹配？
+## 什么是暴力匹配？
 
 从源串的第一个字符起，与模式串的第一个字符比较，若相等，则继续逐个比较后续字符；否则从源串的下一个字符起，重新和模式串比较；以此类推，直至模式串的每一个字符依次和源串中一个连续的字符序列相等，则匹配成功。
 
@@ -34,7 +34,7 @@ void brute_force_match(char *S, char *T) {
 }
 ```
 
-# 什么是 KMP 算法？
+## 什么是 KMP 算法？
 
 这里直接引用阮一峰老师的文章——[字符串匹配的KMP算法](https://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html){:target="blank"}。
 

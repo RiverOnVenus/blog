@@ -12,7 +12,7 @@ comments: true
 {:toc}
 *最后更新时间：Thu Dec  1 07:42:35 PM CST 2022*
 
-# 前言
+## 前言
 
 > 项目地址：**[thewhiteh4t/seeker](https://github.com/thewhiteh4t/seeker){:target="_blank"}**  
 
@@ -20,7 +20,7 @@ comments: true
 
 Seeker 背后的概念很简单，就像我们用钓鱼网页来获取凭证一样，用一个假的网页来获取你的位置。
 
-# 安装
+## 安装
 
 安装前先检查脚本内容，建议 python 项目在 venv 中进行。
 
@@ -33,16 +33,16 @@ chmod +x install.sh
 
 使用 AUR 助手安装 ngrok
 
-# 演示
+## 演示
 
-## 环境
+### 环境
 
 - 电脑: Arch Linux
 - 目标手机: Android 10
 
-## 开始
+### 开始
 
-### 启动 seeker
+#### 启动 seeker
 
 ```python
 python seeker.py
@@ -80,7 +80,7 @@ Telegram 同样需要填写一些群组信息。
 
 <a data-fancybox="gallery" href="../assets/img/post/seeker/img14.png"><img src="../assets/img/post/seeker/img14.png">
 
-### 启动 ngrok
+#### 启动 ngrok
 
 注：ngrok 现在需要注册账户才能使用，按照指引配置好 `ngrok.yml` 后即可使用。
 
@@ -100,11 +100,11 @@ ngrok http 8080
 
 通过 ngrok 生成了2个 URL，选择其中一个发给目标，等待即可。
 
-## 目标手机端
+### 目标手机端
 
 先看看在目标手机端打开链接会发生什么。
 
-### 链接
+#### 链接
 
 在目标手机上用浏览器打开链接，看到的就是之前模板生成的钓鱼网页。
 
@@ -124,7 +124,7 @@ Telegram:
 
 <a data-fancybox="gallery" href="../assets/img/post/seeker/img15.png"><img src="../assets/img/post/seeker/img15.png">
 
-### 权限
+#### 权限
 
 若目标点击`CONTINUE`、`Request access`、`JOIN CHAT`、`VIEW IN TELEGRAM`则会弹出权限请求。
 
@@ -152,11 +152,11 @@ Telegram:
 
 > 若由于某些原因（如目标手机未开启 位置信息/GPS 功能等）钓鱼网页未能获取到位置信息，对于 Google Drive 模板则不会跳转到后面的url网页。
 
-## 电脑端
+### 电脑端
 
 回到电脑端，看看在目标手机点击链接时发生了什么。
 
-### ngrok
+#### ngrok
 
 当目标手机打开由 ngrok 生成的链接时，在 ngrok 界面可以看到相关的请求和响应。
 
@@ -164,7 +164,7 @@ Telegram:
 
 打开`http://127.0.0.1:4040`可以看到更详细的信息。
 
-### seeker
+#### seeker
 
 当目标手机允许网站获取位置权限后，在 seeker 界面看到成功获取的信息。
 
@@ -184,14 +184,14 @@ seeker 成功获取到了目标手机的`经度`、`维度`。点击`Google Maps
 - 浏览器 - 一些浏览器阻止了 javascripts
 - GPS 校准 - 如果 GPS 没有被校准
 
-# 视频演示
+## 视频演示
 
 ![](https://www.youtube.com/watch?v=Q91cTFwIvLc)
 
-# 最后
+## 最后
 
 这个工具是一个「概念证明」，仅用于教育目的，Seeker 显示了一个恶意网站可以收集关于你和你的设备的哪些数据，以及为什么你不应该点击未知链接和允许重要权限，如位置等。
 
-# 参考资料
+## 参考资料
 
 1. [https://github.com/thewhiteh4t/seeker](https://github.com/thewhiteh4t/seeker){:target="blank"}

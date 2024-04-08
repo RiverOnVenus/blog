@@ -14,7 +14,7 @@ comments: true
 
 【注】如果没有特殊需求，使用 NVIDIA 官方的方案 PRIME render offload 是明智的选择，详情见[官方文档](http://download.nvidia.com/XFree86/Linux-x86_64/525.53/README/primerenderoffload.html){:target="_blank"} 和 [ArchWiki](https://wiki.archlinux.org/title/PRIME#PRIME_render_offload){:target="_blank"}。
 
-# 前言
+## 前言
 
 之前一直用的 Askannz/optimus-manager 来管理双显卡，那时**没有认真阅读项目文档**，对 Hybrid 模式不了解，一直用的 Integrated 和 Nvidia 两个模式。
 
@@ -24,7 +24,7 @@ comments: true
 
 <span class="spoiler" >「没想到，"Hybrid" 即 "Nvidia offload"。所以又换回了 optimus-manager。在 Integrated 和 Hybrid 之间切换」</span>
 
-# 正文
+## 正文
 
 我的需求：
 
@@ -35,7 +35,7 @@ comments: true
 
 2022-10-12: 现在笔记本整天接着电源，改用 NVIDIA 官方的 PRIME render offload
 
-## 介绍
+### 介绍
 
 开始之前，请确定已经按照 [ArchWiki](https://wiki.archlinux.org/title/NVIDIA){:target="blank"} 安装好了相应驱动。
 
@@ -55,7 +55,7 @@ pacman -S nvidia-prime
 
 > Hybrid模式文档 [Nvidia GPU offloading for "hybrid" mode](https://github.com/Askannz/optimus-manager/wiki/Nvidia-GPU-offloading-for-%22hybrid%22-mode){:target="blank"}
 
-## 安装
+### 安装
 
 [项目安装文档](https://github.com/Askannz/optimus-manager#installation){:target="blank"}
 
@@ -67,7 +67,7 @@ pacman -S optimus-manager bbswitch
 
 > 注意：bbswitch 很久没更新了，在较新的笔记本电脑上可能没用，甚至产生一些其它问题。且 bbswitch 只是optimus-manager 项目的电源管理方案 [A guide  to power management options](https://github.com/Askannz/optimus-manager/wiki/A-guide--to-power-management-options){:target="blank"}之一，所以请根据电脑环境选择合理的方案。
 
-## 配置
+### 配置
 
 [项目配置文档](https://github.com/Askannz/optimus-manager/#configuration){:target="blank"}
 
@@ -117,16 +117,14 @@ switching=bbswitch
 
 重启后，使用`systemctl status optimus-manager.service`命令查看服务状态，使用`optimus-manager --status`命令查看当前模式。
 
-# 可选
+## 可选
 
-[optimus-manager-qt](https://github.com/Shatur/optimus-manager-qt){:target="blank"}，这是 Optimus Manager 的GUI管理器，可以使用托盘菜单配置和切换 Optimus 笔记本电脑上的 GPU。
+[optimus-manager-qt](https://github.com/Shatur/optimus-manager-qt){:target="blank"}，使用 AUR 助手安装。
 
-如果需要，使用 AUR 助手安装。
-
-# 最后
+## 最后
 
 optimus-manager 目前在我的笔记本电脑上运行良好，尚未发现问题。另外，一定要**认真阅读项目文档**。
 
-# 参考资料
+## 参考资料
 
 1. [https://github.com/Askannz/optimus-manager](https://github.com/Askannz/optimus-manager){:target="blank"}

@@ -14,13 +14,13 @@ comments: true
 {:toc}
 
 
-# 前言
+## 前言
 
 对于各种 CPU 调度器，很多人的看法和得到的反馈不一样。有的人想要“压榨” CPU 的性能，将其发挥到极致，他们通常会因为某个调度器带来的一点点性能提升而高兴；有的人真实的感受到了在高负载环境下系统的响应能力提升；有的人对此嗤之以鼻；有的人无所谓这点性能或响应能力；有的人在不同调度器上得到了负优化。
 
 下面这些是我目前了解到的 CPU 调度器。BFS 和 MuQSS 曾经都是由 Con Kolivas 开发维护，但两者现在都处于无人维护的状态。Baby, CacULE 和 TT 都是由 Hamad Al Marri 开发维护，其中 Baby 是让 CPU 调度器爱好者学习用的，在 CK 宣布[放弃维护 MuQSS](https://ck-hack.blogspot.com/2021/08/514-and-future-of-muqss-and-ck-once.html){:target="blank"} (截止到 5.12) 后，Hamad 也随后放弃维护 CacULE (截止到 5.14), Peter Jung 接手 CacULE (5.15 - 6.1)的维护工作 (6.1 后他也不再维护 CacULE)，两个月后 Hamad 发布了新的 CPU 调度器——TT, 由于精力有限，他只维护 TT 的 LTS 版本 。Bore 是在 CFS 上进行一些修改，由 mu(Masahito Suzuki) 开发维护。BMQ 和 PDS 现在都属于 Project C, 由 Alfred Chen 开发维护。EEVDF 由 Intel Linux 工程师 Peter Zijlstra 开发维护。
 
-# 调度器
+## 调度器
 
 从 Linux 6.6 开始，**EEVDF 合并到主线取代了 CFS**, TT 不再维护，Hamad 在 Baby 调度器之上从头开始重新实现了 TT, 名为 ECHO.
 
@@ -41,7 +41,7 @@ comments: true
 
 这些调度器是否真的对性能或响应有改善呢？
 
-# 部分调度器测试
+## 部分调度器测试
 
 **系统信息**
 
@@ -102,7 +102,7 @@ jitterdebugger -D 10m -c 'stress-ng --cpu 24'
 - max: 观察到的最大的唤醒延迟
 - avg: 所有观察到的唤醒延迟的算术平均值
 
-## BMQ
+### BMQ
 
 geekbench:
 
@@ -114,7 +114,7 @@ geekbench:
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/BMQ-plot.png"><img src="../assets/img/post/linux-cpu-schedulers/BMQ-plot.png"></a>
 
-## Bore
+### Bore
 
 geekbench:
 
@@ -130,7 +130,7 @@ geekbench:
 
 
 
-## CacULE
+### CacULE
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/CacULE-geekbench.png"><img src="../assets/img/post/linux-cpu-schedulers/CacULE-geekbench.png"></a>
 
@@ -140,7 +140,7 @@ geekbench:
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/BMQ-geekbench.png"><img src="../assets/img/post/linux-cpu-schedulers/CacULE-plot.png"></a>
 
-## CFS
+### CFS
 
 6.0 CFS 与 5.15 CFS 相比，前者真的得到了改善。
 
@@ -152,7 +152,7 @@ geekbench:
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/CFS-plot.png"><img src="../assets/img/post/linux-cpu-schedulers/CFS-plot.png"></a>
 
-## PDS
+### PDS
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/PDS-geekbench.png"><img src="../assets/img/post/linux-cpu-schedulers/PDS-geekbench.png"></a>
 
@@ -162,7 +162,7 @@ geekbench:
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/PDS-plot.png"><img src="../assets/img/post/linux-cpu-schedulers/PDS-plot.png"></a>
 
-## TT--CFS
+### TT--CFS
 
 这里 TT 使用的是 CFS balancer
 
@@ -174,7 +174,7 @@ geekbench:
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/TT-plot.png"><img src="../assets/img/post/linux-cpu-schedulers/TT-plot.png"></a>
 
-# 测量结果分析
+### 测量结果分析
 
 从数据上来看：
 
@@ -186,7 +186,7 @@ geekbench:
 
 [这里](https://browser.geekbench.com/user/445125){:target="blank"} 可以看到 geekbench 所有的测试结果，和更详细的系统信息。
 
-# 实际使用感受
+### 实际使用感受
 
 在高负载的环境下，BMQ 和 TT--CFS 很丝滑（确信这不是心理作用:joy:），PDS 会有一些明显的卡顿。另外3个则是介于「很丝滑」和「明显卡顿」之间，它们之间实在是没感受都差异。当高负载达到某个程度时，BMQ会冻结桌面。而吞吐方面，区别不大。
 
@@ -194,7 +194,7 @@ BMQ 在大多数 AMD 设备上很差劲，甚至会导致冻结桌面，但是�
 
 注：不同的 CPU 调度器在不同的硬件上的表现存在差异。
 
-# 2022-12-03 更新
+## 2022-12-03 更新
 
 在 6.0.11 内核上再次对 Bore, CFS, TT--CFS 进行测试。
 
@@ -206,7 +206,7 @@ BMQ 在大多数 AMD 设备上很差劲，甚至会导致冻结桌面，但是�
 jitterdebugger -D 10m -c 'stress-ng --cpu-method loop -c 256'
 ```
 
-## Bore 1.7.3
+### Bore 1.7.3
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/Bore-geekbench-2.png"><img src="../assets/img/post/linux-cpu-schedulers/Bore-geekbench-2.png">
 
@@ -216,7 +216,7 @@ jitterdebugger -D 10m -c 'stress-ng --cpu-method loop -c 256'
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/BORE-plot-256.png"><img src="../assets/img/post/linux-cpu-schedulers/BORE-plot-256.png">
 
-## CFS
+### CFS
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/CFS-geekbench-2.png"><img src="../assets/img/post/linux-cpu-schedulers/CFS-geekbench-2.png">
 
@@ -226,7 +226,7 @@ jitterdebugger -D 10m -c 'stress-ng --cpu-method loop -c 256'
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/CFS-plot-256.png"><img src="../assets/img/post/linux-cpu-schedulers/CFS-plot-256.png">
 
-## TT--CFS
+### TT--CFS
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/TT-geekbench-2.png"><img src="../assets/img/post/linux-cpu-schedulers/TT-geekbench-2.png">
 
@@ -236,7 +236,7 @@ jitterdebugger -D 10m -c 'stress-ng --cpu-method loop -c 256'
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/TT-plot-256.png"><img src="../assets/img/post/linux-cpu-schedulers/TT-plot-256.png">
 
-## 测量结果
+### 测量结果
 
 - 单核性能：TT--CFS > CFS > Bore
 - 多核性能：Bore > CFS > TT--CFS
@@ -248,15 +248,15 @@ Bore 在最近发布的版本上 ( >= 1.7.x) 做了很多改进，正如它的�
 
 同样，[这里](https://browser.geekbench.com/user/445125){:target="blank"} 可以看到 geekbench 所有的测试结果。
 
-# 2024-03-31 更新
+## 2024-03-31 更新
 
 上周，Hamad 的新调度器 ECHO 发布，在 6.8.1内核上测试了高负载下它和默认调度的延迟。
 
-## EEVDF
+### EEVDF
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/6.8.1-vanilla-plot-256.png"><img src="../assets/img/post/linux-cpu-schedulers/6.8.1-vanilla-plot-256.png">
 
-## ECHO
+### ECHO
 
 <a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/6.8.1-echo-plot-256.png"><img src="../assets/img/post/linux-cpu-schedulers/6.8.1-echo-plot-256.png">
 
@@ -270,7 +270,7 @@ Bore 在最近发布的版本上 ( >= 1.7.x) 做了很多改进，正如它的�
 
 更多关于 ECHO 和其它调度器比较的测试：[https://github.com/hamadmarri/benchmarks](https://github.com/hamadmarri/benchmarks)
 
-# Q&A
+## Q&A
 
 下面是节选的一些有参考价值的问答:speech_balloon:
 
