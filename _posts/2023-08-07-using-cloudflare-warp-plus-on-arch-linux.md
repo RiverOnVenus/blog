@@ -8,7 +8,7 @@ WARP+ 是 Cloudflare 提供的一项网络加速服务，用于改善互联网�
 
 这里说的 WARP+ 属于 WARP+ Limited，流量是有限的，通过推广获得免费的服务，但是通过 Warp+ Bot 可以获得 24.59PB 流量，也可以说是 Unlimited 了。而真正的 WARP+ Unlimited 属于付费服务。
 
-关于它们的区别：[What is the difference between WARP, WARP+, and WARP+ Unlimited?](https://support.cloudflarewarp.com/hc/en-us/articles/360025731113-What-is-the-difference-between-WARP-WARP-and-WARP-Unlimited-){:target="blank"}
+关于它们的区别：[What is the difference between WARP, WARP+, and WARP+ Unlimited?](https://support.cloudflarewarp.com/hc/en-us/articles/360025731113-What-is-the-difference-between-WARP-WARP-and-WARP-Unlimited)
 
 ## 安装
 
@@ -59,7 +59,7 @@ warp=on
 
 ### WARP+
 
-使用  WARP+ 需要去 [Warp+ Bot](https://t.me/generatewarpplusbot){:target="blank"} 获得 **License Key**，然后 `set-license`使用 Key
+使用  WARP+ 需要去 [Warp+ Bot](https://t.me/generatewarpplusbot) 获得 **License Key**，然后 `set-license`使用 Key
 
 ```
 ❯ warp-cli set-license xxxxxxxx-xxxxxxxx-xxxxxxxx // 得到的 License Key
@@ -136,4 +136,4 @@ Success
 
 ## 参考资料
 
-1. [https://developers.cloudflare.com/warp-client/get-started/linux/](https://developers.cloudflare.com/warp-client/get-started/linux/){:target="blank"}
+1. [https://developers.cloudflare.com/warp-client/get-started/linux/](https://developers.cloudflare.com/warp-client/get-started/linux/)

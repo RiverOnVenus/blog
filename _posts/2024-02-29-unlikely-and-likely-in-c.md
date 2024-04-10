@@ -4,7 +4,7 @@ categories: [code]
 comments: true
 ---
 
- 今天在这个 [commit](https://github.com/firelzrd/bore-scheduler/commit/2dfae364f6d7ae26eca4ddfafb3764f2525bbaa5){:target="blank"} 中看到这样一段代码：
+ 今天在这个 [commit](https://github.com/firelzrd/bore-scheduler/commit/2dfae364f6d7ae26eca4ddfafb3764f2525bbaa5) 中看到这样一段代码：
 
 ```c
 #ifdef CONFIG_SCHED_BORE
@@ -148,7 +148,7 @@ int main() {
 
 但是吧，这个测试结果不太对，大多数时候是用了`unlikely`的花费更多时间...是因为不应该用这样的方式比较？
 
-我又发现了 C++ 也有 `[[likely]]` `[[unlikely]]`，并且 cppreference 有[示例代码](https://zh.cppreference.com/w/cpp/language/attributes/likely){:target="blank"}：
+我又发现了 C++ 也有 `[[likely]]` `[[unlikely]]`，并且 cppreference 有[示例代码](https://zh.cppreference.com/w/cpp/language/attributes/likely)：
 
 ```c++
 #include <chrono>
@@ -250,6 +250,6 @@ int main()
 
 参考资料：
 
-1. [https://www.geeksforgeeks.org/branch-prediction-macros-in-gcc/](https://www.geeksforgeeks.org/branch-prediction-macros-in-gcc/){:target="blank"}
-2. [https://stackoverflow.com/questions/109710/how-do-the-likely-unlikely-macros-in-the-linux-kernel-work-and-what-is-their-ben](https://stackoverflow.com/questions/109710/how-do-the-likely-unlikely-macros-in-the-linux-kernel-work-and-what-is-their-ben){:target="blank"}
-3. [https://zh.cppreference.com/w/cpp/language/attributes/likely](https://zh.cppreference.com/w/cpp/language/attributes/likely){:target="blank"}
+1. [https://www.geeksforgeeks.org/branch-prediction-macros-in-gcc/](https://www.geeksforgeeks.org/branch-prediction-macros-in-gcc/)
+2. [https://stackoverflow.com/questions/109710/how-do-the-likely-unlikely-macros-in-the-linux-kernel-work-and-what-is-their-ben](https://stackoverflow.com/questions/109710/how-do-the-likely-unlikely-macros-in-the-linux-kernel-work-and-what-is-their-ben)
+3. [https://zh.cppreference.com/w/cpp/language/attributes/likely](https://zh.cppreference.com/w/cpp/language/attributes/likely)

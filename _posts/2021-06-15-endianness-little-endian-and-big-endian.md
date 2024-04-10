@@ -6,7 +6,7 @@ comments: true
 
 <a data-fancybox="gallery" href="../assets/img/post/endianness-little-endian-and-big-endian/samsung-memory-mDP3qpqLIh4-unsplash.jpg"><img src="../assets/img/post/endianness-little-endian-and-big-endian/samsung-memory-mDP3qpqLIh4-unsplash.jpg">
 
->Photo by <a href="https://unsplash.com/@samsungmemory?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Samsung Memory</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Unsplash</a>
+>Photo by <a href="https://unsplash.com/@samsungmemory?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Samsung Memory</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" >Unsplash</a>
 
 *最后更新时间：Sat Nov 25 02:04:47 PM CST 2023*
 
@@ -57,7 +57,7 @@ Little-endian: 0x79abcdef
 Big-endian:    0xefcdab79
 ```
 
-`__builtin_bswap32` 是 [GCC内置函数](https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/other-built-in-functions-provided-by-gcc.html#_CPPv417__builtin_bswap328uint32_t){:target="blank"}。
+`__builtin_bswap32` 是 [GCC内置函数](https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/other-built-in-functions-provided-by-gcc.html#_CPPv417__builtin_bswap328uint32_t)。
 
 > - Built-in Function: *uint16_t* **__builtin_bswap16** *(uint16_t x)*
 >
@@ -79,6 +79,6 @@ Big-endian:    0xefcdab79
 
 ## 参考资料
 
-1. [https://stackoverflow.com/questions/19275955/convert-little-endian-to-big-endian](https://stackoverflow.com/questions/19275955/convert-little-endian-to-big-endian){:target="blank"}
-2. [https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/other-built-in-functions-provided-by-gcc.html](https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/other-built-in-functions-provided-by-gcc.html){:target="blank"}
+1. [https://stackoverflow.com/questions/19275955/convert-little-endian-to-big-endian](https://stackoverflow.com/questions/19275955/convert-little-endian-to-big-endian)
+2. [https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/other-built-in-functions-provided-by-gcc.html](https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/other-built-in-functions-provided-by-gcc.html)
 

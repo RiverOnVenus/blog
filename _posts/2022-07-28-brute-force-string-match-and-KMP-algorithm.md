@@ -6,7 +6,7 @@ comments: true
 
 <a data-fancybox="gallery" href="../assets/img/post/brute-force-string-match-and-KMP-algorithm/piotr-laskawski-gL7oJLJOb_I-unsplash.jpg"><img src="../assets/img/post/brute-force-string-match-and-KMP-algorithm/piotr-laskawski-gL7oJLJOb_I-unsplash.jpg">
 
-> Photo by <a href="https://unsplash.com/@tot87?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Piotr Łaskawski</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Unsplash</a>
+> Photo by <a href="https://unsplash.com/@tot87?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Piotr Łaskawski</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
 ## 什么是暴力匹配？
 
@@ -36,7 +36,7 @@ void brute_force_match(char *S, char *T) {
 
 ## 什么是 KMP 算法？
 
-这里直接引用阮一峰老师的文章——[字符串匹配的KMP算法](https://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html){:target="blank"}。
+这里直接引用阮一峰老师的文章——[字符串匹配的KMP算法](https://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html)。
 
 ```c
 //算出KMP的next数组
@@ -78,17 +78,6 @@ void kmp(char *S, char *T, int *next, int pos) {
  完整代码
 
 ```c
-/**
- * @file string_match.c
- * @author zhui (RiverOnVenus)
- * @brief 字符串的暴力匹配和KMP算法
- * @version 0.1
- * @date 2022-07-26
- *
- * @copyright Copyright (c) 2022
- *
- */
-
 #include <stdio.h>
 #include <string.h>
 

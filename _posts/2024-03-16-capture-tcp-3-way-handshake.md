@@ -18,7 +18,7 @@ TCP 三次握手看过很多次了，当时也是理解了，但是总是忘记�
 
 <a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/system-notify.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/system-notify.png" >
 
-如果你也不喜欢 systemd-oomd 试试 [earlyoom](https://github.com/rfjakob/earlyoom){:target="blank"}.
+如果你也不喜欢 systemd-oomd 试试 [earlyoom](https://github.com/rfjakob/earlyoom).
 
 ```
 earlyoom[454]: Will avoid killing process names that match regex '(^|/)(init|systemd|Xorg|sshd)$'
@@ -52,7 +52,7 @@ earlyoom[454]: process exited after 2.8 seconds
 
 <a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img03.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img03.png">
 
-> Screenshot from [Wikipedia](https://en.wikipedia.org/wiki/Transmission_Control_Protocol){:target="blank"}
+> Screenshot from [Wikipedia](https://en.wikipedia.org/wiki/Transmission_Control_Protocol)
 
 结合上面三张图分析 TCP 三次握手过程，然后分析抓包的数据：
 
@@ -92,4 +92,4 @@ earlyoom[454]: process exited after 2.8 seconds
 
 ## 参考资料
 
-1. [https://en.wikipedia.org/wiki/Transmission_Control_Protocol](https://en.wikipedia.org/wiki/Transmission_Control_Protocol){:target="blank"}
+1. [https://en.wikipedia.org/wiki/Transmission_Control_Protocol](https://en.wikipedia.org/wiki/Transmission_Control_Protocol)

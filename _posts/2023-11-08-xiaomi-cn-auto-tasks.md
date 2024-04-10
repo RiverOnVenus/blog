@@ -4,7 +4,7 @@ categories: [misc]
 comments: true
 ---
 
-今天[小米社区](https://www.xiaomi.cn/){:target="blank"}对 Bootloader 解锁权限发布了公告，要求：
+今天[小米社区](https://www.xiaomi.cn/)对 Bootloader 解锁权限发布了公告，要求：
 
 1. 通过《解锁资格答题测试》
 2. 社区成长等级达到 5 段
@@ -12,7 +12,7 @@ comments: true
 
 才能申请解锁，申请一次有效期只有一年，每年最多支持三台设备解锁，解锁等待期为 72 小时。
 
-试着去答了一下《解锁资格答题测试》，很简单，90 多分，都是一些常识和常用命令，但是我社区等级才 2 级，小米社区升级太慢了，又经常忘记签到做任务，于是找到了 [miui-auto-tasks](https://github.com/0-8-4/miui-auto-tasks){:target="blank"} - 一个自动化完成小米社区任务的脚本。照着它的 [wiki](https://github.com/0-8-4/miui-auto-tasks/wiki){:target="blank"} 配置，功能全开（~~用就不要怕~~）
+试着去答了一下《解锁资格答题测试》，很简单，90 多分，都是一些常识和常用命令，但是我社区等级才 2 级，小米社区升级太慢了，又经常忘记签到做任务，于是找到了 [miui-auto-tasks](https://github.com/0-8-4/miui-auto-tasks) - 一个自动化完成小米社区任务的脚本。照着它的 [wiki](https://github.com/0-8-4/miui-auto-tasks/wiki) 配置，功能全开（~~用就不要怕~~）
 
 ```yaml
 accounts:
@@ -79,5 +79,5 @@ WantedBy=timers.target
 
 参考资料：
 
-1. [https://wiki.archlinux.org/title/Systemd](https://wiki.archlinux.org/title/Systemd){:target="blank"}
-2. [https://wiki.archlinux.org/title/Systemd/Timers](https://wiki.archlinux.org/title/Systemd/Timers){:target="blank"}
+1. [https://wiki.archlinux.org/title/Systemd](https://wiki.archlinux.org/title/Systemd)
+2. [https://wiki.archlinux.org/title/Systemd/Timers](https://wiki.archlinux.org/title/Systemd/Timers)

@@ -49,4 +49,4 @@ $fastboot flash boot_ab images/boot.img
 
 ----
 
-前几天从 MIUI14.0.23.9.18.DEV ---> HyperOS1.0.23.12.04.DEV 发现 EU 又内置了过设备完整性`MEETS_DEVICE_INTEGRITY`的方法（内置了一个 [XiaomiEUModule.apk](https://sourceforge.net/projects/xiaomi-eu-multilang-miui-roms/files/xiaomi.eu/Xiaomi.eu-app/){:target="blank"}），不需要额外的模块了。
+前几天从 MIUI14.0.23.9.18.DEV ---> HyperOS1.0.23.12.04.DEV 发现 EU 又内置了过设备完整性`MEETS_DEVICE_INTEGRITY`的方法（内置了一个 [XiaomiEUModule.apk](https://sourceforge.net/projects/xiaomi-eu-multilang-miui-roms/files/xiaomi.eu/Xiaomi.eu-app/)），不需要额外的模块了。

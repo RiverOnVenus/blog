@@ -10,11 +10,11 @@ comments: true
 {:toc}
 ## 前言
 
-前段时间我一直在尝试不同的内核，想以此来提高桌面环境下的体验。官方支持的内核中我使用过 [linux-zen](https://archlinux.org/packages/?name=linux-zen){:target="blank"}, 非官方支持的内核中我使用过 [linux-ck](https://aur.archlinux.org/packages/linux-ck/){:target="blank"}, [linux-lqx](https://aur.archlinux.org/packages/linux-lqx/){:target="blank"}, [linux-xanmod](https://aur.archlinux.org/packages/linux-xanmod/){:target="blank"}, [linux-xanmod-cacule](https://aur.archlinux.org/packages/linux-xanmod-cacule/){:target="blank"}, [linux-cacule](https://aur.archlinux.org/packages/?K=linux-cacule){:target="blank"}。其中，使用 linux-zen, linux-ck时 cgproxy 正常，而使用其它几个内核时启动却出错，导致无法使用。
+前段时间我一直在尝试不同的内核，想以此来提高桌面环境下的体验。官方支持的内核中我使用过 [linux-zen](https://archlinux.org/packages/?name=linux-zen), 非官方支持的内核中我使用过 [linux-ck](https://aur.archlinux.org/packages/linux-ck/), [linux-lqx](https://aur.archlinux.org/packages/linux-lqx/), [linux-xanmod](https://aur.archlinux.org/packages/linux-xanmod/), [linux-xanmod-cacule](https://aur.archlinux.org/packages/linux-xanmod-cacule/), [linux-cacule](https://aur.archlinux.org/packages/?K=linux-cacule)。其中，使用 linux-zen, linux-ck时 cgproxy 正常，而使用其它几个内核时启动却出错，导致无法使用。
 
 ## 出错
 
-在 Arch Linux 下我一直使用 [qv2ray](https://github.com/Qv2ray/Qv2ray){:target="blank"} + [cgproxy](https://github.com/springzfx/cgproxy){:target="blank"} 来使用代理，但在尝试不同内核时，我的网络崩掉了，然后发现 cgproxy 在一些内核下无法正常运行。
+在 Arch Linux 下我一直使用 [qv2ray](https://github.com/Qv2ray/Qv2ray) + [cgproxy](https://github.com/springzfx/cgproxy) 来使用代理，但在尝试不同内核时，我的网络崩掉了，然后发现 cgproxy 在一些内核下无法正常运行。
 
 先查看服务状态`systemctl status cgproxy.service`:
 

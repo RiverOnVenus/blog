@@ -14,15 +14,15 @@ comments: true
 
 ## Modprobed-db是什么？
 
-Modprobed-db 是一个通过 [make localmodconfig](https://www.kernel.org/doc/html/latest/admin-guide/README.html?highlight=localmodconfig#configuring-the-kernel){:target="blank"} 建立最小内核的工具。它会根据你当前的 config 和由 Modprobed-db 生成的模块列表创建一个新的 config，其余不需要的模块都将被它禁用。这样就得到了一个属于你的、精简的内核。
+Modprobed-db 是一个通过 [make localmodconfig](https://www.kernel.org/doc/html/latest/admin-guide/README.html?highlight=localmodconfig#configuring-the-kernel)建立最小内核的工具。它会根据你当前的 config 和由 Modprobed-db 生成的模块列表创建一个新的 config，其余不需要的模块都将被它禁用。这样就得到了一个属于你的、精简的内核。
 
 ## 如何使用它呢？
 
 ### 安装和初始化配置
 
-> 项目地址：**[graysky2/modprobed-db](https://github.com/graysky2/modprobed-db){:target="_blank"}**  
+> 项目地址：**[graysky2/modprobed-db](https://github.com/graysky2/modprobed-db)**  
 
-对于 Arch Linux，安装 [modprobed-db](https://aur.archlinux.org/packages/modprobed-db){:target="blank"}。
+对于 Arch Linux，安装 [modprobed-db](https://aur.archlinux.org/packages/modprobed-db)。
 
 安装完后首先运行`modprobed-db`，它会创建 Modprobed-db 配置文件 `$XDG_CONFIG_HOME/modprobed-db.conf`。
 
@@ -84,9 +84,9 @@ bridge
 
 ### 使用Modprobed-db构建内核
 
-对于[传统编译内核](https://wiki.archlinux.org/title/Kernel/Traditional_compilation){:target="blank"}的方式，在配置好 `.config` 后运行`make LSMOD=$HOME/.config/modprobed.db localmodconfig`就行。
+对于[传统编译内核](https://wiki.archlinux.org/title/Kernel/Traditional_compilation)的方式，在配置好 `.config` 后运行`make LSMOD=$HOME/.config/modprobed.db localmodconfig`就行。
 
-如果使用 Arch 官方内核的 [PKGBUILD](https://github.com/archlinux/svntogit-packages/blob/packages/linux/trunk/PKGBUILD){:target="blank"} 构建内核，对 PKGBUILD 做以下更改：
+如果使用 Arch 官方内核的 [PKGBUILD](https://github.com/archlinux/svntogit-packages/blob/packages/linux/trunk/PKGBUILD) 构建内核，对 PKGBUILD 做以下更改：
 
 ```
 ...
@@ -133,5 +133,5 @@ bridge
 
 ## 参考资料
 
-1. [https://wiki.archlinux.org/index.php/Modprobed-db](https://wiki.archlinux.org/index.php/Modprobed-db){:target="blank"}
+1. [https://wiki.archlinux.org/index.php/Modprobed-db](https://wiki.archlinux.org/index.php/Modprobed-db)
 1. man 8 modprobed-db

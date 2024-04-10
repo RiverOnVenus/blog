@@ -6,7 +6,7 @@ comments: true
 
 <a data-fancybox="gallery" href="../assets/img/post/seeker/img00.jpg"><img src="../assets/img/post/seeker/img00.jpg">
 
-> Photo by <a href="https://unsplash.com/@sajad_sqs9966b?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Sajad Nori</a> on <a href="https://unsplash.com/s/photos/network?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Unsplash</a>
+> Photo by <a href="https://unsplash.com/@sajad_sqs9966b?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Sajad Nori</a> on <a href="https://unsplash.com/s/photos/network?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
 * TOC
 {:toc}
@@ -14,7 +14,7 @@ comments: true
 
 ## 前言
 
-> 项目地址：**[thewhiteh4t/seeker](https://github.com/thewhiteh4t/seeker){:target="_blank"}**  
+> 项目地址：**[thewhiteh4t/seeker](https://github.com/thewhiteh4t/seeker)**  
 
 我们为什么不应该随意点击未知链接？为什么不应该随便授予重要权限？这会造成什么后果？
 
@@ -194,4 +194,4 @@ seeker 成功获取到了目标手机的`经度`、`维度`。点击`Google Maps
 
 ## 参考资料
 
-1. [https://github.com/thewhiteh4t/seeker](https://github.com/thewhiteh4t/seeker){:target="blank"}
+1. [https://github.com/thewhiteh4t/seeker](https://github.com/thewhiteh4t/seeker)

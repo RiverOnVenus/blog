@@ -6,7 +6,7 @@ comments: true
 
 <a data-fancybox="gallery" href="../assets/img/post/link-queue/anne-nygard-Sl69Jw-o0rU-unsplash.jpg"><img src="../assets/img/post/link-queue/anne-nygard-Sl69Jw-o0rU-unsplash.jpg">
 
->Photo by <a href="https://unsplash.com/@polarmermaid?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Anne Nygård</a> on <a href="https://unsplash.com/s/photos/queue?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Unsplash</a>
+>Photo by <a href="https://unsplash.com/@polarmermaid?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" >Anne Nygård</a> on <a href="https://unsplash.com/s/photos/queue?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
 ## 链式队列
 
@@ -97,17 +97,6 @@ void print_queue(link_queue Q) {
 完整代码
 
 ```c
-/**
- * @file link_queue.c
- * @author zhui (RiverOnVenus)
- * @brief 基于链表的队列
- * @version 0.1
- * @date 2021-06-22
- * 
- * @copyright Copyright (c) 2021
- * 
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -211,17 +200,6 @@ int main() {
 栈，一种抽象数据类型，只允许在有序的线性资料集合的一端（称为栈顶）进行加入数据和移除数据的运算。因而按照后进先出（LIFO, Last In First Out）的原理运作，栈常用一维数组或链表来实现。
 
 ```c
-/**
- * @file sequence_stack.c
- * @author zhui (RiverOnVenus)
- * @brief 基于数组的栈
- * @version 0.1
- * @date 2021-06-22
- * 
- * @copyright Copyright (c) 2021
- * 
- */
-
 #include <stdio.h>
 #include <stdbool.h>
 

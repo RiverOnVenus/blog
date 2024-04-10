@@ -6,7 +6,7 @@ comments: true
 
 <a data-fancybox="kde6-wallpapers" href="../assets/img/post/kde6-wallpapers/screenshot-from-kde-megarelease6.png"><img src="../assets/img/post/kde6-wallpapers/screenshot-from-kde-megarelease6.png">
 
-> Screenshot from [KDE MegaRelease6](https://kde.org/announcements/megarelease/6/){:target="blank"}
+> Screenshot from [KDE MegaRelease6](https://kde.org/announcements/megarelease/6/)
 
 KDE6 更新了很多东西，我最喜欢的竟然是新增的壁纸「Scarlet Tree」，它有 light 和 dark 两种风格，还有适用于手机的分辨率。壁纸位于`/usr/share/wallpapers/Next/contents/`.
 
