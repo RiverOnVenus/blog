@@ -10,32 +10,21 @@ comments: true
 
 * TOC
 {:toc}
-*最后更新时间：Tue Nov 22 06:10:38 PM CST 2022*
+*最后更新时间：Thu Apr 11 09:01:03 AM CST 2024*
 
-【注】如果没有特殊需求，使用 NVIDIA 官方的方案 PRIME render offload 是明智的选择，详情见[官方文档](http://download.nvidia.com/XFree86/Linux-x86_64/525.53/README/primerenderoffload.html) 和 [ArchWiki](https://wiki.archlinux.org/title/PRIME#PRIME_render_offload)。
+## PRIME render offload
 
-## 前言
+正在用的方案。
 
-之前一直用的 Askannz/optimus-manager 来管理双显卡，那时**没有认真阅读项目文档**，对 Hybrid 模式不了解，一直用的 Integrated 和 Nvidia 两个模式。
+如果没有特殊需求，使用 NVIDIA 官方的方案 PRIME render offload 是明智的选择，详情见[官方文档](http://download.nvidia.com/XFree86/Linux-x86_64/525.53/README/primerenderoffload.html) 和 [ArchWiki](https://wiki.archlinux.org/title/PRIME#PRIME_render_offload)。
 
-后来改用了 NVIDIA 官方的方案。
-
-用了几天发现续航没有用 optimus-manager 的 Integrated 模式好，于是想找到一个既可以在我用电池时仅使用核显的模式又可以在接通电源时使用 Nvidia offload模式的方案。
-
-<span class="spoiler" >「没想到，"Hybrid" 即 "Nvidia offload"。所以又换回了 optimus-manager。在 Integrated 和 Hybrid 之间切换」</span>
-
-## 正文
-
-我的需求：
-
-1. 没有接通电源时有~~较好~~极好的续航
-3. 偶尔使用Nvidia跑一些应用程序
+使用后两种方案大多是为了极致的续航。
 
 > 使用 NVIDIA PRIME 时，N卡处于待机状态，即使不在上面运行任何应用程序，它也会继续消耗电能。由于N卡会自动降频，因此耗电量相对较低，但仍比仅用核显时高很多。
 
-2022-10-12: 现在笔记本整天接着电源，改用 NVIDIA 官方的 PRIME render offload
+## optimus-manager
 
-### 介绍
+之前用的方案，配置也许已经过时。
 
 开始之前，请确定已经按照 [ArchWiki](https://wiki.archlinux.org/title/NVIDIA) 安装好了相应驱动。
 
@@ -55,7 +44,7 @@ pacman -S nvidia-prime
 
 > Hybrid模式文档 [Nvidia GPU offloading for "hybrid" mode](https://github.com/Askannz/optimus-manager/wiki/Nvidia-GPU-offloading-for-%22hybrid%22-mode)
 
-### 安装
+**安装**
 
 [项目安装文档](https://github.com/Askannz/optimus-manager#installation)
 
@@ -67,7 +56,7 @@ pacman -S optimus-manager bbswitch
 
 > 注意：bbswitch 很久没更新了，在较新的笔记本电脑上可能没用，甚至产生一些其它问题。且 bbswitch 只是optimus-manager 项目的电源管理方案 [A guide  to power management options](https://github.com/Askannz/optimus-manager/wiki/A-guide--to-power-management-options)之一，所以请根据电脑环境选择合理的方案。
 
-### 配置
+**配置**
 
 [项目配置文档](https://github.com/Askannz/optimus-manager/#configuration)
 
@@ -117,13 +106,15 @@ switching=bbswitch
 
 重启后，使用`systemctl status optimus-manager.service`命令查看服务状态，使用`optimus-manager --status`命令查看当前模式。
 
-## 可选
+**可选安装**
 
 [optimus-manager-qt](https://github.com/Shatur/optimus-manager-qt)，使用 AUR 助手安装。
 
-## 最后
+## envycontrol
 
-optimus-manager 目前在我的笔记本电脑上运行良好，尚未发现问题。另外，一定要**认真阅读项目文档**。
+还没用过。
+
+> 项目地址：[bayasdev/envycontrol](https://github.com/bayasdev/envycontrol)
 
 ## 参考资料
 
