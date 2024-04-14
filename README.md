@@ -13,4 +13,4 @@ https://github.com/starry99/catbook
 
 ## LICENSE
 
-The catbook is under the [MIT license](https://github.com/RiverOnVenus/blog/blob/master/MIT), and this blog's modifications to the theme is under the [GPL-3.0-or-later](https://www.gnu.org/licenses/gpl-3.0.html).
+The catbook is under the [MIT license](https://github.com/RiverOnVenus/blog/blob/master/MIT), and this blog's modifications to the theme is under the [GPL-3.0-or-later](https://github.com/RiverOnVenus/blog/blob/master/LICENSE).
