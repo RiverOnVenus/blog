@@ -4,6 +4,8 @@ categories: [linux,tool]
 comments: true
 ---
 
+* TOC
+{:toc}
 WARP+ 是 Cloudflare 提供的一项网络加速服务，用于改善互联网连接的速度和安全性。WARP+ 旨在通过优化网络路径，减少延迟，并提供更快的网络连接体验。
 
 这里说的 WARP+ 属于 WARP+ Limited，流量是有限的，通过推广获得免费的服务，但是通过 Warp+ Bot 可以获得 24.59PB 流量，也可以说是 Unlimited 了。而真正的 WARP+ Unlimited 属于付费服务。

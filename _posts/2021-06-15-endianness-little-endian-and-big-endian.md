@@ -8,6 +8,10 @@ comments: true
 
 >Photo by <a href="https://unsplash.com/@samsungmemory?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Samsung Memory</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" >Unsplash</a>
 
+* TOC
+{:toc}
+
+
 *最后更新时间：Sat Nov 25 02:04:47 PM CST 2023*
 
 ## 0x00 什么是字节顺序
@@ -77,7 +81,7 @@ Big-endian:    0xefcdab79
 
 在网络编程中，通常使用 `uint32_t htonl(uint32_t hostlong)` , `uint16_t htons(uint16_t hostshort)` , `uint32_t ntohl(uint32_t netlong)` , `uint16_t ntohs(uint16_t netshort)`在网络和主机之间进行大小端的转换。
 
-## 参考资料
+## 0x02 参考资料
 
 1. [https://stackoverflow.com/questions/19275955/convert-little-endian-to-big-endian](https://stackoverflow.com/questions/19275955/convert-little-endian-to-big-endian)
 2. [https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/other-built-in-functions-provided-by-gcc.html](https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/other-built-in-functions-provided-by-gcc.html)

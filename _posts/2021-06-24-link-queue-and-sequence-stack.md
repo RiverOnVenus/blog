@@ -8,6 +8,10 @@ comments: true
 
 >Photo by <a href="https://unsplash.com/@polarmermaid?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" >Anne Nygård</a> on <a href="https://unsplash.com/s/photos/queue?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
+* TOC
+{:toc}
+
+
 ## 链式队列
 
 队列，一种抽象数据类型，是先进先出（FIFO, First-In-First-Out）的线性表。通常用链表或者数组来实现。队列只允许在后端（称为rear）进行插入操作，在前端（称为front）进行删除操作。
