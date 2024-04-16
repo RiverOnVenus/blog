@@ -72,7 +72,7 @@ int listen(int sockfd, int backlog);
 
 下面是一个`connect()`,`listen()`简单示例：
 
- `connect.c`
+ connect.c
 
 ```c
 #include <arpa/inet.h>
@@ -107,7 +107,7 @@ int main(int argc, char *argv[]) {
 
 ```
 
-`listen.c`
+listen.c
 
 ```c
 #include <arpa/inet.h>
@@ -148,16 +148,26 @@ int main(int argc, char *argv[]) {
 
 ```
 
+在两个终端运行程序
+
+```
+➜ ./listen 192.168.100.191 33333
+
+➜ ./connect 192.168.100.191 33333
+0
+```
+
 抓包
 
 ```
-➜ sudo tcpdump -i any port 33333                 
+➜ sudo tcpdump -i any port 33333
+[sudo] password for river: 
 tcpdump: data link type LINUX_SLL2
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on any, link-type LINUX_SLL2 (Linux cooked v2), snapshot length 262144 bytes
-18:45:50.817555 lo    In  IP localhost.53584 > localhost.dgi-serv: Flags [SEW], seq 66615720, win 33280, options [mss 65495,nop,nop,sackOK,nop,wscale 12], length 0
-18:45:50.817590 lo    In  IP localhost.dgi-serv > localhost.53584: Flags [S.E], seq 658374219, ack 66615721, win 33280, options [mss 65495,nop,nop,sackOK,nop,wscale 12], length 0
-18:45:50.817640 lo    In  IP localhost.53584 > localhost.dgi-serv: Flags [.], ack 1, win 9, length 0
+15:17:50.191602 lo    In  IP venus.38172 > venus.dgi-serv: Flags [SEW], seq 3952710686, win 33280, options [mss 65495,nop,nop,sackOK,nop,wscale 10], length 0
+15:17:50.191625 lo    In  IP venus.dgi-serv > venus.38172: Flags [S.E], seq 2291194089, ack 3952710687, win 33280, options [mss 65495,nop,nop,sackOK,nop,wscale 10], length 0
+15:17:50.191652 lo    In  IP venus.38172 > venus.dgi-serv: Flags [.], ack 1, win 33, length 0
 
 ```
 
