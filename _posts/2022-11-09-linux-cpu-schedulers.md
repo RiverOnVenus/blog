@@ -8,7 +8,7 @@ comments: true
 
 >Photo by <a href="https://unsplash.com/@luchox23?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Luis Gonzalez</a> on <a href="https://unsplash.com/s/photos/ryzen?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
-*最后更新时间：Sun Mar 31 09:08:15 PM CST 2024*
+*最后更新时间：Sat Apr 20 09:05:42 PM CST 2024*
 
 * TOC
 {:toc}
@@ -16,7 +16,7 @@ comments: true
 
 对于各种 CPU 调度器，很多人的看法和得到的反馈不一样。有的人想要“压榨” CPU 的性能，将其发挥到极致，他们通常会因为某个调度器带来的一点点性能提升而高兴；有的人真实的感受到了在高负载环境下系统的响应能力提升；有的人对此嗤之以鼻；有的人无所谓这点性能或响应能力；有的人在不同调度器上得到了负优化。
 
-下面这些是我目前了解到的 CPU 调度器。BFS 和 MuQSS 曾经都是由 Con Kolivas 开发维护，但两者现在都处于无人维护的状态。Baby, CacULE 和 TT 都是由 Hamad Al Marri 开发维护，其中 Baby 是让 CPU 调度器爱好者学习用的，在 CK 宣布[放弃维护 MuQSS](https://ck-hack.blogspot.com/2021/08/514-and-future-of-muqss-and-ck-once.html) (截止到 5.12) 后，Hamad 也随后放弃维护 CacULE (截止到 5.14), Peter Jung 接手 CacULE (5.15 - 6.1)的维护工作 (6.1 后他也不再维护 CacULE)，两个月后 Hamad 发布了新的 CPU 调度器——TT, 由于精力有限，他只维护 TT 的 LTS 版本 。Bore 是在 CFS 上进行一些修改，由 mu(Masahito Suzuki) 开发维护。BMQ 和 PDS 现在都属于 Project C, 由 Alfred Chen 开发维护。EEVDF 由 Intel Linux 工程师 Peter Zijlstra 开发维护。
+下面这些是我目前了解到的 CPU 调度器。BFS 和 MuQSS 曾经都是由 Con Kolivas 开发维护，但两者现在都处于无人维护的状态。Baby, CacULE 和 TT 都是由 Hamad Al Marri 开发维护，其中 Baby 是让 CPU 调度器爱好者学习用的，在 CK 宣布[放弃维护 MuQSS](https://ck-hack.blogspot.com/2021/08/514-and-future-of-muqss-and-ck-once.html) (截止到 5.12) 后，Hamad 也随后放弃维护 CacULE (截止到 5.14), Peter Jung 接手 CacULE (5.15 - 6.1)的维护工作 (6.1 后他也不再维护 CacULE)，两个月后 Hamad 发布了新的 CPU 调度器——TT, 由于精力有限，他只维护 TT 的 LTS 版本 。Bore 是 CFS 和 EEVDF 的增强版，由 mu(Masahito Suzuki) 开发维护。BMQ 和 PDS 现在都属于 Project C, 由 Alfred Chen 开发维护。EEVDF 由 Intel Linux 工程师 Peter Zijlstra 开发维护。
 
 ## 调度器
 
@@ -25,7 +25,7 @@ comments: true
 - [Baby](https://github.com/hamadmarri/Baby-CPU-Scheduler) - A very basic and lightweight yet very performant CPU scheduler. Can be used for learning purposes as a base ground CPU scheduler on Linux.
 - [BFS](https://www.phoronix.com/scan.php?page=search&q=Brain+Fuck+Scheduler) - BFS (Brain Fuck Scheduler) is a process scheduler designed for the linux kernel as an alternative to the Completely Fair Scheduler.
 - [BMQ](https://gitlab.com/alfredchen/linux-prjc) - BMQ (BitMap Queue) is a linux CPU scheduler, inspired By Google's Zircon.
-- [Bore](https://github.com/firelzrd/bore-scheduler) - BORE (Burst-Oriented Response Enhancer) is a modification to the Completely Fair Scheduler, the Linux default CPU scheduler.
+- [Bore](https://github.com/firelzrd/bore-scheduler) - BORE (Burst-Oriented Response Enhancer) is enhanced versions of CFS  (Completely Fair Scheduler) and EEVDF (Earliest Eligible Virtual  Deadline First) Linux schedulers. Developed with the aim of maintaining these schedulers' high performance while delivering resilient responsiveness to user input under as  versatile load scenario as possible.
 - [CacULE](https://github.com/hamadmarri/cacule-cpu-scheduler) - The CacULE CPU scheduler is based on interactivity score mechanism. The interactivity score is inspired by the ULE scheduler (FreeBSD scheduler).
 - [CFS](https://www.kernel.org/doc/html/latest/scheduler/sched-design-CFS.html) - CFS (Completely Fair Scheduler) is the new desktop process scheduler implemented in Linux 2.6.23 as a replacement for the previous vanilla scheduler’s SCHED_OTHER interactivity code. ~~It is the current linux task scheduler.~~
 - [ECHO](https://github.com/hamadmarri/ECHO-CPU-Scheduler) - Enhanced CPU Handling Orchestrator, implemented on top of Baby scheduler.
