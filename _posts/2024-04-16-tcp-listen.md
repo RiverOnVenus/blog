@@ -43,7 +43,7 @@ NOTES
        128.
 ```
 
-这说明调用`listen()`时内核维护了两个队列 - “未完全建立连接队列”和“完全建立连接队列”。
+这说明调用`listen()`时内核维护了两个队列 —— “未完全建立连接队列”和“完全建立连接队列”。
 
 再回到函数原型：
 
@@ -175,10 +175,6 @@ listening on any, link-type LINUX_SLL2 (Linux cooked v2), snapshot length 262144
 
 SYN 泛洪，在 DDoS 中属于 TCP 协议攻击，针对的是 pending queue.
 
-相关阅读：
-
-- [https://www.cloudflare.com/learning/ddos/syn-flood-ddos-attack](https://www.cloudflare.com/learning/ddos/syn-flood-ddos-attack/)
-
 ### 对策
 
 增大 pending queue 最大长度：
@@ -189,8 +185,8 @@ net.ipv4.tcp_max_syn_backlog = 8192
 
 相关阅读：
 
+- [https://www.cloudflare.com/learning/ddos/syn-flood-ddos-attack](https://www.cloudflare.com/learning/ddos/syn-flood-ddos-attack/)
 - [https://zh.wikipedia.org/wiki/SYN_flood](https://zh.wikipedia.org/wiki/SYN_flood)
-
 - [https://wiki.archlinux.org/title/Sysctl#Tweak_the_pending_connection_handling](https://wiki.archlinux.org/title/Sysctl#Tweak_the_pending_connection_handling)
 
 
