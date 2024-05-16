@@ -63,12 +63,10 @@ int listen(int sockfd, int backlog);
 
  <a data-fancybox="tcp-listen" href="../assets/img/post/tcp-listen/tcp-socket-3whs.png"><img src="../assets/img/post/tcp-listen/tcp-socket-3whs.png">
 
-“未完全建立连接队列”和“完全建立连接队列”，也叫 pending queue - 未决队列，和 accepted queue - 已接受队列。
-
-- pending queue - 用于存储 SYN_RECV 状态的连接
+- syn queue - 用于存储 SYN_RECV 状态的连接
 - accepted queue - 用于存储 ESTABLISHED 状态的连接
 
-客户端调用 `connect()` 发起连接，发送了第一次握手的 SYN 包，服务器回了 SYN+ ACK 包，此时的连接（SYN_RECV 状态）会放在 pending queue，服务器收到最后一个 ACK 包完成三次握手完成后的连接（ESTABLISHED 状态）放在 accepted queue ，等待 `accept()` 调用出队。
+客户端调用 `connect()` 发起连接，发送了第一次握手的 SYN 包，服务器回了 SYN+ACK 包，此时的连接（SYN_RECV 状态）会放在 syn queue，服务器收到最后一个 ACK 包完成三次握手完成后的连接（ESTABLISHED 状态）放在 accepted queue ，等待 `accept()` 调用出队。
 
 下面是一个`connect()`,`listen()`简单示例：
 
