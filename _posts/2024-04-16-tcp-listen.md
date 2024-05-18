@@ -64,9 +64,9 @@ int listen(int sockfd, int backlog);
  <a data-fancybox="tcp-listen" href="../assets/img/post/tcp-listen/tcp-socket-3whs.png"><img src="../assets/img/post/tcp-listen/tcp-socket-3whs.png">
 
 - syn queue - 用于存储 SYN_RECV 状态的连接
-- accepted queue - 用于存储 ESTABLISHED 状态的连接
+- accept queue - 用于存储 ESTABLISHED 状态的连接
 
-客户端调用 `connect()` 发起连接，发送了第一次握手的 SYN 包，服务器回了 SYN+ACK 包，此时的连接（SYN_RECV 状态）会放在 syn queue，服务器收到最后一个 ACK 包完成三次握手完成后的连接（ESTABLISHED 状态）放在 accepted queue ，等待 `accept()` 调用出队。
+客户端调用 `connect()` 发起连接，发送了第一次握手的 SYN 包，服务器回了 SYN+ACK 包，此时的连接（SYN_RECV 状态）会放在 syn queue，服务器收到最后一个 ACK 包完成三次握手完成后的连接（ESTABLISHED 状态）放在 accept queue ，等待 `accept()` 调用出队。
 
 下面是一个`connect()`,`listen()`简单示例：
 
@@ -171,11 +171,11 @@ listening on any, link-type LINUX_SLL2 (Linux cooked v2), snapshot length 262144
 
 ## 协议攻击
 
-SYN 泛洪，在 DDoS 中属于 TCP 协议攻击，针对的是 pending queue.
+SYN 泛洪，在 DDoS 中属于 TCP 协议攻击，针对的是 syn queue.
 
 ### 对策
 
-增大 pending queue 最大长度：
+增大 syn queue 最大长度：
 
 ```
 net.ipv4.tcp_max_syn_backlog = 8192
