@@ -8,7 +8,7 @@ comments: true
 
 >Photo by <a href="https://unsplash.com/@luchox23?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Luis Gonzalez</a> on <a href="https://unsplash.com/s/photos/ryzen?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
-*最后更新时间：Sat Apr 20 09:05:42 PM CST 2024*
+*最后更新时间：Sat Jun  8 04:10:49 PM CST 2024*
 
 * TOC
 {:toc}
@@ -32,7 +32,7 @@ comments: true
 - [EEVDF](https://lwn.net/Articles/927530/) - EEVDF is based on the Earliest Eligible Virtual Deadline First approach. ([Initial EEVDF paper](https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=805acf7726282721504c8f00575d91ebfd750564)). **The EEVDF scheduler has been merged for the Linux 6.6 kernel and replaces the existing CFS scheduler.**
 - [MuQSS](http://ck.kolivas.org/patches/muqss/sched-MuQSS.txt) - Multiple Queue Skiplist Scheduler (MuQSS) is a rewritten implementation of the Brain Fuck Scheduler (BFS) concept.
 - [PDS](https://gitlab.com/alfredchen/linux-prjc) - PDS (Priority and Deadline based Skiplist multiple queue scheduler) is a linux CPU scheduler whose design principles are to be a simple CPU process scheduler yet efficient and scalable.
-- [sched-ext](https://github.com/sched-ext/scx) - sched_ext is a Linux kernel feature which enables implementing kernel thread schedulers in BPF and dynamically loading them. This repository contains various scheduler implementations and support utilities.
+- [Sched-ext](https://github.com/sched-ext/scx) - sched_ext is a Linux kernel feature which enables implementing kernel thread schedulers in BPF and dynamically loading them. This repository contains various scheduler implementations and support utilities.
 - [TT](https://github.com/hamadmarri/TT-CPU-Scheduler) - The goal of the Task Type (TT) scheduler is to detect tasks types based  on their behaviours and control the schedulling based on their types. Not supported after version 6.6.
 
 （按照字母排序）
@@ -267,6 +267,28 @@ Bore 在最近发布的版本上 ( >= 1.7.x) 做了很多改进，正如它的�
 性能尚未测试。
 
 更多关于 ECHO 和其它调度器比较的测试：[https://github.com/hamadmarri/benchmarks](https://github.com/hamadmarri/benchmarks)
+
+## 2024-06-08 更新
+
+### Sched_ext
+
+最近在尝试 sched_ext, 主要在用 scx_rustland, scx_rusty, scx_lavd. 在 6.9.3 的内核上配合 sched_ext-0.1.10.r20.g472ab94-1 测试了高负载下它们的延迟。
+
+#### scx_rustland
+
+<a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/6.9.3-scx_rustland-0.1.10.r20.g472ab94.png"><img src="../assets/img/post/linux-cpu-schedulers/6.9.3-scx_rustland-0.1.10.r20.g472ab94.png">
+
+#### scx_rusty
+
+<a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/6.9.3-scx_rusty-0.1.10.r20.g472ab94.png"><img src="../assets/img/post/linux-cpu-schedulers/6.9.3-scx_rusty-0.1.10.r20.g472ab94.png">
+
+#### scx_lavd
+
+<a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/6.9.3-scx_lavd-0.1.10.r20.g472ab94.png"><img src="../assets/img/post/linux-cpu-schedulers/6.9.3-scx_lavd-0.1.10.r20.g472ab94.png">
+
+使用体验是，scx_rustland 和 scx_rusty 在高负载下都能保持良好的响应，相比之下，scx_lavd 的卡顿、滞后感最明显。
+
+性能尚未测试。
 
 ## Q&A
 
