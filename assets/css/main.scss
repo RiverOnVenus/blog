@@ -233,7 +233,6 @@ img {
     & a {
         text-decoration: none;
         color: var(--archive_title);
-        font-size: 1.1rem;
 
         &:hover,
         &:focus {
@@ -346,14 +345,14 @@ img {
 .header_name {
     display: block;
     color: var(--name_font);
-    font-size: 1.4em;
+    font-size: 1.5em;
 }
 
 .header_job {
     display: block;
     margin-top: .1rem;
     color: var(--job_font);
-    font-size: 0.85em;
+    font-size: 0.75em;
     font-weight: 700;
 }
 
@@ -555,8 +554,8 @@ img {
 }
 
 .post_content {
-    font-size: 1.15rem;
-    line-height: 1.7rem;
+    font-size: 0.95rem;
+    line-height: 1.5rem;
     color: var(--post_text);
 
     h1,
@@ -610,7 +609,7 @@ img {
         padding: .1em .4em;
         border-radius: 5px;
         font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
-        font-size: .95rem;
+        font-size: .85rem;
     }
 
     pre code {
