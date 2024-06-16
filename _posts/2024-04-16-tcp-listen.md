@@ -177,9 +177,9 @@ listening on any, link-type LINUX_SLL2 (Linux cooked v2), snapshot length 262144
 15:17:50.191652 lo    In  IP venus.38172 > venus.dgi-serv: Flags [.], ack 1, win 33, length 0
 ```
 
-1. `Flags [SEW]`: 表示这是一个 SYN、ECE 和 CWR 标志位被置位的数据包。
-2. `Flags [S.E]`: 表示这是一个 SYN/ACK 包，同时 ECE 标志被置位。
-3. `Flags [.]`: 表示这是一个 ACK 包，客户端收到了服务器端的 SYN/ACK 包，并确认建立了连接。
+1. `Flags [SEW]`: 表示这是一个 SYN 包，同时 ECE 和 CWR 标志位被置位。
+2. `Flags [S.E]`: 表示这是一个 SYN+ACK 包，同时 ECE 标志被置位。
+3. `Flags [.]`: 表示这是一个 ACK 包，客户端收到了服务器端的 SYN+ACK 包，并确认建立了连接。
 
 ## 协议攻击
 
