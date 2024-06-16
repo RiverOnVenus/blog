@@ -72,7 +72,7 @@ TCP 通信过程如下图：
 
 下面是一个验证 TCP 三次握手发生在`connect()`,`listen()`阶段的简单示例：
 
- connect.c
+ client.c
 
 ```c
 #include <arpa/inet.h>
@@ -84,41 +84,8 @@ TCP 通信过程如下图：
 #include <unistd.h>
 
 int main(int argc, char *argv[]) {
-  int socket_fd = socket(AF_INET, SOCK_STREAM, 0);
-  if (-1 == socket_fd) {
-    perror("socket");
-  }
-
-  struct sockaddr_in client_addr;
-  bzero(&client_addr, sizeof(client_addr));
-  client_addr.sin_family = AF_INET;
-  client_addr.sin_addr.s_addr = inet_addr(argv[1]);
-  client_addr.sin_port = htons(atoi(argv[2]));
-
-  int ret = connect(socket_fd, (struct sockaddr *)&client_addr, sizeof(client_addr));
-  if (-1 == ret) {
-    perror("connect");
-  } else {
-    printf("%d\n", ret);
-  }
-}
-
-```
-
-listen.c
-
-```c
-#include <arpa/inet.h>
-#include <netinet/in.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <strings.h>
-#include <sys/socket.h>
-#include <unistd.h>
-
-int main(int argc, char *argv[]) {
-  int socket_fd = socket(AF_INET, SOCK_STREAM, 0);
-  if (-1 == socket_fd) {
+  int sockfd = socket(AF_INET, SOCK_STREAM, 0);
+  if (-1 == sockfd) {
     perror("socket");
   }
 
@@ -128,45 +95,89 @@ int main(int argc, char *argv[]) {
   server_addr.sin_addr.s_addr = inet_addr(argv[1]);
   server_addr.sin_port = htons(atoi(argv[2]));
 
-  int ret = bind(socket_fd, (struct sockaddr *)&server_addr, sizeof(server_addr));
+  int ret = connect(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr));
   if (-1 == ret) {
-    perror("bind");
+    perror("connect");
+  } else {
+    printf("conneted\n");
   }
-
-  ret = listen(socket_fd, 33);
-  if (-1 == ret) {
-    perror("listen");
-  }
-
-  sleep(10); // 留给抓包的时间
-  close(socket_fd);
+  close(sockfd);
   return 0;
 }
 
 ```
 
-在两个终端运行程序
+server.c
+
+```c
+#include <arpa/inet.h>
+#include <netinet/in.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <strings.h>
+#include <sys/socket.h>
+#include <unistd.h>
+
+int main(int argc, char *argv[]) {
+  int sockfd = socket(AF_INET, SOCK_STREAM, 0);
+  if (-1 == sockfd) {
+    perror("socket");
+  }
+
+  struct sockaddr_in server_addr;
+  bzero(&server_addr, sizeof(server_addr));
+  server_addr.sin_family = AF_INET;
+  server_addr.sin_addr.s_addr = inet_addr(argv[1]);
+  server_addr.sin_port = htons(atoi(argv[2]));
+
+  int ret = bind(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr));
+  if (-1 == ret) {
+    perror("bind");
+  }
+
+  ret = listen(sockfd, 33);
+  if (-1 == ret) {
+    perror("listen");
+  }
+
+  sleep(10); // 留给抓包的时间
+  close(sockfd);
+  return 0;
+}
 
 ```
-➜ ./listen 192.168.100.191 33333
 
-➜ ./connect 192.168.100.191 33333
-0
+先运行 server
+
+```
+➜ ./server 192.168.100.191 33333
 ```
 
-抓包
+再抓包
 
 ```
 ➜ sudo tcpdump -i any port 33333
-[sudo] password for river: 
+```
+
+最后用 client 连接 server
+
+```
+➜ ./client 192.168.100.191 33333
+```
+
+可以看到抓包的输出
+
+```
+➜ sudo tcpdump -i any port 33333
 tcpdump: data link type LINUX_SLL2
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on any, link-type LINUX_SLL2 (Linux cooked v2), snapshot length 262144 bytes
 15:17:50.191602 lo    In  IP venus.38172 > venus.dgi-serv: Flags [SEW], seq 3952710686, win 33280, options [mss 65495,nop,nop,sackOK,nop,wscale 10], length 0
 15:17:50.191625 lo    In  IP venus.dgi-serv > venus.38172: Flags [S.E], seq 2291194089, ack 3952710687, win 33280, options [mss 65495,nop,nop,sackOK,nop,wscale 10], length 0
 15:17:50.191652 lo    In  IP venus.38172 > venus.dgi-serv: Flags [.], ack 1, win 33, length 0
-
 ```
+
+
 
 ## 协议攻击
 
