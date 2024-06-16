@@ -580,7 +580,6 @@ img {
 
     a {
         color: var(--post_link);
-        text-decoration: underline;
         word-wrap: break-word;
         max-width: 100%;
 
@@ -588,6 +587,11 @@ img {
         &:focus {
             color: var(--post_link_hover);
         }
+    }
+
+    a[href^="http"]:not([href*="zhui.dev"]),
+    a[href^="https"]:not([href*="zhui.dev"]) {
+    text-decoration: underline;
     }
 
     li {
