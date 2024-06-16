@@ -55,20 +55,22 @@ int listen(int sockfd, int backlog);
 
 ## 两个队列和三次握手
 
-“未完全建立连接队列”和“完全建立连接队列”和 TCP 三次握手有关，TCP 通信过程如下图：
+TCP 通信过程如下图：
 
 <a data-fancybox="tcp-listen" href="../assets/img/post/tcp-listen/tcp-socket.png"><img src="../assets/img/post/tcp-listen/tcp-socket.png">
 
-而三次握手发生在系统调用 `connect()`,`listen()`阶段：
+三次握手发生在系统调用 `connect()`,`listen()`阶段：
 
  <a data-fancybox="tcp-listen" href="../assets/img/post/tcp-listen/tcp-socket-3whs.png"><img src="../assets/img/post/tcp-listen/tcp-socket-3whs.png">
 
 - syn queue - 用于存储 SYN_RECV 状态的连接
-- accept queue - 用于存储 ESTABLISHED 状态的连接
+- pending queue - 用于存储 ESTABLISHED 状态的连接
 
-客户端调用 `connect()` 发起连接，发送了第一次握手的 SYN 包，服务器回了 SYN+ACK 包，此时的连接（SYN_RECV 状态）会放在 syn queue，服务器收到最后一个 ACK 包完成三次握手完成后的连接（ESTABLISHED 状态）放在 accept queue ，等待 `accept()` 调用出队。
+客户端调用 `connect()` 发起连接，发送了第一次握手的 SYN 包，服务器回了 SYN+ACK 包，此时的连接（SYN_RECV 状态）会放在 syn queue，服务器收到最后一个 ACK 包完成三次握手完成后的连接（ESTABLISHED 状态）放在 pending queue ，等待 `accept()` 调用出队。
 
-下面是一个`connect()`,`listen()`简单示例：
+### 测试程序和抓包
+
+下面是一个验证 TCP 三次握手发生在`connect()`,`listen()`阶段的简单示例：
 
  connect.c
 
@@ -82,25 +84,23 @@ int listen(int sockfd, int backlog);
 #include <unistd.h>
 
 int main(int argc, char *argv[]) {
+  int socket_fd = socket(AF_INET, SOCK_STREAM, 0);
+  if (-1 == socket_fd) {
+    perror("socket");
+  }
 
-    int sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (-1 == sockfd) {
-        perror("socket");
-    }
+  struct sockaddr_in client_addr;
+  bzero(&client_addr, sizeof(client_addr));
+  client_addr.sin_family = AF_INET;
+  client_addr.sin_addr.s_addr = inet_addr(argv[1]);
+  client_addr.sin_port = htons(atoi(argv[2]));
 
-    struct sockaddr_in addr;
-    bzero(&addr, sizeof(addr));
-
-    addr.sin_family = AF_INET;
-    addr.sin_addr.s_addr = inet_addr(argv[1]);
-    addr.sin_port = htons(atoi(argv[2]));
-
-    int ret = connect(sockfd, (struct sockaddr *) &addr, sizeof(addr));
-    if (-1 == ret) {
-        perror("connect");
-    } else {
-        printf("%d\n", ret);
-    }
+  int ret = connect(socket_fd, (struct sockaddr *)&client_addr, sizeof(client_addr));
+  if (-1 == ret) {
+    perror("connect");
+  } else {
+    printf("%d\n", ret);
+  }
 }
 
 ```
@@ -117,31 +117,30 @@ listen.c
 #include <unistd.h>
 
 int main(int argc, char *argv[]) {
+  int socket_fd = socket(AF_INET, SOCK_STREAM, 0);
+  if (-1 == socket_fd) {
+    perror("socket");
+  }
 
-    int sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (-1 == sockfd) {
-        perror("socket");
-    }
-    struct sockaddr_in serAddr;
-    bzero(&serAddr, sizeof(serAddr));
+  struct sockaddr_in server_addr;
+  bzero(&server_addr, sizeof(server_addr));
+  server_addr.sin_family = AF_INET;
+  server_addr.sin_addr.s_addr = inet_addr(argv[1]);
+  server_addr.sin_port = htons(atoi(argv[2]));
 
-    serAddr.sin_family = AF_INET;
-    serAddr.sin_addr.s_addr = inet_addr(argv[1]);
-    serAddr.sin_port = htons(atoi(argv[2]));
+  int ret = bind(socket_fd, (struct sockaddr *)&server_addr, sizeof(server_addr));
+  if (-1 == ret) {
+    perror("bind");
+  }
 
-    int ret = bind(sockfd, (struct sockaddr *) &serAddr, sizeof(serAddr));
-    if (-1 == ret) {
-        perror("bind");
-    }
+  ret = listen(socket_fd, 33);
+  if (-1 == ret) {
+    perror("listen");
+  }
 
-    ret = listen(sockfd, 33);
-    if (-1 == ret) {
-        perror("listen");
-    }
-
-    sleep(10);
-    close(sockfd);
-    return 0;
+  sleep(10); // 留给抓包的时间
+  close(socket_fd);
+  return 0;
 }
 
 ```
