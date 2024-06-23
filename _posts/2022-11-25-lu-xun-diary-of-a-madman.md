@@ -1,6 +1,6 @@
 ---
 title: 【转】鲁迅《狂人日记》
-categories: [writing]
+categories: [misc]
 comments: true
 ---
 
