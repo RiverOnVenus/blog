@@ -10,7 +10,7 @@ comments: true
 
 * TOC
 {:toc}
-*最后更新时间：Thu Apr 11 09:01:03 AM CST 2024*
+*最后更新时间：Sun Jun 23 12:45:39 PM CST 2024*
 
 ## PRIME render offload
 
@@ -112,10 +112,25 @@ switching=bbswitch
 
 ## envycontrol
 
-还没用过。
-
 > 项目地址：[bayasdev/envycontrol](https://github.com/bayasdev/envycontrol)
+
+安装
+
+```
+paru -S envycontrol
+```
+
+使用
+
+```
+sudo envycontrol -s <MODE>
+```
+
+可选安装
+
+[optimus-gpu-switcher](https://github.com/enielrodriguez/optimus-gpu-switcher)
 
 ## 参考资料
 
 1. [https://github.com/Askannz/optimus-manager](https://github.com/Askannz/optimus-manager)
+1. https://github.com/bayasdev/envycontrol
