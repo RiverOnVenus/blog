@@ -133,4 +133,4 @@ sudo envycontrol -s <MODE>
 ## 参考资料
 
 1. [https://github.com/Askannz/optimus-manager](https://github.com/Askannz/optimus-manager)
-1. https://github.com/bayasdev/envycontrol
+1. [https://github.com/bayasdev/envycontrol](https://github.com/bayasdev/envycontrol)
