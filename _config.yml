@@ -28,7 +28,7 @@ user:
   pic: /assets/img/avatar.jpg
   picAlt: "Mr. Error 追"
   job: Life often requires some excitement, joy, and anticipation.
-  search: true
+  #search: 
   about: true
   feed: true
   key: true
