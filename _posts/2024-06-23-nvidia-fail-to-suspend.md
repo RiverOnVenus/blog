@@ -37,9 +37,11 @@ Jun 23 14:09:28 venus systemd[1]: Failed to start System Suspend.
 
 ### “错误的”方法
 
-在看到是 nvidia 导致的问题时，我立即想的是先禁用掉它，于是安装了 [envycontrol](https://github.com/bayasdev/envycontrol) 切到 integrated 模式，有效，卸载并删除残留配置文件。
+在看到是 nvidia 导致的问题时，我立即想的是先禁用掉它，于是安装了 [envycontrol](https://github.com/bayasdev/envycontrol) 切到 integrated 模式，有效。
 
-### 正确的方法
+但这不是正确的解决方法，所以卸载 envycontrol 并删除它的残留配置文件。
+
+### 正确的方法:pushpin:
 
 通过日志找到了 [Wakeup_triggers#NVIDIA_drivers](https://wiki.archlinux.org/title/Power_management/Wakeup_triggers#NVIDIA_drivers), 一模一样的日志，抄一抄 wiki 的解决方法。
 
