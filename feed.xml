@@ -1,0 +1,1094 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://zhui.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zhui.dev/" rel="alternate" type="text/html" /><updated>2024-10-14T22:44:11+08:00</updated><id>https://zhui.dev/feed.xml</id><title type="html">Error: 你发现了一个错误!</title><subtitle>Life often requires some excitement, joy, and anticipation.</subtitle><author><name>Mr. Error 追</name><email>error@zhui.dev</email></author><entry><title type="html">NVIDIA 导致系统挂起失败</title><link href="https://zhui.dev/2024-06/nvidia-fail-to-suspend" rel="alternate" type="text/html" title="NVIDIA 导致系统挂起失败" /><published>2024-06-23T00:00:00+08:00</published><updated>2024-06-23T00:00:00+08:00</updated><id>https://zhui.dev/2024-06/nvidia-fail-to-suspend</id><content type="html" xml:base="https://zhui.dev/2024-06/nvidia-fail-to-suspend"><![CDATA[<ul id="markdown-toc">
+  <li><a href="#现象" id="markdown-toc-现象">现象</a></li>
+  <li><a href="#日志" id="markdown-toc-日志">日志</a></li>
+  <li><a href="#解决" id="markdown-toc-解决">解决</a>    <ul>
+      <li><a href="#错误的方法" id="markdown-toc-错误的方法">“错误的”方法</a></li>
+      <li><a href="#正确的方法pushpin" id="markdown-toc-正确的方法pushpin">正确的方法:pushpin:</a></li>
+    </ul>
+  </li>
+  <li><a href="#参考" id="markdown-toc-参考">参考</a></li>
+</ul>
+<h2 id="现象">现象</h2>
+
+<p><code class="language-plaintext highlighter-rouge">systemctl suspend</code> 后系统立即被唤醒。</p>
+
+<h2 id="日志">日志</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Jun 23 14:09:26 venus systemd[1]: Starting System Suspend...
+Jun 23 14:09:26 venus systemd-sleep[2537]: User sessions remain unfrozen on explicit request ($SYSTEMD_SLEEP_FREEZE_USER_SESSIONS=0).
+Jun 23 14:09:26 venus systemd-sleep[2537]: This is not recommended, and might result in unexpected behavior, particularly
+Jun 23 14:09:26 venus systemd-sleep[2537]: in suspend-then-hibernate operations or setups with encrypted home directories.
+Jun 23 14:09:26 venus systemd-sleep[2537]: Performing sleep operation 'suspend'...
+Jun 23 14:09:28 venus systemd-sleep[2537]: Failed to put system to sleep. System resumed again: Input/output error
+Jun 23 14:09:28 venus systemd[1]: systemd-suspend.service: Main process exited, code=exited, status=1/FAILURE
+Jun 23 14:09:28 venus systemd[1]: systemd-suspend.service: Failed with result 'exit-code'.
+Jun 23 14:09:28 venus systemd[1]: Failed to start System Suspend.
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[   95.430308] nvidia 0000:01:00.0: PM: pci_pm_suspend(): nv_pmops_suspend+0x0/0x30 [nvidia] returns -5
+[   95.430918] nvidia 0000:01:00.0: PM: dpm_run_callback(): pci_pm_suspend+0x0/0x1b0 returns -5
+[   95.430924] nvidia 0000:01:00.0: PM: failed to suspend async: error -5
+[   97.195357] nvidia 0000:01:00.0: PM: pci_pm_suspend(): nv_pmops_suspend+0x0/0x30 [nvidia] returns -5
+[   97.195930] nvidia 0000:01:00.0: PM: dpm_run_callback(): pci_pm_suspend+0x0/0x1b0 returns -5
+[   97.195934] nvidia 0000:01:00.0: PM: failed to suspend async: error -5
+</code></pre></div></div>
+
+<h2 id="解决">解决</h2>
+
+<h3 id="错误的方法">“错误的”方法</h3>
+
+<p>在看到是 nvidia 导致的问题时，我立即想的是先禁用掉它，于是安装了 <a href="https://github.com/bayasdev/envycontrol">envycontrol</a> 切到 integrated 模式，有效。</p>
+
+<p>但这不是正确的解决方法，所以卸载 envycontrol 并删除它的残留配置文件。</p>
+
+<h3 id="正确的方法pushpin">正确的方法:pushpin:</h3>
+
+<p>通过日志找到了 <a href="https://wiki.archlinux.org/title/Power_management/Wakeup_triggers#NVIDIA_drivers">Wakeup_triggers#NVIDIA_drivers</a>, 一模一样的日志，抄一抄 wiki 的解决方法。</p>
+
+<p>先添加内核模块参数：<code class="language-plaintext highlighter-rouge">NVreg_PreserveVideoMemoryAllocations=1</code></p>
+
+<p>再启用相关服务：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo systemctl enable nvidia-suspend.service
+sudo systemctl enable nvidia-hibernate.service
+sudo systemctl enable nvidia-resume.service
+</code></pre></div></div>
+
+<p>重启后挂起成功。</p>
+
+<h2 id="参考">参考</h2>
+
+<ol>
+  <li><a href="https://wiki.archlinux.org/title/Power_management/Wakeup_triggers#NVIDIA_drivers">https://wiki.archlinux.org/title/Power_management/Wakeup_triggers#NVIDIA_drivers</a></li>
+  <li><a href="https://wiki.archlinux.org/title/NVIDIA/Tips_and_tricks#Preserve_video_memory_after_suspend">https://wiki.archlinux.org/title/NVIDIA/Tips_and_tricks#Preserve_video_memory_after_suspend</a></li>
+</ol>]]></content><author><name>Mr. Error 追</name><email>error@zhui.dev</email></author><category term="linux" /><summary type="html"><![CDATA[现象 日志 解决 “错误的”方法 正确的方法:pushpin: 参考 现象]]></summary></entry><entry><title type="html">TCP listen 的故事</title><link href="https://zhui.dev/2024-04/tcp-listen" rel="alternate" type="text/html" title="TCP listen 的故事" /><published>2024-04-16T00:00:00+08:00</published><updated>2024-04-16T00:00:00+08:00</updated><id>https://zhui.dev/2024-04/tcp-listen</id><content type="html" xml:base="https://zhui.dev/2024-04/tcp-listen"><![CDATA[<ul id="markdown-toc">
+  <li><a href="#man-2-listen" id="markdown-toc-man-2-listen">man 2 listen</a></li>
+  <li><a href="#两个队列和三次握手" id="markdown-toc-两个队列和三次握手">两个队列和三次握手</a>    <ul>
+      <li><a href="#测试程序和抓包" id="markdown-toc-测试程序和抓包">测试程序和抓包</a></li>
+    </ul>
+  </li>
+  <li><a href="#协议攻击" id="markdown-toc-协议攻击">协议攻击</a>    <ul>
+      <li><a href="#对策" id="markdown-toc-对策">对策</a></li>
+    </ul>
+  </li>
+  <li><a href="#参考资料" id="markdown-toc-参考资料">参考资料</a></li>
+</ul>
+<h2 id="man-2-listen">man 2 listen</h2>
+
+<p>先从手册看看描述：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DESCRIPTION
+       listen() marks the socket referred to by sockfd as a passive socket, that is, as a socket that will be
+       used to accept incoming connection requests using accept(2).
+
+       The  sockfd  argument  is  a  file descriptor that refers to a socket of type SOCK_STREAM or SOCK_SEQ‐
+       PACKET.
+
+       The backlog argument defines the maximum length to which the queue of pending connections  for  sockfd
+       may  grow.   If  a  connection request arrives when the queue is full, the client may receive an error
+       with an indication of ECONNREFUSED or, if the underlying protocol supports retransmission, the request
+       may be ignored so that a later reattempt at connection succeeds.
+
+</code></pre></div></div>
+
+<p>从描述中可以知道，<code class="language-plaintext highlighter-rouge">listen()</code> 将 <code class="language-plaintext highlighter-rouge">sockfd</code> 引用的套接字标记为被动套接字，可以在上面调用 <code class="language-plaintext highlighter-rouge">accept()</code> 。</p>
+
+<p>在后面的注意事项中有这样一段话：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NOTES
+       The  behavior  of  the  backlog  argument on TCP sockets changed with Linux 2.2.  Now it specifies the
+       queue length for completely established sockets waiting to be accepted, instead of the number  of  in‐
+       complete connection requests.  The maximum length of the queue for incomplete sockets can be set using
+       /proc/sys/net/ipv4/tcp_max_syn_backlog.   When  syncookies  are  enabled  there  is no logical maximum
+       length and this setting is ignored.  See tcp(7) for more information.
+
+       If the backlog argument is greater than the value in /proc/sys/net/core/somaxconn, then it is silently
+       capped to that value.  Since Linux 5.4, the default in this file is 4096; in earlier kernels, the  de‐
+       fault value is 128.  Before Linux 2.4.25, this limit was a hard coded value, SOMAXCONN, with the value
+       128.
+</code></pre></div></div>
+
+<p>这说明调用<code class="language-plaintext highlighter-rouge">listen()</code>时内核维护了两个队列 —— “未完全建立连接队列”和“完全建立连接队列”，也就是下文中的 syn queue 和 pending queue.</p>
+
+<p>再回到函数原型：</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">listen</span><span class="p">(</span><span class="kt">int</span> <span class="n">sockfd</span><span class="p">,</span> <span class="kt">int</span> <span class="n">backlog</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>参数 <code class="language-plaintext highlighter-rouge">sockfd</code> 是一个已经创建的套接字描述符，而 <code class="language-plaintext highlighter-rouge">backlog</code> 则表示服务器端能够接受的完全建立的套接字连接队列的最大长度。</p>
+
+<h2 id="两个队列和三次握手">两个队列和三次握手</h2>
+
+<p>TCP 通信过程如下图：</p>
+
+<p><a data-fancybox="tcp-listen" href="../assets/img/post/tcp-listen/tcp-socket.png"><img src="../assets/img/post/tcp-listen/tcp-socket.png" /></a></p>
+
+<p>三次握手发生在系统调用 <code class="language-plaintext highlighter-rouge">connect()</code>,<code class="language-plaintext highlighter-rouge">listen()</code>阶段：</p>
+
+<p><a data-fancybox="tcp-listen" href="../assets/img/post/tcp-listen/tcp-socket-3whs.png"><img src="../assets/img/post/tcp-listen/tcp-socket-3whs.png" /></a></p>
+
+<ul>
+  <li>syn queue - 用于存储 SYN_RECV 状态的连接</li>
+  <li>pending queue - 用于存储 ESTABLISHED 状态的连接</li>
+</ul>
+
+<p>客户端调用 <code class="language-plaintext highlighter-rouge">connect()</code> 发起连接，发送了第一次握手的 SYN 包，服务器回了 SYN+ACK 包，此时的连接（SYN_RECV 状态）会放在 syn queue，服务器收到最后一个 ACK 包完成三次握手完成后的连接（ESTABLISHED 状态）放在 pending queue ，等待 <code class="language-plaintext highlighter-rouge">accept()</code> 调用出队。</p>
+
+<h3 id="测试程序和抓包">测试程序和抓包</h3>
+
+<p>下面是一个验证 TCP 三次握手发生在<code class="language-plaintext highlighter-rouge">connect()</code>,<code class="language-plaintext highlighter-rouge">listen()</code>阶段的简单示例：</p>
+
+<p>client.c</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;arpa/inet.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;netinet/in.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;strings.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;sys/socket.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">sockfd</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">==</span> <span class="n">sockfd</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">perror</span><span class="p">(</span><span class="s">"socket"</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">struct</span> <span class="n">sockaddr_in</span> <span class="n">server_addr</span><span class="p">;</span>
+  <span class="n">bzero</span><span class="p">(</span><span class="o">&amp;</span><span class="n">server_addr</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">server_addr</span><span class="p">));</span>
+  <span class="n">server_addr</span><span class="p">.</span><span class="n">sin_family</span> <span class="o">=</span> <span class="n">AF_INET</span><span class="p">;</span>
+  <span class="n">server_addr</span><span class="p">.</span><span class="n">sin_addr</span><span class="p">.</span><span class="n">s_addr</span> <span class="o">=</span> <span class="n">inet_addr</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="n">server_addr</span><span class="p">.</span><span class="n">sin_port</span> <span class="o">=</span> <span class="n">htons</span><span class="p">(</span><span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]));</span>
+
+  <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">connect</span><span class="p">(</span><span class="n">sockfd</span><span class="p">,</span> <span class="p">(</span><span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">server_addr</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">server_addr</span><span class="p">));</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">==</span> <span class="n">ret</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">perror</span><span class="p">(</span><span class="s">"connect"</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"conneted</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">close</span><span class="p">(</span><span class="n">sockfd</span><span class="p">);</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>server.c</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;arpa/inet.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;netinet/in.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;strings.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;sys/socket.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">sockfd</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">==</span> <span class="n">sockfd</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">perror</span><span class="p">(</span><span class="s">"socket"</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">struct</span> <span class="n">sockaddr_in</span> <span class="n">server_addr</span><span class="p">;</span>
+  <span class="n">bzero</span><span class="p">(</span><span class="o">&amp;</span><span class="n">server_addr</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">server_addr</span><span class="p">));</span>
+  <span class="n">server_addr</span><span class="p">.</span><span class="n">sin_family</span> <span class="o">=</span> <span class="n">AF_INET</span><span class="p">;</span>
+  <span class="n">server_addr</span><span class="p">.</span><span class="n">sin_addr</span><span class="p">.</span><span class="n">s_addr</span> <span class="o">=</span> <span class="n">inet_addr</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="n">server_addr</span><span class="p">.</span><span class="n">sin_port</span> <span class="o">=</span> <span class="n">htons</span><span class="p">(</span><span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]));</span>
+
+  <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">bind</span><span class="p">(</span><span class="n">sockfd</span><span class="p">,</span> <span class="p">(</span><span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">server_addr</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">server_addr</span><span class="p">));</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">==</span> <span class="n">ret</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">perror</span><span class="p">(</span><span class="s">"bind"</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="n">ret</span> <span class="o">=</span> <span class="n">listen</span><span class="p">(</span><span class="n">sockfd</span><span class="p">,</span> <span class="mi">33</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">==</span> <span class="n">ret</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">perror</span><span class="p">(</span><span class="s">"listen"</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> <span class="c1">// 留给抓包的时间</span>
+  <span class="n">close</span><span class="p">(</span><span class="n">sockfd</span><span class="p">);</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>先运行 server</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>➜ ./server 192.168.100.191 33333
+</code></pre></div></div>
+
+<p>再抓包</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>➜ sudo tcpdump -i any port 33333
+</code></pre></div></div>
+
+<p>最后用 client 连接 server</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>➜ ./client 192.168.100.191 33333
+</code></pre></div></div>
+
+<p>可以看到抓包的输出</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>➜ sudo tcpdump -i any port 33333
+tcpdump: data link type LINUX_SLL2
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on any, link-type LINUX_SLL2 (Linux cooked v2), snapshot length 262144 bytes
+15:17:50.191602 lo    In  IP venus.38172 &gt; venus.dgi-serv: Flags [SEW], seq 3952710686, win 33280, options [mss 65495,nop,nop,sackOK,nop,wscale 10], length 0
+15:17:50.191625 lo    In  IP venus.dgi-serv &gt; venus.38172: Flags [S.E], seq 2291194089, ack 3952710687, win 33280, options [mss 65495,nop,nop,sackOK,nop,wscale 10], length 0
+15:17:50.191652 lo    In  IP venus.38172 &gt; venus.dgi-serv: Flags [.], ack 1, win 33, length 0
+</code></pre></div></div>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">Flags [SEW]</code>: 表示这是一个 SYN 包，同时 ECE 和 CWR 标志位被置位。</li>
+  <li><code class="language-plaintext highlighter-rouge">Flags [S.E]</code>: 表示这是一个 SYN+ACK 包，同时 ECE 标志被置位。</li>
+  <li><code class="language-plaintext highlighter-rouge">Flags [.]</code>: 表示这是一个 ACK 包，客户端收到了服务器端的 SYN+ACK 包，并确认建立了连接。</li>
+</ol>
+
+<h2 id="协议攻击">协议攻击</h2>
+
+<p>SYN 泛洪，在 DDoS 中属于 TCP 协议攻击，针对的是 syn queue.</p>
+
+<h3 id="对策">对策</h3>
+
+<p>增大 syn queue 最大长度：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>net.ipv4.tcp_max_syn_backlog = 8192
+</code></pre></div></div>
+
+<p>相关阅读：</p>
+
+<ul>
+  <li><a href="https://www.cloudflare.com/learning/ddos/syn-flood-ddos-attack/">https://www.cloudflare.com/learning/ddos/syn-flood-ddos-attack</a></li>
+  <li><a href="https://zh.wikipedia.org/wiki/SYN_flood">https://zh.wikipedia.org/wiki/SYN_flood</a></li>
+  <li><a href="https://wiki.archlinux.org/title/Sysctl#Tweak_the_pending_connection_handling">https://wiki.archlinux.org/title/Sysctl#Tweak_the_pending_connection_handling</a></li>
+</ul>
+
+<h2 id="参考资料">参考资料</h2>
+
+<ol>
+  <li>man 2 listen</li>
+  <li><a href="https://stackoverflow.com/questions/12893379/listen-queue-length-in-socket-programing-in-c">https://stackoverflow.com/questions/12893379/listen-queue-length-in-socket-programing-in-c</a></li>
+</ol>]]></content><author><name>Mr. Error 追</name><email>error@zhui.dev</email></author><category term="network" /><summary type="html"><![CDATA[man 2 listen 两个队列和三次握手 测试程序和抓包 协议攻击 对策 参考资料 man 2 listen]]></summary></entry><entry><title type="html">记录一次抓 TCP 三次握手</title><link href="https://zhui.dev/2024-03/capture-tcp-3-way-handshake" rel="alternate" type="text/html" title="记录一次抓 TCP 三次握手" /><published>2024-03-16T00:00:00+08:00</published><updated>2024-03-16T00:00:00+08:00</updated><id>https://zhui.dev/2024-03/capture-tcp-3-way-handshake</id><content type="html" xml:base="https://zhui.dev/2024-03/capture-tcp-3-way-handshake"><![CDATA[<ul id="markdown-toc">
+  <li><a href="#前言" id="markdown-toc-前言">前言</a></li>
+  <li><a href="#正文" id="markdown-toc-正文">正文</a>    <ul>
+      <li><a href="#理论" id="markdown-toc-理论">理论</a></li>
+      <li><a href="#实践" id="markdown-toc-实践">实践</a></li>
+    </ul>
+  </li>
+  <li><a href="#参考资料" id="markdown-toc-参考资料">参考资料</a></li>
+</ul>
+<h2 id="前言">前言</h2>
+
+<p>TCP 三次握手看过很多次了，当时也是理解了，但是总是忘记。比如这次，又忘了，所有来抓包加深记忆和理解，要是还忘了，就来这儿看看:joy:</p>
+
+<p>抓包工具本来想试试 termshark 来着，因为没用过，但是中途内存泄漏被 earlyoom 杀死了，还是用 wireshark.</p>
+
+<p><span class="spoiler">earlyoom 的通知怎么又好了（</span></p>
+
+<p><a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/system-notify.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/system-notify.png" /></a></p>
+
+<p>如果你也不喜欢 systemd-oomd 试试 <a href="https://github.com/rfjakob/earlyoom">earlyoom</a>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>earlyoom[454]: Will avoid killing process names that match regex '(^|/)(init|systemd|Xorg|sshd)$'
+earlyoom[454]: mem total: 7721 MiB, swap total: 7720 MiB
+earlyoom[454]: sending SIGTERM when mem &lt;= 10.00% and swap &lt;= 10.00%,
+earlyoom[454]:         SIGKILL when mem &lt;=  5.00% and swap &lt;=  5.00%
+earlyoom[454]: mem avail:  7072 of  7721 MiB (91.60%), swap free: 7720 of 7720 MiB (100.00%)
+earlyoom[454]: mem avail:   554 of  7721 MiB ( 7.18%), swap free:  742 of 7720 MiB ( 9.62%)
+earlyoom[454]: low memory! at or below SIGTERM limits: mem 10.00%, swap 10.00%
+earlyoom[454]: sending SIGTERM to process 9994 uid 1000 "termshark": badness 1181, VmRSS 4568 MiB
+earlyoom[454]: escalating to SIGKILL after 2.8 seconds
+earlyoom[454]: process exited after 2.8 seconds
+
+</code></pre></div></div>
+
+<p>好像偏题了。</p>
+
+<h2 id="正文">正文</h2>
+
+<h3 id="理论">理论</h3>
+
+<p>开始抓包，抓取的是本地访问博客产生的 TCP 数据包，下面的 NO.1343 – [SYN], NO.1344 – [SYN, ACK], NO.1345 – [ACK] 三个包分别对应三次握手的过程，</p>
+
+<p><a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img01.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img01.png" /></a></p>
+
+<p>先回忆一下 TCP 三次握手过程，简单画了个图：</p>
+
+<p><a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img02.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img02.png" /></a></p>
+
+<p>再看看 TCP 报文段头部格式：</p>
+
+<p><a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img03.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img03.png" /></a></p>
+
+<blockquote>
+  <p>Screenshot from <a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol">Wikipedia</a></p>
+</blockquote>
+
+<p>结合上面三张图分析 TCP 三次握手过程，然后分析抓包的数据：</p>
+
+<ol>
+  <li>[SYN]：客户端向服务器发送一个 SYN 包来发起主动连接，客户端将数据包的序列号 Seq 设置为一个随机数 x. 此时，标志位 SYN = 1, 序列号 Seq = x.</li>
+  <li>[SYN, ACK]：服务器回应一个 [SYN, ACK] 包。确认号 Ack 被设置为接收到的序列号加 1，即 x + 1，服务器的数据包序列号 Seq 设置为另一个随机数 y。此时，标志位 SYN = 1, 标志位 ACK = 1, 确认号 Ack = x + 1, 序列号 Seq = y.</li>
+  <li>[ACK]：最后，客户端向服务器发送一个 ACK 包。数据包的序列号 Seq 被设置为接收到的确认号 Ack，即 x + 1，确认号 Ack 被设置为接收到的序列号加 1，即 y + 1。此时，标志位 ACK = 1, 序列号 Seq = x + 1, 确认号 Ack = y + 1.</li>
+</ol>
+
+<p>为了更好的理解 TCP 三次握手作以下补充说明：</p>
+
+<ul>
+  <li>ACK 标志位 (Acknowledgment) 和 Ack 确认号字段 (Acknowledgment number) 不要混淆。在 TCP 协议中，”Acknowledgment (ACK)” 是 TCP 报文段头部的一个标志位，它用来表示一个 TCP 报文段是否包含“确认”。当 ACK 标志位被置为 1 时，表示该报文段确认了已经收到的数据。 “Acknowledgment Number” 是 TCP 报文段头部的一个字段，用来表示发送方期望接收到的下一个序列号。当一个 TCP 报文段被发送方设置了 ACK 标志位为 1 时，该报文段的 Acknowledgment Number 字段表明了发送方期望接收到的下一个序列号。</li>
+  <li>抓包的时候可以看见 Ack = 1 (Ack 确认号)，这里的 1 是相对确认号，可以理解为偏移量，不是真正的确认号（相对序列号同理），也不要和 ACK = 1 (Acknowledgment) 混淆。本文中，全大写的 ACK 是标志位，首字母大写的 Ack 是确认号。</li>
+  <li>下面的 Flags: (SYN), Flags: (SYN, ACK) 表示对应的标志位为 1.</li>
+</ul>
+
+<p>接下来逐包分析 [SYN]，[SYN, ACK]，[ACK] 三个包中的各个数据之间的关系是否和上述一致。</p>
+
+<h3 id="实践">实践</h3>
+
+<p>第一次握手：客户端 192.168.100.191 发送了一个 [SYN] 包给服务端 172.67.149.132，此时，Seq = 0x4ce45750, Flags: (SYN).</p>
+
+<p><a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img04.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img04.png" /></a></p>
+
+<p>第二次握手：服务端 172.67.149.132收到 [SYN] 包，回应了一个 [SYN, ACK] 包给客户端 192.168.100.191，此时，Ack = 0x4ce45751, Seq = 0xc112f693,Flags: (SYN, ACK).</p>
+
+<p><a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img05.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img05.png" /></a></p>
+
+<p><a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img06.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img06.png" /></a></p>
+
+<p>第三次握手：最后，客户端 192.168.100.191 回应一个 [ACK] 包，此时，Ack = 0xc112f694, Seq = 0x4ce45751, Flags: (ACK).</p>
+
+<p><a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img07.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img07.png" /></a></p>
+
+<p><a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img08.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img08.png" /></a></p>
+
+<p>客户端服务器建立连接完成。</p>
+
+<p>之前见过一个 TCP 相关的笑话来着，找不到了:upside_down_face:</p>
+
+<h2 id="参考资料">参考资料</h2>
+
+<ol>
+  <li><a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol">https://en.wikipedia.org/wiki/Transmission_Control_Protocol</a></li>
+</ol>]]></content><author><name>Mr. Error 追</name><email>error@zhui.dev</email></author><category term="network" /><summary type="html"><![CDATA[前言 正文 理论 实践 参考资料 前言]]></summary></entry><entry><title type="html">关于我喜欢 KDE6 壁纸这件事</title><link href="https://zhui.dev/2024-03/kde6-wallpapers" rel="alternate" type="text/html" title="关于我喜欢 KDE6 壁纸这件事" /><published>2024-03-08T00:00:00+08:00</published><updated>2024-03-08T00:00:00+08:00</updated><id>https://zhui.dev/2024-03/kde6-wallpapers</id><content type="html" xml:base="https://zhui.dev/2024-03/kde6-wallpapers"><![CDATA[<p><a data-fancybox="kde6-wallpapers" href="../assets/img/post/kde6-wallpapers/screenshot-from-kde-megarelease6.png"><img src="../assets/img/post/kde6-wallpapers/screenshot-from-kde-megarelease6.png" /></a></p>
+
+<blockquote>
+  <p>Screenshot from <a href="https://kde.org/announcements/megarelease/6/">KDE MegaRelease6</a></p>
+</blockquote>
+
+<p>KDE6 更新了很多东西，我最喜欢的竟然是新增的壁纸「Scarlet Tree」，它有 light 和 dark 两种风格，还有适用于手机的分辨率。壁纸位于<code class="language-plaintext highlighter-rouge">/usr/share/wallpapers/Next/contents/</code>.</p>
+
+<p>开始欣赏壁纸吧！</p>
+
+<blockquote>
+  <p>Transform your desktop with the mesmerizing ‘Scarlet Tree’ wallpaper by axo1otl. Capture the dynamic interplay between the sun’s vibrant energy and the comet’s celestial dance.</p>
+</blockquote>
+
+<p><a data-fancybox="kde6-wallpapers" href="../assets/img/post/kde6-wallpapers/light.png"><img src="../assets/img/post/kde6-wallpapers/light.png" /></a></p>
+
+<p><a data-fancybox="kde6-wallpapers" href="../assets/img/post/kde6-wallpapers/dark.png"><img src="../assets/img/post/kde6-wallpapers/dark.png" /></a></p>
+
+<p>6.1 更新的 「Reef」，这种风格的壁纸太喜欢了。</p>
+
+<p><a data-fancybox="kde6-wallpapers" href="../assets/img/post/kde6-wallpapers/Reef.png"><img src="../assets/img/post/kde6-wallpapers/Reef.png" style="text-align:center;" /></a></p>]]></content><author><name>Mr. Error 追</name><email>error@zhui.dev</email></author><category term="misc" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">C 语言中的 unlikely 和 likely</title><link href="https://zhui.dev/2024-02/unlikely-and-likely-in-c" rel="alternate" type="text/html" title="C 语言中的 unlikely 和 likely" /><published>2024-02-29T00:00:00+08:00</published><updated>2024-02-29T00:00:00+08:00</updated><id>https://zhui.dev/2024-02/unlikely-and-likely-in-c</id><content type="html" xml:base="https://zhui.dev/2024-02/unlikely-and-likely-in-c"><![CDATA[<p>今天在这个 <a href="https://github.com/firelzrd/bore-scheduler/commit/2dfae364f6d7ae26eca4ddfafb3764f2525bbaa5">commit</a> 中看到这样一段代码：</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#ifdef CONFIG_SCHED_BORE
+</span>		<span class="k">if</span> <span class="p">(</span><span class="n">unlikely</span><span class="p">(</span><span class="o">!</span><span class="n">sched_bore</span><span class="p">))</span> <span class="p">{</span>
+<span class="cp">#endif // CONFIG_SCHED_BORE
+</span></code></pre></div></div>
+
+<p>这个 <code class="language-plaintext highlighter-rouge">unlikely</code> 让我很疑惑，<code class="language-plaintext highlighter-rouge">if</code> 里面还能这样？然后在网上查了相关资料，了解了其作用。因为这段代码是在<code class="language-plaintext highlighter-rouge">kernel/sched/fair.c</code>中，于是去翻看了 Linux 内核源码，发现很多<code class="language-plaintext highlighter-rouge">if</code>处使用了 <code class="language-plaintext highlighter-rouge">unlikely</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">likely()</code>和<code class="language-plaintext highlighter-rouge">unlikely()</code>是一种宏，帮助编译器更好地优化代码的执行路径，以提高程序的性能，<code class="language-plaintext highlighter-rouge">likely()</code>宏用于表示条件为真的可能性较大，而<code class="language-plaintext highlighter-rouge">unlikely()</code>宏则用于表示条件为假的可能性较大。</p>
+
+<p>比如一个判断素数的列子：</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span>
+<span class="cp">#define likely(x)   __builtin_expect(!!(x), 1)
+#define unlikely(x) __builtin_expect(!!(x), 0)
+</span>
+<span class="kt">int</span> <span class="nf">is_prime</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">||</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span> <span class="o">*</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">unlikely</span><span class="p">(</span><span class="n">n</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">17</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">likely</span><span class="p">(</span><span class="n">is_prime</span><span class="p">(</span><span class="n">num</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"%d is likely a prime number</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">num</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"%d is unlikely a prime number</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">num</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>第二十行里，<code class="language-plaintext highlighter-rouge">unlikely(n % i == 0)</code> 表示编译器应该将 <code class="language-plaintext highlighter-rouge">n % i == 0</code> 这个条件判断视为不太可能发生的情况。</p>
+
+<p>如果懂汇编的话可以从汇编层查看对应变化。</p>
+
+<p>既然知道了作用，可不可以通过程序验证是否有优化呢？比如通过时间复杂度高的查找算法在数据级大的样本里查找，然后比较花费的时间，不知道这样是否可以验证。</p>
+
+<p>这是一段查找素数的代码：</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;stdbool.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;time.h&gt;</span><span class="cp">
+</span>
+<span class="cp">#define MAX_NUMBER 100000000
+</span>
+<span class="cp">#define likely(x)   __builtin_expect(!!(x), 1)
+#define unlikely(x) __builtin_expect(!!(x), 0)
+</span>
+<span class="kt">void</span> <span class="nf">find_primes_with_unlikely</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">bool</span> <span class="n">is_prime</span><span class="p">;</span>
+
+    <span class="k">struct</span> <span class="n">timespec</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">cpu_time_used</span><span class="p">;</span>
+
+    <span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_MONOTONIC</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">start</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">MAX_NUMBER</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">is_prime</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">j</span> <span class="o">*</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">i</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">unlikely</span><span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+                <span class="n">is_prime</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">is_prime</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// printf("%d ", i);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_MONOTONIC</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">end</span><span class="p">);</span>
+    <span class="n">cpu_time_used</span> <span class="o">=</span> <span class="p">(</span><span class="n">end</span><span class="p">.</span><span class="n">tv_sec</span> <span class="o">-</span> <span class="n">start</span><span class="p">.</span><span class="n">tv_sec</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e9</span> <span class="o">+</span> <span class="p">(</span><span class="n">end</span><span class="p">.</span><span class="n">tv_nsec</span> <span class="o">-</span> <span class="n">start</span><span class="p">.</span><span class="n">tv_nsec</span><span class="p">);</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Find primes with unlikely execution time: %lf ns</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">cpu_time_used</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">find_primes_without_unlikely</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">bool</span> <span class="n">is_prime</span><span class="p">;</span>
+
+    <span class="k">struct</span> <span class="n">timespec</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">cpu_time_used</span><span class="p">;</span>
+
+    <span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_MONOTONIC</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">start</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">MAX_NUMBER</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">is_prime</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">j</span> <span class="o">*</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">i</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">is_prime</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">is_prime</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// printf("%d ", i);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_MONOTONIC</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">end</span><span class="p">);</span>
+    <span class="n">cpu_time_used</span> <span class="o">=</span> <span class="p">(</span><span class="n">end</span><span class="p">.</span><span class="n">tv_sec</span> <span class="o">-</span> <span class="n">start</span><span class="p">.</span><span class="n">tv_sec</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e9</span> <span class="o">+</span> <span class="p">(</span><span class="n">end</span><span class="p">.</span><span class="n">tv_nsec</span> <span class="o">-</span> <span class="n">start</span><span class="p">.</span><span class="n">tv_nsec</span><span class="p">);</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Find primes without unlikely execution time: %lf ns</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">cpu_time_used</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Starting prime search...</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+  
+    <span class="n">find_primes_with_unlikely</span><span class="p">();</span>
+
+    <span class="n">find_primes_without_unlikely</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>最开始用<code class="language-plaintext highlighter-rouge">gettimeofday()</code>函数来获取时间信息，发现几乎没有什么区别，于是换成了 <code class="language-plaintext highlighter-rouge">clock_gettime()</code> 函数来获取纳秒级别的时间信息。</p>
+
+<p>但是吧，这个测试结果不太对，大多数时候是用了<code class="language-plaintext highlighter-rouge">unlikely</code>的花费更多时间…是因为不应该用这样的方式比较？</p>
+
+<p>我又发现了 C++ 也有 <code class="language-plaintext highlighter-rouge">[[likely]]</code> <code class="language-plaintext highlighter-rouge">[[unlikely]]</code>，并且 cppreference 有<a href="https://zh.cppreference.com/w/cpp/language/attributes/likely">示例代码</a>：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;chrono&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;cmath&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;iomanip&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;random&gt;</span><span class="cp">
+</span> 
+<span class="k">namespace</span> <span class="n">with_attributes</span>
+<span class="p">{</span>
+    <span class="k">constexpr</span> <span class="kt">double</span> <span class="n">pow</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">n</span><span class="p">)</span> <span class="k">noexcept</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">[[</span><span class="n">likely</span><span class="p">]]</span>
+            <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">pow</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="k">else</span> <span class="p">[[</span><span class="n">unlikely</span><span class="p">]]</span>
+            <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">constexpr</span> <span class="kt">long</span> <span class="kt">long</span> <span class="nf">fact</span><span class="p">(</span><span class="kt">long</span> <span class="kt">long</span> <span class="n">n</span><span class="p">)</span> <span class="k">noexcept</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">[[</span><span class="n">likely</span><span class="p">]]</span>
+            <span class="k">return</span> <span class="n">n</span> <span class="o">*</span> <span class="n">fact</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="k">else</span> <span class="p">[[</span><span class="n">unlikely</span><span class="p">]]</span>
+            <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">constexpr</span> <span class="kt">double</span> <span class="n">cos</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">)</span> <span class="k">noexcept</span>
+    <span class="p">{</span>
+        <span class="k">constexpr</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">precision</span><span class="p">{</span><span class="mi">16LL</span><span class="p">};</span>
+        <span class="kt">double</span> <span class="n">y</span><span class="p">{};</span>
+        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">n</span><span class="p">{</span><span class="mi">0LL</span><span class="p">};</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">precision</span><span class="p">;</span> <span class="n">n</span> <span class="o">+=</span> <span class="mi">2LL</span><span class="p">)</span> <span class="p">[[</span><span class="n">likely</span><span class="p">]]</span>
+            <span class="n">y</span> <span class="o">+=</span> <span class="n">pow</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">&amp;</span> <span class="mi">2LL</span> <span class="o">?</span> <span class="o">-</span><span class="n">fact</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">:</span> <span class="n">fact</span><span class="p">(</span><span class="n">n</span><span class="p">));</span>
+        <span class="k">return</span> <span class="n">y</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="c1">// namespace with_attributes</span>
+ 
+<span class="k">namespace</span> <span class="n">no_attributes</span>
+<span class="p">{</span>
+    <span class="k">constexpr</span> <span class="kt">double</span> <span class="n">pow</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">n</span><span class="p">)</span> <span class="k">noexcept</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">pow</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">constexpr</span> <span class="kt">long</span> <span class="kt">long</span> <span class="nf">fact</span><span class="p">(</span><span class="kt">long</span> <span class="kt">long</span> <span class="n">n</span><span class="p">)</span> <span class="k">noexcept</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">n</span> <span class="o">*</span> <span class="n">fact</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">constexpr</span> <span class="kt">double</span> <span class="n">cos</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">)</span> <span class="k">noexcept</span>
+    <span class="p">{</span>
+        <span class="k">constexpr</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">precision</span><span class="p">{</span><span class="mi">16LL</span><span class="p">};</span>
+        <span class="kt">double</span> <span class="n">y</span><span class="p">{};</span>
+        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">n</span><span class="p">{</span><span class="mi">0LL</span><span class="p">};</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">precision</span><span class="p">;</span> <span class="n">n</span> <span class="o">+=</span> <span class="mi">2LL</span><span class="p">)</span>
+            <span class="n">y</span> <span class="o">+=</span> <span class="n">pow</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">&amp;</span> <span class="mi">2LL</span> <span class="o">?</span> <span class="o">-</span><span class="n">fact</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">:</span> <span class="n">fact</span><span class="p">(</span><span class="n">n</span><span class="p">));</span>
+        <span class="k">return</span> <span class="n">y</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="c1">// namespace no_attributes</span>
+ 
+<span class="kt">double</span> <span class="n">gen_random</span><span class="p">()</span> <span class="k">noexcept</span>
+<span class="p">{</span>
+    <span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">random_device</span> <span class="n">rd</span><span class="p">;</span>
+    <span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">mt19937</span> <span class="n">gen</span><span class="p">(</span><span class="n">rd</span><span class="p">());</span>
+    <span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">uniform_real_distribution</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">dis</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">dis</span><span class="p">(</span><span class="n">gen</span><span class="p">);</span>
+<span class="p">}</span>
+ 
+<span class="k">volatile</span> <span class="kt">double</span> <span class="n">sink</span><span class="p">{};</span> <span class="c1">// 确保有副作用</span>
+ 
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span> <span class="n">x</span> <span class="o">:</span> <span class="p">{</span><span class="mf">0.125</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">26</span><span class="p">)})</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span>
+            <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">53</span><span class="p">)</span>
+            <span class="o">&lt;&lt;</span> <span class="s">"x = "</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span>
+            <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span>
+            <span class="o">&lt;&lt;</span> <span class="n">with_attributes</span><span class="o">::</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span>
+            <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="n">with_attributes</span><span class="o">::</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">?</span> <span class="s">"equal"</span> <span class="o">:</span> <span class="s">"differ"</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
+ 
+    <span class="k">auto</span> <span class="n">benchmark</span> <span class="o">=</span> <span class="p">[](</span><span class="k">auto</span> <span class="n">fun</span><span class="p">,</span> <span class="k">auto</span> <span class="n">rem</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">const</span> <span class="k">auto</span> <span class="n">start</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
+        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">size</span><span class="p">{</span><span class="mi">1ULL</span><span class="p">};</span> <span class="n">size</span> <span class="o">!=</span> <span class="mi">10'000'000ULL</span><span class="p">;</span> <span class="o">++</span><span class="n">size</span><span class="p">)</span>
+            <span class="n">sink</span> <span class="o">=</span> <span class="n">fun</span><span class="p">(</span><span class="n">gen_random</span><span class="p">());</span>
+        <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">duration</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">diff</span> <span class="o">=</span>
+            <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">;</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Time: "</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">fixed</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">diff</span><span class="p">.</span><span class="n">count</span><span class="p">()</span>
+                  <span class="o">&lt;&lt;</span> <span class="s">" sec "</span> <span class="o">&lt;&lt;</span> <span class="n">rem</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span> 
+    <span class="p">};</span>
+ 
+    <span class="n">benchmark</span><span class="p">(</span><span class="n">with_attributes</span><span class="o">::</span><span class="n">cos</span><span class="p">,</span> <span class="s">"(with attributes)"</span><span class="p">);</span>
+    <span class="n">benchmark</span><span class="p">(</span><span class="n">no_attributes</span><span class="o">::</span><span class="n">cos</span><span class="p">,</span> <span class="s">"(without attributes)"</span><span class="p">);</span>
+    <span class="n">benchmark</span><span class="p">([](</span><span class="kt">double</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">);</span> <span class="p">},</span> <span class="s">"(std::cos)"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>但是测出来大多数时候也是 <code class="language-plaintext highlighter-rouge">with_attributes</code> 更耗时。也许需要更专业的工具配合正确的场景来进行测试。</p>
+
+<p>参考资料：</p>
+
+<ol>
+  <li><a href="https://www.geeksforgeeks.org/branch-prediction-macros-in-gcc/">https://www.geeksforgeeks.org/branch-prediction-macros-in-gcc/</a></li>
+  <li><a href="https://stackoverflow.com/questions/109710/how-do-the-likely-unlikely-macros-in-the-linux-kernel-work-and-what-is-their-ben">https://stackoverflow.com/questions/109710/how-do-the-likely-unlikely-macros-in-the-linux-kernel-work-and-what-is-their-ben</a></li>
+  <li><a href="https://zh.cppreference.com/w/cpp/language/attributes/likely">https://zh.cppreference.com/w/cpp/language/attributes/likely</a></li>
+</ol>]]></content><author><name>Mr. Error 追</name><email>error@zhui.dev</email></author><category term="code" /><summary type="html"><![CDATA[今天在这个 commit 中看到这样一段代码：]]></summary></entry><entry><title type="html">小米社区自动签到/任务</title><link href="https://zhui.dev/2023-11/xiaomi-cn-auto-tasks" rel="alternate" type="text/html" title="小米社区自动签到/任务" /><published>2023-11-08T00:00:00+08:00</published><updated>2023-11-08T00:00:00+08:00</updated><id>https://zhui.dev/2023-11/xiaomi-cn-auto-tasks</id><content type="html" xml:base="https://zhui.dev/2023-11/xiaomi-cn-auto-tasks"><![CDATA[<p>今天<a href="https://www.xiaomi.cn/">小米社区</a>对 Bootloader 解锁权限发布了公告，要求：</p>
+
+<ol>
+  <li>通过《解锁资格答题测试》</li>
+  <li>社区成长等级达到 5 段</li>
+  <li>完成实名认证</li>
+</ol>
+
+<p>才能申请解锁，申请一次有效期只有一年，每年最多支持三台设备解锁，解锁等待期为 72 小时。</p>
+
+<p>试着去答了一下《解锁资格答题测试》，很简单，90 多分，都是一些常识和常用命令，但是我社区等级才 2 级，小米社区升级太慢了，又经常忘记签到做任务，于是找到了 <a href="https://github.com/0-8-4/miui-auto-tasks">miui-auto-tasks</a> - 一个自动化完成小米社区任务的脚本。照着它的 <a href="https://github.com/0-8-4/miui-auto-tasks/wiki">wiki</a> 配置，功能全开（<del>用就不要怕</del>）</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">accounts</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">uid</span><span class="pi">:</span> <span class="s">xxxxxxxxx</span>
+    <span class="c1"># 账户ID 非账户用户名或手机号</span>
+    <span class="na">password</span><span class="pi">:</span> <span class="s">xxxxxxxxxxxxxxxxxxxxxxxxx</span>
+    <span class="c1"># 账户密码或其MD5哈希</span>
+    <span class="na">user-agent</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Mozilla/5.0</span><span class="nv"> </span><span class="s">(X11;</span><span class="nv"> </span><span class="s">Linux</span><span class="nv"> </span><span class="s">x86_64;</span><span class="nv"> </span><span class="s">rv:121.0)</span><span class="nv"> </span><span class="s">Gecko/20100101</span><span class="nv"> </span><span class="s">Firefox/121.0'</span>
+    <span class="c1"># 登录社区时所用浏览器的 User-Agent</span>
+    <span class="c1"># 可在此工具查看：https://tool.chinaz.com/useragent</span>
+    
+    <span class="c1"># 功能开关</span>
+    <span class="na">check-in</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="c1"># 社区成长值签到，启用功能意味着你愿意自行承担相关风险</span>
+    <span class="na">browse-user-page</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="c1"># 社区浏览个人主页10秒，启用功能意味着你愿意自行承担相关风险</span>
+    <span class="na">browse-post</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="c1"># 社区浏览帖子10秒，启用功能意味着你愿意自行承担相关风险</span>
+    <span class="na">thumb-up</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="c1"># 点赞帖子，启用功能意味着你愿意自行承担相关风险</span>
+    <span class="na">browse-specialpage</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="c1"># 社区在活动期间可能会出现限时的“浏览指定专题页”任务，启用功能意味着你愿意自行承担相关风险</span>
+    <span class="na">board-follow</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="c1"># 社区可能会出现限时的“加入圈子”任务，启用功能意味着你愿意自行承担相关风险</span>
+    <span class="na">carrot-pull</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="c1"># 社区拔萝卜，启用功能意味着你愿意自行承担相关风险</span>
+
+<span class="na">logging</span><span class="pi">:</span> <span class="kc">false</span>
+<span class="c1"># 归档日志到本地文件</span>
+<span class="na">version</span><span class="pi">:</span> <span class="s">v1.6.0</span>
+<span class="c1"># config 文件版本号，debug用</span>
+
+</code></pre></div></div>
+
+<p>用 systemd timer 让它每天执行，先在 <code class="language-plaintext highlighter-rouge">/etc/systemd/user/</code> 创建一个 [Service] 执行 python 程序，</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>Unit]
+<span class="nv">Description</span><span class="o">=</span>MIUI Auto Tasks
+
+<span class="o">[</span>Service]
+<span class="nv">Type</span><span class="o">=</span>oneshot
+<span class="nv">ExecStart</span><span class="o">=</span>%h/venv/bin/python %h/pytools/miui-auto-tasks/miuitask.py
+</code></pre></div></div>
+
+<p>再创建一个 [Timer] 定时执行，</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>Unit]
+<span class="nv">Description</span><span class="o">=</span>Run MIUI Auto Tasks Every Day
+
+<span class="o">[</span>Timer]
+<span class="nv">OnBootSec</span><span class="o">=</span>3min
+<span class="nv">OnCalendar</span><span class="o">=</span><span class="k">*</span>-<span class="k">*</span>-<span class="k">*</span> 12:00:00
+<span class="nv">RandomizedDelaySec</span><span class="o">=</span>10min
+<span class="nv">Persistent</span><span class="o">=</span><span class="nb">true
+</span><span class="nv">Unit</span><span class="o">=</span>miui-auto-tasks.service
+
+<span class="o">[</span>Install]
+<span class="nv">WantedBy</span><span class="o">=</span>timers.target
+</code></pre></div></div>
+
+<p>用 <code class="language-plaintext highlighter-rouge">systemctl --user enable --now</code> 跑起来，根据我使用电脑的习惯，应该每天都能跑一遍。</p>
+
+<p>参考资料：</p>
+
+<ol>
+  <li><a href="https://wiki.archlinux.org/title/Systemd">https://wiki.archlinux.org/title/Systemd</a></li>
+  <li><a href="https://wiki.archlinux.org/title/Systemd/Timers">https://wiki.archlinux.org/title/Systemd/Timers</a></li>
+</ol>]]></content><author><name>Mr. Error 追</name><email>error@zhui.dev</email></author><category term="misc" /><summary type="html"><![CDATA[今天小米社区对 Bootloader 解锁权限发布了公告，要求：]]></summary></entry><entry><title type="html">在 Arch Linux 上使用 Cloudflare WARP+</title><link href="https://zhui.dev/2023-08/using-cloudflare-warp-plus-on-arch-linux" rel="alternate" type="text/html" title="在 Arch Linux 上使用 Cloudflare WARP+" /><published>2023-08-07T00:00:00+08:00</published><updated>2023-08-07T00:00:00+08:00</updated><id>https://zhui.dev/2023-08/using-cloudflare-warp-plus-on-arch-linux</id><content type="html" xml:base="https://zhui.dev/2023-08/using-cloudflare-warp-plus-on-arch-linux"><![CDATA[<ul id="markdown-toc">
+  <li><a href="#安装" id="markdown-toc-安装">安装</a></li>
+  <li><a href="#使用" id="markdown-toc-使用">使用</a>    <ul>
+      <li><a href="#warp" id="markdown-toc-warp">WARP</a></li>
+      <li><a href="#warp-1" id="markdown-toc-warp-1">WARP+</a></li>
+      <li><a href="#mode" id="markdown-toc-mode">MODE</a></li>
+    </ul>
+  </li>
+  <li><a href="#使用体验" id="markdown-toc-使用体验">使用体验</a></li>
+  <li><a href="#参考资料" id="markdown-toc-参考资料">参考资料</a></li>
+</ul>
+<p>WARP+ 是 Cloudflare 提供的一项网络加速服务，用于改善互联网连接的速度和安全性。WARP+ 旨在通过优化网络路径，减少延迟，并提供更快的网络连接体验。</p>
+
+<p>这里说的 WARP+ 属于 WARP+ Limited，流量是有限的，通过推广获得免费的服务，但是通过 Warp+ Bot 可以获得 24.59PB 流量，也可以说是 Unlimited 了。而真正的 WARP+ Unlimited 属于付费服务。</p>
+
+<p>关于它们的区别：<a href="https://support.cloudflarewarp.com/hc/en-us/articles/360025731113-What-is-the-difference-between-WARP-WARP-and-WARP-Unlimited">What is the difference between WARP, WARP+, and WARP+ Unlimited?</a></p>
+
+<h2 id="安装">安装</h2>
+
+<p>从 AUR 上或者信得过的第三方仓库安装</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>➜ paru -Ss cloudflare-warp-bin
+cachyos/cloudflare-warp-bin 2023.7.40-1 [0B 49.98MiB] [Installed]
+    Cloudflare Warp Client
+aur/cloudflare-warp-bin 2023.7.40-1 [+41 ~3.15] [Installed]
+    Cloudflare Warp Client
+</code></pre></div></div>
+
+<h2 id="使用">使用</h2>
+
+<h3 id="warp">WARP</h3>
+
+<p>只需要 3 个命令就能使用 WARP，先启动 <code class="language-plaintext highlighter-rouge">warp-svc.server</code>，第一次使用时需要 <code class="language-plaintext highlighter-rouge">register</code> 进行身份验证，然后 <code class="language-plaintext highlighter-rouge">connect</code> 将启用客户端，创建从设备到 Cloudflare 网络的 WireGuard 隧道。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>➜ sudo systemctl start warp-svc.service // 启动服务
+
+➜ warp-cli register // 进行身份验证
+Success
+
+➜ warp-cli connect // 连接
+Success
+</code></pre></div></div>
+
+<p>此时查看帐户信息可以看到 <code class="language-plaintext highlighter-rouge">Account type: Free</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>➜ warp-cli account
+Account type: Free
+...
+</code></pre></div></div>
+
+<p>通过 cloudflare trace 看到 <code class="language-plaintext highlighter-rouge">warp=on</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>➜ curl https://www.cloudflare.com/cdn-cgi/trace/
+...
+warp=on
+...
+</code></pre></div></div>
+
+<p>至此 WARP 就可以使用了。</p>
+
+<h3 id="warp-1">WARP+</h3>
+
+<p>使用  WARP+ 需要去 <a href="https://t.me/generatewarpplusbot">Warp+ Bot</a> 获得 <strong>License Key</strong>，然后 <code class="language-plaintext highlighter-rouge">set-license</code>使用 Key</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>❯ warp-cli set-license xxxxxxxx-xxxxxxxx-xxxxxxxx // 得到的 License Key
+Success
+</code></pre></div></div>
+
+<p>这时查看帐户信息，可以看到 <code class="language-plaintext highlighter-rouge">Account type: Limited</code>，有 <strong>24598562000000000 B = 24.5986 PB</strong> 流量配额，根本用不完。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>➜ warp-cli account                    
+Account type: Limited
+...
+Quota: 24598562000000000
+Premium Data: 24598562000000000
+</code></pre></div></div>
+
+<p>通过 cloudflare trace 看到 <code class="language-plaintext highlighter-rouge">warp=plus</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>➜ curl https://www.cloudflare.com/cdn-cgi/trace/
+...
+warp=plus
+...
+</code></pre></div></div>
+
+<p>至此 WARP+ 就可以使用了。</p>
+
+<h3 id="mode">MODE</h3>
+
+<p>mode 有多种，根据需求设置</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>➜ warp-cli set-mode -h
+Set the mode
+
+Usage: warp-cli set-mode &lt;MODE&gt;
+
+Arguments:
+  &lt;MODE&gt;  [possible values: warp, doh, warp+doh, dot, warp+dot, proxy, tunnel_only]
+
+Options:
+  -h, --help  Print help
+</code></pre></div></div>
+
+<p>我需要 <code class="language-plaintext highlighter-rouge">proxy</code> 模式</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>➜ warp-cli set-mode proxy // 默认端口是 40000, 127.0.0.1:40000
+Success
+</code></pre></div></div>
+
+<p>查看一下 ip 信息</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>➜ curl ipinfo.io -x socks5://127.0.0.1:40000
+{
+  "ip": "104.28.xxx.xxx",
+  "city": "Fremont",
+  "region": "California",
+  "country": "US",
+  "loc": "xx.5483,-xxx.9886",
+  "org": "AS13335 Cloudflare, Inc.",
+  "postal": "94536",
+  "timezone": "America/Los_Angeles",
+  "readme": "https://ipinfo.io/missingauth"
+}
+</code></pre></div></div>
+
+<p>更多命令<code class="language-plaintext highlighter-rouge">warp-cli --help</code></p>
+
+<h2 id="使用体验">使用体验</h2>
+
+<p>日用勉强，更适合备用。</p>
+
+<h2 id="参考资料">参考资料</h2>
+
+<ol>
+  <li><a href="https://developers.cloudflare.com/warp-client/get-started/linux/">https://developers.cloudflare.com/warp-client/get-started/linux/</a></li>
+</ol>]]></content><author><name>Mr. Error 追</name><email>error@zhui.dev</email></author><category term="linux" /><category term="tool" /><summary type="html"><![CDATA[安装 使用 WARP WARP+ MODE 使用体验 参考资料 WARP+ 是 Cloudflare 提供的一项网络加速服务，用于改善互联网连接的速度和安全性。WARP+ 旨在通过优化网络路径，减少延迟，并提供更快的网络连接体验。]]></summary></entry><entry><title type="html">如何播放阿里云盘原始视频文件</title><link href="https://zhui.dev/2023-07/how-to-play-aliyundrive-original-video-file" rel="alternate" type="text/html" title="如何播放阿里云盘原始视频文件" /><published>2023-07-21T00:00:00+08:00</published><updated>2023-07-21T00:00:00+08:00</updated><id>https://zhui.dev/2023-07/how-to-play-aliyundrive-original-video-file</id><content type="html" xml:base="https://zhui.dev/2023-07/how-to-play-aliyundrive-original-video-file"><![CDATA[<p>原始视频文件清晰度有 1080p/2k/4k , 但在阿里云盘官方软件没会员只有 480p ，这谁受得了？为了能播放最高清晰度的视频我找到了<a href="https://github.com/liupan1890/aliyunpan">阿里云盘小白羊版</a>，通过 mpv 等播放器能够播放原始清晰度。最近发现原版没人维护，有些 bug 很难受，又找到了 <a href="https://github.com/odomu/aliyunpan">fork 版1</a>和 <a href="https://github.com/gaozhangmin/aliyunpan">fork 版2</a>.</p>
+
+<p>虽然小白羊版在电脑上能播放原始文件的清晰度，但是手机上却没找到这种工具。</p>
+
+<p>直到遇到了 <a href="https://github.com/alist-org/alist">alist</a> – A file list program that supports multiple storages, powered by Gin and Solidjs. / 一个支持多存储的文件列表程序，使用 Gin 和 Solidjs。</p>
+
+<p>在本地启动后，家里任何一台设备都能访问，简直太棒啦，结束了 2k 屏看 480p 的日子。</p>
+
+<p>家里部署好了，又想在外面也能用上，在外面用的话那不是得整一台服务器，虽然内网穿透也可以，但我试过了，有点卡，而且长时间出门我习惯给电脑睡眠/关机。</p>
+
+<p>算了，先这样吧。</p>
+
+<hr />
+
+<p>用了一段时间后，我发现在手机上跑 alist 更舒服，可以完美解决我的所有问题，家里/外面都能用了，还省了服务器的钱。</p>
+
+<p>当然，alist 的功能不止于此。</p>]]></content><author><name>Mr. Error 追</name><email>error@zhui.dev</email></author><category term="tool" /><summary type="html"><![CDATA[原始视频文件清晰度有 1080p/2k/4k , 但在阿里云盘官方软件没会员只有 480p ，这谁受得了？为了能播放最高清晰度的视频我找到了阿里云盘小白羊版，通过 mpv 等播放器能够播放原始清晰度。最近发现原版没人维护，有些 bug 很难受，又找到了 fork 版1和 fork 版2.]]></summary></entry><entry><title type="html">玩机之初</title><link href="https://zhui.dev/2023-04/me-vs-cellphone" rel="alternate" type="text/html" title="玩机之初" /><published>2023-04-23T00:00:00+08:00</published><updated>2023-04-23T00:00:00+08:00</updated><id>https://zhui.dev/2023-04/me-vs-cellphone</id><content type="html" xml:base="https://zhui.dev/2023-04/me-vs-cellphone"><![CDATA[<p>今年年初，用了几年的手机坏了，正好红米 K60 发布，在 K50 Ultra 和 K60 之间纠结了会儿，最后选了 K60。</p>
+
+<p>到手后开始接触了刷机，小米手机相关的刷机资源和教程还挺多。</p>
+
+<p>了解一些知识后开始解 BL 锁，不得不说等待的 7 天过得真慢，等待的时候开始选要用的 ROM，原来手机 ROM 有这么多，最后选择了 Xiaomi.eu WEEKLY ROM.</p>
+
+<p>BL 解锁完成，EU 刷入完成。</p>
+
+<p>又到了经典的二选一，Root 有两种方式，一种是 Magisk，一种是 KernelSU，最后选择了 Magisk Delta.</p>
+
+<p>Xiaomi.eu ROM 里有现成的 boot.img，不用手动提取了。</p>
+
+<p>刷 boot 时，不知道是</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fastboot flash boot boot.img
+</code></pre></div></div>
+
+<p>还是</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fastboot flash boot_ab boot.img
+</code></pre></div></div>
+
+<p>在 ROM 的脚本 <code class="language-plaintext highlighter-rouge">linux_fastboot_first_install_with_data_format.sh</code> 里发现了这行</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$fastboot</span> flash boot_ab images/boot.img
+</code></pre></div></div>
+
+<p>于是采用了 boot_ab 的方式刷入。</p>
+
+<p>后面每周 ROM 更新都要</p>
+
+<ol>
+  <li>下载 ROM</li>
+  <li>刷入 ROM</li>
+  <li>修补 boot.img</li>
+  <li>刷入 boot.img</li>
+</ol>
+
+<hr />
+
+<p>六月初从 Magisk Delta 换到了 KernelSU.</p>
+
+<hr />
+
+<p>前几天从 MIUI14.0.23.9.18.DEV —&gt; HyperOS1.0.23.12.04.DEV 发现 EU 又内置了过设备完整性<code class="language-plaintext highlighter-rouge">MEETS_DEVICE_INTEGRITY</code>的方法（内置了一个 <a href="https://sourceforge.net/projects/xiaomi-eu-multilang-miui-roms/files/xiaomi.eu/Xiaomi.eu-app/">XiaomiEUModule.apk</a>），不需要额外的模块了。</p>]]></content><author><name>Mr. Error 追</name><email>error@zhui.dev</email></author><category term="misc" /><summary type="html"><![CDATA[今年年初，用了几年的手机坏了，正好红米 K60 发布，在 K50 Ultra 和 K60 之间纠结了会儿，最后选了 K60。]]></summary></entry><entry><title type="html">【转】鲁迅《狂人日记》</title><link href="https://zhui.dev/2022-11/lu-xun-diary-of-a-madman" rel="alternate" type="text/html" title="【转】鲁迅《狂人日记》" /><published>2022-11-25T00:00:00+08:00</published><updated>2022-11-25T00:00:00+08:00</updated><id>https://zhui.dev/2022-11/lu-xun-diary-of-a-madman</id><content type="html" xml:base="https://zhui.dev/2022-11/lu-xun-diary-of-a-madman"><![CDATA[<p><a data-fancybox="diary-of-a-madman" href="../assets/img/post/diary-of-a-madman/A_Madman's_Diary_-_Lu_Xun.jpg"><img src="../assets/img/post/diary-of-a-madman/A_Madman's_Diary_-_Lu_Xun.jpg" /></a></p>
+
+<blockquote>
+  <p>《狂人日记》书影，<a href="https://zh.wikipedia.org/wiki/北京鲁迅博物馆">北京鲁迅博物馆</a></p>
+</blockquote>
+
+<p>某君昆仲，今隐其名，皆余昔日在中学时良友；分隔多年，消息渐阙。日前偶闻其一大病；适归故乡，迂道往访，则仅晤一人，言病者其弟也。劳君远道来视，然已早愈，赴某地候补矣。因大笑，出示日记二册，谓可见当日病状，不妨献诸旧友。持归阅一过，知所患盖“迫害狂”之类。语颇错杂无伦次，又多荒唐之言；亦不著月日，惟墨色字体不一，知非一时所书。间亦有略具联络者，今撮录一篇，以供医家研究。记中语误，一字不易；惟人名虽皆村人，不为世间所知，无关大体，然亦悉易去。至于书名，则本人愈后所题，不复改也。七年四月二日识。</p>
+
+<p><strong>一</strong></p>
+
+<p>今天晚上，很好的月光。</p>
+
+<p>我不见他，已是三十多年；今天见了，精神分外爽快。才知道以前的三十多年，全是发昏；然而须十分小心。不然，那赵家的狗，何以看我两眼呢？</p>
+
+<p>我怕得有理。</p>
+
+<p><strong>二</strong></p>
+
+<p>今天全没月光，我知道不妙。早上小心出门，赵贵翁的眼色便怪：似乎怕我，似乎想害我。还有七八个人，交头接耳的议论我，张着嘴，对我笑了一笑；我便从头直冷到脚根，晓得他们布置，都已妥当了。</p>
+
+<p>我可不怕，仍旧走我的路。前面一伙小孩子，也在那里议论我；眼色也同赵贵翁一样，脸色也铁青。我想我同小孩子有什么仇，他也这样。忍不住大声说，“你告诉我！”他们可就跑了。</p>
+
+<p>我想：我同赵贵翁有什么仇，同路上的人又有什么仇；只有廿年以前，把古久先生的陈年流水簿子，踹了一脚，古久先生很不高兴。赵贵翁虽然不认识他，一定也听到风声，代抱不平；约定路上的人，同我作冤对。但是小孩子呢？那时候，他们还没有出世，何以今天也睁着怪眼睛，似乎怕我，似乎想害我。这真教我怕，教我纳罕而且伤心。</p>
+
+<p>我明白了。这是他们娘老子教的！</p>
+
+<p><strong>三</strong></p>
+
+<p>晚上总是睡不着。凡事须得研究，才会明白。</p>
+
+<p>他们——也有给知县打枷过的，也有给绅士掌过嘴的，也有衙役占了他妻子的，也有老子娘被债主逼死的；他们那时候的脸色，全没有昨天这么怕，也没有这么凶。</p>
+
+<p>最奇怪的是昨天街上的那个女人，打他儿子，嘴里说道，“老子呀！我要咬你几口才出气！”他眼睛却看着我。我出了一惊，遮掩不住；那青面獠牙的一伙人，便都哄笑起来。陈老五赶上前，硬把我拖回家中了。</p>
+
+<p>拖我回家，家里的人都装作不认识我；他们的脸色，也全同别人一样。进了书房，便反扣上门，宛然是关了一只鸡鸭。这一件事，越教我猜不出底细。</p>
+
+<p>前几天，狼子村的佃户来告荒，对我大哥说，他们村里的一个大恶人，给大家打死了；几个人便挖出他的心肝来，用油煎炒了吃，可以壮壮胆子。我插了一句嘴，佃户和大哥便都看我几眼。今天才晓得他们的眼光，全同外面的那伙人一模一样。</p>
+
+<p>想起来，我从顶上直冷到脚跟。</p>
+
+<p>他们会吃人，就未必不会吃我。</p>
+
+<p>你看那女人“咬你几口”的话，和一伙青面獠牙人的笑，和前天佃户的话，明明是暗号。我看出他话中全是毒，笑中全是刀。他们的牙齿，全是白厉厉的排着，这就是吃人的家伙。</p>
+
+<p>照我自己想，虽然不是恶人，自从踹了古家的簿子，可就难说了。他们似乎别有心思，我全猜不出。况且他们一翻脸，便说人是恶人。我还记得大哥教我做论，无论怎样好人，翻他几句，他便打上几个圈；原谅坏人几句，他便说“翻天妙手，与众不同”。我那里猜得到他们的心思，究竟怎样；况且是要吃的时候。</p>
+
+<p>凡事总须研究，才会明白。古来时常吃人，我也还记得，可是不甚清楚。我翻开历史一查，这历史没有年代，歪歪斜斜的每页上都写着“仁义道德”几个字。我横竖睡不着，仔细看了半夜，才从字缝里看出字来，满本都写着两个字是“吃人”！</p>
+
+<p>书上写着这许多字，佃户说了这许多话，却都笑吟吟的睁着怪眼看我。</p>
+
+<p>我也是人，他们想要吃我了！</p>
+
+<p><strong>四</strong></p>
+
+<p>早上，我静坐了一会儿。陈老五送进饭来，一碗菜，一碗蒸鱼；这鱼的眼睛，白而且硬，张着嘴，同那一伙想吃人的人一样。吃了几筷，滑溜溜的不知是鱼是人，便把他兜肚连肠的吐出。</p>
+
+<p>我说“老五，对大哥说，我闷得慌，想到园里走走。”老五不答应，走了；停一会，可就来开了门。</p>
+
+<p>我也不动，研究他们如何摆布我；知道他们一定不肯放松。果然！我大哥引了一个老头子，慢慢走来；他满眼凶光，怕我看出，只是低头向着地，从眼镜横边暗暗看我。大哥说，“今天你仿佛很好。”我说“是的。”大哥说，“今天请何先生来，给你诊一诊。”我说“可以！”其实我岂不知道这老头子是刽子手扮的！无非借了看脉这名目，揣一揣肥瘠：因这功劳，也分一片肉吃。我也不怕；虽然不吃人，胆子却比他们还壮。伸出两个拳头，看他如何下手。老头子坐着，闭了眼睛，摸了好一会，呆了好一会；便张开他鬼眼睛说，“不要乱想。静静的养几天，就好了。”</p>
+
+<p>不要乱想，静静的养！养肥了，他们是自然可以多吃；我有什么好处，怎么会“好了”？他们这群人，又想吃人，又是鬼鬼祟祟，想法子遮掩，不敢直截下手，真要令我笑死。我忍不住，便放声大笑起来，十分快活。自己晓得这笑声里面，有的是义勇和正气。老头子和大哥，都失了色，被我这勇气正气镇压住了。</p>
+
+<p>但是我有勇气，他们便越想吃我，沾光一点这勇气。老头子跨出门，走不多远，便低声对大哥说道，“赶紧吃罢！”大哥点点头。原来也有你！这一件大发见，虽似意外，也在意中：合伙吃我的人，便是我的哥哥！</p>
+
+<p>吃人的是我哥哥！</p>
+
+<p>我是吃人的人的兄弟！</p>
+
+<p>我自己被人吃了，可仍然是吃人的人的兄弟！</p>
+
+<p><strong>五</strong></p>
+
+<p>这几天是退一步想：假使那老头子不是刽子手扮的，真是医生，也仍然是吃人的人。他们的祖师李时珍做的“本草什么”上，明明写着人肉可以煎吃；他还能说自己不吃人么？</p>
+
+<p>至于我家大哥，也毫不冤枉他。他对我讲书的时候，亲口说过可以“易子而食”；又一回偶然议论起一个不好的人，他便说不但该杀，还当“食肉寝皮”。我那时年纪还小，心跳了好半天。前天狼子村佃户来说吃心肝的事，他也毫不奇怪，不住的点头。可见心思是同从前一样狠。既然可以“易子而食”，便什么都易得，什么人都吃得。我从前单听他讲道理，也胡涂过去；现在晓得他讲道理的时候，不但唇边还抹着人油，而且心里满装着吃人的意思。</p>
+
+<p><strong>六</strong></p>
+
+<p>黑漆漆的，不知是日是夜。赵家的狗又叫起来了。</p>
+
+<p>狮子似的凶心，兔子的怯弱，狐狸的狡猾，……</p>
+
+<p><strong>七</strong></p>
+
+<p>我晓得他们的方法，直捷杀了，是不肯的，而且也不敢，怕有祸祟。所以他们大家连络，布满了罗网，逼我自戕。试看前几天街上男女的样子，和这几天我大哥的作为，便足可悟出八九分了。最好是解下腰带，挂在梁上，自己紧紧勒死；他们没有杀人的罪名，又偿了心愿，自然都欢天喜地的发出一种呜呜咽咽的笑声。否则惊吓忧愁死了，虽则略瘦，也还可以首肯几下。</p>
+
+<p>他们是只会吃死肉的！——记得什么书上说，有一种东西，叫“海乙那”的，眼光和样子都很难看；时常吃死肉，连极大的骨头，都细细嚼烂，咽下肚子去，想起来也教人害怕。“海乙那”是狼的亲眷，狼是狗的本家。前天赵家的狗，看我几眼，可见他也同谋，早已接洽。老头子眼看着地，岂能瞒得我过。</p>
+
+<p>最可怜的是我的大哥，他也是人，何以毫不害怕；而且合伙吃我呢？还是历来惯了，不以为非呢？还是丧了良心，明知故犯呢？</p>
+
+<p>我诅咒吃人的人，先从他起头；要劝转吃人的人，也先从他下手。</p>
+
+<p><strong>八</strong></p>
+
+<p>其实这种道理，到了现在，他们也该早已懂得，……</p>
+
+<p>忽然来了一个人；年纪不过二十左右，相貌是不很看得清楚，满面笑容，对了我点头，他的笑也不像真笑。我便问他，“吃人的事，对么？”他仍然笑着说，“不是荒年，怎么会吃人。”我立刻就晓得，他也是一伙，喜欢吃人的；便自勇气百倍，偏要问他。</p>
+
+<p>“对么？”</p>
+
+<p>“这等事问他什么。你真会……说笑话。……今天天气很好。”</p>
+
+<p>天气是好，月色也很亮了。可是我要问你，“对么？”</p>
+
+<p>他不以为然了。含含胡胡的答道，“不……”</p>
+
+<p>“不对？他们何以竟吃？！”</p>
+
+<p>“没有的事……”</p>
+
+<p>“没有的事？狼子村现吃；还有书上都写着，通红斩新！”</p>
+
+<p>他便变了脸，铁一般青。睁着眼说，“有许有的，这是从来如此……”</p>
+
+<p>“从来如此，便对么？”</p>
+
+<p>“我不同你讲这些道理；总之你不该说，你说便是你错！”</p>
+
+<p>我直跳起来，张开眼，这人便不见了。全身出了一大片汗。他的年纪，比我大哥小得远，居然也是一伙；这一定是他娘老子先教的。还怕已经教给他儿子了；所以连小孩子，也都恶狠狠的看我。</p>
+
+<p><strong>九</strong></p>
+
+<p>自己想吃人，又怕被别人吃了，都用着疑心极深的眼光，面面相觑。……</p>
+
+<p>去了这心思，放心做事走路吃饭睡觉，何等舒服。这只是一条门槛，一个关头。他们可是父子兄弟夫妇朋友师生仇敌和各不相识的人，都结成一伙，互相劝勉，互相牵掣，死也不肯跨过这一步。</p>
+
+<p><strong>十</strong></p>
+
+<p>大清早，去寻我大哥；他立在堂门外看天，我便走到他背后，拦住门，格外沉静，格外和气的对他说，</p>
+
+<p>“大哥，我有话告诉你。”</p>
+
+<p>“你说就是，”他赶紧回过脸来，点点头。</p>
+
+<p>“我只有几句话，可是说不出来。大哥，大约当初野蛮的人，都吃过一点人。后来因为心思不同，有的不吃人了，一味要好，便变了人，变了真的人。有的却还吃，——也同虫子一样，有的变了鱼鸟猴子，一直变到人。有的不要好，至今还是虫子。这吃人的人比不吃人的人，何等惭愧。怕比虫子的惭愧猴子，还差得很远很远。</p>
+
+<p>“易牙蒸了他儿子，给桀纣吃，还是一直从前的事。谁晓得从盘古开辟天地以后，一直吃到易牙的儿子；从易牙的儿子，一直吃到徐锡林；从徐锡林，又一直吃到狼子村捉住的人。去年城里杀了犯人，还有一个生痨病的人，用馒头蘸血舐。</p>
+
+<p>“他们要吃我，你一个人，原也无法可想；然而又何必去入伙。吃人的人，什么事做不出；他们会吃我，也会吃你，一伙里面，也会自吃。但只要转一步，只要立刻改了，也就是人人太平。虽然从来如此，我们今天也可以格外要好，说是不能！大哥，我相信你能说，前天佃户要减租，你说过不能。”</p>
+
+<p>当初，他还只是冷笑，随后眼光便凶狠起来，一到说破他们的隐情，那就满脸都变成青色了。大门外立着一伙人，赵贵翁和他的狗，也在里面，都探头探脑的挨进来。有的是看不出面貌，似乎用布蒙着；有的是仍旧青面獠牙，抿着嘴笑。我认识他们是一伙，都是吃人的人。可是也晓得他们心思很不一样，一种是以为从来如此，应该吃的；一种是知道不该吃，可是仍然要吃，又怕别人说破他，所以听了我的话，越发气愤不过，可是抿着嘴冷笑。</p>
+
+<p>这时候，大哥也忽然显出凶相，高声喝道，</p>
+
+<p>“都出去！疯子有什么好看！”</p>
+
+<p>这时候，我又懂得一件他们的巧妙了。他们岂但不肯改，而且早已布置；预备下一个疯子的名目罩上我。将来吃了，不但太平无事，怕还会有人见情。佃户说的大家吃了一个恶人，正是这方法。这是他们的老谱！</p>
+
+<p>陈老五也气愤愤的直走进来。如何按得住我的口，我偏要对这伙人说，</p>
+
+<p>“你们可以改了，从真心改起！要晓得将来容不得吃人的人，活在世上。</p>
+
+<p>“你们要不改，自己也会吃尽。即使生得多，也会给真的人除灭了，同猎人打完狼子一样！——同虫子一样！”</p>
+
+<p>那一伙人，都被陈老五赶走了。大哥也不知那里去了。陈老五劝我回屋子里去。屋里面全是黑沉沉的。横梁和椽子都在头上发抖；抖了一会，就大起来，堆在我身上。</p>
+
+<p>万分沉重，动弹不得；他的意思是要我死。我晓得他的沉重是假的，便挣扎出来，出了一身汗。可是偏要说，</p>
+
+<p>“你们立刻改了，从真心改起！你们要晓得将来是容不得吃人的人，……”</p>
+
+<p><strong>十一</strong></p>
+
+<p>太阳也不出，门也不开，日日是两顿饭。</p>
+
+<p>我捏起筷子，便想起我大哥；晓得妹子死掉的缘故，也全在他。那时我妹子才五岁，可爱可怜的样子，还在眼前。母亲哭个不住，他却劝母亲不要哭；大约因为自己吃了，哭起来不免有点过意不去。如果还能过意不去，……</p>
+
+<p>妹子是被大哥吃了，母亲知道没有，我可不得而知。</p>
+
+<p>母亲想也知道；不过哭的时候，却并没有说明，大约也以为应当的了。记得我四五岁时，坐在堂前乘凉，大哥说爷娘生病，做儿子的须割下一片肉来，煮熟了请他吃，才算好人；母亲也没有说不行。一片吃得，整个的自然也吃得。但是那天的哭法，现在想起来，实在还教人伤心，这真是奇极的事！</p>
+
+<p><strong>十二</strong></p>
+
+<p>不能想了。</p>
+
+<p>四千年来时时吃人的地方，今天才明白，我也在其中混了多年；大哥正管着家务，妹子恰恰死了，他未必不和在饭菜里，暗暗给我们吃。</p>
+
+<p>我未必无意之中，不吃了我妹子的几片肉，现在也轮到我自己，……</p>
+
+<p>有了四千年吃人履历的我，当初虽然不知道，现在明白，难见真的人！</p>
+
+<p><strong>十三</strong></p>
+
+<p>没有吃过人的孩子，或者还有？</p>
+
+<p>救救孩子……</p>
+
+<p>一九一八年四月。</p>]]></content><author><name>Mr. Error 追</name><email>error@zhui.dev</email></author><category term="misc" /><summary type="html"><![CDATA[]]></summary></entry></feed>
