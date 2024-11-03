@@ -27,7 +27,6 @@ user:
   job: Life often requires some excitement, joy, and anticipation.
   #search: 
   about: true
-  email:true
   feed: true
   key: true
 
