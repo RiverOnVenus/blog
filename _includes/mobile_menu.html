@@ -9,11 +9,16 @@
 <!--      {% if site.user.key %}
       <li class="nav_item">
          <a href="https://github.com/riveronvenus.gpg">key</a>
-      </li>-->
-      {% endif %}
+      </li>
+      {% endif %}-->
       {% if site.user.about %}
       <li class="nav_item">
          <a href="{{ site.baseurl }}/about.html">about</a>
+      </li>
+      {% endif %}
+      {% if site.author.email %}
+      <li class="nav_item">
+         <a href="mailto:error@zhui.dev">email</a>
       </li>
       {% endif %}
       <!-- {% if site.user.search %}
