@@ -47,6 +47,13 @@
             </li>
          </ul>
          {% endif %}
+          {% if site.user.email %}
+         <ul class="nav_list">
+            <li class="nav_item">
+               <a href="mailto:error@zhui.dev">email</a>
+            </li>
+         </ul>
+         {% endif %}
          {% if site.user.feed %}
          <ul class="nav_list">
             <li class="nav_item">

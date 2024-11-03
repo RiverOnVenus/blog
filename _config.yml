@@ -7,9 +7,6 @@ author:
   name: Mr. Error 追
   email: "error@zhui.dev"
 
-twitter:
-  username: RiverOnVenus
-
 permalink: /:year-:month/:title
 timezone: Asia/Shanghai
 
@@ -30,6 +27,7 @@ user:
   job: Life often requires some excitement, joy, and anticipation.
   #search: 
   about: true
+  email:true
   feed: true
   key: true
 
