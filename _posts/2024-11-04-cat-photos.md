@@ -1,5 +1,5 @@
 ---
-title: 猫猫
+title: meow~
 categories: [misc]
 comments: true
 ---
