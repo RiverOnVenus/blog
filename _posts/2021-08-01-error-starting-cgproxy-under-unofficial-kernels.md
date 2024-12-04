@@ -10,7 +10,7 @@ comments: true
 {:toc}
 ## 前言
 
-前段时间我一直在尝试不同的内核，想以此来提高桌面环境下的体验。官方支持的内核中我使用过 [linux-zen](https://archlinux.org/packages/?name=linux-zen), 非官方支持的内核中我使用过 [linux-ck](https://aur.archlinux.org/packages/linux-ck/), [linux-lqx](https://aur.archlinux.org/packages/linux-lqx/), [linux-xanmod](https://aur.archlinux.org/packages/linux-xanmod/), [linux-xanmod-cacule](https://aur.archlinux.org/packages/linux-xanmod-cacule/), [linux-cacule](https://aur.archlinux.org/packages/?K=linux-cacule)。其中，使用 linux-zen, linux-ck时 cgproxy 正常，而使用其它几个内核时启动却出错，导致无法使用。
+前段时间我一直在尝试不同的内核，想以此来提高桌面环境下的体验。官方支持的内核中我使用过 [linux-zen](https://archlinux.org/packages/?name=linux-zen), 非官方支持的内核中我使用过 [linux-ck](https://aur.archlinux.org/packages/linux-ck/), [linux-lqx](https://aur.archlinux.org/packages/linux-lqx/), [linux-xanmod](https://aur.archlinux.org/packages/linux-xanmod/), [linux-xanmod-cacule](https://aur.archlinux.org/packages/linux-xanmod-cacule/), [linux-cacule](https://aur.archlinux.org/packages/?K=linux-cacule)。其中，使用 linux-zen, linux-ck 时 cgproxy 正常，而使用其它几个内核时启动却出错，导致无法使用。
 
 ## 出错
 
@@ -48,8 +48,8 @@ cgproxyd[472]: error: execsnoop thread timeout, maybe failed
 
 编译内核时在 config 中启用 *CONFIG_FTRACE_SYSCALLS *或 *CONFIG_FTRACE* 即可解决。
 
-- ~~对于linux-cacule系列的内核，将其PKGBUILD中禁用*CONFIG_FTRACE*的语句`scripts/config --disable CONFIG_FTRACE`注释掉或删掉以启用*CONFIG_FTRACE_SYSCALLS*~~
-- (2021-08-20更新) 对于 linux-cacule 系列内核，在其 PKGBUILD 中加入两条语句`scripts/config --enable CONFIG_FTRACE`和 `scripts/config --enable CONFIG_FTRACE_SYSCALLS`以启用 *CONFIG_FTRACE_SYSCALLS*
+- ~~对于 linux-cacule 系列的内核，将其 PKGBUILD 中禁用*CONFIG_FTRACE*的语句`scripts/config --disable CONFIG_FTRACE`注释掉或删掉以启用*CONFIG_FTRACE_SYSCALLS*~~
+- (2021-08-20 更新) 对于 linux-cacule 系列内核，在其 PKGBUILD 中加入两条语句`scripts/config --enable CONFIG_FTRACE`和 `scripts/config --enable CONFIG_FTRACE_SYSCALLS`以启用 *CONFIG_FTRACE_SYSCALLS*
 - 对于 linux-lqx, 在其 PKGBUILD 中加入语句`scripts/config --enable CONFIG_FTRACE_SYSCALLS`以启用 *CONFIG_FTRACE_SYSCALLS*
 - 对于 linux-xanmod 系列内核，在其 PKGBUILD 中加入两条语句`scripts/config --enable CONFIG_FTRACE`和 `scripts/config --enable CONFIG_FTRACE_SYSCALLS`以启用 *CONFIG_FTRACE_SYSCALLS*
 

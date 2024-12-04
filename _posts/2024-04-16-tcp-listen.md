@@ -66,7 +66,7 @@ TCP 通信过程如下图：
 - syn queue - 用于存储 SYN_RECV 状态的连接
 - pending queue - 用于存储 ESTABLISHED 状态的连接
 
-客户端调用 `connect()` 发起连接，发送了第一次握手的 SYN 包，服务器回了 SYN+ACK 包，此时的连接（SYN_RECV 状态）会放在 syn queue，服务器收到最后一个 ACK 包完成三次握手完成后的连接（ESTABLISHED 状态）放在 pending queue ，等待 `accept()` 调用出队。
+客户端调用 `connect()` 发起连接，发送了第一次握手的 SYN 包，服务器回了 SYN+ACK 包，此时的连接（SYN_RECV 状态）会放在 syn queue，服务器收到最后一个 ACK 包完成三次握手完成后的连接（ESTABLISHED 状态）放在 pending queue，等待 `accept()` 调用出队。
 
 ### 测试程序和抓包
 

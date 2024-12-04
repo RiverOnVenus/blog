@@ -17,9 +17,9 @@ comments: true
 ```yaml
 accounts:
   - uid: xxxxxxxxx
-    # 账户ID 非账户用户名或手机号
+    # 账户 ID 非账户用户名或手机号
     password: xxxxxxxxxxxxxxxxxxxxxxxxx
-    # 账户密码或其MD5哈希
+    # 账户密码或其 MD5 哈希
     user-agent: 'Mozilla/5.0 (X11; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0'
     # 登录社区时所用浏览器的 User-Agent
     # 可在此工具查看：https://tool.chinaz.com/useragent
@@ -28,9 +28,9 @@ accounts:
     check-in: true
     # 社区成长值签到，启用功能意味着你愿意自行承担相关风险
     browse-user-page: true
-    # 社区浏览个人主页10秒，启用功能意味着你愿意自行承担相关风险
+    # 社区浏览个人主页 10 秒，启用功能意味着你愿意自行承担相关风险
     browse-post: true
-    # 社区浏览帖子10秒，启用功能意味着你愿意自行承担相关风险
+    # 社区浏览帖子 10 秒，启用功能意味着你愿意自行承担相关风险
     thumb-up: true
     # 点赞帖子，启用功能意味着你愿意自行承担相关风险
     browse-specialpage: true
@@ -43,7 +43,7 @@ accounts:
 logging: false
 # 归档日志到本地文件
 version: v1.6.0
-# config 文件版本号，debug用
+# config 文件版本号，debug 用
 
 ```
 

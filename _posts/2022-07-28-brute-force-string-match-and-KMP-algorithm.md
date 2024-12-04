@@ -20,7 +20,7 @@ comments: true
 //暴力匹配
 void brute_force_match(char *S, char *T) {
     int i = 1;
-    int j = 1; //第0个位置存的字符串长度
+    int j = 1; //第 0 个位置存的字符串长度
     while (i <= S[0] && j <= T[0]) {
         if (S[i] == T[j]) {
             i++;
@@ -40,15 +40,15 @@ void brute_force_match(char *S, char *T) {
 
 ## 什么是 KMP 算法？
 
-这里直接引用阮一峰老师的文章——[字符串匹配的KMP算法](https://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html)。
+这里直接引用阮一峰老师的文章——[字符串匹配的 KMP 算法](https://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html)。
 
 ```c
-//算出KMP的next数组
+//算出 KMP 的 next 数组
 void get_next(char *T, int *next) {
     int i = 1;
     next[1] = 0; //恒为零
     int j = 0;
-    while (i < T[0]) { // T[0]中存储的是字符串的长度
+    while (i < T[0]) { // T[0] 中存储的是字符串的长度
         if (j == 0 || T[i] == T[j]) { // j==0，说明再次回到了开头
             i++;
             j++;
@@ -59,7 +59,7 @@ void get_next(char *T, int *next) {
     }
 }
 
-//KMP匹配算法
+//KMP 匹配算法
 void kmp(char *S, char *T, int *next, int pos) {
     int i = pos; //开始查找的起始位置
     int j = 1;
@@ -67,7 +67,7 @@ void kmp(char *S, char *T, int *next, int pos) {
         if (j == 0 || S[i] == T[j]) { //相等各自加加，往后走
             i++;
             j++;
-        } else { //不相等，回退next[j]位置
+        } else { //不相等，回退 next[j] 位置
             j = next[j];
         }
     }
@@ -88,7 +88,7 @@ void kmp(char *S, char *T, int *next, int pos) {
 //暴力匹配
 void brute_force_match(char *S, char *T) {
     int i = 1;
-    int j = 1; //第0个位置存的字符串长度
+    int j = 1; //第 0 个位置存的字符串长度
     while (i <= S[0] && j <= T[0]) {
         if (S[i] == T[j]) {
             i++;
@@ -105,12 +105,12 @@ void brute_force_match(char *S, char *T) {
 
 }
 
-//算出KMP的next数组
+//算出 KMP 的 next 数组
 void get_next(char *T, int *next) {
     int i = 1;
     next[1] = 0; //恒为零
     int j = 0;
-    while (i < T[0]) { // T[0]中存储的是字符串的长度
+    while (i < T[0]) { // T[0] 中存储的是字符串的长度
         if (j == 0 || T[i] == T[j]) { // j==0，说明再次回到了开头
             i++;
             j++;
@@ -121,7 +121,7 @@ void get_next(char *T, int *next) {
     }
 }
 
-//KMP匹配算法
+//KMP 匹配算法
 void kmp(char *S, char *T, int *next, int pos) {
     int i = pos; //开始查找的起始位置
     int j = 1;
@@ -129,7 +129,7 @@ void kmp(char *S, char *T, int *next, int pos) {
         if (j == 0 || S[i] == T[j]) { //相等各自加加，往后走
             i++;
             j++;
-        } else { //不相等，回退next[j]位置
+        } else { //不相等，回退 next[j] 位置
             j = next[j];
         }
     }
@@ -165,15 +165,15 @@ int main() {
     printf("暴力匹配：");
     brute_force_match(S, T); //暴力匹配
 
-    get_next(T, next); //计算next数组
-    printf("next数组为：");
+    get_next(T, next); //计算 next 数组
+    printf("next 数组为：");
     for (int i = 1; i <= T[0]; i++) {
         printf("%d ", next[i]);
     }
     printf("\n");
 
     printf("KMP: ");
-    kmp(S, T, next, 1); //KMP算法
+    kmp(S, T, next, 1); //KMP 算法
 
     return 0;
 }

@@ -16,7 +16,7 @@ comments: true
 
 ## 0x00 什么是字节顺序
 
-字节顺序，又称端序或尾序，在计算机科学领域中，指电脑内存中或在数字通信链路中，占内存多于一个字节类型的数据在内存中的存放顺序。 在几乎所有的机器上，多字节对象都被存储为连续的字节序列。例如在C语言中，在32位的环境下，一个类型为`int`的变量`x`地址为`0x79abcdef`，那么其对应地址表达式`&x`的值为`0x79abcdef`.
+字节顺序，又称端序或尾序，在计算机科学领域中，指电脑内存中或在数字通信链路中，占内存多于一个字节类型的数据在内存中的存放顺序。在几乎所有的机器上，多字节对象都被存储为连续的字节序列。例如在 C 语言中，在 32 位的环境下，一个类型为`int`的变量`x`地址为`0x79abcdef`，那么其对应地址表达式`&x`的值为`0x79abcdef`.
 
 使用命令 `lscpu` 可以查看 cpu 的字节序。
 
@@ -61,7 +61,7 @@ Little-endian: 0x79abcdef
 Big-endian:    0xefcdab79
 ```
 
-`__builtin_bswap32` 是 [GCC内置函数](https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/other-built-in-functions-provided-by-gcc.html#_CPPv417__builtin_bswap328uint32_t)。
+`__builtin_bswap32` 是 [GCC 内置函数](https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/other-built-in-functions-provided-by-gcc.html#_CPPv417__builtin_bswap328uint32_t)。
 
 > - Built-in Function: *uint16_t* **__builtin_bswap16** *(uint16_t x)*
 >

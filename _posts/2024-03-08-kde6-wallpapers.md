@@ -18,7 +18,7 @@ KDE6 更新了很多东西，我最喜欢的竟然是新增的壁纸「Scarlet T
 
 <a data-fancybox="kde6-wallpapers" href="https://image.zhui.dev/file/1731154973483_5120x2880.png"><img src="https://image.zhui.dev/file/1731154973483_5120x2880.png">
 
-6.1 更新的 「Reef」，这种风格的壁纸太喜欢了。
+6.1 更新的「Reef」，这种风格的壁纸太喜欢了。
 
 <a data-fancybox="kde6-wallpapers" href="https://image.zhui.dev/file/1731155190919_Reef.jpg"><img src="https://image.zhui.dev/file/1731155190919_Reef.jpg">
 

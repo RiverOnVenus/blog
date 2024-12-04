@@ -20,7 +20,7 @@ comments: true
 
 使用后两种方案大多是为了极致的续航。
 
-> 使用 NVIDIA PRIME 时，N卡处于待机状态，即使不在上面运行任何应用程序，它也会继续消耗电能。由于N卡会自动降频，因此耗电量相对较低，但仍比仅用核显时高很多。
+> 使用 NVIDIA PRIME 时，N 卡处于待机状态，即使不在上面运行任何应用程序，它也会继续消耗电能。由于 N 卡会自动降频，因此耗电量相对较低，但仍比仅用核显时高很多。
 
 ## optimus-manager
 
@@ -42,7 +42,7 @@ Hybrid 配合 Nvidia-prime 使用
 pacman -S nvidia-prime
 ```
 
-> Hybrid模式文档 [Nvidia GPU offloading for "hybrid" mode](https://github.com/Askannz/optimus-manager/wiki/Nvidia-GPU-offloading-for-%22hybrid%22-mode)
+> Hybrid 模式文档 [Nvidia GPU offloading for "hybrid" mode](https://github.com/Askannz/optimus-manager/wiki/Nvidia-GPU-offloading-for-%22hybrid%22-mode)
 
 **安装**
 
@@ -54,7 +54,7 @@ pacman -S nvidia-prime
 pacman -S optimus-manager bbswitch
 ```
 
-> 注意：bbswitch 很久没更新了，在较新的笔记本电脑上可能没用，甚至产生一些其它问题。且 bbswitch 只是optimus-manager 项目的电源管理方案 [A guide  to power management options](https://github.com/Askannz/optimus-manager/wiki/A-guide--to-power-management-options)之一，所以请根据电脑环境选择合理的方案。
+> 注意：bbswitch 很久没更新了，在较新的笔记本电脑上可能没用，甚至产生一些其它问题。且 bbswitch 只是 optimus-manager 项目的电源管理方案 [A guide  to power management options](https://github.com/Askannz/optimus-manager/wiki/A-guide--to-power-management-options)之一，所以请根据电脑环境选择合理的方案。
 
 **配置**
 
@@ -92,13 +92,13 @@ startup_mode=auto
 switching=bbswitch
 ```
 
-启动系统时，根据是否接通电源自动选择模式。使用电池为 Integrated 模式，N卡被禁，提高了续航。接通电源为 Hybrid 模式，使用`prime-run`命令指定应用程序使用N卡。
+启动系统时，根据是否接通电源自动选择模式。使用电池为 Integrated 模式，N 卡被禁，提高了续航。接通电源为 Hybrid 模式，使用`prime-run`命令指定应用程序使用 N 卡。
 
 也可以手动切换：
 
-- `optimus-manager --switch nvidia` 切换到Nvidia
-- `optimus-manager --switch integrated` 切换到核显并关闭Nvidia的电源
-- `optimus-manager --switch hybrid` 切换到Nvidia offload
+- `optimus-manager --switch nvidia` 切换到 Nvidia
+- `optimus-manager --switch integrated` 切换到核显并关闭 Nvidia 的电源
+- `optimus-manager --switch hybrid` 切换到 Nvidia offload
 
 > 注意：切换模式会自动注销（用户态切换），所以请确保你已经保存你的工作，并关闭所有的应用程序。
 

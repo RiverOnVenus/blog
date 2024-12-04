@@ -14,7 +14,7 @@ comments: true
 
 自从开始尝试自定义内核，便陷入其中。在内核方面，我是业余的，仅仅是在内核中打上一些我想使用的补丁以及简单修改一些配置。每当主线内核发布或有新的补丁时，我就会重新编译内核。就我的笔记本电脑来说，每次编译内核都会花费一个多小时的时间，而当我使用了  Modprobed-db 后，编译时间显著减少了。
 
-## Modprobed-db是什么？
+## Modprobed-db 是什么？
 
 Modprobed-db 是一个通过 [make localmodconfig](https://www.kernel.org/doc/html/latest/admin-guide/README.html?highlight=localmodconfig#configuring-the-kernel)建立最小内核的工具。它会根据你当前的 config 和由 Modprobed-db 生成的模块列表创建一个新的 config，其余不需要的模块都将被它禁用。这样就得到了一个属于你的、精简的内核。
 
@@ -48,7 +48,7 @@ IGNORE=(nvidia nvidia_drm nvidia_modeset nvidia_uvm vboxdrv vboxnetadp vboxnetfl
 systemctl --user enable --now modprobed-db
 ```
 
-`modprobed-db.service` 每隔6小时运行一次`modprobed-db store`，在开机和关机时也会各运行一次。
+`modprobed-db.service` 每隔 6 小时运行一次`modprobed-db store`，在开机和关机时也会各运行一次。
 
 [Service] 和 [Timer] 可以用下面命令查看：
 
@@ -84,7 +84,7 @@ bridge
 
 在完善数据库后，就可以使用 Modprobed-db 来构建内核了。
 
-### 使用Modprobed-db构建内核
+### 使用 Modprobed-db 构建内核
 
 对于[传统编译内核](https://wiki.archlinux.org/title/Kernel/Traditional_compilation)的方式，在配置好 `.config` 后运行`make LSMOD=$HOME/.config/modprobed.db localmodconfig`就行。
 
@@ -107,15 +107,15 @@ bridge
 
 ## 那么，它减少了多少编译时间？
 
-我的笔记本电脑 CPU 是 Intel Core i5-8250U (8) @ 1.6GHz，4核8线程。
+我的笔记本电脑 CPU 是 Intel Core i5-8250U (8) @ 1.6GHz，4 核 8 线程。
 
-编译的内核是主线的5.17.5，config 是 Arch Linux 默认内核的 config。
+编译的内核是主线的 5.17.5，config 是 Arch Linux 默认内核的 config。
 
-使用 gcc 编译需要55m35s，使用 clang 编译同时启用 FULL LTO 需要1h21m57s；在使用 Modprobed-db后，使用 gcc 编译需要11m50s，使用 clang 编译同时启用 FULL LTO 需要24m11s。
+使用 gcc 编译需要 55m35s，使用 clang 编译同时启用 FULL LTO 需要 1h21m57s；在使用 Modprobed-db 后，使用 gcc 编译需要 11m50s，使用 clang 编译同时启用 FULL LTO 需要 24m11s。
 
 <a data-fancybox="modprobed-db" href="../assets/img/post/modprobed-db/image02.jpeg"><img src="../assets/img/post/modprobed-db/image02.jpeg"></a>
 
-为什么时间减少了这么多呢？因为一个正常的内核大概有5000多个模块，而 modprobed-db 数据库中就200个模块。
+为什么时间减少了这么多呢？因为一个正常的内核大概有 5000 多个模块，而 modprobed-db 数据库中就 200 个模块。
 
 <a data-fancybox="modprobed-db" href="../assets/img/post/modprobed-db/image03.png"><img src="../assets/img/post/modprobed-db/image03.png"></a>
 

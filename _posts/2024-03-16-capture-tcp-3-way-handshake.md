@@ -72,7 +72,7 @@ earlyoom[454]: process exited after 2.8 seconds
 
 <a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img04.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img04.png">
 
-第二次握手：服务端 172.67.149.132收到 [SYN] 包，回应了一个 [SYN, ACK] 包给客户端 192.168.100.191，此时，Ack = 0x4ce45751, Seq = 0xc112f693,Flags: (SYN, ACK).
+第二次握手：服务端 172.67.149.132 收到 [SYN] 包，回应了一个 [SYN, ACK] 包给客户端 192.168.100.191，此时，Ack = 0x4ce45751, Seq = 0xc112f693,Flags: (SYN, ACK).
 
 <a data-fancybox="capture-tcp-3-way-handshake" href="../assets/img/post/capture-tcp-3-way-handshake/img05.png"><img src="../assets/img/post/capture-tcp-3-way-handshake/img05.png">
 

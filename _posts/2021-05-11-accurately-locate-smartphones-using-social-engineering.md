@@ -37,8 +37,8 @@ chmod +x install.sh
 
 ### 环境
 
-- 电脑: Arch Linux
-- 目标手机: Android 10
+- 电脑：Arch Linux
+- 目标手机：Android 10
 
 ### 开始
 
@@ -56,13 +56,13 @@ python seeker.py
 
 [0] NearYou: 
 
-NearYou模板最简单，输入 0 回车即可。
+NearYou 模板最简单，输入 0 回车即可。
 
 <a data-fancybox="gallery" href="../assets/img/post/seeker/img17.png"><img src="../assets/img/post/seeker/img17.png">
 
 [1] Google Dirve: 
 
-Google Drive 模板需要填一个URL，什么URL都行，不过填 Google Drive File 的 URL 更具欺骗性。
+Google Drive 模板需要填一个 URL，什么 URL 都行，不过填 Google Drive File 的 URL 更具欺骗性。
 
 URL 的作用：钓鱼网页成功获取位置信息后跳转的正常网页。
 
@@ -98,7 +98,7 @@ ngrok http 8080
 
 <a data-fancybox="gallery" href="../assets/img/post/seeker/img04.png"><img src="../assets/img/post/seeker/img04.png">
 
-通过 ngrok 生成了2个 URL，选择其中一个发给目标，等待即可。
+通过 ngrok 生成了 2 个 URL，选择其中一个发给目标，等待即可。
 
 ### 目标手机端
 
@@ -150,7 +150,7 @@ Telegram:
 
 注：
 
-> 若由于某些原因（如目标手机未开启 位置信息/GPS 功能等）钓鱼网页未能获取到位置信息，对于 Google Drive 模板则不会跳转到后面的url网页。
+> 若由于某些原因（如目标手机未开启 位置信息/GPS 功能等）钓鱼网页未能获取到位置信息，对于 Google Drive 模板则不会跳转到后面的 url 网页。
 
 ### 电脑端
 
@@ -174,7 +174,7 @@ Telegram:
 
 seeker 成功获取到了目标手机的`经度`、`维度`。点击`Google Maps链接`即可看到目标手机当前位置。除此之外，它还获取到了一些`未经许可的设备信息`。
 
-**一般地，如果目标接受位置渗透，定位精度将精确到大约30米**。 
+**一般地，如果目标接受位置渗透，定位精度将精确到大约 30 米**。 
 
 本次演示的定位精度为 40 米左右。
 

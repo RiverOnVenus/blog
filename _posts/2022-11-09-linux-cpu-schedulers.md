@@ -14,9 +14,9 @@ comments: true
 {:toc}
 ## 前言
 
-对于各种 CPU 调度器，很多人的看法和得到的反馈不一样。有的人想要“压榨” CPU 的性能，将其发挥到极致，他们通常会因为某个调度器带来的一点点性能提升而高兴；有的人真实的感受到了在高负载环境下系统的响应能力提升；有的人对此嗤之以鼻；有的人无所谓这点性能或响应能力；有的人在不同调度器上得到了负优化。
+对于各种 CPU 调度器，很多人的看法和得到的反馈不一样。有的人想要“压榨”CPU 的性能，将其发挥到极致，他们通常会因为某个调度器带来的一点点性能提升而高兴；有的人真实的感受到了在高负载环境下系统的响应能力提升；有的人对此嗤之以鼻；有的人无所谓这点性能或响应能力；有的人在不同调度器上得到了负优化。
 
-下面这些是我目前了解到的 CPU 调度器。BFS 和 MuQSS 曾经都是由 Con Kolivas 开发维护，但两者现在都处于无人维护的状态。Baby, CacULE 和 TT 都是由 Hamad Al Marri 开发维护，其中 Baby 是让 CPU 调度器爱好者学习用的，在 CK 宣布[放弃维护 MuQSS](https://ck-hack.blogspot.com/2021/08/514-and-future-of-muqss-and-ck-once.html) (截止到 5.12) 后，Hamad 也随后放弃维护 CacULE (截止到 5.14), Peter Jung 接手 CacULE (5.15 - 6.1)的维护工作 (6.1 后他也不再维护 CacULE)，两个月后 Hamad 发布了新的 CPU 调度器——TT, 由于精力有限，他只维护 TT 的 LTS 版本 。Bore 是 CFS 和 EEVDF 的增强版，由 mu(Masahito Suzuki) 开发维护。BMQ 和 PDS 现在都属于 Project C, 由 Alfred Chen 开发维护。EEVDF 由 Intel Linux 工程师 Peter Zijlstra 开发维护。
+下面这些是我目前了解到的 CPU 调度器。BFS 和 MuQSS 曾经都是由 Con Kolivas 开发维护，但两者现在都处于无人维护的状态。Baby, CacULE 和 TT 都是由 Hamad Al Marri 开发维护，其中 Baby 是让 CPU 调度器爱好者学习用的，在 CK 宣布[放弃维护 MuQSS](https://ck-hack.blogspot.com/2021/08/514-and-future-of-muqss-and-ck-once.html) (截止到 5.12) 后，Hamad 也随后放弃维护 CacULE (截止到 5.14), Peter Jung 接手 CacULE (5.15 - 6.1) 的维护工作 (6.1 后他也不再维护 CacULE)，两个月后 Hamad 发布了新的 CPU 调度器——TT, 由于精力有限，他只维护 TT 的 LTS 版本。Bore 是 CFS 和 EEVDF 的增强版，由 mu(Masahito Suzuki) 开发维护。BMQ 和 PDS 现在都属于 Project C, 由 Alfred Chen 开发维护。EEVDF 由 Intel Linux 工程师 Peter Zijlstra 开发维护。
 
 ## 调度器
 
@@ -79,7 +79,7 @@ Arch Linux [默认内核](https://github.com/archlinux/linux)加不同的调度�
 
 **性能测试**
 
-进行3次 `geekbench` 测试，取平均数。
+进行 3 次 `geekbench` 测试，取平均数。
 
 ```
 geekbench
@@ -87,7 +87,7 @@ geekbench
 
 **响应测试**
 
-用 `jitterdebugger` 模拟交互任务，用 `stress-ng --cpu 24` 模拟 CPU 高负载工作环境，测量10分钟。
+用 `jitterdebugger` 模拟交互任务，用 `stress-ng --cpu 24` 模拟 CPU 高负载工作环境，测量 10 分钟。
 
 ```
 jitterdebugger -D 10m -c 'stress-ng --cpu 24'
@@ -186,9 +186,9 @@ geekbench:
 
 ### 实际使用感受
 
-在高负载的环境下，BMQ 和 TT--CFS 很丝滑（确信这不是心理作用:joy:），PDS 会有一些明显的卡顿。另外3个则是介于「很丝滑」和「明显卡顿」之间，它们之间实在是没感受都差异。当高负载达到某个程度时，BMQ会冻结桌面。而吞吐方面，区别不大。
+在高负载的环境下，BMQ 和 TT--CFS 很丝滑（确信这不是心理作用:joy:），PDS 会有一些明显的卡顿。另外 3 个则是介于「很丝滑」和「明显卡顿」之间，它们之间实在是没感受都差异。当高负载达到某个程度时，BMQ 会冻结桌面。而吞吐方面，区别不大。
 
-BMQ 在大多数 AMD 设备上很差劲，甚至会导致冻结桌面，但是在一些 intel 设备上表现的很好。 Bore 的重点是在高负载环境下提供更低的延迟，有更好的响应，它是在 CFS 上进行了一些修改，吞吐方面与 CFS 几乎一样。BMQ/PDS 大多不适合多任务负载，Bore/TT--CFS 在高负载（编译、渲染）下的体验要比它们好得多。
+BMQ 在大多数 AMD 设备上很差劲，甚至会导致冻结桌面，但是在一些 intel 设备上表现的很好。Bore 的重点是在高负载环境下提供更低的延迟，有更好的响应，它是在 CFS 上进行了一些修改，吞吐方面与 CFS 几乎一样。BMQ/PDS 大多不适合多任务负载，Bore/TT--CFS 在高负载（编译、渲染）下的体验要比它们好得多。
 
 注：不同的 CPU 调度器在不同的硬件上的表现存在差异。
 
@@ -248,7 +248,7 @@ Bore 在最近发布的版本上 ( >= 1.7.x) 做了很多改进，正如它的�
 
 ## 2024-03-31 更新
 
-上周，Hamad 的新调度器 ECHO 发布，在 6.8.1内核上测试了高负载下它和默认调度的延迟。
+上周，Hamad 的新调度器 ECHO 发布，在 6.8.1 内核上测试了高负载下它和默认调度的延迟。
 
 ### EEVDF
 
