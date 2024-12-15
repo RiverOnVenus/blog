@@ -99,7 +99,7 @@ int main(int argc, char *argv[]) {
   if (-1 == ret) {
     perror("connect");
   } else {
-    printf("conneted\n");
+    printf("connected\n");
   }
   close(sockfd);
   return 0;

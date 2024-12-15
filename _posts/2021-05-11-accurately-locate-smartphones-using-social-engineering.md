@@ -60,7 +60,7 @@ NearYou 模板最简单，输入 0 回车即可。
 
 <a data-fancybox="gallery" href="../assets/img/post/seeker/img17.png"><img src="../assets/img/post/seeker/img17.png">
 
-[1] Google Dirve: 
+[1] Google Drive: 
 
 Google Drive 模板需要填一个 URL，什么 URL 都行，不过填 Google Drive File 的 URL 更具欺骗性。
 
@@ -112,7 +112,7 @@ NearYou:
 
 <a data-fancybox="gallery" href="../assets/img/post/seeker/img18.png"><img src="../assets/img/post/seeker/img18.png">
 
-Google Dirve: 
+Google Drive: 
 
 <a data-fancybox="gallery" href="../assets/img/post/seeker/img16.png"><img src="../assets/img/post/seeker/img16.png">
 

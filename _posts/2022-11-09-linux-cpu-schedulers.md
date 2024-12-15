@@ -33,7 +33,7 @@ comments: true
 - [MuQSS](http://ck.kolivas.org/patches/muqss/sched-MuQSS.txt) - Multiple Queue Skiplist Scheduler (MuQSS) is a rewritten implementation of the Brain Fuck Scheduler (BFS) concept.
 - [PDS](https://gitlab.com/alfredchen/linux-prjc) - PDS (Priority and Deadline based Skiplist multiple queue scheduler) is a linux CPU scheduler whose design principles are to be a simple CPU process scheduler yet efficient and scalable.
 - [Sched-ext](https://github.com/sched-ext/scx) - sched_ext is a Linux kernel feature which enables implementing kernel thread schedulers in BPF and dynamically loading them. This repository contains various scheduler implementations and support utilities.
-- [TT](https://github.com/hamadmarri/TT-CPU-Scheduler) - The goal of the Task Type (TT) scheduler is to detect tasks types based  on their behaviours and control the schedulling based on their types. Not supported after version 6.6.
+- [TT](https://github.com/hamadmarri/TT-CPU-Scheduler) - The goal of the Task Type (TT) scheduler is to detect tasks types based  on their behaviours and control the scheduling based on their types. Not supported after version 6.6.
 
 （按照字母排序）
 
