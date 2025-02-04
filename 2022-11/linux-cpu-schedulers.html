@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html>
+   
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Linux CPU 调度器之我见 | Error: 你发现了一个错误！</title>
+   <!-- Begin Jekyll SEO tag v2.8.0 -->
+<meta name="generator" content="Jekyll v4.4.1">
+<meta property="og:title" content="Linux CPU 调度器之我见">
+<meta name="author" content="Mr. Error 追">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="Life often requires some excitement, joy, and anticipation.">
+<meta property="og:description" content="Life often requires some excitement, joy, and anticipation.">
+<link rel="canonical" href="https://zhui.dev/2022-11/linux-cpu-schedulers">
+<meta property="og:url" content="https://zhui.dev/2022-11/linux-cpu-schedulers">
+<meta property="og:site_name" content="Error: 你发现了一个错误！">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2022-11-09T00:00:00+08:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Linux CPU 调度器之我见">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Mr. Error 追"},"dateModified":"2022-11-09T00:00:00+08:00","datePublished":"2022-11-09T00:00:00+08:00","description":"Life often requires some excitement, joy, and anticipation.","headline":"Linux CPU 调度器之我见","mainEntityOfPage":{"@type":"WebPage","@id":"https://zhui.dev/2022-11/linux-cpu-schedulers"},"url":"https://zhui.dev/2022-11/linux-cpu-schedulers"}</script>
+<!-- End Jekyll SEO tag -->
+
+   
+
+   <meta charset="utf-8">
+   <meta name="author" content="Mr. Error 追">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   <!-- Open Graph Meta Tags -->
+   <meta property="og:url" content="https://zhui.dev/">
+   <meta property="og:type" content="website">
+   <meta property="og:title" content="Error: 你发现了一个错误!">
+   <meta property="og:description" content="Life often requires some excitement, joy, and anticipation.">
+   <meta property="og:image" content="https://zhui.dev/assets/logo/Error_Symbol2-200x200.png">
+   <meta property="og:image:width" content="200">
+   <meta property="og:image:height" content="200">
+
+   <!-- Twitter Meta Tags -->
+   <meta name="twitter:card" content="summary_large_image">
+   <meta property="twitter:domain" content="zhui.dev">
+   <meta property="twitter:url" content="https://zhui.dev/">
+   <meta name="twitter:title" content="Error: 你发现了一个错误!">
+   <meta name="twitter:description" content="Life often requires some excitement, joy, and anticipation.">
+   <meta name="twitter:image" content="https://zhui.dev/assets/logo/Error_Symbol2-200x200.png">
+   <!-- Meta Tags Generated via https://opengraph.dev -->
+
+   <link rel="stylesheet" href="/assets/css/main.css" media="all">
+   <link rel="canonical" href="https://zhui.dev/2022-11/linux-cpu-schedulers">
+   <link rel="alternate" type="application/rss+xml" title="Error: 你发现了一个错误！" href="/feed.xml">
+   <!-- favicon -->
+   <link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/x-icon">
+   <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon">
+   <!-- font -->
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.6.0/style.css" /> -->
+<!--    <link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/chinesefonts3/packages/lxgwwenkai/dist/LXGWWenKai-Regular/result.css' /> -->
+<!--    <link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/chinesefonts3/packages/xiaolai/dist/Xiaolai/result.css' />  -->
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web:400,400i">
+</head>
+
+   <body>
+      <div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+<div class="snow"></div>
+
+      <div class="content">
+         <header class="header">
+   <div class="header_content">
+      <label class="theme_changer">
+         <input theme_toggle type="checkbox">
+         <div class="button"></div>
+      </label>
+      <a class="header_circle" href="/" loading="lazy">
+      <img src="/assets/img/avatar.jpg" alt="Mr. Error 追">
+      </a>
+      <span class="header_name">Mr. Error 追</span>
+      <span class="header_job">Life often requires some excitement, joy, and anticipation.</span>
+<!--      <span class="header_job">
+         <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+         <div id="poem_sentence"></div>
+         <div id="poem_info"></div>
+         <script type="text/javascript">
+            jinrishici.load(function(result) {
+              var sentence = document.querySelector("#poem_sentence")
+              var info = document.querySelector("#poem_info")
+              sentence.innerHTML = result.data.content
+              info.innerHTML = '【' + result.data.origin.dynasty + '】' + result.data.origin.author + '《' + result.data.origin.title + '》'
+            });
+         </script>
+      </span>-->
+      <span class="header_mes"></span>
+      <nav class="nav">
+         
+         
+         <ul class="nav_list">
+            <li class="nav_item">
+               <a href="/categories/misc" id="aa" loading="lazy">misc
+               (6)</a>
+            </li>
+         </ul>
+         
+         
+         <ul class="nav_list">
+            <li class="nav_item">
+               <a href="/categories/linux" id="aa" loading="lazy">linux
+               (8)</a>
+            </li>
+         </ul>
+         
+         
+         <ul class="nav_list">
+            <li class="nav_item">
+               <a href="/categories/tool" id="aa" loading="lazy">tool
+               (5)</a>
+            </li>
+         </ul>
+         
+         
+         <ul class="nav_list">
+            <li class="nav_item">
+               <a href="/categories/code" id="aa" loading="lazy">code
+               (4)</a>
+            </li>
+         </ul>
+         
+         
+         <ul class="nav_list">
+            <li class="nav_item">
+               <a href="/categories/kernel" id="aa" loading="lazy">kernel
+               (3)</a>
+            </li>
+         </ul>
+         
+         
+         <ul class="nav_list">
+            <li class="nav_item">
+               <a href="/categories/network" id="aa" loading="lazy">network
+               (2)</a>
+            </li>
+         </ul>
+         
+         
+         
+         <ul class="nav_list">
+            <li class="nav_item">
+               <a href="/about.html" loading="lazy">about</a>
+            </li>
+         </ul>
+         
+          
+         <ul class="nav_list">
+            <li class="nav_item">
+               <a href="mailto:error@zhui.dev" loading="lazy">email</a>
+            </li>
+         </ul>
+         
+         
+         <ul class="nav_list">
+            <li class="nav_item">
+               <a href="/feed.xml" loading="lazy">feed</a>
+            </li>
+         </ul>
+         
+          
+         <ul class="nav_list">
+            <li class="nav_item">
+               <a href="https://github.com/riveronvenus.gpg" loading="lazy">key</a>
+            </li>
+         </ul>
+         
+      </nav>
+   </div>
+</header>
+
+         <!-- <div class="empty_space"></div> -->
+<nav class="mobile_menu">
+   <ul class="nav_list">
+      
+      <li class="nav_item">
+         <a href="https://github.com/riveronvenus.gpg" loading="lazy">key</a>
+      </li>
+      
+       
+         <li class="nav_item">
+           <a href="/feed.xml" loading="lazy">feed</a>
+         </li>
+      
+      
+      <li class="nav_item">
+         <a href="mailto:error@zhui.dev" loading="lazy">email</a>
+      </li>
+      
+      
+      <li class="nav_item">
+         <a href="/about.html" loading="lazy">about</a>
+      </li>
+      
+       
+      
+      
+      <li class="nav_item">
+         <a href="/categories/misc" id="aa" loading="lazy">misc (6)</a>
+      </li>
+      
+      
+      <li class="nav_item">
+         <a href="/categories/linux" id="aa" loading="lazy">linux (8)</a>
+      </li>
+      
+      
+      <li class="nav_item">
+         <a href="/categories/tool" id="aa" loading="lazy">tool (5)</a>
+      </li>
+      
+      
+      <li class="nav_item">
+         <a href="/categories/code" id="aa" loading="lazy">code (4)</a>
+      </li>
+      
+      
+      <li class="nav_item">
+         <a href="/categories/kernel" id="aa" loading="lazy">kernel (3)</a>
+      </li>
+      
+      
+      <li class="nav_item">
+         <a href="/categories/network" id="aa" loading="lazy">network (2)</a>
+      </li>
+      
+   </ul>
+</nav>
+
+         <main class="main">
+            <div class="post">
+   <div>
+      
+      <h1 class="post_title">Linux CPU 调度器之我见</h1>
+      
+   </div>
+   <div class="post_data">
+      
+      <span class="post_date">Nov 9, 2022</span>
+      
+      
+      <span class="post_categories">
+      » 
+      <a href="/categories/linux" loading="lazy">linux</a>,
+      
+      <a href="/categories/kernel" loading="lazy">kernel</a>
+      </span>
+      
+   </div>
+   <div class="post_content">
+      <p><a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/luis-gonzalez-jgzdwJWCPDI-unsplash.jpg" loading="lazy"><img src="../assets/img/post/linux-cpu-schedulers/luis-gonzalez-jgzdwJWCPDI-unsplash.jpg"></a></p>
+
+<blockquote>
+  <p>Photo by <a href="https://unsplash.com/@luchox23?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" loading="lazy">Luis Gonzalez</a> on <a href="https://unsplash.com/s/photos/ryzen?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" loading="lazy">Unsplash</a></p>
+</blockquote>
+
+<p><em>最后更新时间：Sat Jun  8 04:10:49 PM CST 2024</em></p>
+
+<ul id="markdown-toc">
+  <li><a href="#%E5%89%8D%E8%A8%80" id="markdown-toc-前言" loading="lazy">前言</a></li>
+  <li><a href="#%E8%B0%83%E5%BA%A6%E5%99%A8" id="markdown-toc-调度器" loading="lazy">调度器</a></li>
+  <li>
+<a href="#%E9%83%A8%E5%88%86%E8%B0%83%E5%BA%A6%E5%99%A8%E6%B5%8B%E8%AF%95" id="markdown-toc-部分调度器测试" loading="lazy">部分调度器测试</a>    <ul>
+      <li><a href="#bmq" id="markdown-toc-bmq" loading="lazy">BMQ</a></li>
+      <li><a href="#bore" id="markdown-toc-bore" loading="lazy">Bore</a></li>
+      <li><a href="#cacule" id="markdown-toc-cacule" loading="lazy">CacULE</a></li>
+      <li><a href="#cfs" id="markdown-toc-cfs" loading="lazy">CFS</a></li>
+      <li><a href="#pds" id="markdown-toc-pds" loading="lazy">PDS</a></li>
+      <li><a href="#ttcfs" id="markdown-toc-ttcfs" loading="lazy">TT–CFS</a></li>
+      <li><a href="#%E6%B5%8B%E9%87%8F%E7%BB%93%E6%9E%9C%E5%88%86%E6%9E%90" id="markdown-toc-测量结果分析" loading="lazy">测量结果分析</a></li>
+      <li><a href="#%E5%AE%9E%E9%99%85%E4%BD%BF%E7%94%A8%E6%84%9F%E5%8F%97" id="markdown-toc-实际使用感受" loading="lazy">实际使用感受</a></li>
+    </ul>
+  </li>
+  <li>
+<a href="#2022-12-03-%E6%9B%B4%E6%96%B0" id="markdown-toc-2022-12-03-更新" loading="lazy">2022-12-03 更新</a>    <ul>
+      <li><a href="#bore-173" id="markdown-toc-bore-173" loading="lazy">Bore 1.7.3</a></li>
+      <li><a href="#cfs-1" id="markdown-toc-cfs-1" loading="lazy">CFS</a></li>
+      <li><a href="#ttcfs-1" id="markdown-toc-ttcfs-1" loading="lazy">TT–CFS</a></li>
+      <li><a href="#%E6%B5%8B%E9%87%8F%E7%BB%93%E6%9E%9C" id="markdown-toc-测量结果" loading="lazy">测量结果</a></li>
+    </ul>
+  </li>
+  <li>
+<a href="#2024-03-31-%E6%9B%B4%E6%96%B0" id="markdown-toc-2024-03-31-更新" loading="lazy">2024-03-31 更新</a>    <ul>
+      <li><a href="#eevdf" id="markdown-toc-eevdf" loading="lazy">EEVDF</a></li>
+      <li><a href="#echo" id="markdown-toc-echo" loading="lazy">ECHO</a></li>
+    </ul>
+  </li>
+  <li>
+<a href="#2024-06-08-%E6%9B%B4%E6%96%B0" id="markdown-toc-2024-06-08-更新" loading="lazy">2024-06-08 更新</a>    <ul>
+      <li>
+<a href="#sched_ext" id="markdown-toc-sched_ext" loading="lazy">Sched_ext</a>        <ul>
+          <li><a href="#scx_rustland" id="markdown-toc-scx_rustland" loading="lazy">scx_rustland</a></li>
+          <li><a href="#scx_rusty" id="markdown-toc-scx_rusty" loading="lazy">scx_rusty</a></li>
+          <li><a href="#scx_lavd" id="markdown-toc-scx_lavd" loading="lazy">scx_lavd</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#qa" id="markdown-toc-qa" loading="lazy">Q&amp;A</a></li>
+</ul>
+<h2 id="前言">前言</h2>
+
+<p>对于各种 CPU 调度器，很多人的看法和得到的反馈不一样。有的人想要“压榨”CPU 的性能，将其发挥到极致，他们通常会因为某个调度器带来的一点点性能提升而高兴；有的人真实的感受到了在高负载环境下系统的响应能力提升；有的人对此嗤之以鼻；有的人无所谓这点性能或响应能力；有的人在不同调度器上得到了负优化。</p>
+
+<p>下面这些是我目前了解到的 CPU 调度器。BFS 和 MuQSS 曾经都是由 Con Kolivas 开发维护，但两者现在都处于无人维护的状态。Baby, CacULE 和 TT 都是由 Hamad Al Marri 开发维护，其中 Baby 是让 CPU 调度器爱好者学习用的，在 CK 宣布<a href="https://ck-hack.blogspot.com/2021/08/514-and-future-of-muqss-and-ck-once.html" loading="lazy">放弃维护 MuQSS</a> (截止到 5.12) 后，Hamad 也随后放弃维护 CacULE (截止到 5.14), Peter Jung 接手 CacULE (5.15 - 6.1) 的维护工作 (6.1 后他也不再维护 CacULE)，两个月后 Hamad 发布了新的 CPU 调度器——TT, 由于精力有限，他只维护 TT 的 LTS 版本。Bore 是 CFS 和 EEVDF 的增强版，由 mu(Masahito Suzuki) 开发维护。BMQ 和 PDS 现在都属于 Project C, 由 Alfred Chen 开发维护。EEVDF 由 Intel Linux 工程师 Peter Zijlstra 开发维护。</p>
+
+<h2 id="调度器">调度器</h2>
+
+<p>从 Linux 6.6 开始，<strong>EEVDF 合并到主线取代了 CFS</strong>, TT 不再维护，Hamad 在 Baby 调度器之上从头开始重新实现了 TT, 名为 ECHO.</p>
+
+<ul>
+  <li>
+<a href="https://github.com/hamadmarri/Baby-CPU-Scheduler" loading="lazy">Baby</a> - A very basic and lightweight yet very performant CPU scheduler. Can be used for learning purposes as a base ground CPU scheduler on Linux.</li>
+  <li>
+<a href="https://www.phoronix.com/scan.php?page=search&q=Brain+Fuck+Scheduler" loading="lazy">BFS</a> - BFS (Brain Fuck Scheduler) is a process scheduler designed for the linux kernel as an alternative to the Completely Fair Scheduler.</li>
+  <li>
+<a href="https://gitlab.com/alfredchen/linux-prjc" loading="lazy">BMQ</a> - BMQ (BitMap Queue) is a linux CPU scheduler, inspired By Google’s Zircon.</li>
+  <li>
+<a href="https://github.com/firelzrd/bore-scheduler" loading="lazy">Bore</a> - BORE (Burst-Oriented Response Enhancer) is enhanced versions of CFS  (Completely Fair Scheduler) and EEVDF (Earliest Eligible Virtual  Deadline First) Linux schedulers. Developed with the aim of maintaining these schedulers’ high performance while delivering resilient responsiveness to user input under as  versatile load scenario as possible.</li>
+  <li>
+<a href="https://github.com/hamadmarri/cacule-cpu-scheduler" loading="lazy">CacULE</a> - The CacULE CPU scheduler is based on interactivity score mechanism. The interactivity score is inspired by the ULE scheduler (FreeBSD scheduler).</li>
+  <li>
+<a href="https://www.kernel.org/doc/html/latest/scheduler/sched-design-CFS.html" loading="lazy">CFS</a> - CFS (Completely Fair Scheduler) is the new desktop process scheduler implemented in Linux 2.6.23 as a replacement for the previous vanilla scheduler’s SCHED_OTHER interactivity code. <del>It is the current linux task scheduler.</del>
+</li>
+  <li>
+<a href="https://github.com/hamadmarri/ECHO-CPU-Scheduler" loading="lazy">ECHO</a> - Enhanced CPU Handling Orchestrator, implemented on top of Baby scheduler.</li>
+  <li>
+<a href="https://lwn.net/Articles/927530/" loading="lazy">EEVDF</a> - EEVDF is based on the Earliest Eligible Virtual Deadline First approach. (<a href="https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=805acf7726282721504c8f00575d91ebfd750564" loading="lazy">Initial EEVDF paper</a>). <strong>The EEVDF scheduler has been merged for the Linux 6.6 kernel and replaces the existing CFS scheduler.</strong>
+</li>
+  <li>
+<a href="http://ck.kolivas.org/patches/muqss/sched-MuQSS.txt" loading="lazy">MuQSS</a> - Multiple Queue Skiplist Scheduler (MuQSS) is a rewritten implementation of the Brain Fuck Scheduler (BFS) concept.</li>
+  <li>
+<a href="https://gitlab.com/alfredchen/linux-prjc" loading="lazy">PDS</a> - PDS (Priority and Deadline based Skiplist multiple queue scheduler) is a linux CPU scheduler whose design principles are to be a simple CPU process scheduler yet efficient and scalable.</li>
+  <li>
+<a href="https://github.com/sched-ext/scx" loading="lazy">Sched-ext</a> - sched_ext is a Linux kernel feature which enables implementing kernel thread schedulers in BPF and dynamically loading them. This repository contains various scheduler implementations and support utilities.</li>
+  <li>
+<a href="https://github.com/hamadmarri/TT-CPU-Scheduler" loading="lazy">TT</a> - The goal of the Task Type (TT) scheduler is to detect tasks types based  on their behaviours and control the scheduling based on their types. Not supported after version 6.6.</li>
+</ul>
+
+<p>（按照字母排序）</p>
+
+<p>这些调度器是否真的对性能或响应有改善呢？</p>
+
+<h2 id="部分调度器测试">部分调度器测试</h2>
+
+<p><strong>系统信息</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Operating System: Arch Linux
+KDE Plasma Version: 5.26.2
+KDE Frameworks Version: 5.99.0
+Graphics Platform: X11
+Manufacturer: LENOVO
+Product Name: 81GY
+System Version: Lenovo XiaoXin Air 15IKBR
+</code></pre></div></div>
+
+<p><strong>CPU 信息</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Name: 	Intel Core i5-8250U
+Topology: 	1 Processor, 4 Cores, 8 Threads
+Base Frequency: 	3.40 GHz
+L1 Instruction Cache:	32.0 KB x 4
+L1 Data Cache:	32.0 KB x 4
+L2 Cache:	256 KB x 4
+L3 Cache:	6.00 MB x 1
+</code></pre></div></div>
+
+<p><strong>内核信息</strong></p>
+
+<p>Arch Linux <a href="https://github.com/archlinux/linux" loading="lazy">默认内核</a>加不同的调度器。</p>
+
+<p>内核版本：6.0.7</p>
+
+<p><strong>测试方法</strong></p>
+
+<p>使用 <a href="https://www.geekbench.com/" loading="lazy">geekbench v5</a> 对 CPU 进行性能测试。</p>
+
+<p>使用 <a href="https://github.com/igaw/jitterdebugger" loading="lazy">jitterdebugger</a> 配合 <a href="https://github.com/ColinIanKing/stress-ng" loading="lazy">stress-ng</a> 对 CPU 进行响应测试。</p>
+
+<p><strong>性能测试</strong></p>
+
+<p>进行 3 次 <code class="language-plaintext highlighter-rouge">geekbench</code> 测试，取平均数。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>geekbench
+</code></pre></div></div>
+
+<p><strong>响应测试</strong></p>
+
+<p>用 <code class="language-plaintext highlighter-rouge">jitterdebugger</code> 模拟交互任务，用 <code class="language-plaintext highlighter-rouge">stress-ng --cpu 24</code> 模拟 CPU 高负载工作环境，测量 10 分钟。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jitterdebugger -D 10m -c 'stress-ng --cpu 24'
+</code></pre></div></div>
+
+<p>将测量的结果生成直方图。</p>
+
+<ul>
+  <li>纵轴为次数，横轴为时间（μs）</li>
+  <li>min: 观察到的最小的唤醒延迟</li>
+  <li>max: 观察到的最大的唤醒延迟</li>
+  <li>avg: 所有观察到的唤醒延迟的算术平均值</li>
+</ul>
+
+<h3 id="bmq">BMQ</h3>
+
+<p>geekbench:</p>
+
+<p><a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/BMQ-geekbench.png" loading="lazy"><img src="../assets/img/post/linux-cpu-schedulers/BMQ-geekbench.png"></a></p>
+
+<p>平均分：Single-Core: 960.66, Multi-Core: 2934.66</p>
+
+<p>延迟直方图：</p>
+
+<p><a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/BMQ-plot.png" loading="lazy"><img src="../assets/img/post/linux-cpu-schedulers/BMQ-plot.png"></a></p>
+
+<h3 id="bore">Bore</h3>
+
+<p>geekbench:</p>
+
+<p><a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/Bore-geekbench.png" loading="lazy"><img src="../assets/img/post/linux-cpu-schedulers/Bore-geekbench.png"></a></p>
+
+<p>平均分：Single-Core: 958, Multi-Core: 2806.33</p>
+
+<p>延迟直方图：</p>
+
+<p><a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/Bore-plot.png" loading="lazy"><img src="../assets/img/post/linux-cpu-schedulers/Bore-plot.png"></a></p>
+
+<h3 id="cacule">CacULE</h3>
+
+<p><a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/CacULE-geekbench.png" loading="lazy"><img src="../assets/img/post/linux-cpu-schedulers/CacULE-geekbench.png"></a></p>
+
+<p>平均分：Single-Core: 959.66, Multi-Core: 2908.33</p>
+
+<p>延迟直方图：</p>
+
+<p><a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/BMQ-geekbench.png" loading="lazy"><img src="../assets/img/post/linux-cpu-schedulers/CacULE-plot.png"></a></p>
+
+<h3 id="cfs">CFS</h3>
+
+<p>6.0 CFS 与 5.15 CFS 相比，前者真的得到了改善。</p>
+
+<p><a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/CFS-geekbench.png" loading="lazy"><img src="../assets/img/post/linux-cpu-schedulers/CFS-geekbench.png"></a></p>
+
+<p>平均分：Single-Core: 959, Multi-Core: 2919</p>
+
+<p>延迟直方图：</p>
+
+<p><a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/CFS-plot.png" loading="lazy"><img src="../assets/img/post/linux-cpu-schedulers/CFS-plot.png"></a></p>
+
+<h3 id="pds">PDS</h3>
+
+<p><a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/PDS-geekbench.png" loading="lazy"><img src="../assets/img/post/linux-cpu-schedulers/PDS-geekbench.png"></a></p>
+
+<p>平均分：Single-Core: 959, Multi-Core: 2948.33</p>
+
+<p>延迟直方图：</p>
+
+<p><a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/PDS-plot.png" loading="lazy"><img src="../assets/img/post/linux-cpu-schedulers/PDS-plot.png"></a></p>
+
+<h3 id="ttcfs">TT–CFS</h3>
+
+<p>这里 TT 使用的是 CFS balancer</p>
+
+<p><a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/TT-geekbench.png" loading="lazy"><img src="../assets/img/post/linux-cpu-schedulers/TT-geekbench.png"></a></p>
+
+<p>平均分：Single-Core: 957, Multi-Core: 2905</p>
+
+<p>延迟直方图：</p>
+
+<p><a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/TT-plot.png" loading="lazy"><img src="../assets/img/post/linux-cpu-schedulers/TT-plot.png"></a></p>
+
+<h3 id="测量结果分析">测量结果分析</h3>
+
+<p>从数据上来看：</p>
+
+<ul>
+  <li>
+    <p>单核性能：BMQ &gt; CacULE &gt; CFS = PDS &gt; Bore &gt; TT–CFS</p>
+  </li>
+  <li>
+    <p>多核性能：PDS &gt; BMQ &gt; CFS &gt; CacULE &gt; TT–CFS &gt; Bore</p>
+  </li>
+  <li>
+    <p>响应能力：BMQ &gt; PDS &gt; TT–CFS &gt; CacULE &gt; Bore &gt; CFS</p>
+  </li>
+</ul>
+
+<p><a href="https://browser.geekbench.com/user/445125" target="blank" loading="lazy">这里</a> 可以看到 geekbench 所有的测试结果，和更详细的系统信息。</p>
+
+<h3 id="实际使用感受">实际使用感受</h3>
+
+<p>在高负载的环境下，BMQ 和 TT–CFS 很丝滑（确信这不是心理作用<img class="emoji" title=":joy:" alt=":joy:" raw="😂" src="https://github.githubassets.com/images/icons/emoji/unicode/1f602.png" style="vertical-align: middle; display: inline; max-width: 1em; visibility: hidden;" onload="this.style.visibility='visible'" onerror="this.replaceWith(this.getAttribute('raw'))">），PDS 会有一些明显的卡顿。另外 3 个则是介于「很丝滑」和「明显卡顿」之间，它们之间实在是没感受都差异。当高负载达到某个程度时，BMQ 会冻结桌面。而吞吐方面，区别不大。</p>
+
+<p>BMQ 在大多数 AMD 设备上很差劲，甚至会导致冻结桌面，但是在一些 intel 设备上表现的很好。Bore 的重点是在高负载环境下提供更低的延迟，有更好的响应，它是在 CFS 上进行了一些修改，吞吐方面与 CFS 几乎一样。BMQ/PDS 大多不适合多任务负载，Bore/TT–CFS 在高负载（编译、渲染）下的体验要比它们好得多。</p>
+
+<p>注：不同的 CPU 调度器在不同的硬件上的表现存在差异。</p>
+
+<h2 id="2022-12-03-更新">2022-12-03 更新</h2>
+
+<p>在 6.0.11 内核上再次对 Bore, CFS, TT–CFS 进行测试。</p>
+
+<p>测试方法和上面基本相同。</p>
+
+<p>但响应测试加大了负载，改为了：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jitterdebugger -D 10m -c 'stress-ng --cpu-method loop -c 256'
+</code></pre></div></div>
+
+<h3 id="bore-173">Bore 1.7.3</h3>
+
+<p><a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/Bore-geekbench-2.png" loading="lazy"><img src="../assets/img/post/linux-cpu-schedulers/Bore-geekbench-2.png"></a></p>
+
+<p>平均分：Single-Core: 957, Multi-Core: 2949.33</p>
+
+<p>延迟直方图：</p>
+
+<p><a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/BORE-plot-256.png" loading="lazy"><img src="../assets/img/post/linux-cpu-schedulers/BORE-plot-256.png"></a></p>
+
+<h3 id="cfs-1">CFS</h3>
+
+<p><a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/CFS-geekbench-2.png" loading="lazy"><img src="../assets/img/post/linux-cpu-schedulers/CFS-geekbench-2.png"></a></p>
+
+<p>平均分：Single-Core: 957.66, Multi-Core: 2909.33</p>
+
+<p>延迟直方图：</p>
+
+<p><a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/CFS-plot-256.png" loading="lazy"><img src="../assets/img/post/linux-cpu-schedulers/CFS-plot-256.png"></a></p>
+
+<h3 id="ttcfs-1">TT–CFS</h3>
+
+<p><a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/TT-geekbench-2.png" loading="lazy"><img src="../assets/img/post/linux-cpu-schedulers/TT-geekbench-2.png"></a></p>
+
+<p>平均分：Single-Core: 958.66, Multi-Core: 2878.66</p>
+
+<p>延迟直方图：</p>
+
+<p><a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/TT-plot-256.png" loading="lazy"><img src="../assets/img/post/linux-cpu-schedulers/TT-plot-256.png"></a></p>
+
+<h3 id="测量结果">测量结果</h3>
+
+<ul>
+  <li>单核性能：TT–CFS &gt; CFS &gt; Bore</li>
+  <li>多核性能：Bore &gt; CFS &gt; TT–CFS</li>
+  <li>响应能力：TT–CFS &gt; Bore &gt; CFS</li>
+</ul>
+
+<p>Bore 在最近发布的版本上 ( &gt;= 1.7.x) 做了很多改进，正如它的作者所说，Bore 的吞吐明显有了提高，响应略微高于 CFS，测量结果也验证了这一点。Bore 的单次多核分数达到了 2953 (这是这台机器上目前测量到的最高分数，在上一次测量中 PDS 最高也达到了 2953)。在响应方面 TT 仍然表现最好，它的吞吐量较低也在意料之中。CFS 倒是没有明显的变化。</p>
+
+<p>另外，BMQ 在本次测量响应时冻结了桌面，可能是负载过大造成的。</p>
+
+<p>同样，<a href="https://browser.geekbench.com/user/445125" loading="lazy">这里</a> 可以看到 geekbench 所有的测试结果。</p>
+
+<h2 id="2024-03-31-更新">2024-03-31 更新</h2>
+
+<p>上周，Hamad 的新调度器 ECHO 发布，在 6.8.1 内核上测试了高负载下它和默认调度的延迟。</p>
+
+<h3 id="eevdf">EEVDF</h3>
+
+<p><a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/6.8.1-vanilla-plot-256.png" loading="lazy"><img src="../assets/img/post/linux-cpu-schedulers/6.8.1-vanilla-plot-256.png"></a></p>
+
+<h3 id="echo">ECHO</h3>
+
+<p><a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/6.8.1-echo-plot-256.png" loading="lazy"><img src="../assets/img/post/linux-cpu-schedulers/6.8.1-echo-plot-256.png"></a></p>
+
+<p>结果还是比较明显。</p>
+
+<p>实际使用感受也很明显，边编译内核边看视频，聊天，逛论坛，EEVDF 有较多的卡顿，会明显感知到后台在跑什么东西。ECHO 丝滑很多，有时候甚至不会感知到后台在编译内核，但是偶尔在启动应用时也会卡顿一下。</p>
+
+<p>目前来说，ECHO 是我用过延迟最低的调度器。</p>
+
+<p>性能尚未测试。</p>
+
+<p>更多关于 ECHO 和其它调度器比较的测试：<a href="https://github.com/hamadmarri/benchmarks" loading="lazy">https://github.com/hamadmarri/benchmarks</a></p>
+
+<h2 id="2024-06-08-更新">2024-06-08 更新</h2>
+
+<h3 id="sched_ext">Sched_ext</h3>
+
+<p>最近在尝试 sched_ext, 主要在用 scx_rustland, scx_rusty, scx_lavd. 在 6.9.3 的内核上配合 sched_ext-0.1.10.r20.g472ab94-1 测试了高负载下它们的延迟。</p>
+
+<h4 id="scx_rustland">scx_rustland</h4>
+
+<p><a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/6.9.3-scx_rustland-0.1.10.r20.g472ab94.png" loading="lazy"><img src="../assets/img/post/linux-cpu-schedulers/6.9.3-scx_rustland-0.1.10.r20.g472ab94.png"></a></p>
+
+<h4 id="scx_rusty">scx_rusty</h4>
+
+<p><a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/6.9.3-scx_rusty-0.1.10.r20.g472ab94.png" loading="lazy"><img src="../assets/img/post/linux-cpu-schedulers/6.9.3-scx_rusty-0.1.10.r20.g472ab94.png"></a></p>
+
+<h4 id="scx_lavd">scx_lavd</h4>
+
+<p><a data-fancybox="cpu-schedulers" href="../assets/img/post/linux-cpu-schedulers/6.9.3-scx_lavd-0.1.10.r20.g472ab94.png" loading="lazy"><img src="../assets/img/post/linux-cpu-schedulers/6.9.3-scx_lavd-0.1.10.r20.g472ab94.png"></a></p>
+
+<p>使用体验是，scx_rustland 和 scx_rusty 在高负载下都能保持良好的响应，相比之下，scx_lavd 的卡顿、滞后感最明显。</p>
+
+<p>性能尚未测试。</p>
+
+<h2 id="qa">Q&amp;A</h2>
+
+<p>下面是节选的一些有参考价值的问答<img class="emoji" title=":speech_balloon:" alt=":speech_balloon:" raw="💬" src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ac.png" style="vertical-align: middle; display: inline; max-width: 1em; visibility: hidden;" onload="this.style.visibility='visible'" onerror="this.replaceWith(this.getAttribute('raw'))"></p>
+
+<p><img class="emoji" title=":one:" alt=":one:" raw="1️⃣" src="https://github.githubassets.com/images/icons/emoji/unicode/0031-20e3.png" style="vertical-align: middle; display: inline; max-width: 1em; visibility: hidden;" onload="this.style.visibility='visible'" onerror="this.replaceWith(this.getAttribute('raw'))"></p>
+
+<p>Q:</p>
+
+<blockquote>
+  <p>Which best scheduler of them?</p>
+</blockquote>
+
+<p>A:</p>
+
+<blockquote>
+  <p>It’s the same old saying: Test against your workload</p>
+</blockquote>
+
+<p><img class="emoji" title=":two:" alt=":two:" raw="2️⃣" src="https://github.githubassets.com/images/icons/emoji/unicode/0032-20e3.png" style="vertical-align: middle; display: inline; max-width: 1em; visibility: hidden;" onload="this.style.visibility='visible'" onerror="this.replaceWith(this.getAttribute('raw'))"></p>
+
+<p>Q:</p>
+
+<blockquote>
+  <p>Unexpectedly about the TT. I.e. it’s the best for the desktop right now, but still in the support stage?</p>
+</blockquote>
+
+<p>A:</p>
+
+<blockquote>
+  <p>Yes, so far possible. The project is from Hamad, so far I understood he is maybe working again on some updates someday.</p>
+
+  <p>You cant say the best to anything, it have to suit to your needs, if its cfs, bore,tt,cacule or pds. But so far it showed that TT runs better on older hardware.</p>
+</blockquote>
+
+<p><img class="emoji" title=":three:" alt=":three:" raw="3️⃣" src="https://github.githubassets.com/images/icons/emoji/unicode/0033-20e3.png" style="vertical-align: middle; display: inline; max-width: 1em; visibility: hidden;" onload="this.style.visibility='visible'" onerror="this.replaceWith(this.getAttribute('raw'))"></p>
+
+<p>Q:</p>
+
+<blockquote>
+  <p>Sorry I am sounding ignorant.
+If a scheduler is giving better results.
+Why would someone use the other one?
+Or is it that every kernel specialises in something?</p>
+
+  <p>How do you deem a scheduler to be best for the majority?</p>
+</blockquote>
+
+<p>A:</p>
+
+<blockquote>
+  <p>Thank you for questioning.
+I say with my greatest respect to Hamad Al Marri, Alfred Chen, Con Kolivas, Ingo Molnar and other great scheduler developers,
+BORE is not “the best for any possible use.”
+In fact, NO scheduler is known to be “always best for anything,” despite all the developers are eagerly trying to create one that is.
+For some computing demands TT is obviously known to be the best.
+For some other workloads, BMQ or PDS-mq may work better.
+Similar that you may find the RT kernel useful to your needs, when some others prefer Voluntary preemption kernel.
+It is encouraged to find by yourself your best choice.
+Thank you, and thank you all guys here for sharing the joy.</p>
+</blockquote>
+
+<p>完。</p>
+
+
+   </div>
+   <div id="backtop">
+   <a href="#" loading="lazy">⌃</a>
+</div>
+
+   
+   <div class="post_comment">
+      
+
+      
+
+      
+
+      
+<script src="https://giscus.app/client.js" data-repo="RiverOnVenus/blog" data-repo-id="MDEwOlJlcG9zaXRvcnkzNjA1MjczNTg=" data-category="Announcements" data-category-id="DIC_kwDOFX01_s4B_DEB" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-theme="light" crossorigin="anonymous" async></script>
+
+
+   </div>
+   
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+         </main>
+      </div>
+      <!-- js from https://codepen.io/MrGrigri/pen/XQmWBv -->
+<script>
+   // @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&dn=expat.txt Expat
+       const themePreference = () => {
+           const hasLocalStorage = localStorage.getItem('theme');
+           let supports = false;
+           let theme = undefined;
+   
+           if (hasLocalStorage === 'light') {
+               theme = 'light';
+           }
+           if (hasLocalStorage === 'dark') {
+               theme = 'dark';
+           }
+   
+           if (window.matchMedia(`(prefers_color: dark)`).matches) {
+               theme = hasLocalStorage ? hasLocalStorage : 'dark';
+               supports = true;
+           };
+           if (window.matchMedia(`(prefers_color: light)`).matches) {
+               theme = hasLocalStorage ? hasLocalStorage : 'light';
+               supports = true;
+           };
+           if (window.matchMedia(`(prefers_color: no-preference)`).matches) {
+               theme = hasLocalStorage ? hasLocalStorage : 'none';
+               supports = true;
+           };
+   
+           return {
+               supports,
+               theme
+           };
+       }
+   
+       document.addEventListener('DOMContentLoaded', e => {
+           console.clear();
+   
+           const userThemePreference = themePreference();
+           const toggle = document.querySelector('[theme_toggle]');
+           const html = document.documentElement;
+   
+           const setTheme = () => {
+               switch (userThemePreference.theme) {
+                   case 'dark':
+                       toggle.checked = true;
+                       html.classList.add('dark');
+                       html.classList.remove('light');
+                       break;
+                   case 'light':
+                       toggle.checked = false;
+                       html.classList.remove('dark');
+                       html.classList.add('light');
+                       break;
+               }
+           }
+           setTheme();
+           toggle.addEventListener('click', e => {
+               if (toggle.checked) {
+                   html.classList.add('dark');
+                   html.classList.remove('light');
+                   localStorage.setItem('theme', 'dark');
+               } else {
+                   html.classList.remove('dark');
+                   html.classList.add('light');
+                   localStorage.setItem('theme', 'light');
+               }
+           }, false);
+       }, false);
+   // @license-end
+</script>
+
+      <!--
+   author                    journey-ad
+   namespace           https://github.com/journey-ad
+    license                  GPL v2
+    -->
+<script>
+   (async function () {
+     'use strict';
+   
+     if (inIframe()) {
+       console.log('iframe中不加载');
+       return false;
+     }
+   
+     const 引流 = [
+       "https://github.com/RiverOnVenus",
+       "https://x.com/RiverOnVenus",
+       "https://running.zhui.dev",
+     ]
+   
+     const CUSTOM_CSS = `#pio-container {
+     display: block !important;
+     bottom: -0.3rem;
+     z-index: 22637261;
+     transition: transform 0.3s;
+     cursor: grab;
+   }
+   
+   #pio-container:hover {
+     transform: translateY(-0.3rem);
+   }
+   
+   #pio-container:active {
+     cursor: grabbing;
+   }
+   
+   #pio-container .pio-dialog {
+     right: 10%;
+     line-height: 1.5;
+     background: rgba(255, 255, 255, 0.9);
+   }
+   
+   #pio {
+     height: 240px;
+   }
+   
+   .pio-action .pio-home {
+       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 500 500' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M472.86 249.918V361.57c-.024 61.53-49.899 111.404-111.431 111.43h-222.86c-61.529-.026-111.403-49.9-111.428-111.43V249.918a111.828 111.828 0 0 1 35.658-81.79L189.383 50.904c34.128-31.872 87.109-31.872 121.234 0l126.585 117.224a111.825 111.825 0 0 1 35.658 81.79z' fill='%23c3cbd3'/%3E%3Cpath d='M327.334 317.02c-.062 9.206-7.511 16.653-16.717 16.715H189.383c-12.867 0-20.908-13.93-14.475-25.073a16.718 16.718 0 0 1 14.475-8.357h121.234c9.239-.011 16.729 7.478 16.717 16.715z' fill='%23202020'/%3E%3C/svg%3E");
+   }
+   
+   .pio-action span {
+     background: none;
+     background-size: 100%;
+     border: 1px solid #fdcf7b;
+     border: 0;
+     width: 2em;
+     height: 2em;
+     margin-bottom: 0.6em;
+   }
+   
+   .pio-action .pio-skin {
+     background: url("data:image/svg+xml,%3Csvg class='icon' viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 512c0 282.774 229.226 512 512 512s512-229.226 512-512S794.774 0 512 0 0 229.226 0 512z' fill='%23FEC43C'/%3E%3Cpath d='M1013.76 408.576C965.632 175.104 759.808 0 512 0 229.376 0 0 229.376 0 512c0 123.904 44.032 236.544 116.736 324.608 87.04 48.128 186.368 74.752 292.864 74.752 301.056 0 550.912-217.088 604.16-502.784z' fill='%23FFD73A'/%3E%3Cpath d='M233.456 460.383a93.759 93.759 0 1 0 187.526 0c0-51.783-41.984-93.76-93.767-93.76s-93.759 41.977-93.759 93.76zm458.39 0c0 51.782 41.976 93.759 93.759 93.759s93.759-41.984 93.759-93.76c0-51.782-41.984-93.758-93.76-93.758-51.782 0-93.758 41.976-93.758 93.759z' fill='%23873A18'/%3E%3Cpath d='M556.41 689.577H410.561c-17.707 0-31.256-13.548-31.256-31.255 0-17.715 13.549-31.256 31.256-31.256h145.85c17.714 0 31.255 13.548 31.255 31.256s-13.549 31.255-31.256 31.255zM320.97 429.127H156.357c-14.588 0-27.089-13.548-27.089-31.256s12.5-31.247 27.097-31.247H320.96c14.58 0 27.089 13.54 27.089 31.247 0 17.715-12.509 31.256-27.097 31.256zm454.215 0H618.92c-17.715 0-31.255-13.548-31.255-31.256s13.548-31.247 31.255-31.247h156.263c17.715 0 31.255 13.54 31.255 31.247 0 17.715-13.548 31.256-31.255 31.256z' fill='%23873A18'/%3E%3Cpath d='M102.4 327.68C46.08 327.68 0 281.6 0 225.28 0 133.12 102.4 0 102.4 0s102.4 133.12 102.4 225.28c0 56.32-46.08 102.4-102.4 102.4z' fill='%2361A3E0'/%3E%3C/svg%3E");
+   }
+   
+   .pio-action .pio-info {
+     background: url("data:image/svg+xml,%3Csvg viewBox='0 0 500 500' xmlns='http://www.w3.org/2000/svg'%3E%3Crect transform='rotate(45.001 238.211 363.575)' x='29.285' y='22.411' width='273.903' height='505.038' rx='70' ry='70' fill='%23dcdcdc'/%3E%3Cpath d='M218.543 249.999l-47.186 47.186c-8.987 8.988-8.987 22.47 0 31.457 8.988 8.988 22.47 8.988 31.457 0L250 281.456l15.728 15.729c17.976 17.976 17.976 46.063 0 64.038l-64.037 64.038c-17.976 17.975-46.063 17.975-64.038 0l-64.038-64.038c-17.975-17.975-17.975-46.062 0-64.038l64.038-64.037c17.975-17.976 46.062-17.976 64.038 0l16.852 16.851z' fill='%23fff'/%3E%3Cpath d='M281.457 249.999l47.186-47.186c8.988-8.987 8.988-22.469 0-31.457-8.987-8.987-22.469-8.987-31.457 0L250 218.542l-15.729-15.729c-17.975-17.975-17.975-46.062 0-64.037l64.038-64.038c17.975-17.975 46.062-17.975 64.038 0l64.037 64.038c17.977 17.975 17.977 46.062 0 64.037l-64.037 64.038c-17.976 17.976-46.063 17.976-64.038 0l-16.852-16.852z' fill='%2361a3e0'/%3E%3C/svg%3E");
+   }
+   
+   .pio-action .pio-top {
+     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 500 500' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M262.737 70.075c-3.175-2.89-8.439-5.365-12.737-5.365-4.29 0-9.448 2.37-12.632 5.263l-87.814 87.812c-2.921 3.255-5.23 8.518-5.23 12.73 0 4.203 2.196 9.353 5.118 12.617 3.246 2.915 8.621 5.345 12.842 5.345 4.203 0 9.353-2.197 12.617-5.118l75.093-74.848 74.992 74.993c3.175 2.889 8.433 5.359 12.731 5.359 4.29 0 9.448-2.371 12.632-5.263 2.918-3.247 5.329-8.61 5.329-12.827 0-4.204-2.197-9.354-5.118-12.616zm-103.97 233.514v-36.181H19.695v36.181h51.447v131.444h36.178V303.589zm126.788-35.923h-63.85c-8.732.187-18.571 3.868-25.539 10.451-6.579 6.961-10.367 16.85-10.557 25.589v95.488c.179 8.709 3.781 18.668 10.493 25.582 6.913 6.712 16.839 10.334 25.548 10.514h63.849c8.732-.187 18.571-3.868 25.538-10.45 6.581-6.962 10.368-16.852 10.558-25.59v-95.488c-.187-8.733-3.87-18.573-10.452-25.539-6.962-6.581-16.85-10.367-25.588-10.557zm-.14 131.589l.003.105.403.021a20.74 20.74 0 0 0-.322-.013h-.08c.006.172.014.313.021.414l-.027-.414h-.118l.01-.013.107.005-.007-.117-.033.025-.079.1h-63.648l-.106.003-.032.438c.007-.092.015-.243.021-.438-.163.005-.283.012-.365.017l.365-.023.003-.139-.055-.039-.301-.208.356.244.001-.029v-95.493a3.627 3.627 0 0 0-.004-.108l-.417-.028c.106.007.253.014.417.019a10.069 10.069 0 0 0-.023-.42l.031.42.123.004.016-.022.087-.113.036-.047-.137.182.044.001h63.551l.096.074.064.05-.001.049zm184.441-121.032c-6.963-6.58-16.852-10.367-25.59-10.557h-88.627V435.29h36.181v-68.165h52.39c8.732-.187 18.572-3.87 25.54-10.452 6.579-6.961 10.366-16.851 10.556-25.588v-27.323c-.187-8.733-3.868-18.572-10.45-25.539zm-25.471 52.609l.003.105.437.032a10.682 10.682 0 0 0-.437-.021c.007.211.017.355.023.436l-.033-.436a79.554 79.554 0 0 0-.142-.003l-.038.054-.112.166-.119.175.262-.396H391.82v-27.099h52.451l.112-.004.025-.405a14.96 14.96 0 0 0-.018.405c.171-.006.313-.015.416-.023l-.416.031-.004.122-.01-.008.007-.113-.119.008.041.054.081.062-.001.045z' fill='%234c4c4c'/%3E%3C/svg%3E");
+   }
+   
+   .pio-action .pio-close {
+     background: url("data:image/svg+xml,%3Csvg viewBox='0 0 500 500' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M249.999 198.668L352.665 96c14.667-14.666 36.668-14.666 51.335 0 14.666 14.667 14.666 36.668 0 51.334L301.333 250 404 352.668c14.666 14.667 14.666 36.666 0 51.332-14.667 14.667-36.667 14.667-51.334 0L249.999 301.334 147.333 404c-14.668 14.667-36.666 14.667-51.334 0-14.666-14.666-14.666-36.665 0-51.332L198.666 250 95.999 147.334c-14.666-14.666-14.666-36.667 0-51.334 14.668-14.666 36.665-14.666 51.333 0l102.667 102.668z' fill='%23873a18'/%3E%3C/svg%3E");
+   }
+   `
+   
+     // 用到的库
+     const LIBS = [
+       '/assets/live2d/lib/pio.css',
+       '/assets/js/npm/greensock@1.20.2/dist/TweenLite.js',
+       '/assets/js/sdk-web/cubismcore/live2dcubismcore.min.js',
+       '/assets/js/npm/pixi.js@5.3.6/dist/pixi.min.js',
+       '/assets/js/npm/pixi-live2d-display@0.3.1/dist/cubism4.min.js',
+       '/assets/live2d/lib/pio_sdk4.js',
+       '/assets/live2d/lib/pio.js'
+     ]
+   
+     const reqArr = LIBS.map(src => loadSource(src))
+   
+     // 创建顺序加载队列
+     const doTask = reqArr.reduce((prev, next) => prev.then(() => next()), Promise.resolve());
+   
+     // 队列执行完毕后
+     doTask.then(() => {
+   
+       // 初始化pio
+       _pio_initialize_pixi()
+   
+       // 添加自定义样式
+       addStyle(CUSTOM_CSS)
+   
+       加载圣·嘉然()
+   
+       console.log("all done.")
+     });
+   
+     // 初始化设定
+     const initConfig = {
+       mode: "fixed",
+       hidden: true,
+       content: {
+         link: 引流[Math.floor(Math.random() * 引流.length)], // 引流链接
+         referer: "Hi!", // 存在访问来源时的欢迎文本
+         welcome: ["Hi!"], // 未开启时间问好时的欢迎文本
+         skin: ["诶，想看看其他团员吗？", "替换后入场文本"], // 0更换模型提示文案  1更换完毕入场文案
+         custom: [
+           // 鼠标移上去提示元素
+           { "selector": ".most-viewed-panel .most-viewed-item, .live-up-list .live-detail, .card .user-name, .user .name, .post-content .content-full a, .tag-list .content, .title, h2 a[title]", "type": "link" }
+         ],
+       },
+       model: [
+         // 待加载的模型列表
+         "/assets/live2d/Diana/Diana.model3.json",
+         "/assets/live2d/Ava/Ava.model3.json",
+       ],
+       tips: true, // 时间问好
+       onModelLoad: onModelLoad // 模型加载完成回调
+     }
+   
+     let pio_reference // pio实例
+   
+     function 加载圣·嘉然() {
+       pio_reference = new Paul_Pio(initConfig)
+   
+       pio_alignment = "right" // 右下角
+   
+       const closeBtn = document.querySelector(".pio-container .pio-action .pio-close")
+       closeBtn.insertAdjacentHTML('beforebegin', '<span class="pio-top"></span>')
+       const topBtn = document.querySelector(".pio-container .pio-action .pio-top")
+       // 返回顶部
+       topBtn.onclick = function () {
+         window.scrollTo({ top: 0, behavior: 'smooth' });
+       };
+       topBtn.onmouseover = function () {
+         pio_reference.modules.render("想回到页面顶部吗？");
+       };
+   
+       // Then apply style
+       pio_refresh_style()
+     }
+   
+     // 模型加载完成回调
+     function onModelLoad(model) {
+       const canvas = document.getElementById("pio")
+       const modelNmae = model.internalModel.settings.name
+       const coreModel = model.internalModel.coreModel
+       const motionManager = model.internalModel.motionManager
+   
+       let touchList = [
+         {
+           text: "点击展示文本1",
+           motion: "Idle"
+         },
+         {
+           text: "点击展示文本2",
+           motion: "Idle"
+         }
+       ]
+   
+       // 播放动作
+       function playAction(action) {
+         action.text && pio_reference.modules.render(action.text) // 展示文案
+         action.motion && pio_reference.model.motion(action.motion) // 播放动作
+   
+         if (action.from && action.to) {
+           // 指定部件渐入渐出
+           Object.keys(action.from).forEach(id => {
+             const hidePartIndex = coreModel._partIds.indexOf(id)
+             TweenLite.to(coreModel._partOpacities, 0.6, { [hidePartIndex]: action.from[id] });
+             // coreModel._partOpacities[hidePartIndex] = action.from[id]
+           })
+   
+           motionManager.once("motionFinish", (data) => {
+             Object.keys(action.to).forEach(id => {
+               const hidePartIndex = coreModel._partIds.indexOf(id)
+               TweenLite.to(coreModel._partOpacities, 0.6, { [hidePartIndex]: action.to[id] });
+               // coreModel._partOpacities[hidePartIndex] = action.to[id]
+             })
+           })
+         }
+       }
+   
+       canvas.onclick = function () {
+         // 除闲置动作外不打断
+         if (motionManager.state.currentGroup !== "Idle") return
+   
+         // 随机选择并播放动作
+         const action = pio_reference.modules.rand(touchList)
+         playAction(action)
+       }
+   
+       if (modelNmae === "Diana") {
+         // 嘉然小姐
+   
+         // 入场动作及文案
+         initConfig.content.skin[1] = ["我是吃货担当 嘉然 Diana~", "嘉心糖们 想然然了没有呀~", "有人在吗？"]
+         playAction({ motion: "Tap抱阿草-左手" })
+   
+         // 点击动作及文案，不区分区域
+         touchList = [
+           {
+             text: "嘉心糖屁用没有",
+             motion: "Tap生气 -领结"
+           },
+           {
+             text: "有人急了，但我不说是谁~",
+             motion: "Tap= =  左蝴蝶结"
+           },
+           {
+             text: "呜呜...呜呜呜....",
+             motion: "Tap哭 -眼角"
+           },
+           {
+             text: "想然然了没有呀~",
+             motion: "Tap害羞-中间刘海"
+           },
+           {
+             text: "阿草好软呀~",
+             motion: "Tap抱阿草-左手"
+           },
+           {
+             text: "不要再戳啦！好痒！",
+             motion: "Tap摇头- 身体"
+           },
+           {
+             text: "嗷呜~~~",
+             motion: "Tap耳朵-发卡"
+           },
+           {
+             text: "zzZ。。。",
+             motion: "Leave"
+           },
+           {
+             text: "哇！好吃的！",
+             motion: "Tap右头发"
+           },
+         ]
+   
+       } else if (modelNmae === "Ava") {
+         initConfig.content.skin[1] = ["我是<s>拉胯</s>Gamer担当 向晚 AvA~", "怎么推流辣！", "AAAAAAAAAAvvvvAAA 向晚！"]
+         playAction({
+           motion: "Tap左眼",
+           from: {
+             "Part15": 1
+           },
+           to: {
+             "Part15": 0
+           }
+         })
+   
+         touchList = [
+           {
+             text: "水母 水母~ 只是普通的生物",
+             motion: "Tap右手"
+           },
+           {
+             text: "可爱的鸽子鸽子~我喜欢你~",
+             motion: "Tap胸口项链",
+             from: {
+               "Part12": 1
+             },
+             to: {
+               "Part12": 0
+             }
+           },
+           {
+             text: "好...好兄弟之间喜欢很正常啦",
+             motion: "Tap中间刘海",
+             from: {
+               "Part12": 1
+             },
+             to: {
+               "Part12": 0
+             }
+           },
+           {
+             text: "啊啊啊！怎么推流辣",
+             motion: "Tap右眼",
+             from: {
+               "Part16": 1
+             },
+             to: {
+               "Part16": 0
+             }
+           },
+           {
+             text: "你怎么老摸我，我的身体是不是可有魅力",
+             motion: "Tap嘴"
+           },
+           {
+             text: "AAAAAAAAAAvvvvAAA 向晚！",
+             motion: "Tap左眼",
+             from: {
+               "Part15": 1
+             },
+             to: {
+               "Part15": 0
+             }
+           }
+         ]
+   
+         // 钻头比较大，宽度*1.2倍，模型位移也要重新计算
+         canvas.width = model.width * 1.2
+         model.x = canvas.width - model.width
+   
+         // 模型问题，手动隐藏指定部件
+         const hideParts = [
+           "Part5", // 晕
+           "neko", // 喵喵拳
+           "game", // 左手游戏手柄
+           "Part15", // 墨镜
+           "Part21", // 右手小臂
+           "Part22", // 左手垂下
+           "Part", // 双手抱拳
+           "Part16", // 惊讶特效
+           "Part12" // 小心心
+         ]
+         const hidePartsIndex = hideParts.map(id => coreModel._partIds.indexOf(id))
+         hidePartsIndex.forEach(idx => {
+           coreModel._partOpacities[idx] = 0
+         })
+       }
+     }
+   
+     // 检测是否处于iframe内嵌环境
+     function inIframe() {
+       try {
+         return window.self !== window.top;
+       } catch (e) {
+         return true;
+       }
+     }
+   
+     // 加载js或css，返回函数包裹的promise实例，用于顺序加载队列
+     function loadSource(src) {
+       return () => {
+         return new Promise(function (resolve, reject) {
+           const TYPE = src.split('.').pop()
+           let s = null;
+           let r = false;
+           if (TYPE === 'js') {
+             s = document.createElement('script');
+             s.type = 'text/javascript';
+             s.src = src;
+             s.async = true;
+   
+           } else if (TYPE === 'css') {
+             s = document.createElement('link');
+             s.rel = 'stylesheet';
+             s.type = 'text/css';
+             s.href = src;
+   
+           }
+           s.onerror = function (err) {
+             reject(err, s);
+           };
+           s.onload = s.onreadystatechange = function () {
+             // console.log(this.readyState); // uncomment this line to see which ready states are called.
+             if (!r && (!this.readyState || this.readyState == 'complete')) {
+               r = true;
+               console.log(src)
+               resolve();
+             }
+           };
+           const t = document.getElementsByTagName('script')[0];
+           t.parentElement.insertBefore(s, t);
+         });
+       }
+     }
+   
+     // 添加css
+     function addStyle(css) {
+       if (typeof GM_addStyle != "undefined") {
+         GM_addStyle(css);
+       } else if (typeof PRO_addStyle != "undefined") {
+         PRO_addStyle(css);
+       } else {
+         const node = document.createElement("style");
+         node.type = "text/css";
+         node.appendChild(document.createTextNode(css));
+         const heads = document.getElementsByTagName("head");
+   
+         if (heads.length > 0) {
+           heads[0].appendChild(node);
+         } else {
+           // no head yet, stick it whereever
+           document.documentElement.appendChild(node);
+         }
+       }
+     }
+   
+   })();
+</script>
+
+      <footer class="footer">
+   <div>
+      © 2021-2025 Error: 你发现了一个错误！
+      <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" loading="lazy">CC BY-NC-SA 4.0</a><br>
+      Built with <a href="https://jekyllrb.com" target="_blank" loading="lazy">Jekyll</a>
+      Get this theme
+      <a href="https://github.com/starry99/catbook" target="_blank" loading="lazy">here</a>.
+   </div>
+</footer>
+
+      <script>
+
+    var links = document.querySelectorAll('a');
+
+    links.forEach(function(link) {
+
+        if (link.host !== window.location.host) {
+
+            link.setAttribute('target', '_blank');
+        }
+    });
+</script>
+
+
+   </body>
+</html>
