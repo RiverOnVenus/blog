@@ -238,6 +238,13 @@ systemctl enable --now ananicy-cpp.service
 sudo pacman -S proton-cachyos
 ```
 
+### bpftune
+
+```
+sudo pacman -S bpftune-git
+systemctl enable --now bpftune.service
+```
+
 ## 杂项
 
 ### 禁止鼠标唤醒
@@ -272,3 +279,6 @@ GreeterEnvironment=QT_WAYLAND_SHELL_INTEGRATION=layer-shell
 CompositorCommand=kwin_wayland --drm --no-lockscreen --no-global-shortcuts --locale1
 ```
 
+### Fontconfig
+
+参考 [Fontconfig 和 Noto Color Emoji 和抗锯齿](https://sh.alynx.one/posts/Fontconfig-NotoColorEmoji-Antialias/)
