@@ -282,3 +282,11 @@ CompositorCommand=kwin_wayland --drm --no-lockscreen --no-global-shortcuts --loc
 ### Fontconfig
 
 参考 [Fontconfig 和 Noto Color Emoji 和抗锯齿](https://sh.alynx.one/posts/Fontconfig-NotoColorEmoji-Antialias/)
+
+### 禁止 discover 检查更新自启动
+
+```
+cp /etc/xdg/autostart/org.kde.discover.notifier.desktop ~/.config/autostart/
+```
+
+添加 Hidden=true 到文件末尾。
