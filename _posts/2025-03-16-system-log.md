@@ -114,7 +114,7 @@ sudo pacman -S zram-generator
 ```
 [zram0]
 zram-size = ram
-compression-algorithm = zstd
+compression-algorithm = lz4
 ```
 
 添加 zswap.enabled=0 到内核参数
@@ -131,27 +131,28 @@ sudo systemctl enable --now earlyoom
 在`/etc/sysctl.d/99-sysctl.conf`
 
 ```
-# Virtual memory
-# vm.dirty_background_ratio default 10
-# vm.dirty_ratio default 20
-# For 32GB RAM on NVMe SSD
-vm.dirty_background_ratio = 2
-vm.dirty_ratio = 8
+# Contains, as bytes, the number of pages at which a process which is
+# generating disk writes will itself start writing out dirty data.
+vm.dirty_bytes = 536870912    # 512MB
 
-# VFS cache
+# Contains, as bytes, the number of pages at which the background kernel
+# flusher threads will start writing out dirty data.
+vm.dirty_background_bytes = 134217728  # 128MB
+
 # Decreasing the virtual file system (VFS) cache parameter value
 # may improve system responsiveness (default 100)
 vm.vfs_cache_pressure = 50
+
+# The sysctl swappiness parameter determines the kernel's preference for pushing anonymous pages or page cache to disk in memory-starved situations.
+# A low value causes the kernel to prefer freeing up open files (page cache), a high value causes the kernel to try to use swap space,
+# For in-memory swap, like zram or zswap, as well as hybrid setups that have swap on faster devices than the filesystem, values beyond 100 can be considered.
+vm.swappiness = 150
 
 # page-cluster controls the number of pages up to which consecutive pages are read in from swap in a single attempt.
 # This is the swap counterpart to page cache readahead. The mentioned consecutivity is not in terms of virtual/physical addresses,
 # but consecutive on swap space - that means they were swapped out together. (Default is 3)
 # increase this value to 1 or 2 if you are using physical swap (1 if ssd, 2 if hdd)
 vm.page-cluster = 0
-
-# Swappiness (default 60)
-# For Solid State Drives
-vm.swappiness = 100
 ```
 
 ## 性能相关
@@ -175,40 +176,23 @@ Include = /etc/pacman.d/cachyos-v4-mirrorlist
 [cachyos-extra-znver4]
 Include = /etc/pacman.d/cachyos-v4-mirrorlist
 
-#[core-testing]
-#Include = /etc/pacman.d/mirrorlist
-
 [core]
 Include = /etc/pacman.d/mirrorlist
-
-#[extra-testing]
-#Include = /etc/pacman.d/mirrorlist
 
 [extra]
 Include = /etc/pacman.d/mirrorlist
 
-# If you want to run 32 bit applications on your x86_64 system,
-# enable the multilib repositories as required here.
-
-#[multilib-testing]
-#Include = /etc/pacman.d/mirrorlist
-
 [multilib]
 Include = /etc/pacman.d/mirrorlist
 
-# An example of a custom package repository.  See the pacman manpage for
-# tips on creating your own repositories.
-#[custom]
-#SigLevel = Optional TrustAll
-#Server = file:///home/custompkgs
-
 [archlinuxcn]
-#Server = https://repo.archlinuxcn.org/$arch
-Server = https://mirror.iscas.ac.cn/archlinuxcn/$arch
 Include = /etc/pacman.d/archlinuxcn-mirrorlist
 
 [arch4edu]
 Server = https://mirrors.tuna.tsinghua.edu.cn/arch4edu/$arch
+
+[chaotic-aur]
+Include = /etc/pacman.d/chaotic-mirrorlist
 ```
 
 ### 编译优化
