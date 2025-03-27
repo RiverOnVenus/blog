@@ -131,6 +131,8 @@ sudo systemctl enable --now earlyoom
 在`/etc/sysctl.d/99-sysctl.conf`
 
 ```
+# 32G Ram + Zram(lz4) + Nvme SSD
+
 # Contains, as bytes, the number of pages at which a process which is
 # generating disk writes will itself start writing out dirty data.
 vm.dirty_bytes = 536870912    # 512MB
@@ -274,3 +276,12 @@ cp /etc/xdg/autostart/org.kde.discover.notifier.desktop ~/.config/autostart/
 ```
 
 添加 Hidden=true 到文件末尾。
+
+### Flatpak 管理 Steam
+
+为了避免 steam 和一些游戏在 home 拉屎，用 flatpak 管理。
+
+```
+flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak --user install flathub com.valvesoftware.Steam
+```
