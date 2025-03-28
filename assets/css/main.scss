@@ -39,28 +39,28 @@
 }
 
 @mixin lightMode {
-    --bg_color: #2e3440; /* nord0 */
-    --header_bg: #3b4252; /* nord1 */
-    --content_bg: #434c5e; /* nord2 */
-    --archive_font: #d8dee9; /* nord4 */
-    --archive_title: #88c0d0; /* nord8 */
-    --archive_title_hover: #81a1c1; /* nord9 */
-    --name_font: #ebcb8b; /* nord13 */
-    --job_font: #d8dee9; /* nord4 */
-    --nav_font: #81a1c1; /* nord9 */
-    --nav_font_hover: #5e81ac; /* nord10 */
-    --shadow_color: rgba(0, 0, 0, 1);
-    --post_title: #88c0d0; /* nord8 */
-    --post_date: #d8dee9; /* nord4 */
-    --post_text: #d8dee9; /* nord4 */
-    --post_h3: #eceff4; /* nord6 */
-    --post_link: #81a1c1; /* nord9 */
-    --post_link_hover: #5e81ac; /* nord10 */
-    --inlinecode_text: #ebcb8b; /* nord13 */
-    --blockquote: #d8dee9; /* nord4 */
-    --footer_font: #4c566a; /* nord3 */
-    --footer_font_a: #eceff4; /* nord6 */
-    --border_radius: 1px;
+    --bg_color: #2e3440;
+    --header_bg: #3b4252;
+    --content_bg: #434c5e;
+    --archive_font: #d8dee9;
+    --archive_title: #88c0d0;
+    --archive_title_hover: #81a1c1;
+    --name_font: #ebcb8b;
+    --job_font: #d8dee9;
+    --nav_font: #81a1c1;
+    --nav_font_hover: #5e81ac;
+    --shadow_color: rgba(0, 0, 0, 0.1);
+    --post_title: #88c0d0;
+    --post_date: #d8dee9;
+    --post_text: #d8dee9;
+    --post_h3: #eceff4;
+    --post_link: #81a1c1;
+    --post_link_hover: #5e81ac;
+    --inlinecode_text: #ebcb8b;
+    --blockquote: #d8dee9;
+    --footer_font: #4c566a;
+    --footer_font_a: #eceff4;
+    --border_radius: 8px;
 }
 
 
