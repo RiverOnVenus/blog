@@ -13,7 +13,7 @@
 /* 0. Variables
    ========================================================================== */
 
-@mixin lightMode {
+@mixin darkMode {
     --bg_color: #FFCC00;
     --header_bg: #FFD700;
     --content_bg: #FDDB29;
@@ -38,7 +38,7 @@
     --border_radius: 15px;
 }
 
-@mixin darkMode {
+@mixin lightMode {
     --bg_color: #2e3440; /* nord0 */
     --header_bg: #3b4252; /* nord1 */
     --content_bg: #434c5e; /* nord2 */
@@ -363,7 +363,7 @@ img {
         display: none;
 
         &+div {
-            background: url('/assets/img/m.png') no-repeat  center;
+            background: url('/assets/img/s.png') no-repeat  center;
             width: 30px;
             height: 30px;
             border-radius: 50%;
@@ -383,7 +383,7 @@ img {
 
             &:after {
                 
-                background: url('/assets/img/s.png') no-repeat center;
+                background: url('/assets/img/m.png') no-repeat center;
                 border-radius: 50%;
                 content: '';
                 width: 30px;
