@@ -625,7 +625,14 @@ img {
     }
 
     img {
-        border-radius: 5px;
+        max-width: 100%;
+        height: auto;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+        &:hover {
+            transform: scale(1.02);
+        }
     }
 
     hr {
