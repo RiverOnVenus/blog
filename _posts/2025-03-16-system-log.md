@@ -233,13 +233,6 @@ systemctl enable --now ananicy-cpp.service
 sudo pacman -S proton-cachyos
 ```
 
-### bpftune
-
-```
-sudo pacman -S bpftune-git
-systemctl enable --now bpftune.service
-```
-
 ## 杂项
 
 ### 禁止鼠标唤醒
