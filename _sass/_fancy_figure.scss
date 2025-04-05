@@ -1,0 +1,27 @@
+.fancy-figure {
+    text-align: center;
+    margin: 1.5em 0;
+
+    a {
+        display: inline-block;
+        max-width: 100%;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+        &:hover {
+            transform: scale(1.02);
+        }
+    }
+
+    figcaption {
+        font-size: 0.9em;
+        color: #777;
+        margin-top: 0.5em;
+        line-height: 1.4;
+    }
+}
