@@ -44,11 +44,19 @@ UUID=A4FB-3831      	/boot     	vfat      	rw,relatime,fmask=0022,dmask=0022,cod
 UUID=6dda4ef6-5539-425b-9e17-0a374910721b	/mnt/data 	xfs       	rw,relatime,attr2,inode64,logbufs=8,logbsize=32k,noquota	0 2
 ```
 
-记录下当前的测速：
+<figure class="fancy-figure">
+  <a data-fancybox="disk-test" href="https://image.zhui.dev/file/nvmessd.png">
+    <img src="https://image.zhui.dev/file/nvmessd.png" alt="NVMe SSD 测试图">
+  </a>
+  <figcaption>Btrfs (compress-force=zstd:3) 在 NVMe SSD 的读写速度测试</figcaption>
+</figure>
 
-<a data-fancybox="disk-test" href="https://image.zhui.dev/file/nvmessd.png"><img src="https://image.zhui.dev/file/nvmessd.png">
-
-<a data-fancybox="disk-test" href="https://image.zhui.dev/file/hdd.png"><img src="https://image.zhui.dev/file/hdd.png">
+<figure class="fancy-figure">
+  <a data-fancybox="disk-test" href="https://image.zhui.dev/file/hdd.png">
+    <img src="https://image.zhui.dev/file/hdd.png">
+  </a>
+  <figcaption>XFS 在 HDD 的读写速度测试</figcaption>
+</figure>
 
 ### btrfs 相关
 
@@ -233,60 +241,7 @@ systemctl enable --now ananicy-cpp.service
 sudo pacman -S proton-cachyos
 ```
 
-## 杂项
-
-### 禁止鼠标唤醒
-
-为了避免鼠标唤醒系统，配置了`/etc/udev/rules.d/logitech-unifying.rules`
-
-```
-ACTION=="add|change", SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c53f", ATTR{power/wakeup}="disabled"
-```
-
-### 定时清理包
-
-```
-sudo pacman -S pacman-contrib
-sudo systemctl enable --now paccache.timer
-```
-
-### Wayland 混成器设置为 KWin
-
-配置了`/etc/sddm.conf.d/10-wayland.conf`
-
-```
-[General]
-
-DisplayServer=wayland
-
-GreeterEnvironment=QT_WAYLAND_SHELL_INTEGRATION=layer-shell
-
-
-[Wayland]
-
-CompositorCommand=kwin_wayland --drm --no-lockscreen --no-global-shortcuts --locale1
-```
-
-### Fontconfig
-
-参考 [Fontconfig 和 Noto Color Emoji 和抗锯齿](https://sh.alynx.one/posts/Fontconfig-NotoColorEmoji-Antialias/)
-
-### 禁止 discover 检查更新自启动
-
-```
-cp /etc/xdg/autostart/org.kde.discover.notifier.desktop ~/.config/autostart/
-```
-
-添加 Hidden=true 到文件末尾。
-
-### Flatpak 管理 Steam
-
-为了避免 steam 和一些游戏在 home 拉屎，用 flatpak 管理。
-
-```
-flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak --user install flathub com.valvesoftware.Steam
-```
+## 备份相关
 
 ### Snapper 配置
 
@@ -363,4 +318,59 @@ EMPTY_PRE_POST_MIN_AGE="3600"
 sudo pacman -S snap-pac
 sudo systemctl enable --now snapper-timeline.timer
 sudo systemctl enable --now snapper-cleanup.timer
+```
+
+## 杂项
+
+### 禁止鼠标唤醒
+
+为了避免鼠标唤醒系统，配置了`/etc/udev/rules.d/logitech-unifying.rules`
+
+```
+ACTION=="add|change", SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c53f", ATTR{power/wakeup}="disabled"
+```
+
+### 定时清理包
+
+```
+sudo pacman -S pacman-contrib
+sudo systemctl enable --now paccache.timer
+```
+
+### Wayland 混成器设置为 KWin
+
+配置了`/etc/sddm.conf.d/10-wayland.conf`
+
+```
+[General]
+
+DisplayServer=wayland
+
+GreeterEnvironment=QT_WAYLAND_SHELL_INTEGRATION=layer-shell
+
+
+[Wayland]
+
+CompositorCommand=kwin_wayland --drm --no-lockscreen --no-global-shortcuts --locale1
+```
+
+### Fontconfig
+
+参考 [Fontconfig 和 Noto Color Emoji 和抗锯齿](https://sh.alynx.one/posts/Fontconfig-NotoColorEmoji-Antialias/)
+
+### 禁止 discover 检查更新自启动
+
+```
+cp /etc/xdg/autostart/org.kde.discover.notifier.desktop ~/.config/autostart/
+```
+
+添加 Hidden=true 到文件末尾。
+
+### Flatpak 管理 Steam
+
+为了避免 steam 和一些游戏在 home 拉屎，用 flatpak 管理。
+
+```
+flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak --user install flathub com.valvesoftware.Steam
 ```
