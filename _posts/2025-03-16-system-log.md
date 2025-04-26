@@ -29,13 +29,15 @@ nvme0n1     259:0    0 931.5G  0 disk
 
 ### 挂载参数
 
-透明压缩会影响性能，在 NVMe SSD 上用 compress-force 会比较好。子卷目前有 @ 和 @home, 用 snapper 管理快照。
+透明压缩会影响性能，对 @game 子卷用了 compress-force=zstd:1.
 
 ```
 # /dev/nvme0n1p2
-UUID=a0b762a5-a99d-4d46-81d8-b10aa8620fa4	/         	btrfs     	rw,relatime,ssd,discard=async,compress-force=zstd:3,space_cache=v2,subvol=/@	0 0
+UUID=a0b762a5-a99d-4d46-81d8-b10aa8620fa4	/         	btrfs     	rw,relatime,ssd,discard=async,compress=zstd:3,space_cache=v2,subvol=/@	0 0
 
-UUID=a0b762a5-a99d-4d46-81d8-b10aa8620fa4	/home         	btrfs     	rw,relatime,ssd,discard=async,compress-force=zstd:3,space_cache=v2,subvol=/@home	0 0
+UUID=a0b762a5-a99d-4d46-81d8-b10aa8620fa4	/home         	btrfs     	rw,relatime,ssd,discard=async,compress=zstd:3,space_cache=v2,subvol=/@home	0 0
+
+UUID=a0b762a5-a99d-4d46-81d8-b10aa8620fa4	/game         	btrfs     	rw,relatime,ssd,discard=async,compress-force=zstd:1,space_cache=v2,subvol=/@game	0 0
 
 # /dev/nvme0n1p1
 UUID=A4FB-3831      	/boot     	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	0 2
@@ -356,7 +358,11 @@ CompositorCommand=kwin_wayland --drm --no-lockscreen --no-global-shortcuts --loc
 
 ### Fontconfig
 
-参考 [Fontconfig 和 Noto Color Emoji 和抗锯齿](https://sh.alynx.one/posts/Fontconfig-NotoColorEmoji-Antialias/)
+- 参考 [Fontconfig 和 Noto Color Emoji 和抗锯齿](https://sh.alynx.one/posts/Fontconfig-NotoColorEmoji-Antialias/)
+
+- 额外装了 [ttf-jigmo](https://kamichikoichi.github.io/jigmo/)
+
+- [字体试验页](https://web.archive.org/web/20250226125025/https://ctext.org/font-test-page/zhs)
 
 ### 禁止 discover 检查更新自启动
 
@@ -368,7 +374,7 @@ cp /etc/xdg/autostart/org.kde.discover.notifier.desktop ~/.config/autostart/
 
 ### Flatpak 管理 Steam
 
-为了避免 steam 和一些游戏在 home 拉屎，用 flatpak 管理。
+为了避免 steam 和一些游戏在 home 拉屎，用 flatpak 管理，配合 @game 子卷进行隔离。
 
 ```
 flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
