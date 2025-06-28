@@ -17,33 +17,34 @@ comments: true
 首先是文件系统和分区。这次我在 SSD 上用了 Btrfs 作为根文件系统，HDD 上用了 XFS 做数据盘。之前一直用的是 EXT4，其实馋 Btrfs 很久了。虽然还没完全搞明白 Btrfs，但透明压缩、子卷和对 SSD 友好的特性已经让我很满意了。XFS 放在 HDD 上用来存数据，性能也不错，比较省心。
 
 ```
-NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS FSTYPE
-sda           8:0    0   3.6T  0 disk             
-└─sda1        8:1    0   3.6T  0 part /mnt/data   xfs
-zram0       253:0    0  30.5G  0 disk [SWAP]      swap
-nvme0n1     259:0    0 931.5G  0 disk             
-├─nvme0n1p1 259:1    0     2G  0 part /boot       vfat
-└─nvme0n1p2 259:2    0 929.5G  0 part /home       btrfs
-                                      / 
+NAME        FSTYPE FSVER LABEL UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+sda                                                                                
+└─sda1      xfs                6dda4ef6-5539-425b-9e17-0a374910721b    2.2T    39% /mnt/data
+zram0       swap   1     zram0 81a25874-1132-4b4a-aba9-ee63778ea6f0                [SWAP]
+nvme0n1                                                                            
+├─nvme0n1p1 vfat   FAT32       A4FB-3831                               1.7G    17% /boot
+└─nvme0n1p2 btrfs              a0b762a5-a99d-4d46-81d8-b10aa8620fa4  431.2G    53% /game
+                                                                                   /home
+                                                                                   /
 ```
 
 ### 挂载参数
 
-透明压缩会影响性能，对 @game 子卷用了 compress-force=zstd:1.
+透明压缩等级很难找一个完美的平衡点，对 @ @home 子卷用默认的。kernel 6.15 上 zstd 支持负的压缩等级，对 @game 子卷用了 compress-force=zstd:-9
 
 ```
 # /dev/nvme0n1p2
-UUID=a0b762a5-a99d-4d46-81d8-b10aa8620fa4	/         	btrfs     	rw,relatime,ssd,discard=async,compress=zstd:3,space_cache=v2,subvol=/@	0 0
+UUID=a0b762a5-a99d-4d46-81d8-b10aa8620fa4       /               btrfs           rw,relatime,ssd,discard=async,compress=zstd:3,space_cache=v2,subvol=/@  0 0
 
-UUID=a0b762a5-a99d-4d46-81d8-b10aa8620fa4	/home         	btrfs     	rw,relatime,ssd,discard=async,compress=zstd:3,space_cache=v2,subvol=/@home	0 0
+UUID=a0b762a5-a99d-4d46-81d8-b10aa8620fa4       /home           btrfs           rw,relatime,ssd,discard=async,compress=zstd:3,space_cache=v2,subvol=/@home      0 0
 
-UUID=a0b762a5-a99d-4d46-81d8-b10aa8620fa4	/game         	btrfs     	rw,relatime,ssd,discard=async,compress-force=zstd:1,space_cache=v2,subvol=/@game	0 0
+UUID=a0b762a5-a99d-4d46-81d8-b10aa8620fa4       /game           btrfs           rw,relatime,ssd,discard=async,compress-force=zstd:-9,space_cache=v2,subvol=/@game       0 0
 
 # /dev/nvme0n1p1
-UUID=A4FB-3831      	/boot     	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	0 2
+UUID=A4FB-3831          /boot           vfat            rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro   0 2
 
 # /dev/sda1
-UUID=6dda4ef6-5539-425b-9e17-0a374910721b	/mnt/data 	xfs       	rw,relatime,attr2,inode64,logbufs=8,logbsize=32k,noquota	0 2
+UUID=6dda4ef6-5539-425b-9e17-0a374910721b       /mnt/data       xfs             rw,relatime,attr2,inode64,logbufs=8,logbsize=32k,noquota        0 2
 ```
 
 <figure class="fancy-figure">
@@ -287,8 +288,8 @@ NUMBER_CLEANUP="yes"
 
 # limit for number cleanup
 NUMBER_MIN_AGE="3600"
-NUMBER_LIMIT="30"
-NUMBER_LIMIT_IMPORTANT="5"
+NUMBER_LIMIT="3"
+NUMBER_LIMIT_IMPORTANT="1"
 
 
 # create hourly snapshots
@@ -299,8 +300,8 @@ TIMELINE_CLEANUP="yes"
 
 # limits for timeline cleanup
 TIMELINE_MIN_AGE="1800"
-TIMELINE_LIMIT_HOURLY="5"
-TIMELINE_LIMIT_DAILY="7"
+TIMELINE_LIMIT_HOURLY="1"
+TIMELINE_LIMIT_DAILY="2"
 TIMELINE_LIMIT_WEEKLY="0"
 TIMELINE_LIMIT_MONTHLY="0"
 TIMELINE_LIMIT_QUARTERLY="0"
@@ -320,6 +321,30 @@ EMPTY_PRE_POST_MIN_AGE="3600"
 sudo pacman -S snap-pac
 sudo systemctl enable --now snapper-timeline.timer
 sudo systemctl enable --now snapper-cleanup.timer
+```
+
+降低快照创建/清理频率。
+
+```
+sudo systemctl edit snapper-timeline.timer
+sudo systemctl edit snapper-cleanup.timer
+```
+
+```
+➜ cat /etc/systemd/system/snapper-timeline.timer.d/override.conf
+[Timer]
+OnCalendar=
+OnBootSec=257m
+OnUnitActiveSec=257m
+
+➜ cat /etc/systemd/system/snapper-cleanup.timer.d/override.conf 
+[Timer]
+OnBootSec=
+OnUnitActiveSec=
+OnBootSec=10m
+RandomizedDelaySec=17m
+OnUnitActiveSec=1d
+Persistent=true
 ```
 
 ## 杂项
