@@ -40,13 +40,6 @@
             </li>
          </ul>
          {% endif %}
-         {% if site.user.about %}
-         <ul class="nav_list">
-            <li class="nav_item">
-               <a href="{{ site.baseurl }}/about.html">about</a>
-            </li>
-         </ul>
-         {% endif %}
           {% if site.author.email %}
          <ul class="nav_list">
             <li class="nav_item">
@@ -65,6 +58,13 @@
          <ul class="nav_list">
             <li class="nav_item">
                <a href="https://github.com/riveronvenus.gpg">key</a>
+            </li>
+         </ul>
+         {% endif %}
+         {% if site.user.about %}
+         <ul class="nav_list">
+            <li class="nav_item">
+               <a href="{{ site.baseurl }}/about.html">about</a>
             </li>
          </ul>
          {% endif %}
