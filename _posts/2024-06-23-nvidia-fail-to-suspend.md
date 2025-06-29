@@ -1,6 +1,6 @@
 ---
 title: NVIDIA 导致系统挂起失败
-categories: [linux]
+categories: [linux,nvidia]
 comments: true
 ---
 

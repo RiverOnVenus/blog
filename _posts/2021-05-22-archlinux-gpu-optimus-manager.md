@@ -1,6 +1,6 @@
 ---
 title: Arch Linux 的双显卡配置
-categories: [linux]
+categories: [linux,nvidia]
 comments: true
 ---
 

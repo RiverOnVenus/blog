@@ -1,6 +1,6 @@
 ---
 title: 玩机之初
-categories: [misc]
+categories: [android]
 comments: true
 ---
 

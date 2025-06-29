@@ -1,6 +1,6 @@
 ---
 title: 系统：你对我做了什么？！
-categories: [linux]
+categories: [linux,kde]
 comments: true
 ---
 

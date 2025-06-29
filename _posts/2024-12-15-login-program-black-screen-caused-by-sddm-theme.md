@@ -1,6 +1,6 @@
 ---
 title: SDDM 主题导致登录程序黑屏
-categories: [linux]
+categories: [linux,kde]
 comments: true
 ---
 

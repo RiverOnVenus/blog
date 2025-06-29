@@ -1,6 +1,6 @@
 ---
 title: 关于我喜欢 KDE6 壁纸这件事
-categories: [misc]
+categories: [gallery,kde]
 comments: true
 ---
 

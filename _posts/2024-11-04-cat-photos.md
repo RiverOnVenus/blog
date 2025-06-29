@@ -1,6 +1,6 @@
 ---
 title: Meow~
-categories: [misc]
+categories: [gallery]
 comments: true
 ---
 
