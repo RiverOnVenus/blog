@@ -13,12 +13,12 @@ jobs:
 
       # AutoCorrect Step
       - name: AutoCorrect
-        uses: huacnlee/autocorrect-action@v2
+        uses: huacnlee/autocorrect-action@main
 
       # Report ReviewDog Step
       - name: Report ReviewDog
         if: failure() # Only run if the previous step fails
-        uses: huacnlee/autocorrect-action@v2
+        uses: huacnlee/autocorrect-action@main
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
