@@ -1,0 +1,759 @@
+@charset "UTF-8";
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+/* Document ========================================================================== */
+/** 1. Correct the line height in all browsers. 2. Prevent adjustments of font size after orientation changes in iOS. */
+html { line-height: 1.15; /* 1 */ -webkit-text-size-adjust: 100%; /* 2 */ }
+
+/* Sections ========================================================================== */
+/** Remove the margin in all browsers. */
+body { margin: 0; }
+
+/** Render the `main` element consistently in IE. */
+main { display: block; }
+
+/** Correct the font size and margin on `h1` elements within `section` and `article` contexts in Chrome, Firefox, and Safari. */
+h1 { font-size: 2em; margin: 0.67em 0; }
+
+/* Grouping content ========================================================================== */
+/** 1. Add the correct box sizing in Firefox. 2. Show the overflow in Edge and IE. */
+hr { box-sizing: content-box; /* 1 */ height: 0; /* 1 */ overflow: visible; /* 2 */ }
+
+/** 1. Correct the inheritance and scaling of font size in all browsers. 2. Correct the odd `em` font sizing in all browsers. */
+pre { font-family: monospace, monospace; /* 1 */ font-size: 1em; /* 2 */ }
+
+/* Text-level semantics ========================================================================== */
+/** Remove the gray background on active links in IE 10. */
+a { background-color: transparent; }
+
+/** 1. Remove the bottom border in Chrome 57- 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari. */
+abbr[title] { border-bottom: none; /* 1 */ text-decoration: underline; /* 2 */ text-decoration: underline dotted; /* 2 */ }
+
+/** Add the correct font weight in Chrome, Edge, and Safari. */
+b, strong { font-weight: bolder; }
+
+/** 1. Correct the inheritance and scaling of font size in all browsers. 2. Correct the odd `em` font sizing in all browsers. */
+code, kbd, samp { font-family: monospace, monospace; /* 1 */ font-size: 1em; /* 2 */ }
+
+/** Add the correct font size in all browsers. */
+small { font-size: 80%; }
+
+/** Prevent `sub` and `sup` elements from affecting the line height in all browsers. */
+sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+
+sub { bottom: -0.25em; }
+
+sup { top: -0.5em; }
+
+/* Embedded content ========================================================================== */
+/** Remove the border on images inside links in IE 10. */
+img { border-style: none; }
+
+/* Forms ========================================================================== */
+/** 1. Change the font styles in all browsers. 2. Remove the margin in Firefox and Safari. */
+button, input, optgroup, select, textarea { font-family: inherit; /* 1 */ font-size: 100%; /* 1 */ line-height: 1.15; /* 1 */ margin: 0; /* 2 */ }
+
+/** Show the overflow in IE. 1. Show the overflow in Edge. */
+button, input { /* 1 */ overflow: visible; }
+
+/** Remove the inheritance of text transform in Edge, Firefox, and IE. 1. Remove the inheritance of text transform in Firefox. */
+button, select { /* 1 */ text-transform: none; }
+
+/** Correct the inability to style clickable types in iOS and Safari. */
+button, [type="button"], [type="reset"], [type="submit"] { -webkit-appearance: button; }
+
+/** Remove the inner border and padding in Firefox. */
+button::-moz-focus-inner, [type="button"]::-moz-focus-inner, [type="reset"]::-moz-focus-inner, [type="submit"]::-moz-focus-inner { border-style: none; padding: 0; }
+
+/** Restore the focus styles unset by the previous rule. */
+button:-moz-focusring, [type="button"]:-moz-focusring, [type="reset"]:-moz-focusring, [type="submit"]:-moz-focusring { outline: 1px dotted ButtonText; }
+
+/** Correct the padding in Firefox. */
+fieldset { padding: 0.35em 0.75em 0.625em; }
+
+/** 1. Correct the text wrapping in Edge and IE. 2. Correct the color inheritance from `fieldset` elements in IE. 3. Remove the padding so developers are not caught out when they zero out `fieldset` elements in all browsers. */
+legend { box-sizing: border-box; /* 1 */ color: inherit; /* 2 */ display: table; /* 1 */ max-width: 100%; /* 1 */ padding: 0; /* 3 */ white-space: normal; /* 1 */ }
+
+/** Add the correct vertical alignment in Chrome, Firefox, and Opera. */
+progress { vertical-align: baseline; }
+
+/** Remove the default vertical scrollbar in IE 10+. */
+textarea { overflow: auto; }
+
+/** 1. Add the correct box sizing in IE 10. 2. Remove the padding in IE 10. */
+[type="checkbox"], [type="radio"] { box-sizing: border-box; /* 1 */ padding: 0; /* 2 */ }
+
+/** Correct the cursor style of increment and decrement buttons in Chrome. */
+[type="number"]::-webkit-inner-spin-button, [type="number"]::-webkit-outer-spin-button { height: auto; }
+
+/** 1. Correct the odd appearance in Chrome and Safari. 2. Correct the outline style in Safari. */
+[type="search"] { -webkit-appearance: textfield; /* 1 */ outline-offset: -2px; /* 2 */ }
+
+/** Remove the inner padding in Chrome and Safari on macOS. */
+[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+
+/** 1. Correct the inability to style clickable types in iOS and Safari. 2. Change font properties to `inherit` in Safari. */
+::-webkit-file-upload-button { -webkit-appearance: button; /* 1 */ font: inherit; /* 2 */ }
+
+/* Interactive ========================================================================== */
+/* Add the correct display in Edge, IE 10+, and Firefox. */
+details { display: block; }
+
+/* Add the correct display in all browsers. */
+summary { display: list-item; }
+
+/* Misc ========================================================================== */
+/** Add the correct display in IE 10+. */
+template { display: none; }
+
+/** Add the correct display in IE 10. */
+[hidden] { display: none; }
+
+.highlight pre { background-color: #404040; }
+
+.highlight .hll { background-color: #404040; }
+
+.highlight .c { color: #999999; font-style: italic; }
+
+/* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2; }
+
+/* Error */
+.highlight .g { color: #d0d0d0; }
+
+/* Generic */
+.highlight .k { color: #46a891; font-weight: bold; }
+
+/* Keyword */
+.highlight .l { color: #d0d0d0; }
+
+/* Literal */
+.highlight .n { color: #d0d0d0; }
+
+/* Name */
+.highlight .o { color: #d0d0d0; }
+
+/* Operator */
+.highlight .x { color: #d0d0d0; }
+
+/* Other */
+.highlight .p { color: #d0d0d0; }
+
+/* Punctuation */
+.highlight .cm { color: #999999; font-style: italic; }
+
+/* Comment.Multiline */
+.highlight .cp { color: #cd2828; font-weight: bold; }
+
+/* Comment.Preproc */
+.highlight .c1 { color: #999999; font-style: italic; }
+
+/* Comment.Single */
+.highlight .cs { color: #e50808; font-weight: bold; background-color: #520000; }
+
+/* Comment.Special */
+.highlight .gd { color: #d22323; }
+
+/* Generic.Deleted */
+.highlight .ge { color: #d0d0d0; font-style: italic; }
+
+/* Generic.Emph */
+.highlight .gr { color: #d22323; }
+
+/* Generic.Error */
+.highlight .gh { color: #ffffff; font-weight: bold; }
+
+/* Generic.Heading */
+.highlight .gi { color: #589819; }
+
+/* Generic.Inserted */
+.highlight .go { color: #cccccc; }
+
+/* Generic.Output */
+.highlight .gp { color: #aaaaaa; }
+
+/* Generic.Prompt */
+.highlight .gs { color: #d0d0d0; font-weight: bold; }
+
+/* Generic.Strong */
+.highlight .gu { color: #ffffff; text-decoration: underline; }
+
+/* Generic.Subheading */
+.highlight .gt { color: #d22323; }
+
+/* Generic.Traceback */
+.highlight .kc { color: #46a891; font-weight: bold; }
+
+/* Keyword.Constant */
+.highlight .kd { color: #46a891; font-weight: bold; }
+
+/* Keyword.Declaration */
+.highlight .kn { color: #46a891; font-weight: bold; }
+
+/* Keyword.Namespace */
+.highlight .kp { color: #46a891; }
+
+/* Keyword.Pseudo */
+.highlight .kr { color: #46a891; font-weight: bold; }
+
+/* Keyword.Reserved */
+.highlight .kt { color: #46a891; font-weight: bold; }
+
+/* Keyword.Type */
+.highlight .ld { color: #d0d0d0; }
+
+/* Literal.Date */
+.highlight .m { color: #3677a9; }
+
+/* Literal.Number */
+.highlight .s { color: #ed9d13; }
+
+/* Literal.String */
+.highlight .na { color: #bbbbbb; }
+
+/* Name.Attribute */
+.highlight .nb { color: #24909d; }
+
+/* Name.Builtin */
+.highlight .nc { color: #447fcf; text-decoration: underline; }
+
+/* Name.Class */
+.highlight .no { color: #40ffff; }
+
+/* Name.Constant */
+.highlight .nd { color: #ffa500; }
+
+/* Name.Decorator */
+.highlight .ni { color: #d0d0d0; }
+
+/* Name.Entity */
+.highlight .ne { color: #bbbbbb; }
+
+/* Name.Exception */
+.highlight .nf { color: #447fcf; }
+
+/* Name.Function */
+.highlight .nl { color: #d0d0d0; }
+
+/* Name.Label */
+.highlight .nn { color: #447fcf; text-decoration: underline; }
+
+/* Name.Namespace */
+.highlight .nx { color: #d0d0d0; }
+
+/* Name.Other */
+.highlight .py { color: #d0d0d0; }
+
+/* Name.Property */
+.highlight .nt { color: #46a891; font-weight: bold; }
+
+/* Name.Tag */
+.highlight .nv { color: #40ffff; }
+
+/* Name.Variable */
+.highlight .ow { color: #46a891; font-weight: bold; }
+
+/* Operator.Word */
+.highlight .w { color: #666666; }
+
+/* Text.Whitespace */
+.highlight .mf { color: #3677a9; }
+
+/* Literal.Number.Float */
+.highlight .mh { color: #3677a9; }
+
+/* Literal.Number.Hex */
+.highlight .mi { color: #3677a9; }
+
+/* Literal.Number.Integer */
+.highlight .mo { color: #3677a9; }
+
+/* Literal.Number.Oct */
+.highlight .sb { color: #ed9d13; }
+
+/* Literal.String.Backtick */
+.highlight .sc { color: #ed9d13; }
+
+/* Literal.String.Char */
+.highlight .sd { color: #ed9d13; }
+
+/* Literal.String.Doc */
+.highlight .s2 { color: #ed9d13; }
+
+/* Literal.String.Double */
+.highlight .se { color: #ed9d13; }
+
+/* Literal.String.Escape */
+.highlight .sh { color: #ed9d13; }
+
+/* Literal.String.Heredoc */
+.highlight .si { color: #ed9d13; }
+
+/* Literal.String.Interpol */
+.highlight .sx { color: #ffa500; }
+
+/* Literal.String.Other */
+.highlight .sr { color: #ed9d13; }
+
+/* Literal.String.Regex */
+.highlight .s1 { color: #ed9d13; }
+
+/* Literal.String.Single */
+.highlight .ss { color: #ed9d13; }
+
+/* Literal.String.Symbol */
+.highlight .bp { color: #24909d; }
+
+/* Name.Builtin.Pseudo */
+.highlight .vc { color: #40ffff; }
+
+/* Name.Variable.Class */
+.highlight .vg { color: #40ffff; }
+
+/* Name.Variable.Global */
+.highlight .vi { color: #40ffff; }
+
+/* Name.Variable.Instance */
+.highlight .il { color: #3677a9; }
+
+/* Literal.Number.Integer.Long */
+#show-comments-button { background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; font-size: 20px; margin: 0px 0px; width: 100%; }
+
+#markdown-toc::before { content: "目录"; font-weight: bold; }
+
+#markdown-toc { border: 1px solid #aaa; padding: 1.5em; list-style: decimal; display: inline-block; }
+
+#backtop a { /* back to top button */ color: #fff; font-size: 30px; box-shadow: var(--box-shadow-1); z-index: 9999; position: fixed; text-align: center; padding: 8px 0; width: 50px; height: 50px; border-radius: 50%; border: none; outline: none; bottom: 10px; right: 10px; background-color: rgba(128, 128, 128, 0.3); }
+
+@media (min-width: 768px) { #backtop a { display: none; } }
+
+.spoiler { color: #a1a1a1; background-color: #a1a1a1; }
+
+.spoiler:hover { color: black; }
+
+.fancy-figure { text-align: center; margin: 1.5em 0; }
+
+.fancy-figure a { display: inline-block; max-width: 100%; }
+
+.fancy-figure img { max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); transition: transform 0.2s ease; }
+
+.fancy-figure img:hover { transform: scale(1.02); }
+
+.fancy-figure figcaption { font-size: 0.9em; color: #777; margin-top: 0.5em; line-height: 1.4; }
+
+/* 0. Variables ========================================================================== */
+/* 1. General ========================================================================== */
+* { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+html { margin: 0; padding: 0; height: 100%; overflow-x: hidden; }
+
+html, html.light { --bg_color: #2e3440; --header_bg: #3b4252; --content_bg: #434c5e; --archive_font: #d8dee9; --archive_title: #88c0d0; --archive_title_hover: #81a1c1; --name_font: #d8dee9; --job_font: #d8dee9; --nav_font: #81a1c1; --nav_font_hover: #5e81ac; --shadow_color: rgba(0, 0, 0, 0.1); --post_title: #88c0d0; --post_date: #d8dee9; --post_text: #d8dee9; --post_h3: #eceff4; --post_link: #81a1c1; --post_link_hover: #5e81ac; --inlinecode_text: #ebcb8b; --blockquote: #d8dee9; --footer_font: #eceff4; --footer_font_a: #81a1c1; --border_radius: 8px; }
+
+html.dark { --bg_color: #FFCC00; --header_bg: #FFD700; --content_bg: #FDDB29; --archive_font: #000; --archive_title: #000; --archive_title_hover: #555361; --name_font: #000; --job_font: #000; --nav_font: #000; --nav_font_hover: #555361; --shadow_color: rgba(160, 160, 160, 0.05); --post_title: #000; --post_date: #000; --post_text: #000; --post_h3: #000; --post_link: #E81A1A; --post_link_hover: #e46b6b; --inlinecode_text: #1E883D; --blockquote: #000; --footer_font: #000; --footer_font_a: #E81A1A; --border_radius: 15px; }
+
+@media (prefers_color: light), (prefers_color: no-preference) { html { --bg_color: #2e3440; --header_bg: #3b4252; --content_bg: #434c5e; --archive_font: #d8dee9; --archive_title: #88c0d0; --archive_title_hover: #81a1c1; --name_font: #d8dee9; --job_font: #d8dee9; --nav_font: #81a1c1; --nav_font_hover: #5e81ac; --shadow_color: rgba(0, 0, 0, 0.1); --post_title: #88c0d0; --post_date: #d8dee9; --post_text: #d8dee9; --post_h3: #eceff4; --post_link: #81a1c1; --post_link_hover: #5e81ac; --inlinecode_text: #ebcb8b; --blockquote: #d8dee9; --footer_font: #eceff4; --footer_font_a: #81a1c1; --border_radius: 8px; } html.dark { --bg_color: #FFCC00; --header_bg: #FFD700; --content_bg: #FDDB29; --archive_font: #000; --archive_title: #000; --archive_title_hover: #555361; --name_font: #000; --job_font: #000; --nav_font: #000; --nav_font_hover: #555361; --shadow_color: rgba(160, 160, 160, 0.05); --post_title: #000; --post_date: #000; --post_text: #000; --post_h3: #000; --post_link: #E81A1A; --post_link_hover: #e46b6b; --inlinecode_text: #1E883D; --blockquote: #000; --footer_font: #000; --footer_font_a: #E81A1A; --border_radius: 15px; } }
+
+@media (prefers_color: dark) { html { --bg_color: #FFCC00; --header_bg: #FFD700; --content_bg: #FDDB29; --archive_font: #000; --archive_title: #000; --archive_title_hover: #555361; --name_font: #000; --job_font: #000; --nav_font: #000; --nav_font_hover: #555361; --shadow_color: rgba(160, 160, 160, 0.05); --post_title: #000; --post_date: #000; --post_text: #000; --post_h3: #000; --post_link: #E81A1A; --post_link_hover: #e46b6b; --inlinecode_text: #1E883D; --blockquote: #000; --footer_font: #000; --footer_font_a: #E81A1A; --border_radius: 15px; } html.light { --bg_color: #2e3440; --header_bg: #3b4252; --content_bg: #434c5e; --archive_font: #d8dee9; --archive_title: #88c0d0; --archive_title_hover: #81a1c1; --name_font: #d8dee9; --job_font: #d8dee9; --nav_font: #81a1c1; --nav_font_hover: #5e81ac; --shadow_color: rgba(0, 0, 0, 0.1); --post_title: #88c0d0; --post_date: #d8dee9; --post_text: #d8dee9; --post_h3: #eceff4; --post_link: #81a1c1; --post_link_hover: #5e81ac; --inlinecode_text: #ebcb8b; --blockquote: #d8dee9; --footer_font: #eceff4; --footer_font_a: #81a1c1; --border_radius: 8px; } }
+
+body { height: 100%; font-weight: normal; font-style: normal; font-family: -apple-system, BlinkMacSystemFont, 'Titillium Web', "Segoe UI", Roboto, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; margin: 0; padding: 0; background-color: var(--bg_color); transition: background-color 0.5s ease; background-size: 100%; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-text-size-adjust: 100%; }
+
+@media (min-width: 769px) { body { zoom: 1; } }
+
+a { text-decoration: none; }
+
+img { max-width: 100%; margin-left: auto; margin-right: auto; }
+
+.content { margin: 1.4em auto; z-index: 0; background: var(--content_bg); position: relative; min-height: 85%; border-radius: 15px; box-shadow: 0 0 2px 2px var(--shadow_color); padding-bottom: 2rem; }
+
+@media (min-width: 769px) { .content { margin-left: auto; margin-right: auto; max-width: 960px; padding-top: 2.5rem; } }
+
+@media (max-width: 768px) { .content { padding-top: 16rem; min-height: 75%; max-width: 92%; } }
+
+.main { padding: 0.5rem; }
+
+@media (min-width: 769px) { .main { margin-left: 22rem; } }
+
+@media (min-width: 769px) { .about { max-width: 30rem; margin-top: 5.5rem; } .about img { float: none; } }
+
+@media (max-width: 768px) { margin-top: 2rem; margin-left: 1rem; margin-right: 1rem; }
+
+::-webkit-scrollbar { width: 8px; height: 6px; }
+
+::-webkit-scrollbar-track { -webkit-border-radius: 10px; border-radius: 10px; }
+
+::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.5); -webkit-border-radius: 0px; border-radius: 0px; }
+
+::-webkit-scrollbar-thumb:window-inactive { background: rgba(0, 0, 0, 0.2); }
+
+.fourzerofour { text-align: center; font-size: 1.3rem; margin-top: 7rem; }
+
+/* 2. Archive ========================================================================== */
+.archive { color: var(--archive_font); }
+
+.archive ul { list-style: none; margin: 0; padding: 0; }
+
+.archive ul li { margin-bottom: 0.6rem; }
+
+.archive a { text-decoration: none; color: var(--archive_title); }
+
+.archive a:hover, .archive a:focus { color: var(--archive_title_hover); }
+
+@media (min-width: 769px) { .archive { max-width: 30rem; margin-top: 5rem; } }
+
+@media (max-width: 768px) { .archive { margin-top: 2rem; margin-left: 1.2rem; margin-right: 1.2rem; } }
+
+.archive_date { text-transform: uppercase; }
+
+@media (min-width: 769px) { .archive_date { float: right; } }
+
+.archive_title { word-wrap: normal; }
+
+@media (min-width: 769px) { .archive_title { max-width: 80%; } }
+
+.archive_type { font-size: 2rem; font-weight: bold; margin-bottom: 1rem; }
+
+.archive_year { font-size: 1.2rem; margin-top: 1.4rem; margin-bottom: 0.6rem; }
+
+/* 3. Header ========================================================================== */
+.header { background-color: var(--header_bg); z-index: 1; position: absolute; top: 0; border-radius: var(--border_radius); box-shadow: 0 0 2px 2px var(--shadow_color); }
+
+@media (max-width: 768px) { .header { width: 100%; height: 9rem; } }
+
+@media (min-width: 769px) { .header { width: 18rem; height: 100%; min-height: 100%; } }
+
+.header_content { position: absolute; text-align: center; }
+
+@media (min-width: 769px) { .header_content { margin-top: 8rem; width: 100%; } }
+
+@media (max-width: 768px) { .header_content { margin-top: 3rem; width: 100%; } }
+
+.header_circle, .header_circle img { border: none; box-sizing: border-box; height: 7rem; width: 7rem; border-radius: 50%; }
+
+.header_circle:hover, .header_circle img:hover { cursor: pointer; animation: jiggle 2s ease-in-out infinite; }
+
+@media (max-width: 768px) { .header_circle, .header_circle img { bottom: 0; left: 0; margin-left: auto; margin-right: auto; } }
+
+.header_name { display: block; color: var(--name_font); font-size: 1.5em; }
+
+.header_job { display: block; margin-top: .1rem; color: var(--job_font); font-size: 0.75em; font-weight: 700; }
+
+.theme_changer { cursor: pointer; }
+
+.theme_changer input { display: none; }
+
+.theme_changer input + div { background: url("/assets/img/s.png") no-repeat center; width: 30px; height: 30px; border-radius: 50%; position: relative; transition: box-shadow .5s ease 0s, transform .5s ease .1s; }
+
+.theme_changer input + div:before { content: ''; width: inherit; height: inherit; position: absolute; left: 0; top: 0; transition: background .5s ease; }
+
+.theme_changer input + div:after { background: url("/assets/img/m.png") no-repeat center; border-radius: 50%; content: ''; width: 30px; height: 30px; position: absolute; transform: scale(0); transition: all .5s ease; }
+
+.theme_changer input:checked + div { transform: scale(0.5); }
+
+.theme_changer input:checked + div:after { transform: scale(2); transition: transform .5s ease .15s; }
+
+.button { margin-left: auto; margin-right: auto; }
+
+.nav { margin-top: 1rem; }
+
+@media (max-width: 768px) { .nav { display: none; } }
+
+.nav_list { margin: 0; padding: 0; list-style: none; }
+
+@media (max-width: 768px) { .nav_list { text-align: center; } }
+
+.nav_item { display: inline-block; *display: inline; zoom: 1; }
+
+.nav_item a { color: var(--nav_font); font-size: 90%; }
+
+.nav_item a:hover, .nav_item a:focus { color: var(--nav_font_hover); }
+
+@media (max-width: 768px) { .nav_item:after { content: '/'; color: var(--nav_font); } .nav_item:first-child::before, .nav_item:last-child::after { content: none; } .nav_item:last-child { margin-right: 0; } }
+
+.mobile_menu { display: none; }
+
+@media (max-width: 768px) { .mobile_menu { display: block; margin: -.5rem; } }
+
+@media (min-width: 769px) { .mobile_menu { position: absolute; top: 1.25rem; right: 1.25rem; } }
+
+@keyframes jiggle { 0% { transform: rotate(0); }
+  25% { transform: rotate(-3deg); }
+  50% { transform: rotate(0); }
+  75% { transform: rotate(3deg); } }
+
+/* 4. Post ========================================================================== */
+.post { color: var(--post_text); }
+
+@media (min-width: 769px) { .post { max-width: 33rem; margin-top: 5rem; } }
+
+@media (max-width: 768px) { .post { margin-top: 2rem; margin-left: 1rem; margin-right: 1rem; } }
+
+.post_title { color: var(--post_title); font-size: 1.8rem; line-height: 2.2rem; font-weight: 700; }
+
+@media (max-width: 768px) { .post_title { text-align: center; font-size: 1.5rem; } }
+
+.post_data { margin-top: -0.5rem; margin-bottom: 3.5rem; }
+
+@media (max-width: 768px) { .post_data { text-align: center; margin-top: -1rem; } }
+
+.post_date { color: var(--post_date); letter-spacing: -0.5px; line-height: 1; }
+
+.post_categories { line-height: 1; margin-left: 0.3rem; }
+
+.post_categories a { color: var(--nav_font); }
+
+.post_categories a:hover, .post_categories a:focus { color: var(--nav_font_hover); }
+
+.post_content { font-size: 0.95rem; line-height: 1.5rem; color: var(--post_text); }
+
+.post_content h1, .post_content h2 { margin-top: 2rem; }
+
+.post_content h3 { margin-top: 2rem; color: var(--post_h3); }
+
+.post_content h4 { margin-top: 2rem; margin-bottom: -.5rem; color: var(--post_h3); }
+
+.post_content p { max-width: 49rem; }
+
+.post_content a { color: var(--post_link); word-wrap: break-word; max-width: 100%; }
+
+.post_content a:hover, .post_content a:focus { color: var(--post_link_hover); }
+
+.post_content a[href^="http"]:not([href*="zhui.dev"]), .post_content a[href^="https"]:not([href*="zhui.dev"]) { text-decoration: underline; }
+
+.post_content li { margin-bottom: 0.3rem; }
+
+.post_content pre { font-size: 0.85rem; text-decoration: none; display: block; padding: 1rem; overflow-x: scroll; border-radius: 10px; white-space: pre; }
+
+.post_content code { color: var(--inlinecode_text); padding: .1em .4em; border-radius: 5px; font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif; font-size: .85rem; }
+
+.post_content pre code { color: #fafafa; padding: 0; border: none; }
+
+.post_content img { max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); transition: transform 0.2s ease; }
+
+.post_content img:hover { transform: scale(1.02); }
+
+.post_content hr { margin-top: 2rem; border: none; border-top: 1px solid rgba(0, 0, 0, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
+
+.post_content blockquote { border-left: 5px solid var(--blockquote); margin: 10px 0 10px 0; padding: 2px 8px 2px 8px; font-style: italic; }
+
+.post_content dfn { border-bottom: dashed 1px var(--job_font); padding: 0 0.2rem; font-style: normal; position: relative; }
+
+.post_content dfn::after { content: attr(info); display: inline; position: absolute; top: 22px; left: 0; opacity: 0; width: 11rem; color: #fff; font-size: 13px; font-weight: 700; line-height: 1.5em; padding: 0.5rem 0.8rem; background: #064b4d; pointer-events: none; transition: opacity 200ms, top 200ms; }
+
+.post_content dfn::before { content: ''; display: block; position: absolute; top: 12px; left: 20px; opacity: 0; width: 0; height: 0; border: solid transparent 5px; border-bottom-color: #064b4d; transition: opacity 200ms, top 200ms; }
+
+.post_content dfn:hover::after, .post_content dfn:hover::before { opacity: 1; }
+
+.post_content dfn:hover::after { top: 30px; }
+
+.post_content dfn:hover::before { top: 20px; }
+
+.post_comment { margin-top: 3rem; padding: 10px; }
+
+/* 6. Footer ========================================================================== */
+.footer { left: 0; right: 0; bottom: 0; height: 2.4rem; text-align: center; color: var(--footer_font); font-size: 0.7rem; }
+
+.footer a { text-decoration: none; color: var(--footer_font_a); }
+
+/* 7. Etc  =============================================================================*/
+@media (min-width: 769px) { .snow { position: absolute; width: 8px; height: 8px; background: white; border-radius: 50%; } .snow:nth-child(1) { transform: translate(76.8439vw, -10px) scale(0.5026); animation: fall-1 32s -11s linear infinite; } @keyframes fall-1 { 31.938% { transform: translate(66.9558vw, 31.938vh) scale(0.5026); }
+    to { transform: translate(71.89985vw, 100vh) scale(0.5026); } } .snow:nth-child(2) { transform: translate(98.3583vw, -10px) scale(0.7766); animation: fall-2 39s -11s linear infinite; } @keyframes fall-2 { 70.785% { transform: translate(96.3657vw, 70.785vh) scale(0.7766); }
+    to { transform: translate(97.362vw, 100vh) scale(0.7766); } } .snow:nth-child(3) { transform: translate(38.5717vw, -10px) scale(0.6948); animation: fall-3 39s -22s linear infinite; } @keyframes fall-3 { 32.438% { transform: translate(28.9866vw, 32.438vh) scale(0.6948); }
+    to { transform: translate(33.77915vw, 100vh) scale(0.6948); } } .snow:nth-child(4) { transform: translate(13.261vw, -10px) scale(0.7949); animation: fall-4 30s -9s linear infinite; } @keyframes fall-4 { 30.627% { transform: translate(11.2787vw, 30.627vh) scale(0.7949); }
+    to { transform: translate(12.26985vw, 100vh) scale(0.7949); } } .snow:nth-child(5) { transform: translate(62.6899vw, -10px) scale(0.5094); animation: fall-5 30s -29s linear infinite; } @keyframes fall-5 { 71.143% { transform: translate(54.6191vw, 71.143vh) scale(0.5094); }
+    to { transform: translate(58.6545vw, 100vh) scale(0.5094); } } .snow:nth-child(6) { transform: translate(98.0958vw, -10px) scale(0.8745); animation: fall-6 31s -24s linear infinite; } @keyframes fall-6 { 49.541% { transform: translate(103.6129vw, 49.541vh) scale(0.8745); }
+    to { transform: translate(100.85435vw, 100vh) scale(0.8745); } } .snow:nth-child(7) { transform: translate(59.7015vw, -10px) scale(0.7035); animation: fall-7 30s -15s linear infinite; } @keyframes fall-7 { 51.798% { transform: translate(57.3895vw, 51.798vh) scale(0.7035); }
+    to { transform: translate(58.5455vw, 100vh) scale(0.7035); } } .snow:nth-child(8) { transform: translate(74.3316vw, -10px) scale(0.9901); animation: fall-8 31s -26s linear infinite; } @keyframes fall-8 { 62.901% { transform: translate(66.3651vw, 62.901vh) scale(0.9901); }
+    to { transform: translate(70.34835vw, 100vh) scale(0.9901); } } .snow:nth-child(9) { transform: translate(68.4689vw, -10px) scale(0.7169); animation: fall-9 37s -4s linear infinite; } @keyframes fall-9 { 49.728% { transform: translate(69.5335vw, 49.728vh) scale(0.7169); }
+    to { transform: translate(69.0012vw, 100vh) scale(0.7169); } } .snow:nth-child(10) { transform: translate(82.6607vw, -10px) scale(0.5537); animation: fall-10 31s -1s linear infinite; } @keyframes fall-10 { 76.841% { transform: translate(91.2062vw, 76.841vh) scale(0.5537); }
+    to { transform: translate(86.93345vw, 100vh) scale(0.5537); } } .snow:nth-child(11) { transform: translate(41.0007vw, -10px) scale(0.602); animation: fall-11 39s -7s linear infinite; } @keyframes fall-11 { 71.197% { transform: translate(48.6952vw, 71.197vh) scale(0.602); }
+    to { transform: translate(44.84795vw, 100vh) scale(0.602); } } .snow:nth-child(12) { transform: translate(99.9097vw, -10px) scale(0.6962); animation: fall-12 37s -4s linear infinite; } @keyframes fall-12 { 48.626% { transform: translate(94.387vw, 48.626vh) scale(0.6962); }
+    to { transform: translate(97.14835vw, 100vh) scale(0.6962); } } .snow:nth-child(13) { transform: translate(11.703vw, -10px) scale(0.7678); animation: fall-13 31s -28s linear infinite; } @keyframes fall-13 { 72.936% { transform: translate(20.126vw, 72.936vh) scale(0.7678); }
+    to { transform: translate(15.9145vw, 100vh) scale(0.7678); } } .snow:nth-child(14) { transform: translate(46.8331vw, -10px) scale(0.9961); animation: fall-14 30s -17s linear infinite; } @keyframes fall-14 { 68.598% { transform: translate(56.7934vw, 68.598vh) scale(0.9961); }
+    to { transform: translate(51.81325vw, 100vh) scale(0.9961); } } .snow:nth-child(15) { transform: translate(60.4456vw, -10px) scale(0.7156); animation: fall-15 30s -9s linear infinite; } @keyframes fall-15 { 66.801% { transform: translate(69.7157vw, 66.801vh) scale(0.7156); }
+    to { transform: translate(65.08065vw, 100vh) scale(0.7156); } } .snow:nth-child(16) { transform: translate(10.4589vw, -10px) scale(0.6853); animation: fall-16 37s -29s linear infinite; } @keyframes fall-16 { 61.794% { transform: translate(11.1429vw, 61.794vh) scale(0.6853); }
+    to { transform: translate(10.8009vw, 100vh) scale(0.6853); } } .snow:nth-child(17) { transform: translate(76.4989vw, -10px) scale(0.6336); animation: fall-17 40s -19s linear infinite; } @keyframes fall-17 { 53.505% { transform: translate(83.0452vw, 53.505vh) scale(0.6336); }
+    to { transform: translate(79.77205vw, 100vh) scale(0.6336); } } .snow:nth-child(18) { transform: translate(83.5053vw, -10px) scale(0.915); animation: fall-18 38s -30s linear infinite; } @keyframes fall-18 { 44.546% { transform: translate(76.2599vw, 44.546vh) scale(0.915); }
+    to { transform: translate(79.8826vw, 100vh) scale(0.915); } } .snow:nth-child(19) { transform: translate(58.4684vw, -10px) scale(0.941); animation: fall-19 32s -15s linear infinite; } @keyframes fall-19 { 67.745% { transform: translate(48.8246vw, 67.745vh) scale(0.941); }
+    to { transform: translate(53.6465vw, 100vh) scale(0.941); } } .snow:nth-child(20) { transform: translate(29.236vw, -10px) scale(0.9382); animation: fall-20 33s -23s linear infinite; } @keyframes fall-20 { 51.158% { transform: translate(31.9679vw, 51.158vh) scale(0.9382); }
+    to { transform: translate(30.60195vw, 100vh) scale(0.9382); } } .snow:nth-child(21) { transform: translate(7.5604vw, -10px) scale(0.8072); animation: fall-21 30s -13s linear infinite; } @keyframes fall-21 { 48.431% { transform: translate(11.2939vw, 48.431vh) scale(0.8072); }
+    to { transform: translate(9.42715vw, 100vh) scale(0.8072); } } .snow:nth-child(22) { transform: translate(71.128vw, -10px) scale(0.8667); animation: fall-22 38s -8s linear infinite; } @keyframes fall-22 { 64.034% { transform: translate(61.4999vw, 64.034vh) scale(0.8667); }
+    to { transform: translate(66.31395vw, 100vh) scale(0.8667); } } .snow:nth-child(23) { transform: translate(92.8416vw, -10px) scale(0.6239); animation: fall-23 34s -19s linear infinite; } @keyframes fall-23 { 52.945% { transform: translate(92.4742vw, 52.945vh) scale(0.6239); }
+    to { transform: translate(92.6579vw, 100vh) scale(0.6239); } } .snow:nth-child(24) { transform: translate(91.3613vw, -10px) scale(0.6893); animation: fall-24 37s -23s linear infinite; } @keyframes fall-24 { 72.706% { transform: translate(82.593vw, 72.706vh) scale(0.6893); }
+    to { transform: translate(86.97715vw, 100vh) scale(0.6893); } } .snow:nth-child(25) { transform: translate(50.1905vw, -10px) scale(0.9564); animation: fall-25 31s -6s linear infinite; } @keyframes fall-25 { 41.557% { transform: translate(43.7725vw, 41.557vh) scale(0.9564); }
+    to { transform: translate(46.9815vw, 100vh) scale(0.9564); } } .snow:nth-child(26) { transform: translate(90.1142vw, -10px) scale(0.6014); animation: fall-26 38s -18s linear infinite; } @keyframes fall-26 { 47.534% { transform: translate(89.1305vw, 47.534vh) scale(0.6014); }
+    to { transform: translate(89.62235vw, 100vh) scale(0.6014); } } .snow:nth-child(27) { transform: translate(8.043vw, -10px) scale(0.9701); animation: fall-27 32s -20s linear infinite; } @keyframes fall-27 { 39.247% { transform: translate(17.1349vw, 39.247vh) scale(0.9701); }
+    to { transform: translate(12.58895vw, 100vh) scale(0.9701); } } .snow:nth-child(28) { transform: translate(41.3333vw, -10px) scale(0.9532); animation: fall-28 31s -22s linear infinite; } @keyframes fall-28 { 76.37% { transform: translate(34.1879vw, 76.37vh) scale(0.9532); }
+    to { transform: translate(37.7606vw, 100vh) scale(0.9532); } } .snow:nth-child(29) { transform: translate(92.5804vw, -10px) scale(0.7947); animation: fall-29 37s -23s linear infinite; } @keyframes fall-29 { 31.896% { transform: translate(99.4976vw, 31.896vh) scale(0.7947); }
+    to { transform: translate(96.039vw, 100vh) scale(0.7947); } } .snow:nth-child(30) { transform: translate(51.0391vw, -10px) scale(0.8537); animation: fall-30 39s -12s linear infinite; } @keyframes fall-30 { 52.112% { transform: translate(59.0919vw, 52.112vh) scale(0.8537); }
+    to { transform: translate(55.0655vw, 100vh) scale(0.8537); } } .snow:nth-child(31) { transform: translate(68.5724vw, -10px) scale(0.6391); animation: fall-31 31s -1s linear infinite; } @keyframes fall-31 { 78.522% { transform: translate(60.2872vw, 78.522vh) scale(0.6391); }
+    to { transform: translate(64.4298vw, 100vh) scale(0.6391); } } .snow:nth-child(32) { transform: translate(59.0119vw, -10px) scale(0.9912); animation: fall-32 35s -2s linear infinite; } @keyframes fall-32 { 47.892% { transform: translate(56.1931vw, 47.892vh) scale(0.9912); }
+    to { transform: translate(57.6025vw, 100vh) scale(0.9912); } } .snow:nth-child(33) { transform: translate(39.6324vw, -10px) scale(0.5134); animation: fall-33 34s -19s linear infinite; } @keyframes fall-33 { 69.395% { transform: translate(35.244vw, 69.395vh) scale(0.5134); }
+    to { transform: translate(37.4382vw, 100vh) scale(0.5134); } } .snow:nth-child(34) { transform: translate(34.5487vw, -10px) scale(0.856); animation: fall-34 38s -23s linear infinite; } @keyframes fall-34 { 72.317% { transform: translate(24.7416vw, 72.317vh) scale(0.856); }
+    to { transform: translate(29.64515vw, 100vh) scale(0.856); } } .snow:nth-child(35) { transform: translate(70.4102vw, -10px) scale(0.6225); animation: fall-35 33s -1s linear infinite; } @keyframes fall-35 { 40.113% { transform: translate(65.9203vw, 40.113vh) scale(0.6225); }
+    to { transform: translate(68.16525vw, 100vh) scale(0.6225); } } .snow:nth-child(36) { transform: translate(10.8312vw, -10px) scale(0.6276); animation: fall-36 33s -4s linear infinite; } @keyframes fall-36 { 66.266% { transform: translate(18.6458vw, 66.266vh) scale(0.6276); }
+    to { transform: translate(14.7385vw, 100vh) scale(0.6276); } } .snow:nth-child(37) { transform: translate(6.4407vw, -10px) scale(0.8292); animation: fall-37 30s -5s linear infinite; } @keyframes fall-37 { 36.172% { transform: translate(-1.3686vw, 36.172vh) scale(0.8292); }
+    to { transform: translate(2.53605vw, 100vh) scale(0.8292); } } .snow:nth-child(38) { transform: translate(22.9283vw, -10px) scale(0.9404); animation: fall-38 32s -16s linear infinite; } @keyframes fall-38 { 49.068% { transform: translate(25.1342vw, 49.068vh) scale(0.9404); }
+    to { transform: translate(24.03125vw, 100vh) scale(0.9404); } } .snow:nth-child(39) { transform: translate(96.9577vw, -10px) scale(0.7387); animation: fall-39 40s -19s linear infinite; } @keyframes fall-39 { 57.595% { transform: translate(94.5118vw, 57.595vh) scale(0.7387); }
+    to { transform: translate(95.73475vw, 100vh) scale(0.7387); } } .snow:nth-child(40) { transform: translate(10.4754vw, -10px) scale(0.5444); animation: fall-40 36s -25s linear infinite; } @keyframes fall-40 { 48.846% { transform: translate(18.3263vw, 48.846vh) scale(0.5444); }
+    to { transform: translate(14.40085vw, 100vh) scale(0.5444); } } .snow:nth-child(41) { transform: translate(97.4493vw, -10px) scale(0.762); animation: fall-41 36s -28s linear infinite; } @keyframes fall-41 { 37.748% { transform: translate(89.7336vw, 37.748vh) scale(0.762); }
+    to { transform: translate(93.59145vw, 100vh) scale(0.762); } } .snow:nth-child(42) { transform: translate(45.4694vw, -10px) scale(0.8516); animation: fall-42 30s -9s linear infinite; } @keyframes fall-42 { 31.035% { transform: translate(49.1854vw, 31.035vh) scale(0.8516); }
+    to { transform: translate(47.3274vw, 100vh) scale(0.8516); } } .snow:nth-child(43) { transform: translate(12.5845vw, -10px) scale(0.6416); animation: fall-43 33s -12s linear infinite; } @keyframes fall-43 { 79.639% { transform: translate(16.0701vw, 79.639vh) scale(0.6416); }
+    to { transform: translate(14.3273vw, 100vh) scale(0.6416); } } .snow:nth-child(44) { transform: translate(38.9699vw, -10px) scale(0.7769); animation: fall-44 36s -13s linear infinite; } @keyframes fall-44 { 77.77% { transform: translate(33.7635vw, 77.77vh) scale(0.7769); }
+    to { transform: translate(36.3667vw, 100vh) scale(0.7769); } } .snow:nth-child(45) { transform: translate(71.8887vw, -10px) scale(0.7422); animation: fall-45 33s -22s linear infinite; } @keyframes fall-45 { 37.245% { transform: translate(67.8482vw, 37.245vh) scale(0.7422); }
+    to { transform: translate(69.86845vw, 100vh) scale(0.7422); } } .snow:nth-child(46) { transform: translate(61.9132vw, -10px) scale(0.5752); animation: fall-46 31s -13s linear infinite; } @keyframes fall-46 { 63.305% { transform: translate(62.2201vw, 63.305vh) scale(0.5752); }
+    to { transform: translate(62.06665vw, 100vh) scale(0.5752); } } .snow:nth-child(47) { transform: translate(89.1636vw, -10px) scale(0.5697); animation: fall-47 36s -4s linear infinite; } @keyframes fall-47 { 66.119% { transform: translate(85.7897vw, 66.119vh) scale(0.5697); }
+    to { transform: translate(87.47665vw, 100vh) scale(0.5697); } } .snow:nth-child(48) { transform: translate(67.0533vw, -10px) scale(0.5511); animation: fall-48 31s -20s linear infinite; } @keyframes fall-48 { 58.086% { transform: translate(58.4753vw, 58.086vh) scale(0.5511); }
+    to { transform: translate(62.7643vw, 100vh) scale(0.5511); } } .snow:nth-child(49) { transform: translate(53.3344vw, -10px) scale(0.9234); animation: fall-49 31s -21s linear infinite; } @keyframes fall-49 { 79.26% { transform: translate(61.7344vw, 79.26vh) scale(0.9234); }
+    to { transform: translate(57.5344vw, 100vh) scale(0.9234); } } .snow:nth-child(50) { transform: translate(64.2542vw, -10px) scale(0.8844); animation: fall-50 32s -25s linear infinite; } @keyframes fall-50 { 61.923% { transform: translate(69.4234vw, 61.923vh) scale(0.8844); }
+    to { transform: translate(66.8388vw, 100vh) scale(0.8844); } } .snow:nth-child(51) { transform: translate(27.9895vw, -10px) scale(0.9819); animation: fall-51 33s -25s linear infinite; } @keyframes fall-51 { 65.6% { transform: translate(28.8464vw, 65.6vh) scale(0.9819); }
+    to { transform: translate(28.41795vw, 100vh) scale(0.9819); } } .snow:nth-child(52) { transform: translate(50.3953vw, -10px) scale(0.9569); animation: fall-52 33s -21s linear infinite; } @keyframes fall-52 { 77.187% { transform: translate(57.9744vw, 77.187vh) scale(0.9569); }
+    to { transform: translate(54.18485vw, 100vh) scale(0.9569); } } .snow:nth-child(53) { transform: translate(62.5154vw, -10px) scale(0.899); animation: fall-53 38s -8s linear infinite; } @keyframes fall-53 { 67.643% { transform: translate(58.8226vw, 67.643vh) scale(0.899); }
+    to { transform: translate(60.669vw, 100vh) scale(0.899); } } .snow:nth-child(54) { transform: translate(74.9343vw, -10px) scale(0.7739); animation: fall-54 35s -24s linear infinite; } @keyframes fall-54 { 32.916% { transform: translate(70.2631vw, 32.916vh) scale(0.7739); }
+    to { transform: translate(72.5987vw, 100vh) scale(0.7739); } } .snow:nth-child(55) { transform: translate(28.5493vw, -10px) scale(0.8796); animation: fall-55 30s -28s linear infinite; } @keyframes fall-55 { 75.966% { transform: translate(31.2526vw, 75.966vh) scale(0.8796); }
+    to { transform: translate(29.90095vw, 100vh) scale(0.8796); } } .snow:nth-child(56) { transform: translate(30.6058vw, -10px) scale(0.6628); animation: fall-56 30s -2s linear infinite; } @keyframes fall-56 { 50.307% { transform: translate(36.5713vw, 50.307vh) scale(0.6628); }
+    to { transform: translate(33.58855vw, 100vh) scale(0.6628); } } .snow:nth-child(57) { transform: translate(57.199vw, -10px) scale(0.7822); animation: fall-57 37s -26s linear infinite; } @keyframes fall-57 { 54.623% { transform: translate(57.9524vw, 54.623vh) scale(0.7822); }
+    to { transform: translate(57.5757vw, 100vh) scale(0.7822); } } .snow:nth-child(58) { transform: translate(34.9837vw, -10px) scale(0.5526); animation: fall-58 40s -2s linear infinite; } @keyframes fall-58 { 48.146% { transform: translate(33.4713vw, 48.146vh) scale(0.5526); }
+    to { transform: translate(34.2275vw, 100vh) scale(0.5526); } } .snow:nth-child(59) { transform: translate(45.5895vw, -10px) scale(0.9264); animation: fall-59 35s -7s linear infinite; } @keyframes fall-59 { 49.22% { transform: translate(43.7209vw, 49.22vh) scale(0.9264); }
+    to { transform: translate(44.6552vw, 100vh) scale(0.9264); } } .snow:nth-child(60) { transform: translate(28.9801vw, -10px) scale(0.8713); animation: fall-60 39s -20s linear infinite; } @keyframes fall-60 { 79.835% { transform: translate(30.8065vw, 79.835vh) scale(0.8713); }
+    to { transform: translate(29.8933vw, 100vh) scale(0.8713); } } .snow:nth-child(61) { transform: translate(79.0858vw, -10px) scale(0.7653); animation: fall-61 31s -20s linear infinite; } @keyframes fall-61 { 30.555% { transform: translate(71.6056vw, 30.555vh) scale(0.7653); }
+    to { transform: translate(75.3457vw, 100vh) scale(0.7653); } } .snow:nth-child(62) { transform: translate(89.0647vw, -10px) scale(0.8714); animation: fall-62 39s -28s linear infinite; } @keyframes fall-62 { 44.064% { transform: translate(81.7366vw, 44.064vh) scale(0.8714); }
+    to { transform: translate(85.40065vw, 100vh) scale(0.8714); } } .snow:nth-child(63) { transform: translate(9.271vw, -10px) scale(0.8429); animation: fall-63 37s -15s linear infinite; } @keyframes fall-63 { 36.208% { transform: translate(8.383vw, 36.208vh) scale(0.8429); }
+    to { transform: translate(8.827vw, 100vh) scale(0.8429); } } .snow:nth-child(64) { transform: translate(89.3282vw, -10px) scale(0.9094); animation: fall-64 33s -11s linear infinite; } @keyframes fall-64 { 49.092% { transform: translate(84.4251vw, 49.092vh) scale(0.9094); }
+    to { transform: translate(86.87665vw, 100vh) scale(0.9094); } } .snow:nth-child(65) { transform: translate(78.4148vw, -10px) scale(0.5818); animation: fall-65 37s -5s linear infinite; } @keyframes fall-65 { 60.564% { transform: translate(85.3977vw, 60.564vh) scale(0.5818); }
+    to { transform: translate(81.90625vw, 100vh) scale(0.5818); } } .snow:nth-child(66) { transform: translate(62.0895vw, -10px) scale(0.9532); animation: fall-66 34s -16s linear infinite; } @keyframes fall-66 { 37.4% { transform: translate(65.4508vw, 37.4vh) scale(0.9532); }
+    to { transform: translate(63.77015vw, 100vh) scale(0.9532); } } .snow:nth-child(67) { transform: translate(75.6616vw, -10px) scale(0.7225); animation: fall-67 37s -16s linear infinite; } @keyframes fall-67 { 53.766% { transform: translate(75.2028vw, 53.766vh) scale(0.7225); }
+    to { transform: translate(75.4322vw, 100vh) scale(0.7225); } } .snow:nth-child(68) { transform: translate(86.3841vw, -10px) scale(0.524); animation: fall-68 33s -15s linear infinite; } @keyframes fall-68 { 44.356% { transform: translate(89.1515vw, 44.356vh) scale(0.524); }
+    to { transform: translate(87.7678vw, 100vh) scale(0.524); } } .snow:nth-child(69) { transform: translate(10.4101vw, -10px) scale(0.7249); animation: fall-69 33s -10s linear infinite; } @keyframes fall-69 { 47.734% { transform: translate(9.747vw, 47.734vh) scale(0.7249); }
+    to { transform: translate(10.07855vw, 100vh) scale(0.7249); } } .snow:nth-child(70) { transform: translate(70.3698vw, -10px) scale(0.797); animation: fall-70 36s -24s linear infinite; } @keyframes fall-70 { 57.648% { transform: translate(65.0284vw, 57.648vh) scale(0.797); }
+    to { transform: translate(67.6991vw, 100vh) scale(0.797); } } .snow:nth-child(71) { transform: translate(52.6977vw, -10px) scale(0.8295); animation: fall-71 35s -30s linear infinite; } @keyframes fall-71 { 30.01% { transform: translate(52.246vw, 30.01vh) scale(0.8295); }
+    to { transform: translate(52.47185vw, 100vh) scale(0.8295); } } .snow:nth-child(72) { transform: translate(41.0235vw, -10px) scale(0.6056); animation: fall-72 39s -2s linear infinite; } @keyframes fall-72 { 31.023% { transform: translate(34.4066vw, 31.023vh) scale(0.6056); }
+    to { transform: translate(37.71505vw, 100vh) scale(0.6056); } } .snow:nth-child(73) { transform: translate(95.9775vw, -10px) scale(0.967); animation: fall-73 39s -2s linear infinite; } @keyframes fall-73 { 75.682% { transform: translate(97.8098vw, 75.682vh) scale(0.967); }
+    to { transform: translate(96.89365vw, 100vh) scale(0.967); } } .snow:nth-child(74) { transform: translate(30.5474vw, -10px) scale(0.7395); animation: fall-74 34s -24s linear infinite; } @keyframes fall-74 { 30.695% { transform: translate(32.3152vw, 30.695vh) scale(0.7395); }
+    to { transform: translate(31.4313vw, 100vh) scale(0.7395); } } .snow:nth-child(75) { transform: translate(35.2642vw, -10px) scale(0.9882); animation: fall-75 40s -26s linear infinite; } @keyframes fall-75 { 38.61% { transform: translate(32.625vw, 38.61vh) scale(0.9882); }
+    to { transform: translate(33.9446vw, 100vh) scale(0.9882); } } .snow:nth-child(76) { transform: translate(64.5404vw, -10px) scale(0.8658); animation: fall-76 39s -6s linear infinite; } @keyframes fall-76 { 69.749% { transform: translate(59.4364vw, 69.749vh) scale(0.8658); }
+    to { transform: translate(61.9884vw, 100vh) scale(0.8658); } } .snow:nth-child(77) { transform: translate(92.82vw, -10px) scale(0.7928); animation: fall-77 40s -4s linear infinite; } @keyframes fall-77 { 46.548% { transform: translate(99.8004vw, 46.548vh) scale(0.7928); }
+    to { transform: translate(96.3102vw, 100vh) scale(0.7928); } } .snow:nth-child(78) { transform: translate(75.8168vw, -10px) scale(0.9368); animation: fall-78 37s -9s linear infinite; } @keyframes fall-78 { 50.899% { transform: translate(70.9139vw, 50.899vh) scale(0.9368); }
+    to { transform: translate(73.36535vw, 100vh) scale(0.9368); } } .snow:nth-child(79) { transform: translate(6.5631vw, -10px) scale(0.5967); animation: fall-79 32s -30s linear infinite; } @keyframes fall-79 { 47.149% { transform: translate(13.2784vw, 47.149vh) scale(0.5967); }
+    to { transform: translate(9.92075vw, 100vh) scale(0.5967); } } .snow:nth-child(80) { transform: translate(14.6811vw, -10px) scale(0.5019); animation: fall-80 33s -12s linear infinite; } @keyframes fall-80 { 30.756% { transform: translate(14.2008vw, 30.756vh) scale(0.5019); }
+    to { transform: translate(14.44095vw, 100vh) scale(0.5019); } } .snow:nth-child(81) { transform: translate(4.4834vw, -10px) scale(0.5875); animation: fall-81 36s -13s linear infinite; } @keyframes fall-81 { 65.033% { transform: translate(7.1241vw, 65.033vh) scale(0.5875); }
+    to { transform: translate(5.80375vw, 100vh) scale(0.5875); } } .snow:nth-child(82) { transform: translate(99.7707vw, -10px) scale(0.9053); animation: fall-82 32s -22s linear infinite; } @keyframes fall-82 { 39.004% { transform: translate(105.4044vw, 39.004vh) scale(0.9053); }
+    to { transform: translate(102.58755vw, 100vh) scale(0.9053); } } .snow:nth-child(83) { transform: translate(0.7539vw, -10px) scale(0.7764); animation: fall-83 39s -27s linear infinite; } @keyframes fall-83 { 30.016% { transform: translate(10.69vw, 30.016vh) scale(0.7764); }
+    to { transform: translate(5.72195vw, 100vh) scale(0.7764); } } .snow:nth-child(84) { transform: translate(95.1988vw, -10px) scale(0.6339); animation: fall-84 32s -14s linear infinite; } @keyframes fall-84 { 39.093% { transform: translate(98.0478vw, 39.093vh) scale(0.6339); }
+    to { transform: translate(96.6233vw, 100vh) scale(0.6339); } } .snow:nth-child(85) { transform: translate(88.4029vw, -10px) scale(0.6996); animation: fall-85 35s -13s linear infinite; } @keyframes fall-85 { 30.072% { transform: translate(91.853vw, 30.072vh) scale(0.6996); }
+    to { transform: translate(90.12795vw, 100vh) scale(0.6996); } } .snow:nth-child(86) { transform: translate(26.3963vw, -10px) scale(0.5343); animation: fall-86 35s -22s linear infinite; } @keyframes fall-86 { 66.93% { transform: translate(33.2998vw, 66.93vh) scale(0.5343); }
+    to { transform: translate(29.84805vw, 100vh) scale(0.5343); } } .snow:nth-child(87) { transform: translate(66.7052vw, -10px) scale(0.6192); animation: fall-87 33s -20s linear infinite; } @keyframes fall-87 { 46.035% { transform: translate(71.0065vw, 46.035vh) scale(0.6192); }
+    to { transform: translate(68.85585vw, 100vh) scale(0.6192); } } .snow:nth-child(88) { transform: translate(18.3829vw, -10px) scale(0.8045); animation: fall-88 31s -26s linear infinite; } @keyframes fall-88 { 33.528% { transform: translate(23.3678vw, 33.528vh) scale(0.8045); }
+    to { transform: translate(20.87535vw, 100vh) scale(0.8045); } } .snow:nth-child(89) { transform: translate(20.9532vw, -10px) scale(0.668); animation: fall-89 37s -7s linear infinite; } @keyframes fall-89 { 53.397% { transform: translate(25.2698vw, 53.397vh) scale(0.668); }
+    to { transform: translate(23.1115vw, 100vh) scale(0.668); } } .snow:nth-child(90) { transform: translate(15.0857vw, -10px) scale(0.9373); animation: fall-90 34s -11s linear infinite; } @keyframes fall-90 { 69.568% { transform: translate(7.2738vw, 69.568vh) scale(0.9373); }
+    to { transform: translate(11.17975vw, 100vh) scale(0.9373); } } .snow:nth-child(91) { transform: translate(34.201vw, -10px) scale(0.6352); animation: fall-91 32s -25s linear infinite; } @keyframes fall-91 { 70.102% { transform: translate(32.9732vw, 70.102vh) scale(0.6352); }
+    to { transform: translate(33.5871vw, 100vh) scale(0.6352); } } .snow:nth-child(92) { transform: translate(96.1682vw, -10px) scale(0.6587); animation: fall-92 34s -8s linear infinite; } @keyframes fall-92 { 70.416% { transform: translate(91.5838vw, 70.416vh) scale(0.6587); }
+    to { transform: translate(93.876vw, 100vh) scale(0.6587); } } .snow:nth-child(93) { transform: translate(61.5828vw, -10px) scale(0.7369); animation: fall-93 40s -18s linear infinite; } @keyframes fall-93 { 55.066% { transform: translate(56.1348vw, 55.066vh) scale(0.7369); }
+    to { transform: translate(58.8588vw, 100vh) scale(0.7369); } } .snow:nth-child(94) { transform: translate(21.0963vw, -10px) scale(0.8826); animation: fall-94 32s -9s linear infinite; } @keyframes fall-94 { 71.62% { transform: translate(21.1838vw, 71.62vh) scale(0.8826); }
+    to { transform: translate(21.14005vw, 100vh) scale(0.8826); } } .snow:nth-child(95) { transform: translate(9.1769vw, -10px) scale(0.8758); animation: fall-95 38s -28s linear infinite; } @keyframes fall-95 { 39.739% { transform: translate(0.2809vw, 39.739vh) scale(0.8758); }
+    to { transform: translate(4.7289vw, 100vh) scale(0.8758); } } .snow:nth-child(96) { transform: translate(80.214vw, -10px) scale(0.8799); animation: fall-96 35s -30s linear infinite; } @keyframes fall-96 { 56.537% { transform: translate(74.2169vw, 56.537vh) scale(0.8799); }
+    to { transform: translate(77.21545vw, 100vh) scale(0.8799); } } .snow:nth-child(97) { transform: translate(61.87vw, -10px) scale(0.8674); animation: fall-97 31s -22s linear infinite; } @keyframes fall-97 { 54.01% { transform: translate(66.0599vw, 54.01vh) scale(0.8674); }
+    to { transform: translate(63.96495vw, 100vh) scale(0.8674); } } .snow:nth-child(98) { transform: translate(37.6686vw, -10px) scale(0.9847); animation: fall-98 30s -16s linear infinite; } @keyframes fall-98 { 35.566% { transform: translate(31.695vw, 35.566vh) scale(0.9847); }
+    to { transform: translate(34.6818vw, 100vh) scale(0.9847); } } .snow:nth-child(99) { transform: translate(83.6115vw, -10px) scale(0.7517); animation: fall-99 32s -24s linear infinite; } @keyframes fall-99 { 55.892% { transform: translate(90.9832vw, 55.892vh) scale(0.7517); }
+    to { transform: translate(87.29735vw, 100vh) scale(0.7517); } } .snow:nth-child(100) { transform: translate(60.4693vw, -10px) scale(0.5466); animation: fall-100 39s -21s linear infinite; } @keyframes fall-100 { 74.256% { transform: translate(53.5491vw, 74.256vh) scale(0.5466); }
+    to { transform: translate(57.0092vw, 100vh) scale(0.5466); } } .snow:nth-child(101) { transform: translate(11.485vw, -10px) scale(0.7005); animation: fall-101 37s -8s linear infinite; } @keyframes fall-101 { 79.509% { transform: translate(14.3273vw, 79.509vh) scale(0.7005); }
+    to { transform: translate(12.90615vw, 100vh) scale(0.7005); } } .snow:nth-child(102) { transform: translate(44.2311vw, -10px) scale(0.8075); animation: fall-102 32s -23s linear infinite; } @keyframes fall-102 { 44.953% { transform: translate(46.8422vw, 44.953vh) scale(0.8075); }
+    to { transform: translate(45.53665vw, 100vh) scale(0.8075); } } .snow:nth-child(103) { transform: translate(4.389vw, -10px) scale(0.8184); animation: fall-103 40s -27s linear infinite; } @keyframes fall-103 { 39.677% { transform: translate(-1.7048vw, 39.677vh) scale(0.8184); }
+    to { transform: translate(1.3421vw, 100vh) scale(0.8184); } } .snow:nth-child(104) { transform: translate(50.7333vw, -10px) scale(0.7062); animation: fall-104 34s -20s linear infinite; } @keyframes fall-104 { 64.028% { transform: translate(50.8697vw, 64.028vh) scale(0.7062); }
+    to { transform: translate(50.8015vw, 100vh) scale(0.7062); } } .snow:nth-child(105) { transform: translate(41.231vw, -10px) scale(0.852); animation: fall-105 31s -3s linear infinite; } @keyframes fall-105 { 77.74% { transform: translate(38.8863vw, 77.74vh) scale(0.852); }
+    to { transform: translate(40.05865vw, 100vh) scale(0.852); } } .snow:nth-child(106) { transform: translate(43.0767vw, -10px) scale(0.861); animation: fall-106 33s -3s linear infinite; } @keyframes fall-106 { 69.831% { transform: translate(43.6188vw, 69.831vh) scale(0.861); }
+    to { transform: translate(43.34775vw, 100vh) scale(0.861); } } .snow:nth-child(107) { transform: translate(35.2849vw, -10px) scale(0.9737); animation: fall-107 33s -11s linear infinite; } @keyframes fall-107 { 36.336% { transform: translate(42.3753vw, 36.336vh) scale(0.9737); }
+    to { transform: translate(38.8301vw, 100vh) scale(0.9737); } } .snow:nth-child(108) { transform: translate(99.4108vw, -10px) scale(0.658); animation: fall-108 37s -24s linear infinite; } @keyframes fall-108 { 57.689% { transform: translate(96.2241vw, 57.689vh) scale(0.658); }
+    to { transform: translate(97.81745vw, 100vh) scale(0.658); } } .snow:nth-child(109) { transform: translate(99.0202vw, -10px) scale(0.8846); animation: fall-109 35s -2s linear infinite; } @keyframes fall-109 { 40.135% { transform: translate(100.9711vw, 40.135vh) scale(0.8846); }
+    to { transform: translate(99.99565vw, 100vh) scale(0.8846); } } .snow:nth-child(110) { transform: translate(59.1573vw, -10px) scale(0.9811); animation: fall-110 39s -15s linear infinite; } @keyframes fall-110 { 31.26% { transform: translate(59.0479vw, 31.26vh) scale(0.9811); }
+    to { transform: translate(59.1026vw, 100vh) scale(0.9811); } } .snow:nth-child(111) { transform: translate(9.6987vw, -10px) scale(0.6742); animation: fall-111 32s -20s linear infinite; } @keyframes fall-111 { 48.223% { transform: translate(7.5233vw, 48.223vh) scale(0.6742); }
+    to { transform: translate(8.611vw, 100vh) scale(0.6742); } } .snow:nth-child(112) { transform: translate(47.3928vw, -10px) scale(0.7811); animation: fall-112 34s -19s linear infinite; } @keyframes fall-112 { 70.414% { transform: translate(38.4678vw, 70.414vh) scale(0.7811); }
+    to { transform: translate(42.9303vw, 100vh) scale(0.7811); } } .snow:nth-child(113) { transform: translate(18.5865vw, -10px) scale(0.6473); animation: fall-113 31s -11s linear infinite; } @keyframes fall-113 { 37.018% { transform: translate(20.7673vw, 37.018vh) scale(0.6473); }
+    to { transform: translate(19.6769vw, 100vh) scale(0.6473); } } .snow:nth-child(114) { transform: translate(67.0678vw, -10px) scale(0.682); animation: fall-114 40s -21s linear infinite; } @keyframes fall-114 { 59.637% { transform: translate(68.0922vw, 59.637vh) scale(0.682); }
+    to { transform: translate(67.58vw, 100vh) scale(0.682); } } .snow:nth-child(115) { transform: translate(38.96vw, -10px) scale(0.953); animation: fall-115 33s -13s linear infinite; } @keyframes fall-115 { 59.608% { transform: translate(30.4433vw, 59.608vh) scale(0.953); }
+    to { transform: translate(34.70165vw, 100vh) scale(0.953); } } .snow:nth-child(116) { transform: translate(92.8148vw, -10px) scale(0.9104); animation: fall-116 38s -13s linear infinite; } @keyframes fall-116 { 74.736% { transform: translate(94.5798vw, 74.736vh) scale(0.9104); }
+    to { transform: translate(93.6973vw, 100vh) scale(0.9104); } } .snow:nth-child(117) { transform: translate(92.3762vw, -10px) scale(0.9222); animation: fall-117 30s -18s linear infinite; } @keyframes fall-117 { 30.288% { transform: translate(84.7164vw, 30.288vh) scale(0.9222); }
+    to { transform: translate(88.5463vw, 100vh) scale(0.9222); } } .snow:nth-child(118) { transform: translate(58.5229vw, -10px) scale(0.8048); animation: fall-118 37s -8s linear infinite; } @keyframes fall-118 { 35.116% { transform: translate(49.1379vw, 35.116vh) scale(0.8048); }
+    to { transform: translate(53.8304vw, 100vh) scale(0.8048); } } .snow:nth-child(119) { transform: translate(46.3851vw, -10px) scale(0.652); animation: fall-119 36s -25s linear infinite; } @keyframes fall-119 { 67.397% { transform: translate(40.4773vw, 67.397vh) scale(0.652); }
+    to { transform: translate(43.4312vw, 100vh) scale(0.652); } } .snow:nth-child(120) { transform: translate(27.8834vw, -10px) scale(0.5373); animation: fall-120 35s -19s linear infinite; } @keyframes fall-120 { 55.058% { transform: translate(28.4791vw, 55.058vh) scale(0.5373); }
+    to { transform: translate(28.18125vw, 100vh) scale(0.5373); } } .snow:nth-child(121) { transform: translate(30.6762vw, -10px) scale(0.9254); animation: fall-121 32s -20s linear infinite; } @keyframes fall-121 { 47.328% { transform: translate(39.769vw, 47.328vh) scale(0.9254); }
+    to { transform: translate(35.2226vw, 100vh) scale(0.9254); } } .snow:nth-child(122) { transform: translate(41.0614vw, -10px) scale(0.7294); animation: fall-122 38s -26s linear infinite; } @keyframes fall-122 { 55.054% { transform: translate(36.7193vw, 55.054vh) scale(0.7294); }
+    to { transform: translate(38.89035vw, 100vh) scale(0.7294); } } .snow:nth-child(123) { transform: translate(98.397vw, -10px) scale(0.5317); animation: fall-123 35s -19s linear infinite; } @keyframes fall-123 { 55.389% { transform: translate(105.7336vw, 55.389vh) scale(0.5317); }
+    to { transform: translate(102.0653vw, 100vh) scale(0.5317); } } .snow:nth-child(124) { transform: translate(25.9142vw, -10px) scale(0.7523); animation: fall-124 40s -25s linear infinite; } @keyframes fall-124 { 68.006% { transform: translate(22.7664vw, 68.006vh) scale(0.7523); }
+    to { transform: translate(24.3403vw, 100vh) scale(0.7523); } } .snow:nth-child(125) { transform: translate(59.0743vw, -10px) scale(0.8797); animation: fall-125 39s -6s linear infinite; } @keyframes fall-125 { 70.953% { transform: translate(60.081vw, 70.953vh) scale(0.8797); }
+    to { transform: translate(59.57765vw, 100vh) scale(0.8797); } } .snow:nth-child(126) { transform: translate(62.8274vw, -10px) scale(0.799); animation: fall-126 40s -1s linear infinite; } @keyframes fall-126 { 41.966% { transform: translate(72.1463vw, 41.966vh) scale(0.799); }
+    to { transform: translate(67.48685vw, 100vh) scale(0.799); } } .snow:nth-child(127) { transform: translate(94.7217vw, -10px) scale(0.5448); animation: fall-127 40s -20s linear infinite; } @keyframes fall-127 { 51.954% { transform: translate(88.0263vw, 51.954vh) scale(0.5448); }
+    to { transform: translate(91.374vw, 100vh) scale(0.5448); } } .snow:nth-child(128) { transform: translate(71.4208vw, -10px) scale(0.9832); animation: fall-128 30s -20s linear infinite; } @keyframes fall-128 { 60.703% { transform: translate(79.3813vw, 60.703vh) scale(0.9832); }
+    to { transform: translate(75.40105vw, 100vh) scale(0.9832); } } .snow:nth-child(129) { transform: translate(51.2623vw, -10px) scale(0.7999); animation: fall-129 34s -8s linear infinite; } @keyframes fall-129 { 50.527% { transform: translate(59.2296vw, 50.527vh) scale(0.7999); }
+    to { transform: translate(55.24595vw, 100vh) scale(0.7999); } } .snow:nth-child(130) { transform: translate(18.806vw, -10px) scale(0.9711); animation: fall-130 39s -24s linear infinite; } @keyframes fall-130 { 62.497% { transform: translate(13.7028vw, 62.497vh) scale(0.9711); }
+    to { transform: translate(16.2544vw, 100vh) scale(0.9711); } } .snow:nth-child(131) { transform: translate(99.6486vw, -10px) scale(0.6824); animation: fall-131 31s -10s linear infinite; } @keyframes fall-131 { 78.992% { transform: translate(92.571vw, 78.992vh) scale(0.6824); }
+    to { transform: translate(96.1098vw, 100vh) scale(0.6824); } } .snow:nth-child(132) { transform: translate(84.6476vw, -10px) scale(0.6945); animation: fall-132 37s -30s linear infinite; } @keyframes fall-132 { 43.237% { transform: translate(88.8087vw, 43.237vh) scale(0.6945); }
+    to { transform: translate(86.72815vw, 100vh) scale(0.6945); } } .snow:nth-child(133) { transform: translate(35.2166vw, -10px) scale(0.8421); animation: fall-133 33s -13s linear infinite; } @keyframes fall-133 { 41.339% { transform: translate(29.0822vw, 41.339vh) scale(0.8421); }
+    to { transform: translate(32.1494vw, 100vh) scale(0.8421); } } .snow:nth-child(134) { transform: translate(17.3736vw, -10px) scale(0.9455); animation: fall-134 32s -4s linear infinite; } @keyframes fall-134 { 47.211% { transform: translate(24.8873vw, 47.211vh) scale(0.9455); }
+    to { transform: translate(21.13045vw, 100vh) scale(0.9455); } } .snow:nth-child(135) { transform: translate(68.0509vw, -10px) scale(0.5075); animation: fall-135 33s -26s linear infinite; } @keyframes fall-135 { 49.907% { transform: translate(61.1284vw, 49.907vh) scale(0.5075); }
+    to { transform: translate(64.58965vw, 100vh) scale(0.5075); } } .snow:nth-child(136) { transform: translate(50.5487vw, -10px) scale(0.6568); animation: fall-136 37s -15s linear infinite; } @keyframes fall-136 { 44.767% { transform: translate(57.7161vw, 44.767vh) scale(0.6568); }
+    to { transform: translate(54.1324vw, 100vh) scale(0.6568); } } .snow:nth-child(137) { transform: translate(52.4058vw, -10px) scale(0.6433); animation: fall-137 34s -7s linear infinite; } @keyframes fall-137 { 58.846% { transform: translate(57.3322vw, 58.846vh) scale(0.6433); }
+    to { transform: translate(54.869vw, 100vh) scale(0.6433); } } .snow:nth-child(138) { transform: translate(46.0694vw, -10px) scale(0.9988); animation: fall-138 34s -15s linear infinite; } @keyframes fall-138 { 74.86% { transform: translate(39.3816vw, 74.86vh) scale(0.9988); }
+    to { transform: translate(42.7255vw, 100vh) scale(0.9988); } } .snow:nth-child(139) { transform: translate(39.072vw, -10px) scale(0.505); animation: fall-139 37s -20s linear infinite; } @keyframes fall-139 { 34.736% { transform: translate(40.1857vw, 34.736vh) scale(0.505); }
+    to { transform: translate(39.62885vw, 100vh) scale(0.505); } } .snow:nth-child(140) { transform: translate(4.2095vw, -10px) scale(0.8822); animation: fall-140 40s -26s linear infinite; } @keyframes fall-140 { 40.002% { transform: translate(-5.0914vw, 40.002vh) scale(0.8822); }
+    to { transform: translate(-0.44095vw, 100vh) scale(0.8822); } } .snow:nth-child(141) { transform: translate(69.3848vw, -10px) scale(0.6652); animation: fall-141 36s -3s linear infinite; } @keyframes fall-141 { 66.491% { transform: translate(76.6585vw, 66.491vh) scale(0.6652); }
+    to { transform: translate(73.02165vw, 100vh) scale(0.6652); } } .snow:nth-child(142) { transform: translate(24.4311vw, -10px) scale(0.5567); animation: fall-142 39s -18s linear infinite; } @keyframes fall-142 { 49.184% { transform: translate(29.3576vw, 49.184vh) scale(0.5567); }
+    to { transform: translate(26.89435vw, 100vh) scale(0.5567); } } .snow:nth-child(143) { transform: translate(59.8132vw, -10px) scale(0.6473); animation: fall-143 34s -4s linear infinite; } @keyframes fall-143 { 34.369% { transform: translate(54.6138vw, 34.369vh) scale(0.6473); }
+    to { transform: translate(57.2135vw, 100vh) scale(0.6473); } } .snow:nth-child(144) { transform: translate(83.708vw, -10px) scale(0.711); animation: fall-144 36s -7s linear infinite; } @keyframes fall-144 { 45.092% { transform: translate(89.4858vw, 45.092vh) scale(0.711); }
+    to { transform: translate(86.5969vw, 100vh) scale(0.711); } } .snow:nth-child(145) { transform: translate(3.6665vw, -10px) scale(0.5185); animation: fall-145 39s -13s linear infinite; } @keyframes fall-145 { 64.721% { transform: translate(-0.2908vw, 64.721vh) scale(0.5185); }
+    to { transform: translate(1.68785vw, 100vh) scale(0.5185); } } .snow:nth-child(146) { transform: translate(38.2518vw, -10px) scale(0.7272); animation: fall-146 38s -26s linear infinite; } @keyframes fall-146 { 34.104% { transform: translate(42.7779vw, 34.104vh) scale(0.7272); }
+    to { transform: translate(40.51485vw, 100vh) scale(0.7272); } } .snow:nth-child(147) { transform: translate(28.7339vw, -10px) scale(0.8052); animation: fall-147 36s -18s linear infinite; } @keyframes fall-147 { 66.024% { transform: translate(34.8901vw, 66.024vh) scale(0.8052); }
+    to { transform: translate(31.812vw, 100vh) scale(0.8052); } } .snow:nth-child(148) { transform: translate(62.3189vw, -10px) scale(0.9114); animation: fall-148 31s -7s linear infinite; } @keyframes fall-148 { 68.584% { transform: translate(54.768vw, 68.584vh) scale(0.9114); }
+    to { transform: translate(58.54345vw, 100vh) scale(0.9114); } } .snow:nth-child(149) { transform: translate(99.6081vw, -10px) scale(0.6859); animation: fall-149 34s -4s linear infinite; } @keyframes fall-149 { 69.124% { transform: translate(100.1877vw, 69.124vh) scale(0.6859); }
+    to { transform: translate(99.8979vw, 100vh) scale(0.6859); } } .snow:nth-child(150) { transform: translate(6.1675vw, -10px) scale(0.9238); animation: fall-150 35s -4s linear infinite; } @keyframes fall-150 { 40.038% { transform: translate(-1.7644vw, 40.038vh) scale(0.9238); }
+    to { transform: translate(2.20155vw, 100vh) scale(0.9238); } } .snow:nth-child(151) { transform: translate(81.8231vw, -10px) scale(0.8894); animation: fall-151 30s -16s linear infinite; } @keyframes fall-151 { 36.03% { transform: translate(84.5732vw, 36.03vh) scale(0.8894); }
+    to { transform: translate(83.19815vw, 100vh) scale(0.8894); } } .snow:nth-child(152) { transform: translate(54.9744vw, -10px) scale(0.7615); animation: fall-152 32s -25s linear infinite; } @keyframes fall-152 { 72.896% { transform: translate(46.4758vw, 72.896vh) scale(0.7615); }
+    to { transform: translate(50.7251vw, 100vh) scale(0.7615); } } .snow:nth-child(153) { transform: translate(20.383vw, -10px) scale(0.8419); animation: fall-153 31s -15s linear infinite; } @keyframes fall-153 { 35.613% { transform: translate(26.8526vw, 35.613vh) scale(0.8419); }
+    to { transform: translate(23.6178vw, 100vh) scale(0.8419); } } .snow:nth-child(154) { transform: translate(10.0814vw, -10px) scale(0.9067); animation: fall-154 36s -8s linear infinite; } @keyframes fall-154 { 30.024% { transform: translate(18.5425vw, 30.024vh) scale(0.9067); }
+    to { transform: translate(14.31195vw, 100vh) scale(0.9067); } } .snow:nth-child(155) { transform: translate(95.1251vw, -10px) scale(0.5252); animation: fall-155 30s -13s linear infinite; } @keyframes fall-155 { 68.306% { transform: translate(90.8252vw, 68.306vh) scale(0.5252); }
+    to { transform: translate(92.97515vw, 100vh) scale(0.5252); } } .snow:nth-child(156) { transform: translate(60.149vw, -10px) scale(0.8477); animation: fall-156 36s -15s linear infinite; } @keyframes fall-156 { 43.161% { transform: translate(51.2661vw, 43.161vh) scale(0.8477); }
+    to { transform: translate(55.70755vw, 100vh) scale(0.8477); } } .snow:nth-child(157) { transform: translate(33.5685vw, -10px) scale(0.7495); animation: fall-157 40s -19s linear infinite; } @keyframes fall-157 { 57.844% { transform: translate(30.5988vw, 57.844vh) scale(0.7495); }
+    to { transform: translate(32.08365vw, 100vh) scale(0.7495); } } .snow:nth-child(158) { transform: translate(12.6884vw, -10px) scale(0.593); animation: fall-158 31s -11s linear infinite; } @keyframes fall-158 { 67.286% { transform: translate(19.195vw, 67.286vh) scale(0.593); }
+    to { transform: translate(15.9417vw, 100vh) scale(0.593); } } .snow:nth-child(159) { transform: translate(71.5127vw, -10px) scale(0.9581); animation: fall-159 30s -22s linear infinite; } @keyframes fall-159 { 72.996% { transform: translate(67.5585vw, 72.996vh) scale(0.9581); }
+    to { transform: translate(69.5356vw, 100vh) scale(0.9581); } } .snow:nth-child(160) { transform: translate(69.5573vw, -10px) scale(0.6805); animation: fall-160 37s -29s linear infinite; } @keyframes fall-160 { 77.956% { transform: translate(68.7449vw, 77.956vh) scale(0.6805); }
+    to { transform: translate(69.1511vw, 100vh) scale(0.6805); } } .snow:nth-child(161) { transform: translate(74.9078vw, -10px) scale(0.6381); animation: fall-161 36s -3s linear infinite; } @keyframes fall-161 { 68.678% { transform: translate(81.1557vw, 68.678vh) scale(0.6381); }
+    to { transform: translate(78.03175vw, 100vh) scale(0.6381); } } .snow:nth-child(162) { transform: translate(73.1409vw, -10px) scale(0.9504); animation: fall-162 40s -2s linear infinite; } @keyframes fall-162 { 30.733% { transform: translate(82.093vw, 30.733vh) scale(0.9504); }
+    to { transform: translate(77.61695vw, 100vh) scale(0.9504); } } .snow:nth-child(163) { transform: translate(77.9982vw, -10px) scale(0.992); animation: fall-163 40s -20s linear infinite; } @keyframes fall-163 { 50.34% { transform: translate(85.9263vw, 50.34vh) scale(0.992); }
+    to { transform: translate(81.96225vw, 100vh) scale(0.992); } } .snow:nth-child(164) { transform: translate(74.7433vw, -10px) scale(0.5006); animation: fall-164 30s -19s linear infinite; } @keyframes fall-164 { 52.38% { transform: translate(73.8487vw, 52.38vh) scale(0.5006); }
+    to { transform: translate(74.296vw, 100vh) scale(0.5006); } } .snow:nth-child(165) { transform: translate(30.5564vw, -10px) scale(0.5733); animation: fall-165 34s -1s linear infinite; } @keyframes fall-165 { 63.373% { transform: translate(26.3353vw, 63.373vh) scale(0.5733); }
+    to { transform: translate(28.44585vw, 100vh) scale(0.5733); } } .snow:nth-child(166) { transform: translate(19.7049vw, -10px) scale(0.8786); animation: fall-166 40s -14s linear infinite; } @keyframes fall-166 { 38.583% { transform: translate(28.0906vw, 38.583vh) scale(0.8786); }
+    to { transform: translate(23.89775vw, 100vh) scale(0.8786); } } .snow:nth-child(167) { transform: translate(39.2095vw, -10px) scale(0.8956); animation: fall-167 35s -5s linear infinite; } @keyframes fall-167 { 61.885% { transform: translate(33.168vw, 61.885vh) scale(0.8956); }
+    to { transform: translate(36.18875vw, 100vh) scale(0.8956); } } .snow:nth-child(168) { transform: translate(20.7978vw, -10px) scale(0.5492); animation: fall-168 35s -14s linear infinite; } @keyframes fall-168 { 37.062% { transform: translate(16.9517vw, 37.062vh) scale(0.5492); }
+    to { transform: translate(18.87475vw, 100vh) scale(0.5492); } } .snow:nth-child(169) { transform: translate(56.6613vw, -10px) scale(0.9301); animation: fall-169 34s -22s linear infinite; } @keyframes fall-169 { 65.308% { transform: translate(49.3315vw, 65.308vh) scale(0.9301); }
+    to { transform: translate(52.9964vw, 100vh) scale(0.9301); } } .snow:nth-child(170) { transform: translate(9.2569vw, -10px) scale(0.9576); animation: fall-170 36s -16s linear infinite; } @keyframes fall-170 { 74.828% { transform: translate(2.3861vw, 74.828vh) scale(0.9576); }
+    to { transform: translate(5.8215vw, 100vh) scale(0.9576); } } .snow:nth-child(171) { transform: translate(49.3574vw, -10px) scale(0.9414); animation: fall-171 35s -14s linear infinite; } @keyframes fall-171 { 72.602% { transform: translate(52.0459vw, 72.602vh) scale(0.9414); }
+    to { transform: translate(50.70165vw, 100vh) scale(0.9414); } } .snow:nth-child(172) { transform: translate(28.2267vw, -10px) scale(0.8975); animation: fall-172 31s -30s linear infinite; } @keyframes fall-172 { 52.358% { transform: translate(23.9551vw, 52.358vh) scale(0.8975); }
+    to { transform: translate(26.0909vw, 100vh) scale(0.8975); } } .snow:nth-child(173) { transform: translate(81.332vw, -10px) scale(0.7261); animation: fall-173 32s -12s linear infinite; } @keyframes fall-173 { 39.164% { transform: translate(80.1521vw, 39.164vh) scale(0.7261); }
+    to { transform: translate(80.74205vw, 100vh) scale(0.7261); } } .snow:nth-child(174) { transform: translate(77.3793vw, -10px) scale(0.7123); animation: fall-174 38s -8s linear infinite; } @keyframes fall-174 { 72.154% { transform: translate(71.0009vw, 72.154vh) scale(0.7123); }
+    to { transform: translate(74.1901vw, 100vh) scale(0.7123); } } .snow:nth-child(175) { transform: translate(7.6714vw, -10px) scale(0.9682); animation: fall-175 38s -3s linear infinite; } @keyframes fall-175 { 61.086% { transform: translate(7.3509vw, 61.086vh) scale(0.9682); }
+    to { transform: translate(7.51115vw, 100vh) scale(0.9682); } } .snow:nth-child(176) { transform: translate(96.0509vw, -10px) scale(0.6494); animation: fall-176 38s -13s linear infinite; } @keyframes fall-176 { 79.205% { transform: translate(88.8258vw, 79.205vh) scale(0.6494); }
+    to { transform: translate(92.43835vw, 100vh) scale(0.6494); } } .snow:nth-child(177) { transform: translate(95.3907vw, -10px) scale(0.9212); animation: fall-177 40s -14s linear infinite; } @keyframes fall-177 { 57.745% { transform: translate(101.0739vw, 57.745vh) scale(0.9212); }
+    to { transform: translate(98.2323vw, 100vh) scale(0.9212); } } .snow:nth-child(178) { transform: translate(50.7525vw, -10px) scale(0.7203); animation: fall-178 35s -21s linear infinite; } @keyframes fall-178 { 41.011% { transform: translate(43.2813vw, 41.011vh) scale(0.7203); }
+    to { transform: translate(47.0169vw, 100vh) scale(0.7203); } } .snow:nth-child(179) { transform: translate(17.4256vw, -10px) scale(0.8256); animation: fall-179 40s -4s linear infinite; } @keyframes fall-179 { 57.307% { transform: translate(7.6283vw, 57.307vh) scale(0.8256); }
+    to { transform: translate(12.52695vw, 100vh) scale(0.8256); } } .snow:nth-child(180) { transform: translate(13.6296vw, -10px) scale(0.8157); animation: fall-180 31s -15s linear infinite; } @keyframes fall-180 { 53.524% { transform: translate(4.3848vw, 53.524vh) scale(0.8157); }
+    to { transform: translate(9.0072vw, 100vh) scale(0.8157); } } .snow:nth-child(181) { transform: translate(63.9351vw, -10px) scale(0.8452); animation: fall-181 31s -17s linear infinite; } @keyframes fall-181 { 43.292% { transform: translate(58.9185vw, 43.292vh) scale(0.8452); }
+    to { transform: translate(61.4268vw, 100vh) scale(0.8452); } } .snow:nth-child(182) { transform: translate(51.861vw, -10px) scale(0.9332); animation: fall-182 38s -15s linear infinite; } @keyframes fall-182 { 63.237% { transform: translate(51.7714vw, 63.237vh) scale(0.9332); }
+    to { transform: translate(51.8162vw, 100vh) scale(0.9332); } } .snow:nth-child(183) { transform: translate(68.8669vw, -10px) scale(0.9642); animation: fall-183 30s -3s linear infinite; } @keyframes fall-183 { 32.562% { transform: translate(62.1728vw, 32.562vh) scale(0.9642); }
+    to { transform: translate(65.51985vw, 100vh) scale(0.9642); } } .snow:nth-child(184) { transform: translate(33.5109vw, -10px) scale(0.8152); animation: fall-184 39s -10s linear infinite; } @keyframes fall-184 { 69.08% { transform: translate(30.8335vw, 69.08vh) scale(0.8152); }
+    to { transform: translate(32.1722vw, 100vh) scale(0.8152); } } .snow:nth-child(185) { transform: translate(77.942vw, -10px) scale(0.538); animation: fall-185 40s -5s linear infinite; } @keyframes fall-185 { 58.539% { transform: translate(81.8632vw, 58.539vh) scale(0.538); }
+    to { transform: translate(79.9026vw, 100vh) scale(0.538); } } .snow:nth-child(186) { transform: translate(58.497vw, -10px) scale(0.6115); animation: fall-186 31s -27s linear infinite; } @keyframes fall-186 { 44.153% { transform: translate(54.0198vw, 44.153vh) scale(0.6115); }
+    to { transform: translate(56.2584vw, 100vh) scale(0.6115); } } .snow:nth-child(187) { transform: translate(88.0227vw, -10px) scale(0.876); animation: fall-187 31s -18s linear infinite; } @keyframes fall-187 { 51.489% { transform: translate(85.2557vw, 51.489vh) scale(0.876); }
+    to { transform: translate(86.6392vw, 100vh) scale(0.876); } } .snow:nth-child(188) { transform: translate(13.1263vw, -10px) scale(0.7136); animation: fall-188 33s -3s linear infinite; } @keyframes fall-188 { 57.193% { transform: translate(14.1731vw, 57.193vh) scale(0.7136); }
+    to { transform: translate(13.6497vw, 100vh) scale(0.7136); } } .snow:nth-child(189) { transform: translate(0.2582vw, -10px) scale(0.991); animation: fall-189 33s -8s linear infinite; } @keyframes fall-189 { 44.794% { transform: translate(-0.7553vw, 44.794vh) scale(0.991); }
+    to { transform: translate(-0.24855vw, 100vh) scale(0.991); } } .snow:nth-child(190) { transform: translate(30.1465vw, -10px) scale(0.9379); animation: fall-190 32s -19s linear infinite; } @keyframes fall-190 { 40.013% { transform: translate(21.0435vw, 40.013vh) scale(0.9379); }
+    to { transform: translate(25.595vw, 100vh) scale(0.9379); } } .snow:nth-child(191) { transform: translate(55.6752vw, -10px) scale(0.6694); animation: fall-191 32s -28s linear infinite; } @keyframes fall-191 { 32.822% { transform: translate(57.4356vw, 32.822vh) scale(0.6694); }
+    to { transform: translate(56.5554vw, 100vh) scale(0.6694); } } .snow:nth-child(192) { transform: translate(68.8526vw, -10px) scale(0.8111); animation: fall-192 31s -10s linear infinite; } @keyframes fall-192 { 56.492% { transform: translate(73.9959vw, 56.492vh) scale(0.8111); }
+    to { transform: translate(71.42425vw, 100vh) scale(0.8111); } } .snow:nth-child(193) { transform: translate(73.8929vw, -10px) scale(0.5149); animation: fall-193 37s -4s linear infinite; } @keyframes fall-193 { 35.722% { transform: translate(65.2377vw, 35.722vh) scale(0.5149); }
+    to { transform: translate(69.5653vw, 100vh) scale(0.5149); } } .snow:nth-child(194) { transform: translate(84.9135vw, -10px) scale(0.772); animation: fall-194 33s -7s linear infinite; } @keyframes fall-194 { 51.675% { transform: translate(91.7146vw, 51.675vh) scale(0.772); }
+    to { transform: translate(88.31405vw, 100vh) scale(0.772); } } .snow:nth-child(195) { transform: translate(37.8886vw, -10px) scale(0.628); animation: fall-195 34s -16s linear infinite; } @keyframes fall-195 { 46.675% { transform: translate(46.4144vw, 46.675vh) scale(0.628); }
+    to { transform: translate(42.1515vw, 100vh) scale(0.628); } } .snow:nth-child(196) { transform: translate(87.3375vw, -10px) scale(0.8402); animation: fall-196 36s -9s linear infinite; } @keyframes fall-196 { 44.636% { transform: translate(88.1604vw, 44.636vh) scale(0.8402); }
+    to { transform: translate(87.74895vw, 100vh) scale(0.8402); } } .snow:nth-child(197) { transform: translate(49.1086vw, -10px) scale(0.8922); animation: fall-197 38s -4s linear infinite; } @keyframes fall-197 { 40.499% { transform: translate(45.4835vw, 40.499vh) scale(0.8922); }
+    to { transform: translate(47.29605vw, 100vh) scale(0.8922); } } .snow:nth-child(198) { transform: translate(92.9249vw, -10px) scale(0.836); animation: fall-198 35s -18s linear infinite; } @keyframes fall-198 { 48.047% { transform: translate(83.4743vw, 48.047vh) scale(0.836); }
+    to { transform: translate(88.1996vw, 100vh) scale(0.836); } } .snow:nth-child(199) { transform: translate(9.0833vw, -10px) scale(0.8561); animation: fall-199 34s -10s linear infinite; } @keyframes fall-199 { 76.697% { transform: translate(8.5704vw, 76.697vh) scale(0.8561); }
+    to { transform: translate(8.82685vw, 100vh) scale(0.8561); } } .snow:nth-child(200) { transform: translate(65.6664vw, -10px) scale(0.999); animation: fall-200 30s -25s linear infinite; } @keyframes fall-200 { 63.427% { transform: translate(72.7738vw, 63.427vh) scale(0.999); }
+    to { transform: translate(69.2201vw, 100vh) scale(0.999); } } }
+
+/*# sourceMappingURL=main.css.map */
