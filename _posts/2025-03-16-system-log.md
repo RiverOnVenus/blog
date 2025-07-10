@@ -399,7 +399,7 @@ cp /etc/xdg/autostart/org.kde.discover.notifier.desktop ~/.config/autostart/
 
 ### Flatpak 管理 Steam
 
-为了避免 steam 和一些游戏在 home 拉屎，用 flatpak 管理，配合 @game 子卷进行隔离。
+为了避免 steam 里一些游戏扫盘、在 home 拉屎，用 flatpak 管理，配合 @game 子卷进行隔离。
 
 ```
 flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
