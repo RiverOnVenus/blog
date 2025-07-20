@@ -168,7 +168,7 @@ var Paul_Pio = function (prop) {
                 window.open(prop.content.link || "https://paugram.com/coding/add-poster-girl-with-plugin.html");
             };
             elements.info.onmouseover = function () {
-                modules.render("想了解更多关于 𝓗𝓶𝓸𝓻𝓪 的信息吗？");
+                modules.render("想了解更多关于 Mr. Error 追 🧐 的信息吗？");
             };
             current.menu.appendChild(elements.info);
 

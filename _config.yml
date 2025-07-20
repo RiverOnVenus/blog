@@ -4,7 +4,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: https://zhui.dev
 
 author:
-  name: 𝓗𝓶𝓸𝓻𝓪
+  name: Mr. Error 追 🧐
   email: "error@zhui.dev"
 
 permalink: /:year-:month/:title
@@ -21,9 +21,9 @@ giscus: true
     #app_id:
 
 user:
-  name: 𝓗𝓶𝓸𝓻𝓪
+  name: Mr. Error 追 🧐
   pic: /assets/img/avatar.jpg
-  picAlt: "𝓗𝓶𝓸𝓻𝓪"
+  picAlt: "Mr. Error 追 🧐"
   job: Life often requires some excitement, joy, and anticipation.
   #search: 
   about: true
