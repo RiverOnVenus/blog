@@ -4,6 +4,8 @@ categories: [linux,kde]
 comments: true
 ---
 
+*最后更新时间：Mon Jul 21 02:14:07 PM CST 2025*
+
 * TOC
 {:toc}
 ## 前言
@@ -418,11 +420,8 @@ StopWhenUnneeded=true
 
 [Service]
 Type=oneshot
-
 ExecStart=/usr/bin/openrgb --device "ENE DRAM" --mode off
-
 ExecStopPost=/usr/bin/openrgb --device "ENE DRAM" --mode static --color FFFFFF
-
 RemainAfterExit=yes
 
 [Install]
