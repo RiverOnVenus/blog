@@ -405,3 +405,26 @@ cp /etc/xdg/autostart/org.kde.discover.notifier.desktop ~/.config/autostart/
 flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak --user install flathub com.valvesoftware.Steam
 ```
+
+### 内存条光污染
+
+[OpenRGB](https://gitlab.com/CalcProgrammer1/OpenRGB) 可以手动控制，配了 `/etc/systemd/system/openrgb-sleep.service` 睡眠/唤醒时触发。
+
+```
+[Unit]
+Description=OpenRGB Sleep Control (Suspend/Resume)
+Before=sleep.target
+StopWhenUnneeded=true
+
+[Service]
+Type=oneshot
+
+ExecStart=/usr/bin/openrgb --device "ENE DRAM" --mode off
+
+ExecStopPost=/usr/bin/openrgb --device "ENE DRAM" --mode static --color FFFFFF
+
+RemainAfterExit=yes
+
+[Install]
+WantedBy=sleep.target
+```
