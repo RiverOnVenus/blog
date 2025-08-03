@@ -4,7 +4,7 @@ categories: [linux,kde]
 comments: true
 ---
 
-*最后更新时间：Mon Jul 21 02:14:07 PM CST 2025*
+*最后更新时间：Sun Aug  3 03:17:21 PM CST 2025*
 
 * TOC
 {:toc}
@@ -421,9 +421,20 @@ StopWhenUnneeded=true
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/openrgb --device "ENE DRAM" --mode off
-ExecStopPost=/usr/bin/openrgb --device "ENE DRAM" --mode static --color FFFFFF
+ExecStopPost=/usr/bin/openrgb --device "ENE DRAM" --mode Rainbow
 RemainAfterExit=yes
 
 [Install]
 WantedBy=sleep.target
+```
+
+### sudo 超时设置
+
+默认是每个终端都需要输入密码，且超时时间是 5 分钟，不太方便。
+
+`sudo visudo -f /etc/sudoers.d/99-sudo-timeout` 写入下面两行，`sudo visudo -c` 检查有 "bad permissions, should be mode 0440", 需要 `sudo chmod 0440 /etc/sudoers.d/99-sudo-timeout`.
+
+```
+Defaults timestamp_type=global
+Defaults timestamp_timeout=30
 ```
