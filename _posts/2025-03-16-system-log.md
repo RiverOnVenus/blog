@@ -4,7 +4,7 @@ categories: [linux,kde]
 comments: true
 ---
 
-*最后更新时间：Sun Aug  3 03:17:21 PM CST 2025*
+*最后更新时间：Sat Aug  9 09:32:01 AM CST 2025*
 
 * TOC
 {:toc}
@@ -437,4 +437,58 @@ WantedBy=sleep.target
 ```
 Defaults timestamp_type=global
 Defaults timestamp_timeout=30
+```
+
+### SmartDNS 接管 DNS
+
+`/etc/smartdns/smartdns.conf` 配置：
+
+```
+bind [::]:53
+
+force-qtype-SOA 65
+
+conf-file /etc/smartdns/accelerated-domains.china.smartdns.conf
+conf-file /etc/smartdns/apple.china.smartdns.conf
+conf-file /etc/smartdns/google.china.smartdns.conf
+
+log-level info
+cache-persist yes
+cache-file /tmp/smartdns.cache
+prefetch-domain yes
+serve-expired yes
+speed-check-mode tcp:443,ping
+
+server-https https://223.5.5.5/dns-query -bootstrap-dns -exclude-default-group
+server-https https://223.6.6.6/dns-query -group china -exclude-default-group
+server-https https://1.12.12.12/dns-query -group china -exclude-default-group
+server-https https://120.53.53.53/dns-query -group china -exclude-default-group
+server-https https://1.1.1.1/dns-query
+server-https https://1.0.0.1/dns-query
+server-https https://185.222.222.222/dns-query
+server-https https://45.11.45.11/dns-query
+server-https https://8.8.8.8/dns-query
+server-https https://8.8.4.4/dns-query
+```
+
+`/etc/resolv.conf` 配置：
+
+```
+# Managed by SmartDNS
+nameserver 127.0.0.1
+nameserver ::1
+```
+
+smartdns 作为 daed 上游：
+
+```
+#dns
+upstream {
+  smartdns: 'tcp+udp://127.0.0.1:53'
+}
+
+#routing:
+pname(smartdns) && l4proto(udp) && dport(53) -> must_direct
+dip(223.5.5.5, 223.6.6.6, 1.12.12.12, 120.53.53.53) -> direct
+dip(8.8.8.8, 8.8.4.4, 1.1.1.1, 1.0.0.1, 185.222.222.222, 45.11.45.11) -> proxy
 ```
