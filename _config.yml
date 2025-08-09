@@ -7,7 +7,7 @@ author:
   name: Mr. Error 追 🧐
   email: "error@zhui.dev"
 
-permalink: /:year-:month/:title
+permalink: /:year-:month/:title.html
 timezone: Asia/Shanghai
 
 favicon: /assets/img/favicon.ico
