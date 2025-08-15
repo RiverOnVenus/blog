@@ -34,8 +34,20 @@
    <link rel="alternate" type="application/rss+xml" title="{{ site.title | escape }}"
       href="{{ '/feed.xml' | relative_url }}" />
    <!-- favicon -->
-   <link rel="shortcut icon" href="{{ site.baseurl }}/assets/img/favicon.ico" type="image/x-icon" />
-   <link rel="icon" href="{{ site.baseurl }}/assets/img/favicon.ico" type="image/x-icon" />
+   <!-- Favicon for desktop -->
+   <link rel="icon" href="{{ '/assets/img/favicon.ico' | relative_url }}" type="image/x-icon">
+
+   <!-- Apple Touch Icon (iOS Safari) -->
+   <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/img/apple-touch-icon.png' | relative_url }}">
+
+   <!-- Android Chrome Icons -->
+   <link rel="icon" type="image/png" sizes="192x192" href="{{ '/assets/img/android-chrome-192x192.png' | relative_url }}">
+   <link rel="icon" type="image/png" sizes="512x512" href="{{ '/assets/img/android-chrome-512x512.png' | relative_url }}">
+
+   <!-- Web App Manifest -->
+   <link rel="manifest" href="{{ '/site.webmanifest' | relative_url }}">
+   <meta name="theme-color" content="#ffffff">
+
    <!-- font -->
 <!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.6.0/style.css" /> -->
 <!--    <link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/chinesefonts3/packages/lxgwwenkai/dist/LXGWWenKai-Regular/result.css' /> -->
