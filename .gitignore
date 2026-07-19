@@ -38,3 +38,9 @@ compose.override.yaml
 
 # migration scripts
 scripts/
+
+# Claude Code
+.agents/
+.superpowers/
+CLAUDE.md
+AGENTS.md
