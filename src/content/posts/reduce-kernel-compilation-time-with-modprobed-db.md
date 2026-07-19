@@ -2,7 +2,7 @@
 title: 使用 Modprobed-db 减少内核编译时间
 description: Photo by Aron Visuals on Unsplash 最后更新时间：Thu Nov 10 12:59:25 PM CST 2022
   自从开始尝试自定义内核，便陷入其中。在内核方面，我是业余的，仅仅是在内核中打上一些我想使用的补丁以及简单修改一些配置。每当主线内核发布或有新的补丁时，我就会重新编译内核。就我
-pubDatetime: '2022-05-07'
+pubDatetime: 2022-05-07T00:00:00+08:00
 tags:
 - linux
 - tool

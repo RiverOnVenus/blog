@@ -2,7 +2,7 @@
 title: 字符串的暴力匹配和 KMP 算法
 description: Photo by Piotr Łaskawski on Unsplash 什么是暴力匹配？ 从源串的第一个字符起，与模式串的第一个字符比较，若相等，则继续逐个比较后续字符；否则从源串的下一个字符起，重新和模式串比较；以此类推，直至模式串的每一个字符依次和源串中一个连续的字符序列相等，则匹配成功。
   c //暴力匹配 vo
-pubDatetime: '2022-07-28'
+pubDatetime: 2022-07-28T00:00:00+08:00
 tags:
 - code
 ---

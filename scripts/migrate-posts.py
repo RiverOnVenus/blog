@@ -72,15 +72,24 @@ def main():
         new_fm = {
             'title': fm.get('title', slug.replace('-',' ').title()),
             'description': fm.get('description') or make_description(body),
-            'pubDatetime': date_str,
+            'pubDatetime': f'{date_str}T00:00:00+08:00',
             'tags': fm.get('categories', ['others']),
         }
         if fm.get('draft'):
             new_fm['draft'] = True
         out = os.path.join(ASTRO_DIR, f"{slug}.md")
+        # Write new file — manual formatting to avoid YAML quoting date
         with open(out, 'w') as f:
             f.write('---\n')
-            yaml.dump(new_fm, f, allow_unicode=True, default_flow_style=False, sort_keys=False)
+            title = new_fm['title'].replace('"', '\\"')
+            f.write(f'title: "{title}"\n')
+            desc = new_fm['description'].replace('"', '\\"')
+            f.write(f'description: "{desc}"\n')
+            f.write(f"pubDatetime: {new_fm['pubDatetime']}\n")  # no quotes = YAML timestamp
+            tags_str = ', '.join(new_fm['tags'])
+            f.write(f"tags: [{tags_str}]\n")
+            if new_fm.get('draft'):
+                f.write('draft: true\n')
             f.write('---\n\n')
             f.write(body)
         print(f"OK  {fname} -> {slug}.md")

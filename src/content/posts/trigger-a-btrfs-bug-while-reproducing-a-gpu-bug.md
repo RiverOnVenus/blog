@@ -2,7 +2,7 @@
 title: 在复现 GPU bug 时，触发了 Btrfs bug
 description: 起因 这次算是运气不好，得记一下。起因是更新了 linux-firmware-amdgpu 20250613.12fe085f-6，重启后黑屏。因为有
   amdgpu 固件更新，怀疑是独显输出的问题，于是把 DP 线拔了，换成了 HDMI，果然正常进入桌面。想着复现确认一下，又把 DP 接回去。当看到这次开机不是黑屏，而
-pubDatetime: '2025-06-28'
+pubDatetime: 2025-06-28T00:00:00+08:00
 tags:
 - linux
 - btrfs

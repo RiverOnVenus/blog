@@ -2,7 +2,7 @@
 title: 链式队列和顺序栈
 description: Photo by Anne Nygård on Unsplash 链式队列 队列，一种抽象数据类型，是先进先出（FIFO, First-In-First-Out）的线性表。通常用链表或者数组来实现。队列只允许在后端（称为
   rear）进行插入操作，在前端（称为 front）进行删除操作。 下面是有头结点的链式队列，使用链
-pubDatetime: '2021-06-24'
+pubDatetime: 2021-06-24T00:00:00+08:00
 tags:
 - code
 ---

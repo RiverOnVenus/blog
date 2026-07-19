@@ -8,7 +8,7 @@ export default defineAstroPaperConfig({
     author: "Mr. Error 追 🧐",
     profile: "https://github.com/RiverOnVenus",
     ogImage: "default-og.jpg",
-    lang: "zh-CN",
+    lang: "en",
     timezone: "Asia/Shanghai",
     dir: "ltr",
   },

@@ -2,7 +2,7 @@
 title: C 语言中的 unlikely 和 likely
 description: 今天在这个 commithttps://github.com/firelzrd/bore-scheduler/commit/2dfae364f6d7ae26eca4ddfafb3764f2525bbaa5
   中看到这样一段代码： c ifdef CONFIG_SCHED_BORE if unlikelysched_bor
-pubDatetime: '2024-02-29'
+pubDatetime: 2024-02-29T00:00:00+08:00
 tags:
 - code
 ---

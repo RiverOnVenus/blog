@@ -3,7 +3,7 @@ title: NVIDIA 导致系统挂起失败
 description: '现象 systemctl suspend 后系统立即被唤醒。 日志 text Jun 23 14:09:26 venus systemd1:
   Starting System Suspend... Jun 23 14:09:26 venus systemd-sleep2537: User sessions
   remain '
-pubDatetime: '2024-06-23'
+pubDatetime: 2024-06-23T00:00:00+08:00
 tags:
 - linux
 - nvidia

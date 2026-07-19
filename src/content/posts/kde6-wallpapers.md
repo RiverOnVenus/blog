@@ -2,7 +2,7 @@
 title: 关于我喜欢 KDE6 壁纸这件事
 description: Screenshot from KDE MegaRelease6https://kde.org/announcements/megarelease/6/
   KDE6 更新了很多东西，我最喜欢的竟然是新增的壁纸「Scarlet Tree」，它有 light 和 dark 两种风格，还有适用于手机的分辨率。壁纸位于/usr/
-pubDatetime: '2024-03-08'
+pubDatetime: 2024-03-08T00:00:00+08:00
 tags:
 - gallery
 - kde
