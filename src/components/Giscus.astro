@@ -1,0 +1,28 @@
+<div class="giscus mt-8"></div>
+
+<script>
+  function loadGiscus() {
+    const el = document.querySelector('.giscus');
+    if (!el || el.querySelector('iframe')) return;
+    const theme =
+      document.documentElement.getAttribute('data-theme') === 'dark'
+        ? 'dark_dimmed'
+        : 'light';
+    const s = document.createElement('script');
+    s.src = 'https://giscus.app/client.js';
+    s.setAttribute('data-repo', 'RiverOnVenus/blog');
+    s.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnkzNjA1MjczNTg=');
+    s.setAttribute('data-category', 'Announcements');
+    s.setAttribute('data-category-id', 'DIC_kwDOFX01_s4B_DEB');
+    s.setAttribute('data-mapping', 'og:title');
+    s.setAttribute('data-reactions-enabled', '1');
+    s.setAttribute('data-emit-metadata', '0');
+    s.setAttribute('data-theme', theme);
+    s.setAttribute('data-loading', 'lazy');
+    s.setAttribute('crossorigin', 'anonymous');
+    s.async = true;
+    el.appendChild(s);
+  }
+  loadGiscus();
+  document.addEventListener('astro:after-swap', loadGiscus);
+</script>
