@@ -32,10 +32,6 @@ public/pagefind
 # docker compose
 compose.override.yaml
 
-# Claude Code internal state
-.superpowers/
-.agents/
-
 # migration scripts
 scripts/
 
