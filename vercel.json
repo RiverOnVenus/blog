@@ -1,121 +1,15 @@
 {
   "redirects": [
     {
-      "source": "/2021-04/hello-world.html",
-      "destination": "/posts/hello-world",
+      "source": "/:year-:month/:slug.html",
+      "destination": "/posts/:slug",
       "permanent": true
     },
     {
-      "source": "/2021-05/accurately-locate-smartphones-using-social-engineering.html",
-      "destination": "/posts/accurately-locate-smartphones-using-social-engineering",
+      "source": "/:year-:month/:slug",
+      "destination": "/posts/:slug",
       "permanent": true
     },
-    {
-      "source": "/2021-05/archlinux-gpu-optimus-manager.html",
-      "destination": "/posts/archlinux-gpu-optimus-manager",
-      "permanent": true
-    },
-    {
-      "source": "/2021-06/endianness-little-endian-and-big-endian.html",
-      "destination": "/posts/endianness-little-endian-and-big-endian",
-      "permanent": true
-    },
-    {
-      "source": "/2021-06/link-queue-and-sequence-stack.html",
-      "destination": "/posts/link-queue-and-sequence-stack",
-      "permanent": true
-    },
-    {
-      "source": "/2021-08/error-starting-cgproxy-under-unofficial-kernels.html",
-      "destination": "/posts/error-starting-cgproxy-under-unofficial-kernels",
-      "permanent": true
-    },
-    {
-      "source": "/2022-05/reduce-kernel-compilation-time-with-modprobed-db.html",
-      "destination": "/posts/reduce-kernel-compilation-time-with-modprobed-db",
-      "permanent": true
-    },
-    {
-      "source": "/2022-07/brute-force-string-match-and-KMP-algorithm.html",
-      "destination": "/posts/brute-force-string-match-and-KMP-algorithm",
-      "permanent": true
-    },
-    {
-      "source": "/2022-11/linux-cpu-schedulers.html",
-      "destination": "/posts/linux-cpu-schedulers",
-      "permanent": true
-    },
-    {
-      "source": "/2022-11/lu-xun-diary-of-a-madman.html",
-      "destination": "/posts/lu-xun-diary-of-a-madman",
-      "permanent": true
-    },
-    {
-      "source": "/2023-04/me-vs-cellphone.html",
-      "destination": "/posts/me-vs-cellphone",
-      "permanent": true
-    },
-    {
-      "source": "/2023-07/how-to-play-aliyundrive-original-video-file.html",
-      "destination": "/posts/how-to-play-aliyundrive-original-video-file",
-      "permanent": true
-    },
-    {
-      "source": "/2023-08/using-cloudflare-warp-plus-on-arch-linux.html",
-      "destination": "/posts/using-cloudflare-warp-plus-on-arch-linux",
-      "permanent": true
-    },
-    {
-      "source": "/2023-11/xiaomi-cn-auto-tasks.html",
-      "destination": "/posts/xiaomi-cn-auto-tasks",
-      "permanent": true
-    },
-    {
-      "source": "/2024-02/unlikely-and-likely-in-c.html",
-      "destination": "/posts/unlikely-and-likely-in-c",
-      "permanent": true
-    },
-    {
-      "source": "/2024-03/kde6-wallpapers.html",
-      "destination": "/posts/kde6-wallpapers",
-      "permanent": true
-    },
-    {
-      "source": "/2024-03/capture-tcp-3-way-handshake.html",
-      "destination": "/posts/capture-tcp-3-way-handshake",
-      "permanent": true
-    },
-    {
-      "source": "/2024-04/tcp-listen.html",
-      "destination": "/posts/tcp-listen",
-      "permanent": true
-    },
-    {
-      "source": "/2024-06/nvidia-fail-to-suspend.html",
-      "destination": "/posts/nvidia-fail-to-suspend",
-      "permanent": true
-    },
-    {
-      "source": "/2024-11/cat-photos.html",
-      "destination": "/posts/cat-photos",
-      "permanent": true
-    },
-    {
-      "source": "/2024-12/login-program-black-screen-caused-by-sddm-theme.html",
-      "destination": "/posts/login-program-black-screen-caused-by-sddm-theme",
-      "permanent": true
-    },
-    {
-      "source": "/2025-03/system-log.html",
-      "destination": "/posts/system-log",
-      "permanent": true
-    },
-    {
-      "source": "/2025-06/trigger-a-btrfs-bug-while-reproducing-a-gpu-bug.html",
-      "destination": "/posts/trigger-a-btrfs-bug-while-reproducing-a-gpu-bug",
-      "permanent": true
-    },
-
     { "source": "/feed.xml", "destination": "/rss.xml", "permanent": true },
     { "source": "/search.html", "destination": "/search", "permanent": true },
     {
