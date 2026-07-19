@@ -22,7 +22,7 @@
 }
 
 @utility max-w-app {
-  @apply max-w-2xl;
+  @apply max-w-3xl;
 }
 
 @utility app-layout {
