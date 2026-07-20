@@ -1,13 +1,15 @@
 <div class="giscus mt-8 max-w-app mx-auto"></div>
 
 <script>
+  function getGiscusTheme() {
+    return document.documentElement.getAttribute('data-theme') === 'dark'
+      ? 'dark_dimmed'
+      : 'light';
+  }
+
   function loadGiscus() {
     const el = document.querySelector('.giscus');
     if (!el || el.querySelector('iframe')) return;
-    const theme =
-      document.documentElement.getAttribute('data-theme') === 'dark'
-        ? 'dark_dimmed'
-        : 'light';
     const s = document.createElement('script');
     s.src = 'https://giscus.app/client.js';
     s.setAttribute('data-repo', 'RiverOnVenus/blog');
@@ -17,12 +19,29 @@
     s.setAttribute('data-mapping', 'pathname');
     s.setAttribute('data-reactions-enabled', '1');
     s.setAttribute('data-emit-metadata', '0');
-    s.setAttribute('data-theme', theme);
+    s.setAttribute('data-theme', getGiscusTheme());
     s.setAttribute('data-loading', 'lazy');
     s.setAttribute('crossorigin', 'anonymous');
     s.async = true;
     el.appendChild(s);
   }
+
+  function sendGiscusTheme() {
+    const iframe = document.querySelector<HTMLIFrameElement>(
+      'iframe.giscus-frame'
+    );
+    iframe?.contentWindow?.postMessage(
+      { giscus: { setConfig: { theme: getGiscusTheme() } } },
+      'https://giscus.app'
+    );
+  }
+
+  // Watch for theme changes (toggle button or system preference)
+  new MutationObserver(() => sendGiscusTheme()).observe(
+    document.documentElement,
+    { attributes: true, attributeFilter: ['data-theme'] }
+  );
+
   loadGiscus();
   document.addEventListener('astro:after-swap', loadGiscus);
 </script>
