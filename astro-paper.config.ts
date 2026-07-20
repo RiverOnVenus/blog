@@ -5,7 +5,7 @@ export default defineAstroPaperConfig({
     url: "https://zhui.dev",
     title: "Error: 你发现了一个错误！",
     description: "Life often requires some excitement, joy, and anticipation.",
-    author: "Mr. Error 追 🧐",
+    author: "Mr. Error 追",
     profile: "https://github.com/RiverOnVenus",
     ogImage: "default-og.jpg",
     lang: "en",
