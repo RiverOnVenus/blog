@@ -10,6 +10,8 @@ tags:
   - amd
 ---
 
+## Table of contents
+
 ## 起因
 
 这次算是运气不好，得记一下。起因是更新了 linux-firmware-amdgpu 20250613.12fe085f-6，重启后黑屏。因为有 amdgpu 固件更新，怀疑是独显输出的问题，于是把 DP 线拔了，换成了 HDMI，果然正常进入桌面。想着复现确认一下，又把 DP 接回去。当看到这次开机不是黑屏，而是被扔到 emergency shell 时，我意识到不对劲。
@@ -51,7 +53,7 @@ tags:
 </figure>
 <p>经过一些尝试未果后，有群友指出问题出在 replay log 的过程中，所以实在不行可以尝试 zero log.</p>
 
-<p>在`sudo btrfs rescue zero-log /dev/nvme0n1p2`后果然可以挂载了。</p>进 live 后降级 amdgpu 固件，黑屏也临时解决了。最后确认了磁盘 check, scrub 都没问题。
+<p>在`sudo btrfs rescue zero-log /dev/nvme0n1p2`后果然可以挂载了。进 live 后降级 amdgpu 固件，黑屏也临时解决了。最后确认了磁盘 check, scrub 都没问题。</p>
 
 ## 缘由
 

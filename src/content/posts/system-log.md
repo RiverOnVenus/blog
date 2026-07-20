@@ -10,6 +10,9 @@ tags:
 
 *最后更新时间：Wed Oct  8 05:21:22 PM CST 2025*
 
+
+## Table of contents
+
 ## 前言
 
 过去在笔记本上用 Arch 四年，陆陆续续装了一些优化用的软件，改了不少配置文件，但时间一长我已经忘了都动过哪些地方，有些东西可能早就不适用了。
@@ -61,7 +64,7 @@ UUID=6dda4ef6-5539-425b-9e17-0a374910721b       /mnt/data       xfs             
   <figcaption>XFS 在 HDD 的读写速度测试</figcaption>
 </figure>
 
-### Btrfs 相关
+<p>### Btrfs 相关</p>
 
 btrfs-progs
 
