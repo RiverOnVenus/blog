@@ -12,8 +12,6 @@ tags:
 
 >Photo by <a href="https://unsplash.com/@luchox23?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Luis Gonzalez</a> on <a href="https://unsplash.com/s/photos/ryzen?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
-*最后更新时间：Sat Jun  8 04:10:49 PM CST 2024*
-
 
 ## Table of contents
 

@@ -12,8 +12,6 @@ tags:
 
 > Photo by <a href="https://unsplash.com/@sajad_sqs9966b?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Sajad Nori</a> on <a href="https://unsplash.com/s/photos/network?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
-*最后更新时间：Thu Dec  1 07:42:35 PM CST 2022*
-
 
 ## Table of contents
 

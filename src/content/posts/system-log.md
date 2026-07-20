@@ -8,8 +8,6 @@ tags:
 - kde
 ---
 
-*最后更新时间：Wed Oct  8 05:21:22 PM CST 2025*
-
 
 ## Table of contents
 
