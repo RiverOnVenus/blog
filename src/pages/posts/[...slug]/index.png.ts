@@ -27,19 +27,24 @@ export const GET: APIRoute = async ({ props, url }) => {
     return new Response(null, { status: 404, statusText: "Not found" });
   }
 
-  const fonts = fontData["--font-google-sans-code"];
-  const regularFontPath = getFontPathByWeight(fonts, 400);
-  const boldFontPath = getFontPathByWeight(fonts, 700);
+  const latinFonts = fontData["--font-google-sans-code"];
+  const cjkFonts = fontData["--font-noto-sans-sc"];
+  const regularLatinPath = getFontPathByWeight(latinFonts, 400);
+  const boldLatinPath = getFontPathByWeight(latinFonts, 700);
+  const regularCjkPath = getFontPathByWeight(cjkFonts, 400);
 
-  if (regularFontPath === undefined || boldFontPath === undefined) {
+  if (!regularLatinPath || !boldLatinPath || !regularCjkPath) {
     throw new Error("Cannot find the font path.");
   }
 
-  const [regularData, boldData] = await Promise.all([
-    fetch(experimental_getFontFileURL(regularFontPath, url)).then(res =>
+  const [regularLatin, boldLatin, regularCjk] = await Promise.all([
+    fetch(experimental_getFontFileURL(regularLatinPath, url)).then(res =>
       res.arrayBuffer()
     ),
-    fetch(experimental_getFontFileURL(boldFontPath, url)).then(res =>
+    fetch(experimental_getFontFileURL(boldLatinPath, url)).then(res =>
+      res.arrayBuffer()
+    ),
+    fetch(experimental_getFontFileURL(regularCjkPath, url)).then(res =>
       res.arrayBuffer()
     ),
   ]);
@@ -55,6 +60,7 @@ export const GET: APIRoute = async ({ props, url }) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          fontFamily: "Google Sans Code, Noto Sans SC, sans-serif",
         },
         children: [
           {
@@ -174,14 +180,20 @@ export const GET: APIRoute = async ({ props, url }) => {
       fonts: [
         {
           name: "Google Sans Code",
-          data: regularData,
+          data: regularLatin,
           weight: 400,
           style: "normal",
         },
         {
           name: "Google Sans Code",
-          data: boldData,
+          data: boldLatin,
           weight: 700,
+          style: "normal",
+        },
+        {
+          name: "Noto Sans SC",
+          data: regularCjk,
+          weight: 400,
           style: "normal",
         },
       ],
