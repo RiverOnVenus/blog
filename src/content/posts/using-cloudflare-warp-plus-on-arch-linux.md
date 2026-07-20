@@ -1,7 +1,6 @@
 ---
 title: 在 Arch Linux 上使用 Cloudflare WARP+
-description: WARP+ 是 Cloudflare 提供的一项网络加速服务，用于改善互联网连接的速度和安全性。WARP+ 旨在通过优化网络路径，减少延迟，并提供更快的网络连接体验。
-  这里说的 WARP+ 属于 WARP+ Limited，流量是有限的，通过推广获得免费的服务，但是通过 Warp+ Bot 可以获得 24.59PB 流
+description: 在 Arch Linux 上折腾 Cloudflare WARP+ 的过程。
 pubDatetime: 2023-08-07T00:00:00+08:00
 tags:
 - linux

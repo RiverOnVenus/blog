@@ -1,6 +1,6 @@
 ---
 title: Meow~
-description: ''
+description: 一些猫猫照片。
 pubDatetime: 2024-11-04T00:00:00+08:00
 tags:
 - gallery

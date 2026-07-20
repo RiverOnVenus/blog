@@ -1,7 +1,6 @@
 ---
 title: 非官方内核下启动 cgproxy 出错
-description: 前言 前段时间我一直在尝试不同的内核，想以此来提高桌面环境下的体验。官方支持的内核中我使用过 linux-zenhttps://archlinux.org/packages/?name=linux-zen,
-  非官方支持的内核中我使用过 linux-ckhttps://aur.archlinux.org/packages
+description: 换用非官方 Linux 内核后，cgproxy 启动失败，排查了一下。
 pubDatetime: 2021-08-01T00:00:00+08:00
 tags:
 - linux

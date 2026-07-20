@@ -1,7 +1,6 @@
 ---
 title: Linux CPU 调度器之我见
-description: Photo by Luis Gonzalez on Unsplash 最后更新时间：Sat Jun 8 04:10:49 PM CST 2024
-  前言 对于各种 CPU 调度器，很多人的看法和得到的反馈不一样。有的人想要“压榨”CPU 的性能，将其发挥到极致，他们通常会因为某个调度器带来的一点点性能提升而高兴；有的人真
+description: 对 Linux 各 CPU 调度器的一些了解和看法。
 pubDatetime: 2022-11-09T00:00:00+08:00
 tags:
 - linux

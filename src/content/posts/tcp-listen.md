@@ -1,8 +1,6 @@
 ---
 title: TCP listen 的故事
-description: man 2 listen 先从手册看看描述： text DESCRIPTION listen marks the socket referred
-  to by sockfd as a passive socket, that is, as a socket that will be used to accept
-  inco
+description: TCP listen 系统调用的细节：backlog 参数、SYN 队列和 ACCEPT 队列。
 pubDatetime: 2024-04-16T00:00:00+08:00
 tags:
 - network

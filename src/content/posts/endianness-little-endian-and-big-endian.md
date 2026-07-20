@@ -1,7 +1,6 @@
 ---
 title: 字节顺序——小端序和大端序
-description: Photo by Samsung Memory on Unsplash 最后更新时间：Sat Nov 25 02:04:47 PM CST
-  2023 0x00 什么是字节顺序 字节顺序，又称端序或尾序，在计算机科学领域中，指电脑内存中或在数字通信链路中，占内存多于一个字节类型的数据在内存中的存放顺序。在几乎所有的机器上
+description: 字节顺序（端序）是什么，小端序和大端序有什么区别。
 pubDatetime: 2021-06-15T00:00:00+08:00
 tags:
 - code

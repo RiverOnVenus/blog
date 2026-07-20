@@ -1,7 +1,6 @@
 ---
 title: Arch Linux 的双显卡配置
-description: Photo by Anna Jiménez Calafhttps://unsplash.com/@annajimenez?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText
-  on Unsplashhttps://unsplash.com/
+description: 在 Arch Linux 上用 optimus-manager 和 PRIME render offload 搞定双显卡的一些折腾。
 pubDatetime: 2021-05-22T00:00:00+08:00
 tags:
 - linux

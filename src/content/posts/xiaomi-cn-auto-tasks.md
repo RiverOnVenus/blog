@@ -1,7 +1,6 @@
 ---
 title: 小米社区自动签到/任务
-description: 今天小米社区https://www.xiaomi.cn/对 Bootloader 解锁权限发布了公告，要求： 1. 通过《解锁资格答题测试》
-  2. 社区成长等级达到 5 段 3. 完成实名认证 才能申请解锁，申请一次有效期只有一年，每年最多支持三台设备解锁，解锁等待期为 72 小时。 试着去答了一下《解锁资格答题测试》
+description: 用 miui-auto-tasks 脚本自动化小米社区签到任务，为了拿 BL 解锁权限。
 pubDatetime: 2023-11-08T00:00:00+08:00
 tags:
 - misc
