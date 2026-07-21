@@ -1,6 +1,6 @@
 ---
 title: 云南碎片之大理昆明
-description: 和大理的风、昆明的雨，以及一个喜欢的人。
+description: 和大理的雨、滇池的风，以及一个喜欢的人。
 pubDatetime: 2026-03-21T00:00:00+08:00
 tags:
 - travel
