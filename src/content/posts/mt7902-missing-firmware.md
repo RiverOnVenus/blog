@@ -1,6 +1,6 @@
 ---
 title: MT7902 固件缺失导致 Suspend 失败
-description: 被垃圾网卡背刺了
+description: 被垃圾网卡背刺了。
 pubDatetime: 2026-07-22T00:25:51+08:00
 tags:
 - linux
@@ -16,7 +16,7 @@ tags:
 
 看了眼日志，全是 amdgpu 的报错。显卡是 RX 9070 GRE，我想可能是 Kernel 升级后 drm 又有 bug 了。
 
-## 不是 amd 的锅
+## 不是 AMD 的锅
 
 再仔细看日志 suspend 的第一个错误不是 amdgpu：
 
