@@ -19,6 +19,6 @@ tags:
 
 <img src="https://image.zhui.dev/file/1734183307596_image.png" loading="lazy" decoding="async" />
 
-思考，我什么时候把「微风」改了:thinking:
+思考，我什么时候把「微风」改了。
 
 改回 Current=breeze 重启，熟悉的「微风」回来了。应该是因为「[plasma-chili](http://store.kde.org/p/1214121/)」是基于 plasma5 做的主题，导致了这个问题。
