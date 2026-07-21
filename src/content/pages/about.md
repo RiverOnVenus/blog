@@ -5,8 +5,8 @@ description: "关于我和这个博客。"
 
 ## 我
 
-<a href="https://www.archlinux.org/"><img src="https://archlinux.org/static/logos/archlinux-logo-light-scalable.1ae4cc2e2469.svg" alt="Arch Linux" class="inline h-5"></a>
-<a href="https://kde.org/"><img src="https://kde.org/stuff/clipart/logo/kde-logo-blue-transparent-source.svg" alt="KDE" class="inline h-5"></a> 爱好者。
+<a href="https://www.archlinux.org/"><img src="https://archlinux.org/static/logos/archlinux-logo-dark-scalable.svg" alt="Arch Linux" class="inline h-5 dark:hidden"><img src="https://archlinux.org/static/logos/archlinux-logo-light-scalable.svg" alt="Arch Linux" class="hidden h-5 dark:inline"></a>
+<a href="https://kde.org/"><img src="https://kde.org/stuff/clipart/logo/kde-logo-blue-transparent-source.svg" alt="KDE" class="inline h-5 dark:hidden"><img src="https://kde.org/stuff/clipart/logo/kde-logo-white-blue-source.svg" alt="KDE" class="hidden h-5 dark:inline"></a> 爱好者。
 
 正在学习 Linux / C / C++ / Rust
 
