@@ -1,6 +1,6 @@
 ---
 title: SDDM 主题导致登录程序黑屏
-description: SDDM 主题导致登录黑屏，最后发现是用户主题目录的 symlink 异常。
+description: SDDM 主题导致登录黑屏，最后发现是 Plasma 5 主题在 Plasma 6 下不兼容。
 pubDatetime: 2024-12-15T00:00:00+08:00
 tags:
 - linux
