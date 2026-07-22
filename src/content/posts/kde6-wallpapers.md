@@ -3,8 +3,8 @@ title: 关于我喜欢 KDE6 壁纸这件事
 description: KDE6 新增的壁纸「Scarlet Tree」，light 和 dark 两种风格都有。
 pubDatetime: 2024-03-08T00:00:00+08:00
 tags:
-- gallery
-- kde
+  - gallery
+  - kde
 ---
 
 <img src="/images/posts/kde6-wallpapers/screenshot-from-kde-megarelease6.png" loading="lazy" decoding="async" />
@@ -25,7 +25,7 @@ KDE6 更新了很多东西，我最喜欢的竟然是新增的壁纸「Scarlet T
 
 <img src="https://image.zhui.dev/file/1731155190919_Reef.jpg" loading="lazy" decoding="async" />
 
------
+---
 
 Btw, 下面这张 Deepin 的壁纸也非常喜欢。
 

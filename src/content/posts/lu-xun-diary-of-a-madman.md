@@ -3,7 +3,7 @@ title: 【转】鲁迅《狂人日记》
 description: 鲁迅《狂人日记》。
 pubDatetime: 2022-11-25T00:00:00+08:00
 tags:
-- misc
+  - misc
 ---
 
 <img src="/images/posts/diary-of-a-madman/A_Madman's_Diary_-_Lu_Xun.jpg" loading="lazy" decoding="async" />

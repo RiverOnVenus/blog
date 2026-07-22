@@ -3,12 +3,12 @@ title: 链式队列和顺序栈
 description: 链式队列和顺序栈的概念和 C 语言实现，还有循环队列。
 pubDatetime: 2021-06-24T00:00:00+08:00
 tags:
-- code
+  - code
 ---
 
 <img src="/images/posts/link-queue/anne-nygard-Sl69Jw-o0rU-unsplash.jpg" loading="lazy" decoding="async" />
 
->Photo by <a href="https://unsplash.com/@polarmermaid?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" >Anne Nygård</a> on <a href="https://unsplash.com/s/photos/queue?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+> Photo by <a href="https://unsplash.com/@polarmermaid?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" >Anne Nygård</a> on <a href="https://unsplash.com/s/photos/queue?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
 ## 链式队列
 
@@ -191,10 +191,10 @@ int main() {
 3 入队成功
 4 入队成功
 5 入队成功
-当前队列中有：1  2  3  4  5  
+当前队列中有：1  2  3  4  5
 1 出队成功
 2 出队成功
-当前队列中有：3  4  5  
+当前队列中有：3  4  5
 ```
 
 ## 顺序栈

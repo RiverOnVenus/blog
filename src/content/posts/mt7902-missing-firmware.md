@@ -3,7 +3,7 @@ title: MT7902 固件缺失导致 Suspend 失败
 description: 被垃圾网卡背刺了。
 pubDatetime: 2026-07-22T00:25:51+08:00
 tags:
-- linux
+  - linux
 ---
 
 ## Table of contents

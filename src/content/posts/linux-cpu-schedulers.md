@@ -3,14 +3,13 @@ title: Linux CPU 调度器之我见
 description: 对 Linux 各 CPU 调度器的一些了解和看法。
 pubDatetime: 2022-11-09T00:00:00+08:00
 tags:
-- linux
-- kernel
+  - linux
+  - kernel
 ---
 
 <img src="/images/posts/linux-cpu-schedulers/luis-gonzalez-jgzdwJWCPDI-unsplash.jpg" loading="lazy" decoding="async" />
 
->Photo by <a href="https://unsplash.com/@luchox23?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Luis Gonzalez</a> on <a href="https://unsplash.com/s/photos/ryzen?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-
+> Photo by <a href="https://unsplash.com/@luchox23?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Luis Gonzalez</a> on <a href="https://unsplash.com/s/photos/ryzen?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
 ## Table of contents
 
@@ -27,7 +26,7 @@ tags:
 - [Baby](https://github.com/hamadmarri/Baby-CPU-Scheduler) - A very basic and lightweight yet very performant CPU scheduler. Can be used for learning purposes as a base ground CPU scheduler on Linux.
 - [BFS](https://www.phoronix.com/scan.php?page=search&q=Brain+Fuck+Scheduler) - BFS (Brain Fuck Scheduler) is a process scheduler designed for the linux kernel as an alternative to the Completely Fair Scheduler.
 - [BMQ](https://gitlab.com/alfredchen/linux-prjc) - BMQ (BitMap Queue) is a linux CPU scheduler, inspired By Google's Zircon.
-- [Bore](https://github.com/firelzrd/bore-scheduler) - BORE (Burst-Oriented Response Enhancer) is enhanced versions of CFS  (Completely Fair Scheduler) and EEVDF (Earliest Eligible Virtual  Deadline First) Linux schedulers. Developed with the aim of maintaining these schedulers' high performance while delivering resilient responsiveness to user input under as  versatile load scenario as possible.
+- [Bore](https://github.com/firelzrd/bore-scheduler) - BORE (Burst-Oriented Response Enhancer) is enhanced versions of CFS (Completely Fair Scheduler) and EEVDF (Earliest Eligible Virtual Deadline First) Linux schedulers. Developed with the aim of maintaining these schedulers' high performance while delivering resilient responsiveness to user input under as versatile load scenario as possible.
 - [CacULE](https://github.com/hamadmarri/cacule-cpu-scheduler) - The CacULE CPU scheduler is based on interactivity score mechanism. The interactivity score is inspired by the ULE scheduler (FreeBSD scheduler).
 - [CFS](https://www.kernel.org/doc/html/latest/scheduler/sched-design-CFS.html) - CFS (Completely Fair Scheduler) is the new desktop process scheduler implemented in Linux 2.6.23 as a replacement for the previous vanilla scheduler’s SCHED_OTHER interactivity code. ~~It is the current linux task scheduler.~~
 - [ECHO](https://github.com/hamadmarri/ECHO-CPU-Scheduler) - Enhanced CPU Handling Orchestrator, implemented on top of Baby scheduler.
@@ -36,7 +35,7 @@ tags:
 - [MuQSS](http://ck.kolivas.org/patches/muqss/sched-MuQSS.txt) - Multiple Queue Skiplist Scheduler (MuQSS) is a rewritten implementation of the Brain Fuck Scheduler (BFS) concept.
 - [PDS](https://gitlab.com/alfredchen/linux-prjc) - PDS (Priority and Deadline based Skiplist multiple queue scheduler) is a linux CPU scheduler whose design principles are to be a simple CPU process scheduler yet efficient and scalable.
 - [Sched-ext](https://github.com/sched-ext/scx) - sched_ext is a Linux kernel feature which enables implementing kernel thread schedulers in BPF and dynamically loading them. This repository contains various scheduler implementations and support utilities.
-- [TT](https://github.com/hamadmarri/TT-CPU-Scheduler) - The goal of the Task Type (TT) scheduler is to detect tasks types based  on their behaviours and control the scheduling based on their types. Not supported after version 6.6.
+- [TT](https://github.com/hamadmarri/TT-CPU-Scheduler) - The goal of the Task Type (TT) scheduler is to detect tasks types based on their behaviours and control the scheduling based on their types. Not supported after version 6.6.
 
 （按照字母排序）
 
@@ -126,10 +125,6 @@ geekbench:
 延迟直方图：
 
 <img src="/images/posts/linux-cpu-schedulers/Bore-plot.png" loading="lazy" decoding="async" />
-
-
-
-
 
 ### CacULE
 

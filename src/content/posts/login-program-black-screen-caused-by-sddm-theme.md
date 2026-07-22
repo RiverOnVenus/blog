@@ -3,8 +3,8 @@ title: SDDM 主题导致登录程序黑屏
 description: SDDM 主题导致登录黑屏，最后发现是 Plasma 5 主题在 Plasma 6 下不兼容。
 pubDatetime: 2024-12-15T00:00:00+08:00
 tags:
-- linux
-- kde
+  - linux
+  - kde
 ---
 
 这天我打开电脑发现开机后屏幕黑屏，只有鼠标光标可见，登录界面没有显示。看着唯一的光标我开始思考上次做了什么——想不起来了～

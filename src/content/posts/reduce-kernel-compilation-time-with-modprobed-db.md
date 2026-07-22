@@ -3,17 +3,16 @@ title: 使用 Modprobed-db 减少内核编译时间
 description: 用 Modprobed-db 精简内核配置，能省不少编译时间。
 pubDatetime: 2022-05-07T00:00:00+08:00
 tags:
-- linux
-- tool
-- kernel
+  - linux
+  - tool
+  - kernel
 ---
 
 <img src="/images/posts/modprobed-db/image01.jpg" loading="lazy" decoding="async" />
 
 > Photo by <a href="https://unsplash.com/@aronvisuals?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Aron Visuals</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
-自从开始尝试自定义内核，便陷入其中。在内核方面，我是业余的，仅仅是在内核中打上一些我想使用的补丁以及简单修改一些配置。每当主线内核发布或有新的补丁时，我就会重新编译内核。就我的笔记本电脑来说，每次编译内核都会花费一个多小时的时间，而当我使用了  Modprobed-db 后，编译时间显著减少了。
-
+自从开始尝试自定义内核，便陷入其中。在内核方面，我是业余的，仅仅是在内核中打上一些我想使用的补丁以及简单修改一些配置。每当主线内核发布或有新的补丁时，我就会重新编译内核。就我的笔记本电脑来说，每次编译内核都会花费一个多小时的时间，而当我使用了 Modprobed-db 后，编译时间显著减少了。
 
 ## Table of contents
 
@@ -25,7 +24,7 @@ Modprobed-db 是一个通过 [make localmodconfig](https://www.kernel.org/doc/ht
 
 ### 安装和初始化配置
 
-> 项目地址：**[graysky2/modprobed-db](https://github.com/graysky2/modprobed-db)**  
+> 项目地址：**[graysky2/modprobed-db](https://github.com/graysky2/modprobed-db)**
 
 对于 Arch Linux，安装 [modprobed-db](https://aur.archlinux.org/packages/modprobed-db)。
 
@@ -98,9 +97,9 @@ bridge
   echo "Setting config..."
   cp ../config .config
   make olddefconfig
-  
+
   make LSMOD=$HOME/.config/modprobed.db localmodconfig
-  
+
   diff -u ../config .config || :
 
   make -s kernelrelease > version

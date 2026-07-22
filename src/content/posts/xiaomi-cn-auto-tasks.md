@@ -3,7 +3,7 @@ title: 小米社区自动签到/任务
 description: 用 miui-auto-tasks 脚本自动化小米社区签到任务，为了拿 BL 解锁权限。
 pubDatetime: 2023-11-08T00:00:00+08:00
 tags:
-- misc
+  - misc
 ---
 
 今天[小米社区](https://www.xiaomi.cn/)对 Bootloader 解锁权限发布了公告，要求：
@@ -22,10 +22,10 @@ accounts:
     # 账户 ID 非账户用户名或手机号
     password: xxxxxxxxxxxxxxxxxxxxxxxxx
     # 账户密码或其 MD5 哈希
-    user-agent: 'Mozilla/5.0 (X11; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0'
+    user-agent: "Mozilla/5.0 (X11; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0"
     # 登录社区时所用浏览器的 User-Agent
     # 可在此工具查看：https://tool.chinaz.com/useragent
-    
+
     # 功能开关
     check-in: true
     # 社区成长值签到，启用功能意味着你愿意自行承担相关风险
@@ -46,7 +46,6 @@ logging: false
 # 归档日志到本地文件
 version: v1.6.0
 # config 文件版本号，debug 用
-
 ```
 
 用 systemd timer 让它每天执行，先在 `/etc/systemd/user/` 创建一个 [Service] 执行 python 程序，

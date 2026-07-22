@@ -3,7 +3,7 @@ title: Meow~
 description: 一些猫猫照片。
 pubDatetime: 2024-11-04T00:00:00+08:00
 tags:
-- gallery
+  - gallery
 ---
 
 <img src="https://image.zhui.dev/file/1731074210182_1730732509302.jpg" loading="lazy" decoding="async" />

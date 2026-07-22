@@ -3,13 +3,12 @@ title: 字节顺序——小端序和大端序
 description: 字节顺序（端序）是什么，小端序和大端序有什么区别。
 pubDatetime: 2021-06-15T00:00:00+08:00
 tags:
-- code
+  - code
 ---
 
 <img src="/images/posts/endianness-little-endian-and-big-endian/samsung-memory-mDP3qpqLIh4-unsplash.jpg" loading="lazy" decoding="async" />
 
->Photo by <a href="https://unsplash.com/@samsungmemory?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Samsung Memory</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" >Unsplash</a>
-
+> Photo by <a href="https://unsplash.com/@samsungmemory?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Samsung Memory</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" >Unsplash</a>
 
 ## Table of contents
 
@@ -62,21 +61,21 @@ Big-endian:    0xefcdab79
 
 `__builtin_bswap32` 是 [GCC 内置函数](https://gcc.gnu.org/onlinedocs/gcc/extensions-to-the-c-language-family/other-built-in-functions-provided-by-gcc.html#_CPPv417__builtin_bswap328uint32_t)。
 
-> - Built-in Function: *uint16_t* **__builtin_bswap16** *(uint16_t x)*
+> - Built-in Function: _uint16_t_ **\__builtin_bswap16** _(uint16_t x)_
 >
->   Returns x with the order of the bytes reversed; for example, `0xaabb` becomes `0xbbaa`.  Byte here always means exactly 8 bits.
+>   Returns x with the order of the bytes reversed; for example, `0xaabb` becomes `0xbbaa`. Byte here always means exactly 8 bits.
 >
-> - Built-in Function: *uint32_t* **__builtin_bswap32** *(uint32_t x)*
+> - Built-in Function: _uint32_t_ **\__builtin_bswap32** _(uint32_t x)_
 >
 >   Similar to `__builtin_bswap16`, except the argument and return types are 32-bit.
 >
-> - Built-in Function: *uint64_t* **__builtin_bswap64** *(uint64_t x)*
+> - Built-in Function: _uint64_t_ **\__builtin_bswap64** _(uint64_t x)_
 >
 >   Similar to `__builtin_bswap32`, except the argument and return types are 64-bit.
 >
-> - Built-in Function: *uint128_t* **__builtin_bswap128** *(uint128_t x)*
+> - Built-in Function: _uint128_t_ **\__builtin_bswap128** _(uint128_t x)_
 >
->   Similar to `__builtin_bswap64`, except the argument and return types are 128-bit.  Only supported on targets when 128-bit types are supported.
+>   Similar to `__builtin_bswap64`, except the argument and return types are 128-bit. Only supported on targets when 128-bit types are supported.
 
 在网络编程中，通常使用 `uint32_t htonl(uint32_t hostlong)` , `uint16_t htons(uint16_t hostshort)` , `uint32_t ntohl(uint32_t netlong)` , `uint16_t ntohs(uint16_t netshort)`在网络和主机之间进行大小端的转换。
 

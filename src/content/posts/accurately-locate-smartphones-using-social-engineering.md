@@ -3,20 +3,19 @@ title: 利用社会工程学准确定位智能手机
 description: 用 Seeker 工具通过社会工程学获取智能手机的精确位置。
 pubDatetime: 2021-05-11T00:00:00+08:00
 tags:
-- linux
-- tool
+  - linux
+  - tool
 ---
 
 <img src="/images/posts/seeker/img00.jpg" loading="lazy" decoding="async" />
 
 > Photo by <a href="https://unsplash.com/@sajad_sqs9966b?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Sajad Nori</a> on <a href="https://unsplash.com/s/photos/network?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
-
 ## Table of contents
 
 ## 前言
 
-> 项目地址：**[thewhiteh4t/seeker](https://github.com/thewhiteh4t/seeker)**  
+> 项目地址：**[thewhiteh4t/seeker](https://github.com/thewhiteh4t/seeker)**
 
 我们为什么不应该随意点击未知链接？为什么不应该随便授予重要权限？这会造成什么后果？
 
@@ -56,13 +55,13 @@ python seeker.py
 
 > 模板根据实际情况进行选择或更改、制作
 
-[0] NearYou: 
+[0] NearYou:
 
 NearYou 模板最简单，输入 0 回车即可。
 
 <img src="/images/posts/seeker/img17.png" loading="lazy" decoding="async" />
 
-[1] Google Drive: 
+[1] Google Drive:
 
 Google Drive 模板需要填一个 URL，什么 URL 都行，不过填 Google Drive File 的 URL 更具欺骗性。
 
@@ -70,13 +69,13 @@ URL 的作用：钓鱼网页成功获取位置信息后跳转的正常网页。
 
 <img src="/images/posts/seeker/img03.png" loading="lazy" decoding="async" />
 
-[2] WhatsApp: 
+[2] WhatsApp:
 
 WhatsApp 模板需填入 Group Title 和 Group img。
 
 <img src="/images/posts/seeker/img12.png" loading="lazy" decoding="async" />
 
-[3] Telegram: 
+[3] Telegram:
 
 Telegram 同样需要填写一些群组信息。
 
@@ -110,19 +109,19 @@ ngrok http 8080
 
 在目标手机上用浏览器打开链接，看到的就是之前模板生成的钓鱼网页。
 
-NearYou: 
+NearYou:
 
 <img src="/images/posts/seeker/img18.png" loading="lazy" decoding="async" />
 
-Google Drive: 
+Google Drive:
 
 <img src="/images/posts/seeker/img16.png" loading="lazy" decoding="async" />
 
-WhatsApp: 
+WhatsApp:
 
 <img src="/images/posts/seeker/img13.png" loading="lazy" decoding="async" />
 
-Telegram: 
+Telegram:
 
 <img src="/images/posts/seeker/img15.png" loading="lazy" decoding="async" />
 
@@ -138,7 +137,7 @@ Telegram:
 
 在获取位置权限的事情上：
 
-- NearYou 设计为 *Find People, Make Friends*，获取位置权限是可以被接受的。
+- NearYou 设计为 _Find People, Make Friends_，获取位置权限是可以被接受的。
 - 其它模板获取位置权限较为生硬。
 - Google Drive 在后来跳转到真实的共享文件，在一定程度上降低了可疑性。
 
@@ -174,7 +173,7 @@ Telegram:
 
 seeker 成功获取到了目标手机的`经度`、`维度`。点击`Google Maps链接`即可看到目标手机当前位置。除此之外，它还获取到了一些`未经许可的设备信息`。
 
-**一般地，如果目标接受位置渗透，定位精度将精确到大约 30 米**。 
+**一般地，如果目标接受位置渗透，定位精度将精确到大约 30 米**。
 
 本次演示的定位精度为 40 米左右。
 

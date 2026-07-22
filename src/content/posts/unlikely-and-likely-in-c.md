@@ -3,7 +3,7 @@ title: C 语言中的 unlikely 和 likely
 description: C 语言里 unlikely 和 likely 宏的作用，以及编译器的分支预测优化。
 pubDatetime: 2024-02-29T00:00:00+08:00
 tags:
-- code
+  - code
 ---
 
 今天在这个 [commit](https://github.com/firelzrd/bore-scheduler/commit/2dfae364f6d7ae26eca4ddfafb3764f2525bbaa5) 中看到这样一段代码：
@@ -136,7 +136,7 @@ void find_primes_without_unlikely() {
 
 int main() {
     printf("Starting prime search...\n");
-  
+
     find_primes_with_unlikely();
 
     find_primes_without_unlikely();
@@ -158,7 +158,7 @@ int main() {
 #include <iomanip>
 #include <iostream>
 #include <random>
- 
+
 namespace with_attributes
 {
     constexpr double pow(double x, long long n) noexcept
@@ -184,7 +184,7 @@ namespace with_attributes
         return y;
     }
 } // namespace with_attributes
- 
+
 namespace no_attributes
 {
     constexpr double pow(double x, long long n) noexcept
@@ -210,7 +210,7 @@ namespace no_attributes
         return y;
     }
 } // namespace no_attributes
- 
+
 double gen_random() noexcept
 {
     static std::random_device rd;
@@ -218,9 +218,9 @@ double gen_random() noexcept
     static std::uniform_real_distribution<double> dis(-1.0, 1.0);
     return dis(gen);
 }
- 
+
 volatile double sink{}; // 确保有副作用
- 
+
 int main()
 {
     for (const auto x : {0.125, 0.25, 0.5, 1. / (1 << 26)})
@@ -230,7 +230,7 @@ int main()
             << std::cos(x) << '\n'
             << with_attributes::cos(x) << '\n'
             << (std::cos(x) == with_attributes::cos(x) ? "equal" : "differ") << '\n';
- 
+
     auto benchmark = [](auto fun, auto rem)
     {
         const auto start = std::chrono::high_resolution_clock::now();
@@ -239,9 +239,9 @@ int main()
         const std::chrono::duration<double> diff =
             std::chrono::high_resolution_clock::now() - start;
         std::cout << "Time: " << std::fixed << std::setprecision(6) << diff.count()
-                  << " sec " << rem << std::endl; 
+                  << " sec " << rem << std::endl;
     };
- 
+
     benchmark(with_attributes::cos, "(with attributes)");
     benchmark(no_attributes::cos, "(without attributes)");
     benchmark([](double t) { return std::cos(t); }, "(std::cos)");

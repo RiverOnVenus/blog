@@ -3,14 +3,13 @@ title: Arch Linux 的双显卡配置
 description: 在 Arch Linux 上用 optimus-manager 和 PRIME render offload 搞定双显卡的一些折腾。
 pubDatetime: 2021-05-22T00:00:00+08:00
 tags:
-- linux
-- nvidia
+  - linux
+  - nvidia
 ---
 
 <img src="/images/posts/optimus/image01.jpg" loading="lazy" decoding="async" />
 
-> Photo by [Anna Jiménez Calaf](https://unsplash.com/@annajimenez?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)  
-
+> Photo by [Anna Jiménez Calaf](https://unsplash.com/@annajimenez?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
 
 ## Table of contents
 
@@ -30,7 +29,7 @@ tags:
 
 开始之前，请确定已经按照 [ArchWiki](https://wiki.archlinux.org/title/NVIDIA) 安装好了相应驱动。
 
-> 项目地址： [Askannz/optimus-manager]( https://github.com/Askannz/optimus-manager)
+> 项目地址： [Askannz/optimus-manager](https://github.com/Askannz/optimus-manager)
 
 optimus-manager 有三个模式：
 
@@ -56,7 +55,7 @@ pacman -S nvidia-prime
 pacman -S optimus-manager bbswitch
 ```
 
-> 注意：bbswitch 很久没更新了，在较新的笔记本电脑上可能没用，甚至产生一些其它问题。且 bbswitch 只是 optimus-manager 项目的电源管理方案 [A guide  to power management options](https://github.com/Askannz/optimus-manager/wiki/A-guide--to-power-management-options)之一，所以请根据电脑环境选择合理的方案。
+> 注意：bbswitch 很久没更新了，在较新的笔记本电脑上可能没用，甚至产生一些其它问题。且 bbswitch 只是 optimus-manager 项目的电源管理方案 [A guide to power management options](https://github.com/Askannz/optimus-manager/wiki/A-guide--to-power-management-options)之一，所以请根据电脑环境选择合理的方案。
 
 **配置**
 

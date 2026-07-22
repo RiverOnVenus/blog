@@ -3,9 +3,8 @@ title: TCP listen 的故事
 description: TCP listen 系统调用的细节：backlog 参数、SYN 队列和 ACCEPT 队列。
 pubDatetime: 2024-04-16T00:00:00+08:00
 tags:
-- network
+  - network
 ---
-
 
 ## Table of contents
 
@@ -75,7 +74,7 @@ TCP 通信过程如下图：
 
 下面是一个验证 TCP 三次握手发生在`connect()`,`listen()`阶段的简单示例：
 
- client.c
+client.c
 
 ```c
 #include <arpa/inet.h>
@@ -201,7 +200,6 @@ net.ipv4.tcp_max_syn_backlog = 8192
 - [https://www.cloudflare.com/learning/ddos/syn-flood-ddos-attack](https://www.cloudflare.com/learning/ddos/syn-flood-ddos-attack/)
 - [https://zh.wikipedia.org/wiki/SYN_flood](https://zh.wikipedia.org/wiki/SYN_flood)
 - [https://wiki.archlinux.org/title/Sysctl#Tweak_the_pending_connection_handling](https://wiki.archlinux.org/title/Sysctl#Tweak_the_pending_connection_handling)
-
 
 ## 参考资料
 

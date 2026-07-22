@@ -3,7 +3,7 @@ title: 玩机之初
 description: 红米 K60 刷机、解 BL 锁、装 Magisk Delta 和 LSPosed。
 pubDatetime: 2023-04-23T00:00:00+08:00
 tags:
-- android
+  - android
 ---
 
 今年年初，用了几年的手机坏了，正好红米 K60 发布，在 K50 Ultra 和 K60 之间纠结了会儿，最后选了 K60。
@@ -45,10 +45,10 @@ $fastboot flash boot_ab images/boot.img
 3. 修补 boot.img
 4. 刷入 boot.img
 
-----
+---
 
- 六月初从 Magisk Delta 换到了 KernelSU.
+六月初从 Magisk Delta 换到了 KernelSU.
 
-----
+---
 
 前几天从 MIUI14.0.23.9.18.DEV ---> HyperOS1.0.23.12.04.DEV 发现 EU 又内置了过设备完整性`MEETS_DEVICE_INTEGRITY`的方法（内置了一个 [XiaomiEUModule.apk](https://sourceforge.net/projects/xiaomi-eu-multilang-miui-roms/files/xiaomi.eu/Xiaomi.eu-app/)），不需要额外的模块了。

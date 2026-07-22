@@ -3,7 +3,7 @@ title: 字符串的暴力匹配和 KMP 算法
 description: 暴力匹配和 KMP 算法的原理、C 语言实现。
 pubDatetime: 2022-07-28T00:00:00+08:00
 tags:
-- code
+  - code
 ---
 
 <img src="/images/posts/brute-force-string-match-and-KMP-algorithm/piotr-laskawski-gL7oJLJOb_I-unsplash.jpg" loading="lazy" decoding="async" />
@@ -77,7 +77,7 @@ void kmp(char *S, char *T, int *next, int pos) {
 }
 ```
 
- 完整代码
+完整代码
 
 ```c
 #include <stdio.h>
@@ -184,6 +184,6 @@ int main() {
 源串：BBC ABCDAB ABCDABCDABDE
 模式串：ABCDABD
 暴力匹配：匹配成功，匹配成功的起始位置是源串的第 16 个字符
-next 数组为：0 1 1 1 1 2 3 
+next 数组为：0 1 1 1 1 2 3
 KMP: 匹配成功，匹配成功的起始位置是源串的第 16 个字符
 ```

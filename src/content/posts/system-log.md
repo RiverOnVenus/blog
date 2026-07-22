@@ -3,10 +3,9 @@ title: 系统：你对我做了什么？！
 description: 新装台式机上对 Arch Linux 做的一些优化、配置和软件安装。
 pubDatetime: 2025-03-16T00:00:00+08:00
 tags:
-- linux
-- kde
+  - linux
+  - kde
 ---
-
 
 ## Table of contents
 
@@ -22,10 +21,10 @@ tags:
 
 ```shell
 NAME        FSTYPE FSVER LABEL UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
-sda                                                                                
+sda
 └─sda1      xfs                6dda4ef6-5539-425b-9e17-0a374910721b    2.2T    39% /mnt/data
 zram0       swap   1     zram0 81a25874-1132-4b4a-aba9-ee63778ea6f0                [SWAP]
-nvme0n1                                                                            
+nvme0n1
 ├─nvme0n1p1 vfat   FAT32       A4FB-3831                               1.7G    17% /boot
 └─nvme0n1p2 btrfs              a0b762a5-a99d-4d46-81d8-b10aa8620fa4  431.2G    53% /game
                                                                                    /home
@@ -97,7 +96,7 @@ sudo btrfs fi us /
 
 ### Xfs 相关
 
- xfsprogs
+xfsprogs
 
 ```shell
 sudo pacman -S xfsprogs
@@ -446,7 +445,7 @@ OnCalendar=
 OnBootSec=257m
 OnUnitActiveSec=257m
 
-➜ cat /etc/systemd/system/snapper-cleanup.timer.d/override.conf 
+➜ cat /etc/systemd/system/snapper-cleanup.timer.d/override.conf
 [Timer]
 OnBootSec=
 OnUnitActiveSec=
