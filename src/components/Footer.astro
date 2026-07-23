@@ -22,7 +22,16 @@ const currentYear = new Date().getFullYear();
   >
     <Socials />
     <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row">
-      <span>{t.footer.copyright} &#169; {currentYear}</span>
+      <span>
+        {t.footer.copyright} &#169; {currentYear}
+        <span>&nbsp;|&nbsp;</span>
+        <a
+          href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}rss.xml`}
+          class="focus-outline hover:text-accent"
+        >
+          RSS
+        </a>
+      </span>
       <span class="hidden sm:inline">&nbsp;|&nbsp;</span>
       <span>{t.footer.allRightsReserved}</span>
     </div>
