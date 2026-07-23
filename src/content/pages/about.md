@@ -5,14 +5,14 @@ description: "关于我和这个博客。"
 
 ## 我
 
-<a href="https://www.archlinux.org/"><img src="https://archlinux.org/static/logos/archlinux-logo-dark-scalable.svg" alt="Arch Linux" class="inline h-5 dark:hidden"><img src="https://archlinux.org/static/logos/archlinux-logo-light-scalable.svg" alt="Arch Linux" class="hidden h-5 dark:inline"></a>
-<a href="https://kde.org/"><img src="https://kde.org/stuff/clipart/logo/kde-logo-blue-transparent-source.svg" alt="KDE" class="inline h-5 dark:hidden"><img src="https://kde.org/stuff/clipart/logo/kde-logo-white-blue-source.svg" alt="KDE" class="hidden h-5 dark:inline"></a> 爱好者。
+<a href="https://www.archlinux.org/"><img src="https://archlinux.org/static/logos/archlinux-logo-dark-scalable.svg" alt="Arch Linux" class="my-0 inline h-5 align-middle dark:hidden"><img src="https://archlinux.org/static/logos/archlinux-logo-light-scalable.svg" alt="Arch Linux" class="my-0 hidden h-5 align-middle dark:inline"></a> 和
+<a href="https://kde.org/"><img src="https://kde.org/stuff/clipart/logo/kde-logo-blue-transparent-source.svg" alt="KDE" class="my-0 inline h-5 align-middle dark:hidden"><img src="https://kde.org/stuff/clipart/logo/kde-logo-white-blue-source.svg" alt="KDE" class="my-0 hidden h-5 align-middle dark:inline"></a> 用户。
 
-正在学习 Linux / C / C++ / Rust
+## 这个博客
 
-## 博客
+Errata 是我的个人博客，主要记录 Linux 使用经验、学习笔记，以及一些生活片段。
 
-基于 [AstroPaper](https://github.com/satnaing/astro-paper)，一套简洁、响应式、SEO 友好的 Astro 博客主题。
+本站使用 [Astro](https://astro.build/) 构建，主题基于 [AstroPaper](https://github.com/satnaing/astro-paper) 修改。
 
 ### LOGO
 

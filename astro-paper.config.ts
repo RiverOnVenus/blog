@@ -3,9 +3,9 @@ import { defineAstroPaperConfig } from "./src/types/config";
 export default defineAstroPaperConfig({
   site: {
     url: "https://zhui.dev",
-    title: "Error: 你发现了一个错误！",
+    title: "Errata",
     description: "Life often requires some excitement, joy, and anticipation.",
-    author: "Mr. Error 追",
+    author: "Mr. Error",
     profile: "https://github.com/RiverOnVenus",
     ogImage: "default-og.jpg",
     lang: "zh-CN",
