@@ -31,7 +31,7 @@ export default defineAstroPaperConfig({
     { name: "github", url: "https://github.com/RiverOnVenus" },
     { name: "x", url: "https://x.com/RiverOnVenus" },
     { name: "telegram", url: "https://t.me/RiverOnVenus" },
-    { name: "mail", url: "mailto:error@zhui.dev" },
+    { name: "mail", url: "mailto:errata@zhui.dev" },
   ],
   shareLinks: [
     { name: "x", url: "https://x.com/intent/post?url=" },
