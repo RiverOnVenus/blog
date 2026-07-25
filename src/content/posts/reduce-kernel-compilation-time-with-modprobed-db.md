@@ -18,7 +18,7 @@ tags:
 
 ## Modprobed-db 是什么？
 
-Modprobed-db 是一个通过 [make localmodconfig](https://www.kernel.org/doc/html/latest/admin-guide/README.html?highlight=localmodconfig#configuring-the-kernel)建立最小内核的工具。它会根据你当前的 config 和由 Modprobed-db 生成的模块列表创建一个新的 config，其余不需要的模块都将被它禁用。这样就得到了一个属于你的、精简的内核。
+Modprobed-db 用于记录系统已加载的内核模块。随后，[make localmodconfig](https://www.kernel.org/doc/html/latest/admin-guide/README.html?highlight=localmodconfig#configuring-the-kernel) 会根据当前的 config 和这份模块列表生成新的 config，并禁用不需要的模块。这样就得到了一个属于你的、精简的内核。
 
 ## 如何使用它呢？
 
@@ -40,7 +40,9 @@ IGNORE=(nvidia nvidia_drm nvidia_modeset nvidia_uvm vboxdrv vboxnetadp vboxnetfl
 
 ### 填充数据库
 
-配置好 `modprobed-db.conf` 后，运行`modprobed-db store`，它会探测到当前加载的模块，并创建 Modprobed-db 数据库文件 `$XDG_CONFIG_HOME/modprobed.db`，数据库文件是一个文本文件，其内容就是被探测到的模块列表。这个数据库文件是可以积累的，每次运行`modprobed-db store`都会记录下之前沒有出现过的模块。使用`modprobed-db list`可以显示当前数据库文件中的模块。
+配置好 `modprobed-db.conf` 后，运行`modprobed-db store`，它会探测到当前加载的模块，并创建 Modprobed-db 数据库文件 `$XDG_CONFIG_HOME/modprobed.db`，数据库文件是一个文本文件，其内容就是被探测到的模块列表。这个数据库文件可以积累，每次运行`modprobed-db store`都会记录之前未出现过的模块。使用`modprobed-db list`可以显示当前数据库文件中的模块。
+
+刚开始收集时，最好先使用发行版提供的完整内核或自己的保底内核一段时间。已经精简过的内核可能根本不包含某些模块，系统就无法加载它们，`store` 也无从记录。
 
 #### 自动更新数据库
 
@@ -50,7 +52,7 @@ IGNORE=(nvidia nvidia_drm nvidia_modeset nvidia_uvm vboxdrv vboxnetadp vboxnetfl
 systemctl --user enable --now modprobed-db
 ```
 
-`modprobed-db.service` 每隔 6 小时运行一次`modprobed-db store`，在开机和关机时也会各运行一次。
+当前 Arch 包的定时器每隔 6 小时运行一次`modprobed-db store`。不同发行版或版本的 unit 配置可能不同，最好在本机确认实际的触发时间。
 
 [Service] 和 [Timer] 可以用下面命令查看：
 
@@ -129,13 +131,15 @@ bridge
 
 将需要加载内核模块的程序都运行一下，以及插入 USB 等设备，然后运行`modprobed-db store`完善数据库。
 
-在当前使用的内核上使用一段时间 Modprobed-db 后，再用它编译内核。
+在完整内核上使用一段时间 Modprobed-db 后，再用它编译内核。把日常会用到的程序都运行一遍，也别漏掉休眠唤醒、蓝牙、VPN、手柄、移动硬盘等不常用设备和功能。
 
-随着时间的推移，有些旧的模块可能没用了，使用`modprobed-db rebuild`重构数据库，删除其中过时的模块。
+日常只需要运行`modprobed-db store`。不要把`modprobed-db rebuild`当成清理数据库的命令：它会尝试加载数据库中的模块，然后再重建数据库，需要 root 权限，也可能在当前会话加载大量模块。
+
+若要重新得到最小的个人模块列表，先备份并移走旧的`modprobed.db`，重启系统，然后运行一次`modprobed-db store`。重启前运行`store`没有意义，因为`rebuild`加载的模块仍会留在当前内核中。
 
 使用 Modprobed-db 构建最小内核是有风险的，记得选择一个稳定的内核备用。
 
 ## 参考资料
 
-1. [https://wiki.archlinux.org/index.php/Modprobed-db](https://wiki.archlinux.org/index.php/Modprobed-db)
+1. [https://wiki.archlinux.org/title/Modprobed-db](https://wiki.archlinux.org/title/Modprobed-db)
 1. man 8 modprobed-db
