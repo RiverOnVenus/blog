@@ -1,6 +1,7 @@
 ---
 title: Linux CPU 调度器之我见
 description: 对 Linux 各 CPU 调度器的一些了解和看法。
+ogImage: "https://zhui.dev/images/posts/linux-cpu-schedulers/og.jpg"
 pubDatetime: 2022-11-09T00:00:00+08:00
 tags:
   - linux

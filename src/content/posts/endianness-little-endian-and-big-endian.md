@@ -1,6 +1,7 @@
 ---
 title: 字节顺序——小端序和大端序
 description: 字节顺序（端序）是什么，小端序和大端序有什么区别。
+ogImage: "https://zhui.dev/images/posts/endianness-little-endian-and-big-endian/og.jpg"
 pubDatetime: 2021-06-15T00:00:00+08:00
 tags:
   - code

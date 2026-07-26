@@ -1,6 +1,7 @@
 ---
 title: 字符串的暴力匹配和 KMP 算法
 description: 暴力匹配和 KMP 算法的原理、C 语言实现。
+ogImage: "https://zhui.dev/images/posts/brute-force-string-match-and-KMP-algorithm/og.jpg"
 pubDatetime: 2022-07-28T00:00:00+08:00
 tags:
   - code

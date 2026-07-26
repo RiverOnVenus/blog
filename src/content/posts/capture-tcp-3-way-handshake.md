@@ -1,6 +1,7 @@
 ---
 title: 记录一次抓 TCP 三次握手
 description: 用 Wireshark 抓包看 TCP 三次握手，免得又忘了。
+ogImage: "https://zhui.dev/images/posts/capture-tcp-3-way-handshake/og.jpg"
 pubDatetime: 2024-03-16T00:00:00+08:00
 tags:
   - network

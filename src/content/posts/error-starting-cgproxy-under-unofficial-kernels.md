@@ -1,6 +1,7 @@
 ---
 title: 非官方内核下启动 cgproxy 出错
 description: 换用非官方 Linux 内核后，cgproxy 启动失败，排查了一下。
+ogImage: "https://zhui.dev/images/posts/error-starting-cgproxy-under-unofficial-kernels/og.jpg"
 pubDatetime: 2021-08-01T00:00:00+08:00
 tags:
   - linux

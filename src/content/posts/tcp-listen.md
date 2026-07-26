@@ -1,6 +1,7 @@
 ---
 title: TCP listen 的故事
 description: TCP listen 系统调用的细节：backlog 参数、SYN 队列和 ACCEPT 队列。
+ogImage: "https://zhui.dev/images/posts/tcp-listen/og.jpg"
 pubDatetime: 2024-04-16T00:00:00+08:00
 tags:
   - network

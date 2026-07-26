@@ -1,6 +1,7 @@
 ---
 title: Meow~
 description: 一些猫猫照片。
+ogImage: "https://zhui.dev/images/posts/cat-photos/og.jpg"
 pubDatetime: 2024-11-04T00:00:00+08:00
 tags:
   - gallery

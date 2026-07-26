@@ -1,6 +1,7 @@
 ---
 title: 小米社区自动签到/任务
 description: 用 miui-auto-tasks 脚本自动化小米社区签到任务，为了拿 BL 解锁权限。
+ogImage: "https://zhui.dev/images/posts/xiaomi-cn-auto-tasks/og.jpg"
 pubDatetime: 2023-11-08T00:00:00+08:00
 tags:
   - misc

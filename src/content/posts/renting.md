@@ -1,6 +1,7 @@
 ---
 title: 租房
 description: 和女朋友租房后的一些复盘。
+ogImage: "https://zhui.dev/images/posts/renting/og.jpg"
 pubDatetime: 2026-07-21T23:35:53+08:00
 tags:
   - life

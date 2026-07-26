@@ -1,6 +1,7 @@
 ---
 title: C 语言中的 unlikely 和 likely
 description: C 语言里 unlikely 和 likely 宏的作用，以及编译器的分支预测优化。
+ogImage: "https://zhui.dev/images/posts/unlikely-and-likely-in-c/og.jpg"
 pubDatetime: 2024-02-29T00:00:00+08:00
 tags:
   - code

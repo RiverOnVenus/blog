@@ -1,6 +1,7 @@
 ---
 title: 关于我喜欢 KDE6 壁纸这件事
 description: KDE6 新增的壁纸「Scarlet Tree」，light 和 dark 两种风格都有。
+ogImage: "https://zhui.dev/images/posts/kde6-wallpapers/og.jpg"
 pubDatetime: 2024-03-08T00:00:00+08:00
 tags:
   - gallery

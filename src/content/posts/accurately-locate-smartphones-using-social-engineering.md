@@ -1,6 +1,7 @@
 ---
 title: 利用社会工程学准确定位智能手机
 description: 用 Seeker 工具通过社会工程学获取智能手机的精确位置。
+ogImage: "https://zhui.dev/images/posts/accurately-locate-smartphones-using-social-engineering/og.jpg"
 pubDatetime: 2021-05-11T00:00:00+08:00
 tags:
   - linux

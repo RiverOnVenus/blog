@@ -1,6 +1,7 @@
 ---
 title: 链式队列和顺序栈
 description: 链式队列和顺序栈的概念和 C 语言实现，还有循环队列。
+ogImage: "https://zhui.dev/images/posts/link-queue-and-sequence-stack/og.jpg"
 pubDatetime: 2021-06-24T00:00:00+08:00
 tags:
   - code

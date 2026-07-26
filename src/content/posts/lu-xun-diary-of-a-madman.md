@@ -1,6 +1,7 @@
 ---
 title: 【转】鲁迅《狂人日记》
 description: 鲁迅《狂人日记》。
+ogImage: "https://zhui.dev/images/posts/lu-xun-diary-of-a-madman/og.jpg"
 pubDatetime: 2022-11-25T00:00:00+08:00
 tags:
   - misc

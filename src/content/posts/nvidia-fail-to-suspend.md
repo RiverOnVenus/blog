@@ -1,6 +1,7 @@
 ---
 title: NVIDIA 导致系统挂起失败
 description: NVIDIA 显卡导致系统挂起后秒醒，查了半天。
+ogImage: "https://zhui.dev/images/posts/nvidia-fail-to-suspend/og.jpg"
 pubDatetime: 2024-06-23T00:00:00+08:00
 tags:
   - linux

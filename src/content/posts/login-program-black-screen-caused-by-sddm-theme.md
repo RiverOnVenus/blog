@@ -1,6 +1,7 @@
 ---
 title: SDDM 主题导致登录程序黑屏
 description: SDDM 主题导致登录黑屏，最后发现是 Plasma 5 主题在 Plasma 6 下不兼容。
+ogImage: "https://zhui.dev/images/posts/login-program-black-screen-caused-by-sddm-theme/og.jpg"
 pubDatetime: 2024-12-15T00:00:00+08:00
 tags:
   - linux

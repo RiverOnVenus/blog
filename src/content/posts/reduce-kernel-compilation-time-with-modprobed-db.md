@@ -1,6 +1,7 @@
 ---
 title: 使用 Modprobed-db 减少内核编译时间
 description: 用 Modprobed-db 精简内核配置，能省不少编译时间。
+ogImage: "https://zhui.dev/images/posts/reduce-kernel-compilation-time-with-modprobed-db/og.jpg"
 pubDatetime: 2022-05-07T00:00:00+08:00
 tags:
   - linux

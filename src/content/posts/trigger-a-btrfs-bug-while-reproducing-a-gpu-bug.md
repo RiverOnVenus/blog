@@ -1,6 +1,7 @@
 ---
 title: 在复现 GPU bug 时，触发了 Btrfs bug
 description: 起因是更新了 linux-firmware-amdgpu 后重启黑屏，复现确认时触发了 Btrfs log replay bug，导致根分区无法挂载。
+ogImage: "https://zhui.dev/images/posts/trigger-a-btrfs-bug-while-reproducing-a-gpu-bug/og.jpg"
 pubDatetime: 2025-06-28T00:00:00+08:00
 tags:
   - linux

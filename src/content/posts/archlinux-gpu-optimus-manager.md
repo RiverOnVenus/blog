@@ -1,6 +1,7 @@
 ---
 title: Arch Linux 的双显卡配置
 description: 在 Arch Linux 上用 optimus-manager 和 PRIME render offload 搞定双显卡的一些折腾。
+ogImage: "https://zhui.dev/images/posts/archlinux-gpu-optimus-manager/og.jpg"
 pubDatetime: 2021-05-22T00:00:00+08:00
 tags:
   - linux

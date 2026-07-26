@@ -1,6 +1,7 @@
 ---
 title: 在 Arch Linux 上使用 Cloudflare WARP+
 description: 在 Arch Linux 上折腾 Cloudflare WARP+ 的过程。
+ogImage: "https://zhui.dev/images/posts/using-cloudflare-warp-plus-on-arch-linux/og.jpg"
 pubDatetime: 2023-08-07T00:00:00+08:00
 tags:
   - linux

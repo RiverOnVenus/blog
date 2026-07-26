@@ -1,6 +1,7 @@
 ---
 title: 如何播放阿里云盘原始视频文件
 description: 用 alist 搭了个文件列表服务，播阿里云盘的原画视频。
+ogImage: "https://zhui.dev/images/posts/how-to-play-aliyundrive-original-video-file/og.jpg"
 pubDatetime: 2023-07-21T00:00:00+08:00
 tags:
   - tool

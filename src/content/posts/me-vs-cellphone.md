@@ -1,6 +1,7 @@
 ---
 title: 玩机之初
 description: 红米 K60 刷机、解 BL 锁、装 Magisk Delta 和 LSPosed。
+ogImage: "https://zhui.dev/images/posts/me-vs-cellphone/og.jpg"
 pubDatetime: 2023-04-23T00:00:00+08:00
 tags:
   - android

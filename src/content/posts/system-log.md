@@ -1,6 +1,7 @@
 ---
 title: 系统：你对我做了什么？！
 description: 新装台式机上对 Arch Linux 做的一些优化、配置和软件安装。
+ogImage: "https://zhui.dev/images/posts/system-log/og.jpg"
 pubDatetime: 2025-03-16T00:00:00+08:00
 tags:
   - linux
