@@ -21,20 +21,20 @@ tags:
 首先是文件系统和分区。这次我在 SSD 上用了 Btrfs 作为根文件系统，HDD 上用了 XFS 做数据盘。之前一直用的是 EXT4，其实馋 Btrfs 很久了。虽然还没完全搞明白 Btrfs，但透明压缩、子卷和对 SSD 友好的特性已经让我很满意了。XFS 放在 HDD 上用来存数据，性能也不错，比较省心。
 
 ```shell
-NAME        FSTYPE FSVER LABEL UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
-sda
-└─sda1      xfs                6dda4ef6-5539-425b-9e17-0a374910721b    2.2T    39% /mnt/data
-zram0       swap   1     zram0 81a25874-1132-4b4a-aba9-ee63778ea6f0                [SWAP]
-nvme0n1
-├─nvme0n1p1 vfat   FAT32       A4FB-3831                               1.7G    17% /boot
-└─nvme0n1p2 btrfs              a0b762a5-a99d-4d46-81d8-b10aa8620fa4  431.2G    53% /game
-                                                                                   /home
-                                                                                   /
+NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS FSTYPE PARTTYPENAME     UUID
+sda           8:0    0   3.6T  0 disk                                     
+└─sda1        8:1    0   3.6T  0 part /mnt/data   xfs    Linux filesystem 6dda4ef6-5539-425b-9e17-0a374910721b
+nvme0n1     259:0    0 931.5G  0 disk                                     
+├─nvme0n1p1 259:1    0     2G  0 part /boot       vfat   EFI System       A4FB-3831
+└─nvme0n1p2 259:2    0 929.5G  0 part /swap       btrfs  Linux filesystem a0b762a5-a99d-4d46-81d8-b10aa8620fa4
+                                      /home                               
+                                      /game                               
+                                      /  
 ```
 
 ### 挂载参数
 
-透明压缩等级很难找一个完美的平衡点，对 @ @home 子卷用默认的。kernel 6.15 上 zstd 支持负的压缩等级，对 @game 子卷用了 compress-force=zstd:-9
+透明压缩等级很难找一个完美的平衡点，对 @ @home 子卷用默认的。kernel 6.15 上 zstd 支持负的压缩等级，对 @game 子卷用了 compress-force=zstd:-9.  swapfile 放在直接位于 Btrfs top-level 子卷（ID 5）下的独立子卷。
 
 ```text
 # /dev/nvme0n1p2
@@ -44,11 +44,16 @@ UUID=a0b762a5-a99d-4d46-81d8-b10aa8620fa4       /home           btrfs           
 
 UUID=a0b762a5-a99d-4d46-81d8-b10aa8620fa4       /game           btrfs           rw,relatime,ssd,discard=async,compress-force=zstd:-9,space_cache=v2,subvol=/@game       0 0
 
+UUID=a0b762a5-a99d-4d46-81d8-b10aa8620fa4  /swap  btrfs  subvol=/@swap  0 0
+
 # /dev/nvme0n1p1
 UUID=A4FB-3831          /boot           vfat            rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro   0 2
 
 # /dev/sda1
 UUID=6dda4ef6-5539-425b-9e17-0a374910721b       /mnt/data       xfs             rw,relatime,attr2,inode64,logbufs=8,logbsize=32k,noquota        0 2
+
+# swap
+/swap/swapfile none swap defaults 0 0
 ```
 
 <figure>
@@ -123,22 +128,6 @@ sudo xfs_info /mnt/data
 
 ## 内存相关
 
-### Zram
-
-```shell
-sudo pacman -S zram-generator
-```
-
-配置在`/etc/systemd/zram-generator.conf`
-
-```ini
-[zram0]
-zram-size = ram
-compression-algorithm = lz4
-```
-
-添加 zswap.enabled=0 到内核参数
-
 ### Earlyoom
 
 ```shell
@@ -151,8 +140,6 @@ sudo systemctl enable --now earlyoom
 在`/etc/sysctl.d/99-sysctl.conf`
 
 ```ini
-# 32G Ram + Zram(lz4) + Nvme SSD
-
 # Contains, as bytes, the number of pages at which a process which is
 # generating disk writes will itself start writing out dirty data.
 vm.dirty_bytes = 536870912    # 512MB
@@ -162,19 +149,17 @@ vm.dirty_bytes = 536870912    # 512MB
 vm.dirty_background_bytes = 134217728  # 128MB
 
 # Decreasing the virtual file system (VFS) cache parameter value
-# may improve system responsiveness (default 100)
+# may improve system responsiveness (default 100).
 vm.vfs_cache_pressure = 50
 
-# The sysctl swappiness parameter determines the kernel's preference for pushing anonymous pages or page cache to disk in memory-starved situations.
-# A low value causes the kernel to prefer freeing up open files (page cache), a high value causes the kernel to try to use swap space,
-# For in-memory swap, like zram or zswap, as well as hybrid setups that have swap on faster devices than the filesystem, values beyond 100 can be considered.
-vm.swappiness = 150
+# Prefer reclaiming anonymous memory into zswap before aggressively
+# reclaiming filesystem cache.
+vm.swappiness = 100
 
-# page-cluster controls the number of pages up to which consecutive pages are read in from swap in a single attempt.
-# This is the swap counterpart to page cache readahead. The mentioned consecutivity is not in terms of virtual/physical addresses,
-# but consecutive on swap space - that means they were swapped out together. (Default is 3)
-# increase this value to 1 or 2 if you are using physical swap (1 if ssd, 2 if hdd)
+# Number of pages to read in from swap at once.
+# 0 is reasonable for fast NVMe storage and avoids unnecessary readahead.
 vm.page-cluster = 0
+
 ```
 
 ## 性能相关
