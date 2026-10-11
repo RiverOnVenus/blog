@@ -1,7 +1,16 @@
 ---
 import config from "@/config";
+import { useTranslations } from "@/i18n";
 import LinkButton from "./LinkButton.astro";
 
+type Props = {
+  /** When set, an RSS icon linking to this URL is appended after the social icons. */
+  rssHref?: string;
+};
+
+const { rssHref } = Astro.props;
+
+const t = useTranslations(Astro.currentLocale);
 const { site, socials } = config;
 
 const icons = import.meta.glob<{
@@ -20,17 +29,24 @@ const items = await Promise.all(
     return { url, title, Icon };
   })
 );
+
+const rssIcon = rssHref
+  ? (await icons["/src/assets/icons/socials/rss.svg"]?.())?.default
+  : undefined;
+
+const links = [
+  ...items.filter(({ Icon }) => Icon),
+  ...(rssIcon ? [{ url: rssHref!, title: t.footer.rss, Icon: rssIcon }] : []),
+];
 ---
 
 <div class="flex flex-wrap items-center gap-1">
   {
-    items.map(({ url, title, Icon }) =>
-      Icon ? (
-        <LinkButton href={url} class="p-2 hover:rotate-6 sm:p-1" title={title}>
-          <Icon class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" />
-          <span class="sr-only">{title}</span>
-        </LinkButton>
-      ) : null
-    )
+    links.map(({ url, title, Icon }) => (
+      <LinkButton href={url} class="p-2 hover:rotate-6 sm:p-1" title={title}>
+        <Icon class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" />
+        <span class="sr-only">{title}</span>
+      </LinkButton>
+    ))
   }
 </div>
