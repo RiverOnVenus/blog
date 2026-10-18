@@ -205,7 +205,9 @@ ksecretd: Using kwallet without parent window!
 
 点取消不影响远程桌面，只是依赖钱包的应用暂时拿不到密钥。可以接受每次开机点一下，也可以把钱包关闭。给钱包设空密码虽然省事，但任何以该用户身份运行的进程都能读取，不建议。
 
-## 已知问题：iOS 画质档位
+## iOS 画质档位
+
+> **v0.2.10 已修复。** 直接升级即可，下面的本地补丁不再需要。修复原因和验证结果见本节末尾。
 
 主机支持全部画质档位：1M、2M、8M、20M、自动和自定义。桌面客户端的超清/原画切换正常。
 
@@ -213,7 +215,7 @@ ksecretd: Using kwallet without parent window!
 
 上游 issue 在这里：[#49 iPhone 端超清/原画按钮可见但点击无反应](https://github.com/VallierDev/uu-remote-linux/issues/49)。
 
-目前的绕过方法是主机侧强制档位，需要自己打个本地补丁，AUR 包里没有。补丁加在 `src/capture_setting.rs` 的 `apply_rpc()` 里，位置在 `next.fps = next.fps.clamp(MIN_FPS, MAX_FPS);` 之前：
+v0.2.10 之前的绕过方法是主机侧强制档位，需要自己打个本地补丁，AUR 包里没有。补丁加在 `src/capture_setting.rs` 的 `apply_rpc()` 里，位置在 `next.fps = next.fps.clamp(MIN_FPS, MAX_FPS);` 之前：
 
 ```diff
 --- a/src/capture_setting.rs
@@ -248,3 +250,14 @@ Environment=UU_FORCE_QUALITY=4
 ```
 
 重新构建后，用 systemd drop-in 把 `ExecStart` 指向本地二进制。客户端里保存的档位会继续生效，所以日常使用暂时不受影响。
+
+### 修复
+
+上游在 [#49](https://github.com/VallierDev/uu-remote-linux/issues/49) 里定位到了原因。主机发给控制端的设备能力（`forward_setting` 里的 `device_capability`）是扁平结构，官方 Windows 被控端用的是 `data.device_capability` 嵌套格式，`type` 也放在 `data` 里。iPhone 解析不了这条消息，就把画质和真彩锁在默认值。Mac 客户端不依赖它，所以一直正常。
+
+v0.2.10 按官方格式发送设备能力，包含编码器真实支持的 4:4:4，并补发了 `sender_para_info`。升级后实测 iPhone 上超清、原画都能切换，主机日志能看到 quality=3/4 和对应的码率：
+
+```text
+quality=3 → max_kbps=8000
+quality=4 → max_kbps=20000
+```
