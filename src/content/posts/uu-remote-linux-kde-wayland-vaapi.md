@@ -1,7 +1,8 @@
 ---
 title: 我的远程桌面方案
-description: 在 Arch Linux + KDE Wayland 上用 UU 远程做被控端，记录 AUR 打包、VAAPI 硬编和无人值守重启。
+description: 在 Arch Linux + KDE Wayland 上用 UU 远程做被控端，记录 AUR 打包、VAAPI 硬编、无人值守重启和一次信令卡死的排查。
 pubDatetime: 2026-10-18T18:30:00+08:00
+modDatetime: 2026-10-24T14:22:00+08:00
 tags:
   - linux
   - wayland
@@ -76,7 +77,7 @@ uuremote-server show
 
 或者直接用桌面图标。关闭窗口只是隐藏，不会停止 service。
 
-## Wayland 和输入
+## 在 Wayland 下采集屏幕和注入输入
 
 KDE Wayland 下，屏幕采集走 xdg-desktop-portal。第一次连接会弹出屏幕共享授权，同意之后会记住。
 
@@ -191,7 +192,7 @@ Exec=/home/youruser/.local/bin/lock-on-start
 
 然后在手机客户端开启：
 
-**控制中心 → 安全 → 自动解锁被控端**
+控制中心 → 安全 → 自动解锁被控端
 
 输入 Linux 用户的登录密码。主机会通过 PAM 验证，解锁已有的 KDE 锁屏，然后恢复画面和输入。
 
@@ -204,6 +205,108 @@ ksecretd: Using kwallet without parent window!
 ```
 
 点取消不影响远程桌面，只是依赖钱包的应用暂时拿不到密钥。可以接受每次开机点一下，也可以把钱包关闭。给钱包设空密码虽然省事，但任何以该用户身份运行的进程都能读取，不建议。
+
+## 一次 15 小时的失联
+
+10 月 23 日晚上 10 点后，控制端一直显示设备离线。机器没有关机，SSH、DNS、外网都正常，`uuremote-server` 进程也还在。
+
+问题在信令连接上：
+
+```bash
+$ ss -tnp | grep uuremote
+CLOSE-WAIT 82967 0 192.168.1.x:48048 <signaling>:443 users:(("uuremote-server",...))
+```
+
+只剩一条 `CLOSE-WAIT`，接收队列积压了 82967 字节。日志从 21:58 之后完全静默，没有断线重连，也没有 `Signaling heartbeat lost`。
+
+时间线：
+
+- 21:55 本机的透明代理 `honk-core` 重启，重建网络命名空间，已建立的连接被打断
+- 21:57:52 主机处理 `released` 事件，`PeerConnection::close().await` 没有返回
+- 21:57:57 ICE 变成 disconnected，21:58:22 变成 failed
+- 之后 64 格的信令事件队列被填满，读协程阻塞在 `event_sender.send().await`，同一个 `select!` 里的心跳截止时间再也轮不到
+
+上游从 v0.1.19 起就有心跳超时检测，但它只在读循环回到 `select!` 时才有效。读协程一旦卡在循环体里的 `await`，检测等于不存在。这是失联持续 15 小时的原因。
+
+## 修复
+
+给上游提了 PR [#104](https://github.com/VallierDev/uu-remote-linux/pull/104)：
+
+- 独立的看门狗任务，按最后收到数据的时间判断，不再依赖读循环是否被调度
+- 事件投递、pong、控制包和 WebSocket 写入都加超时或 `try_send`
+- `PeerConnection::close()` 加 5 秒超时，避免一个坏掉的 peer 卡住主循环
+- 回归测试：事件消费者不读队列时，仍然能关掉死连接
+
+## 兜底：健康检查 timer
+
+看门狗处理信令层。进程整体卡死或退出，仍然需要另一层兜底。这里用 systemd user timer，每 5 分钟检查一次，异常就重启服务。
+
+不需要 root。`uuremote-native.service` 是 user service，`systemctl --user`、`journalctl --user` 和 `ss -tnp` 看自己的进程都不需要提权。只有想让 timer 在没登录时也运行，才需要 `loginctl enable-linger`。
+
+`~/.local/bin/uu-remote-health`：
+
+```bash
+#!/usr/bin/env bash
+set -u
+unit=uuremote-native.service
+
+restart() {
+    logger -t uu-remote-health "restarting $unit: $1"
+    systemctl --user restart "$unit"
+}
+
+has_estab() {
+    ss -tnp 2>/dev/null | awk '/uuremote-server/ && $1=="ESTAB" {f=1} END {exit !f}'
+}
+
+systemctl --user is-active --quiet "$unit" || { restart "inactive"; exit 0; }
+
+# 已知的卡死形态：半关闭且接收队列有积压
+if ss -tnp 2>/dev/null | awk '/uuremote-server/ && $1=="CLOSE-WAIT" && $2>0 {f=1} END {exit !f}'; then
+    restart "CLOSE-WAIT with unread data"
+    exit 0
+fi
+
+# 正常重连会短暂没有 ESTAB，等 10 秒再确认
+if ! has_estab; then
+    sleep 10
+    has_estab || restart "no established signaling connection"
+fi
+```
+
+```ini
+# ~/.config/systemd/user/uu-remote-health.service
+[Unit]
+Description=UU Remote liveness check
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/uu-remote-health
+```
+
+```ini
+# ~/.config/systemd/user/uu-remote-health.timer
+[Unit]
+Description=Check UU Remote every 5 minutes
+
+[Timer]
+OnBootSec=3min
+OnUnitActiveSec=5min
+AccuracySec=30s
+
+[Install]
+WantedBy=timers.target
+```
+
+启用：
+
+```bash
+chmod +x ~/.local/bin/uu-remote-health
+systemctl --user daemon-reload
+systemctl --user enable --now uu-remote-health.timer
+```
+
+间隔选 5 分钟，是因为心跳每 3 分钟写一条日志，重连凭证每 5 分钟刷新一次；没有 ESTAB 时脚本会等 10 秒再确认，避开正常重连的几秒空窗。
 
 ## iOS 画质档位
 
