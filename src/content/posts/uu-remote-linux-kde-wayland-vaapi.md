@@ -1,6 +1,7 @@
 ---
 title: 我的远程桌面方案
 description: 在 Arch Linux + KDE Wayland 上用 UU 远程做被控端，记录 AUR 打包、VAAPI 硬编、无人值守重启和一次信令卡死的排查。
+ogImage: "https://zhui.dev/images/posts/uu-remote-linux-kde-wayland-vaapi/og.jpg"
 pubDatetime: 2026-10-18T18:30:00+08:00
 modDatetime: 2026-10-24T14:22:00+08:00
 tags:
