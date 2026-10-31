@@ -1,6 +1,7 @@
 ---
 title: 用 GitHub Actions 自建 Arch 软件源
 description: 把 PKGBUILD 仓库接到 GitHub Actions，构建好的包发到 Release，当软件源用。
+ogImage: "https://zhui.dev/images/posts/personal-arch-repo-with-github-actions/og.jpg"
 pubDatetime: 2026-10-31T00:00:00+08:00
 tags:
   - linux
