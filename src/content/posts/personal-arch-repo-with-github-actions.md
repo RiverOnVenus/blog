@@ -31,7 +31,7 @@ AUR-packages/
     └── uuremote-native.service
 ```
 
-`aur-packages.txt` 是 AUR 白名单。不在名单里的目录照样构建、照样进自己的源，只是不会上传到 AUR。这些包大多是从 AUR 或 [portable-arch](https://github.com/Kraftland/portable-arch) 搬过来的 fork。目的是让这些包由我的 CI 里的 PKGBUILD 构建，从我的源更新，统一用 Pacman 管理。
+`aur-packages.txt` 是 AUR 白名单。不在名单里的目录照样构建、照样进自己的源，只是不会上传到 AUR。这些包大多是从 AUR 或 [portable-arch](https://github.com/Kraftland/portable-arch) 搬过来的 fork。目的是让这些包由我的 CI 里的 PKGBUILD 构建，从我的源更新。
 
 ## 一次 push 做什么
 
@@ -51,7 +51,7 @@ git diff --name-only "$BEFORE" "$GITHUB_SHA" | cut -d/ -f1 | sort -u
 
 **preflight** 用推 AUR 的同一把 SSH key 跑 `list-repos`，确认白名单里的包确实在自己名下。新名字在 AUR 上不存在是允许的，第一次 push 会创建。这个检查本身很简单，能在构建几十个包之前拦下“推不上去”的错误。
 
-**build** 是一个 matrix，一个包一个 job，`fail-fast: false`。构建用 [ouuan/pkgbuild-action](https://github.com/ouuan/pkgbuild-action)，它在 archlinux 容器里用 paru 装依赖，卸掉 paru 再跑 `makepkg -s`，AUR 上的 makedepends 也能装上。容器里用的是非 root 用户，省了在构建脚本里切用户的麻烦。
+**build** 是一个 matrix，一个包一个 job，`fail-fast: false`。构建用 [ouuan/pkgbuild-action](https://github.com/ouuan/pkgbuild-action)，它在 archlinux 容器里用 paru 装依赖，卸掉 paru 再跑 `makepkg -s`，AUR 上的 makedepends 也能装上。
 
 带 epoch 的包文件名里有冒号（`pkgname-1:2.0-1-x86_64.pkg.tar.zst`），工作流会先把冒号换成下划线再往下传。版本号来自包内的 `.PKGINFO`，文件名只是存储位置，pacman 照常比较版本，升级不受影响。
 
@@ -88,18 +88,16 @@ Server = https://github.com/RiverOnVenus/AUR-packages/releases/download/zhui-arc
 
 VCS 包的版本由 `pkgver()` 算出来，不重新构建就不知道上游有没有新提交。`devel.yml` 每周日跑一次，找出所有带 `pkgver()` 的非 `-bin` 包，用 `workflow_dispatch` 触发一次构建。少数 `-bin` 包虽然也有 `pkgver()`，但它只是从下载的产物里读版本，重建等于再下一遍。
 
-普通包用 nvchecker。每个非 VCS 包旁边放一个 `.nvchecker.toml`，`versions.yml` 隔天跑一次 `pkgctl version check`，把落后的包汇总到一个 issue。
+普通包用 nvchecker。每个非 VCS 包旁边放一个 `.nvchecker.toml`，`versions.yml` 隔天跑一次 `pkgctl version check`，把落后的包汇总到一个 issue。issue 只是列表，不会自动改包。
 
 配置的原则是优先查原始上游，比如项目的 git tag、GitHub release 或 PyPI。只有上游没有可解析版本时，才退回查 AUR 同名包的版本号。这时 AUR 只是版本信号，怎么打包还是按这里的规则。
-
-issue 只是列表，不会自动改包。
 
 发版太勤的包（有的几十分钟一个版本）写进 `rolling-packages.txt`，照常检查、照常列出来，但不会让 issue 一直开着。
 
 ## 几个注意的点
 
-1. concurrency 会吞掉排队的 run。连着推两次，第二次 push 会把还在排队的第一次运行取消。有一次一个还没开始的 run 就被后来的 push 顶掉了，只能重新 dispatch。现在构建和版本检查用不同的 concurrency group。
+1. concurrency 会吞掉排队的 run。连着推两次，第二次 push 会把还在排队的第一次运行取消。有一次一个还没开始的 run 就被后来的 push 顶掉了，只能重新 dispatch。
 
-2. 容器里是 root。publish-repo 和 versions.yml 都在 `archlinux:base-devel` 容器里跑，而 makepkg 拒绝以 root 运行，`makepkg --printsrcinfo` 用不了。读 pkgname 只能 `source PKGBUILD`。
+2. 容器里是 root。publish-repo 和 versions.yml 都在 `archlinux:base-devel` 容器里跑，而 makepkg 拒绝以 root 运行，`makepkg --printsrcinfo` 用不了。
 
 3. artifact 只留 3 天。构建产物只是用来中转的，Release 才是长期存储，旧版本的包会从 Release 里清掉。
