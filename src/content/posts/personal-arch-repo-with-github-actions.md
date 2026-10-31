@@ -11,7 +11,7 @@ tags:
 
 ## 为什么建自己的源
 
-AUR 出过几起投毒事件，攻击者批量接管孤儿包，在 PKGBUILD 里加 post-install hook，安装时从网上拉一段脚本执行，或者直接拿 root 权限跑恶意代码，另外 AUR 上有些包的打包质量一般，本地改了后用着没问题，但 AUR 版本一更新，改动就被盖掉了。干脆建一个自己的源，都用 Pacman 管理。得益于 AI，我可以方便的管理这些包。
+AUR 出过几起投毒事件，攻击者批量接管孤儿包，在 PKGBUILD 里加 post-install hook，安装时从网上拉一段脚本执行，另外 AUR 上有些包的打包质量一般，本地改了后用着没问题，但 AUR 版本一更新，改动就被盖掉了。干脆建一个自己的源，都用 Pacman 管理。得益于 AI，我可以方便的管理这些包。
 
 ## 仓库结构
 
@@ -30,9 +30,7 @@ AUR-packages/
     └── uuremote-native.service
 ```
 
-`aur-packages.txt` 是 AUR 白名单。不在名单里的目录照样构建、照样进自己的源，只是不会上传到 AUR。这些包大多是从 AUR 或 [portable-arch](https://github.com/Kraftland/portable-arch) 搬过来的 fork，保留原作者的 Maintainer 行。目的只有一个，让这些包由我的 CI 按这里的 PKGBUILD 构建，从我的源更新。AUR 上同名的那些，也不会在 `paru -Syu` 时被换回上游版本。
-
-`.SRCINFO` 不进仓库，CI 里生成。`.nvchecker.toml` 是版本检查配置，只留在仓库，推 AUR 前会删掉。
+`aur-packages.txt` 是 AUR 白名单。不在名单里的目录照样构建、照样进自己的源，只是不会上传到 AUR。这些包大多是从 AUR 或 [portable-arch](https://github.com/Kraftland/portable-arch) 搬过来的 fork。目的是让这些包由我的 CI 里的 PKGBUILD 构建，从我的源更新，统一用 Pacman 管理。
 
 ## 一次 push 做什么
 
@@ -50,7 +48,7 @@ git diff --name-only "$BEFORE" "$GITHUB_SHA" | cut -d/ -f1 | sort -u
 
 手动触发且 `packages` 留空时构建全部。改 `aur-packages.txt` 时，新增的行也要构建，否则新包永远到不了 AUR，所以这一步单独算一次白名单的差集。只改 `.nvchecker.toml` 不触发构建。
 
-**preflight** 用推 AUR 的同一把 SSH key 跑 `list-repos`，确认白名单里的包确实在自己名下。新名字在 AUR 上不存在是允许的，第一次 push 会创建。这个检查本身很简单，但能在构建几十个包之前拦下“推不上去”的错误。
+**preflight** 用推 AUR 的同一把 SSH key 跑 `list-repos`，确认白名单里的包确实在自己名下。新名字在 AUR 上不存在是允许的，第一次 push 会创建。这个检查本身很简单，能在构建几十个包之前拦下“推不上去”的错误。
 
 **build** 是一个 matrix，一个包一个 job，`fail-fast: false`。构建用 [ouuan/pkgbuild-action](https://github.com/ouuan/pkgbuild-action)，它在 archlinux 容器里用 paru 装依赖，卸掉 paru 再跑 `makepkg -s`，AUR 上的 makedepends 也能装上。容器里用的是非 root 用户，省了在构建脚本里切用户的麻烦。
 
@@ -83,9 +81,7 @@ SigLevel = Optional TrustAll
 Server = https://github.com/RiverOnVenus/AUR-packages/releases/download/zhui-arch
 ```
 
-然后 `pacman -Syu`，按名字装。
-
-装过一次之后，这些包在本地数据库里就有记录，paru 和 yay 不再把它们当外来包，AUR 上的更新也就不会盖掉我的构建。这是建这个源最主要的目的。
+然后 `pacman -Syu`.
 
 ## 自动更新检查
 
