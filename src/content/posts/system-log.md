@@ -3,6 +3,7 @@ title: 系统：你对我做了什么？！
 description: 新装台式机上对 Arch Linux 做的一些优化、配置和软件安装。
 ogImage: "https://zhui.dev/images/posts/system-log/og.jpg"
 pubDatetime: 2025-03-16T00:00:00+08:00
+modDatetime: 2026-10-31T21:03:00+08:00
 tags:
   - linux
   - kde
@@ -22,19 +23,19 @@ tags:
 
 ```shell
 NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS FSTYPE PARTTYPENAME     UUID
-sda           8:0    0   3.6T  0 disk                                     
+sda           8:0    0   3.6T  0 disk
 └─sda1        8:1    0   3.6T  0 part /mnt/data   xfs    Linux filesystem 6dda4ef6-5539-425b-9e17-0a374910721b
-nvme0n1     259:0    0 931.5G  0 disk                                     
+nvme0n1     259:0    0 931.5G  0 disk
 ├─nvme0n1p1 259:1    0     2G  0 part /boot       vfat   EFI System       A4FB-3831
 └─nvme0n1p2 259:2    0 929.5G  0 part /swap       btrfs  Linux filesystem a0b762a5-a99d-4d46-81d8-b10aa8620fa4
-                                      /home                               
-                                      /game                               
-                                      /  
+                                      /home
+                                      /game
+                                      /
 ```
 
 ### 挂载参数
 
-透明压缩等级很难找一个完美的平衡点，对 @ @home 子卷用默认的。kernel 6.15 上 zstd 支持负的压缩等级，对 @game 子卷用了 compress-force=zstd:-9.  swapfile 放在直接位于 Btrfs top-level 子卷（ID 5）下的独立子卷。
+透明压缩等级很难找一个完美的平衡点，对 @ @home 子卷用默认的。kernel 6.15 上 zstd 支持负的压缩等级，对 @game 子卷用了 compress-force=zstd:-9. swapfile 放在直接位于 Btrfs top-level 子卷（ID 5）下的独立子卷。
 
 ```text
 # /dev/nvme0n1p2
@@ -176,32 +177,23 @@ sudo systemctl enable --now power-profiles-daemon.service
 混用仓库有风险。
 
 ```ini
-[cachyos-znver4]
-Include = /etc/pacman.d/cachyos-v4-mirrorlist
-
-[cachyos-core-znver4]
-Include = /etc/pacman.d/cachyos-v4-mirrorlist
-
-[cachyos-extra-znver4]
-Include = /etc/pacman.d/cachyos-v4-mirrorlist
-
 [core]
 Include = /etc/pacman.d/mirrorlist
 
 [extra]
 Include = /etc/pacman.d/mirrorlist
 
-[multilib]
-Include = /etc/pacman.d/mirrorlist
+[cachyos-znver4]
+Include = /etc/pacman.d/cachyos-v4-mirrorlist
+
+[zhui-arch]
+SigLevel = Optional TrustAll
+Server = https://github.com/RiverOnVenus/AUR-packages/releases/download/zhui-arch
 
 [archlinuxcn]
 Include = /etc/pacman.d/archlinuxcn-mirrorlist
 
-[arch4edu]
-Server = https://mirrors.tuna.tsinghua.edu.cn/arch4edu/$arch
-
-[chaotic-aur]
-Include = /etc/pacman.d/chaotic-mirrorlist
+Include = /etc/pacman.d/openai-chatgpt.conf
 ```
 
 ### 编译优化
@@ -225,11 +217,11 @@ sudo pacman -S ananicy-cpp cachyos-ananicy-rules-git
 systemctl enable --now ananicy-cpp.service
 ```
 
-### Proton-CachyOS
+### DWProton
 
-```shell
-sudo pacman -S proton-cachyos
-```
+https://dawn.wine/dawn-winery/dwproton/
+
+用 flatpak 安装 ProtonPlus 管理。
 
 ### Ntsync
 
