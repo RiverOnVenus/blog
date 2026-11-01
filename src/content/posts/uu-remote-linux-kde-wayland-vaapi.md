@@ -1,9 +1,9 @@
 ---
 title: 我的远程桌面方案
-description: 在 Arch Linux + KDE Wayland 上用 UU 远程做被控端，记录 AUR 打包、VAAPI 硬编、无人值守重启和一次信令卡死的排查，顺带对比手机上的 Alma 连家里的 herdr。
+description: 在 Arch Linux + KDE Wayland 上用 UU 远程做被控端，以及手机上用 Alma 连家里的 Herdr。
 ogImage: "https://zhui.dev/images/posts/uu-remote-linux-kde-wayland-vaapi/og.jpg"
 pubDatetime: 2026-10-18T18:30:00+08:00
-modDatetime: 2026-11-01T17:17:00+08:00
+modDatetime: 2026-11-01T17:22:00+08:00
 tags:
   - linux
   - wayland
@@ -370,7 +370,7 @@ quality=4 → max_kbps=20000
 
 无意中看见 [yetone 的这条帖子](https://x.com/yetone/status/2115516478254624914)，让我打开了 Alma 和 Herdr 的大门，手机上的 Alma 连回家里的机器之后，Herdr 的工作区、标签、面板会以图形界面呈现，比纯文本终端好用太多。
 
-桌面还是 uu，Alma 没有国内中继，没有 VPS 搭建 [alma-relay](https://github.com/yetone/alma-relay)，默认的 relay 实测对外连接落在境外：
+桌面还是 uu，Alma 默认的不是国内的中继，我也没有 VPS 搭建 [alma-relay](https://github.com/yetone/alma-relay)，默认的 relay 实测对外连接落在境外：
 
 - uu 的信令节点 `42.186.118.70`：32–35 ms，0% 丢包
 - Alma 的 Cloudflare 端点：约 223 ms
