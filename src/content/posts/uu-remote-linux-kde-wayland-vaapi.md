@@ -1,9 +1,9 @@
 ---
 title: 我的远程桌面方案
-description: 在 Arch Linux + KDE Wayland 上用 UU 远程做被控端，记录 AUR 打包、VAAPI 硬编、无人值守重启和一次信令卡死的排查。
+description: 在 Arch Linux + KDE Wayland 上用 UU 远程做被控端，记录 AUR 打包、VAAPI 硬编、无人值守重启和一次信令卡死的排查，顺带对比手机上的 Alma 连家里的 herdr。
 ogImage: "https://zhui.dev/images/posts/uu-remote-linux-kde-wayland-vaapi/og.jpg"
 pubDatetime: 2026-10-18T18:30:00+08:00
-modDatetime: 2026-10-31T20:35:00+08:00
+modDatetime: 2026-11-01T17:17:00+08:00
 tags:
   - linux
   - wayland
@@ -80,7 +80,7 @@ uuremote-server show
 
 ## 在 Wayland 下采集屏幕和注入输入
 
-KDE Wayland 下，屏幕采集走 xdg-desktop-portal。第一次连接会弹出屏幕共享授权，同意之后应用会拿到一个还原令牌，同一次开机内重连不再询问。重启之后是否还会再问，取决于令牌能不能用上，见下文「每次连桌面都要点『允许』」。
+KDE Wayland 下，屏幕采集走 xdg-desktop-portal。第一次连接会弹出屏幕共享授权，同意之后会记住。
 
 键鼠默认走 uinput（内核虚拟设备）。包的 udev 规则会给当前登录用户 `/dev/uinput` 的 `uaccess` 权限。如果节点已经存在，可以手动触发一次：
 
@@ -95,95 +95,6 @@ UU_INPUT_BACKEND=uinput   # 或 native
 ```
 
 Wayland 下 uinput 的按键符号比 portal 原生输入更完整，尤其是需要输入下划线、组合键的时候。
-
-## 每次连桌面都要点「允许」
-
-重启之后第一次连桌面，KDE 会弹一个授权窗口，标题是「允许一个无法识别的应用程序获得远程控制权限？」，点允许之后下次重启又会弹。
-
-日志里：
-
-```text
-Portal clipboard permission: granted=1
-Portal authorization result: devices_present=1 device_bits=7 stream_count=1
-Portal persistence: requested=1 restore_attempted=0 token_returned=1
-```
-
-`restore_attempted` 是应用这次有没有把还原令牌带上去。把 `~/.config/uuremote/portal-permissions/kde` 删掉再重启服务，这一项变成 0，弹窗必现，令牌在的时候，同一次开机内重连是静默的，日志里对应 `Portal capture session restored after closure`。
-
-### app id 是空的
-
-用 dbus-monitor 抓 portal 的实现层调用：
-
-```bash
-dbus-monitor --session "type=method_call,interface=org.freedesktop.impl.portal.RemoteDesktop"
-```
-
-`CreateSession`、`SelectDevices`、`Start` 三个方法的 app id 参数都是空字符串：
-
-```text
-member=CreateSession ... string ""
-member=SelectDevices ... string ""
-member=Start         ... string ""
-```
-
-`uuremote-server` 是 systemd user service，既不是 flatpak，也不是由 `app-*.scope` 启动的宿主应用，xdg-desktop-portal 推不出应用标识，只能给空 id。KDE 拿到空 id，弹窗就把请求方渲染成「无法识别的应用程序」。
-
-### KDE 跳过对话框的两个条件
-
-xdg-desktop-portal-kde 6.8.2 的 `RemoteDesktopPortal::Start` 里有这么一段：
-
-```cpp
-if (restored || isAppMegaAuthorized(app_id)) {
-    results = continueStart(session);
-}
-```
-
-`restored` 来自应用回传的还原令牌。`isAppMegaAuthorized()` 查 permission store 里 `kde-authorized` 表、id 为 `remote-desktop` 的记录，权限列表包含 `yes` 才返回真。两个条件都不成立时才会弹窗。
-
-对话框那个复选框只影响前者，勾上，会话保留 `persist_mode`，应用才能拿到令牌。不勾，portal 把 persist 降成 `NoPersist`，下次一定再问。它不会写 `kde-authorized`。
-
-### 写入免询问授权
-
-```bash
-busctl --user call org.freedesktop.impl.portal.PermissionStore \
-  /org/freedesktop/impl/portal/PermissionStore \
-  org.freedesktop.impl.portal.PermissionStore \
-  SetPermission sbssas kde-authorized true remote-desktop "" 1 "yes"
-```
-
-参数依次是表名、不存在时是否创建、资源 id、app id、权限列表。回读：
-
-```bash
-busctl --user call org.freedesktop.impl.portal.PermissionStore \
-  /org/freedesktop/impl/portal/PermissionStore \
-  org.freedesktop.impl.portal.PermissionStore \
-  Lookup ss kde-authorized remote-desktop
-```
-
-```text
-a{sas}v 1 "" 1 "yes"
-```
-
-验证要清掉令牌才算数：删掉 `~/.config/uuremote/portal-permissions/kde`，重启服务再连桌面。令牌不存在、`restore_attempted=0`，仍然不弹窗，说明生效的是 mega-auth 而不是令牌还原。我这里的验证结果是 `20:21:06` 那次连接 `restore_attempted=0`，弹窗没出现，画面正常走 `hevc_vaapi`。
-
-### 代价
-
-空 app id 是 KDE 给「推不出标识的宿主程序」留的通配规则，写下去之后，所有没有 app id 的本机程序请求远程控制都不会再有界面确认，RustDesk、krfb 这类同样以宿主程序身份运行的工具一并覆盖。请求方可以静默抓取全部屏幕、接管键鼠，只留一条 KDE 的「Remote Control Started」通知。值得与否自己判断了。
-
-撤销：
-
-```bash
-busctl --user call org.freedesktop.impl.portal.PermissionStore \
-  /org/freedesktop/impl/portal/PermissionStore \
-  org.freedesktop.impl.portal.PermissionStore \
-  DeletePermission sss kde-authorized remote-desktop ""
-```
-
-想只给 uu-remote 放行、不影响其他宿主程序，只能让它带真实 app id 启动，比如由 `.desktop` 拉起而不是 systemd user unit。我没有验证换启动方式之后 portal 实际给的是什么 id，也没有改现有的 unit。
-
-### 版本
-
-排查时的环境：`xdg-desktop-portal 1.22.1-2`、`xdg-desktop-portal-kde 6.8.2-1`、`uu-remote-linux 0.2.41-1`。KDE 这段逻辑在 master 上是同一套，改版本前可以拿上面的 `Start` 源码片段对一下。
 
 ## AMD VAAPI 硬编
 
@@ -454,3 +365,14 @@ v0.2.10 按官方格式发送设备能力，包含编码器真实支持的 4:4:4
 quality=3 → max_kbps=8000
 quality=4 → max_kbps=20000
 ```
+
+## 手机上的 Alma 连家里的 Herdr
+
+无意中看见 [yetone 的这条帖子](https://x.com/yetone/status/2115516478254624914)，让我打开了 Alma 和 Herdr 的大门，手机上的 Alma 连回家里的机器之后，Herdr 的工作区、标签、面板会以图形界面呈现，比纯文本终端好用太多。
+
+桌面还是 uu，Alma 没有国内中继，没有 VPS 搭建 [alma-relay](https://github.com/yetone/alma-relay)，默认的 relay 实测对外连接落在境外：
+
+- uu 的信令节点 `42.186.118.70`：32–35 ms，0% 丢包
+- Alma 的 Cloudflare 端点：约 223 ms
+
+uu 的中继在国内，很流畅。目前分工是：终端和 agent 相关的事交给 Alma，要看完整桌面就连 uu。
