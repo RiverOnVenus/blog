@@ -56,7 +56,7 @@ uuremote-server login
 systemctl --user enable --now uuremote-native.service
 ```
 
-这个 unit 一开始挂在 `default.target` 上，踩过一次。开机后服务起得比桌面还早，KDE 还没把 `DISPLAY` 那套环境导入 systemd user session，于是它自己挑了 X11 后端，日志里是：
+这个 unit 一开始挂在 `default.target` 上，踩过一次坑。开机后服务起得比桌面还早，KDE 还没把 `DISPLAY` 那套环境导入 systemd user session，于是它自己挑了 X11 后端，日志里是：
 
 ```text
 Desktop connection unavailable: x11_init failed with code -1
@@ -159,7 +159,7 @@ X-KDE-AutostartPhase=2
 Exec=/home/youruser/.local/bin/lock-on-start
 ```
 
-判断条件用 `/proc/uptime` 小于 180 秒，意思是只有开机那三分钟才锁。手动登录进来不会被莫名其妙锁一下。
+判断条件是开机时间不到 180 秒（读 `/proc/uptime`），意思是只有开机那三分钟才锁。手动登录进来不会被莫名其妙锁一下。
 
 然后在手机客户端里打开「控制中心 → 安全 → 自动解锁被控端」，填 Linux 用户的密码。主机收到之后走 PAM 验证，把 KDE 那层锁屏解开，画面和输入就回来了。
 
@@ -273,7 +273,7 @@ c2  956 plasmalogin seat0  tty3  greeter
 
 上面是 11 月 1 日那次的现场。plasmalogin 看到 tty1 被占着，自己跑去 tty2、tty3 各开了一个 greeter。VT 一切走，kwin 的 DRM master 就没了。`EACCESS` 是被顶掉之后拿不到权限的意思，`Failed to find a working output layer configuration` 就是它手上一个能用的输出都没有了。
 
-kwin 没有输出，portal 自然也找不到输出，采集当然起不来。这里跟授权一点关系都没有。 这一点很重要，因为「没画面」这三个字太容易把人带到授权那个方向上去，我当晚就带了。
+kwin 没有输出，portal 自然也找不到输出，采集当然起不来。这里跟授权一点关系都没有，而「没画面」这三个字太容易把人带到授权那个方向上去，我当晚就先往那边想了。
 
 `loginctl activate 1` 把会话切回 tty1，kwin 那两个报错立刻归零：
 
@@ -312,7 +312,7 @@ Desktop encoder: ... encoder=hevc_vaapi
 
 我盯着这个日志看了很久，以为是服务卡死了，还重启过一遍，没用。
 
-最后是截图才发现的。 我把他桌面截了一张，那个框就在屏幕正中间，标题写着：
+最后是截图才发现的。我把他桌面截了一张，那个框就在屏幕正中间，标题写着：
 
 > 允许一个无法识别的应用程序获得远程控制权限？
 
@@ -626,7 +626,7 @@ uu 退出远程连接就自动锁屏。那天晚上我一度以为在手机上�
 isAppMegaAuthorized(app_id) 查的是 kde-authorized 表，不是 remote-desktop。
 ```
 
-两分钟。
+两分钟就找到了。
 
 **三张表我全都列出来过。** 看到 `kde-authorized` 的时候，里面是空的，我判断跟这事没关系，就跳过去了。
 
