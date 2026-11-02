@@ -20,7 +20,7 @@ tags:
 
 所以这份东西有两个用处：给他以后查，也给我自己下次少走弯路。远程这类故障有个特点，**坏起来的样子很像，原因却完全不是一回事**。黑屏可能是显示输出被抢了，也可能是授权框在等人点，还可能是信令连接已经死了。三种情况日志特征完全不同，排查方向也南辕北辙。
 
-下面按这三种情况分开写。文末附了一次真实排查的复盘，那不是范例，是我走弯路的过程记录，包括最后靠 Claude 翻源码才点醒我的部分。
+下面按这三种情况分开写。文末另外附了两段：一个已经修掉的旧问题，和一次真实排查的复盘。后者不是范例，是我走弯路的过程记录，包括最后靠 Claude 翻源码才点醒我的部分。
 
 ## 背景
 
@@ -174,52 +174,6 @@ ksecretd: Using kwallet without parent window!
 点取消就行，不影响远程。只是依赖钱包的应用暂时拿不到密钥。
 
 也有人把钱包设成空密码，一劳永逸。但那样任何以这个用户身份跑起来的进程都能读，包括我。不建议。
-
-## iOS 上切不了画质
-
-> **v0.2.10 修了。** 下面这套本地补丁已经没用了，留个记录。
-
-主机这边档位是全的：1M、2M、8M、20M、自动、自定义。桌面客户端切超清/原画都正常。
-
-iPhone 上不行（iOS 26.6.2，UU 远程 4.42.0）。「超清」「原画」两个按钮看得见，点下去没反应，主机日志里也找不到 quality=3/4 的请求。同一个账号连官方 Windows 被控端，这两个按钮是好的。所以不是客户端的问题，是主机发给它的东西有问题。
-
-上游 issue：[#49](https://github.com/VallierDev/uu-remote-linux/issues/49)。
-
-那时候的绕法是在主机侧直接钉死档位，改 `src/capture_setting.rs` 的 `apply_rpc()`，插在 `next.fps = next.fps.clamp(MIN_FPS, MAX_FPS);` 前面：
-
-```diff
---- a/src/capture_setting.rs
-+++ b/src/capture_setting.rs
-@@ -169,6 +169,19 @@
-     } else {
-         return None;
-     }
-+    // Local override for clients that hide the high-bitrate presets.
-+    if let Ok(value) = std::env::var("UU_FORCE_QUALITY") {
-+        if let Ok(quality) = value.parse::<u64>() {
-+            if (1..=6).contains(&quality) { next.quality = quality; }
-+        }
-+    }
-+    if next.quality == QUALITY_CUSTOM {
-+        if let Ok(value) = std::env::var("UU_FORCE_BITRATE") {
-+            if let Ok(mbps) = value.parse::<u32>() {
-+                if mbps > 0 { next.custom_mbps = mbps; }
-+            }
-+        }
-+    }
-     next.fps = next.fps.clamp(MIN_FPS, MAX_FPS);
-```
-
-3 是超清 8M，4 是原画 20M。要自定义码率就 `UU_FORCE_QUALITY=6` 配 `UU_FORCE_BITRATE=30`。
-
-真正的原因在 issue 里后来捋清了：主机发过去的设备能力（`forward_setting` 里的 `device_capability`）是扁平结构，官方 Windows 被控端发的是 `data.device_capability` 嵌套格式，`type` 也在 `data` 里面。iPhone 解析不了就直接放弃，把画质锁在默认值。Mac 客户端不读这个字段，所以一直没事。
-
-v0.2.10 按官方格式发了，顺带补上编码器真实支持的 4:4:4 和 `sender_para_info`。升级之后 iPhone 上能切了，日志也对得上：
-
-```text
-quality=3 → max_kbps=8000
-quality=4 → max_kbps=20000
-```
 
 ## 手机上的 Alma 连 Herdr
 
@@ -572,7 +526,52 @@ systemctl --user enable --now uu-remote-health.timer
 
 脚本里有两道保险：unit 启动不满 120 秒不碰，15 分钟内最多重启一次。加这两条是为了防止重启风暴：采集坏掉的时候如果重启解决不了问题（比如 greeter 一直在抢 VT），没有限制就会变成每 2 分钟重启一次的循环。这个坑没踩过，纯粹是写的时候想到了。
 
-## 附：那天晚上我是怎么查的
+## 附一：iPhone 切不了画质（v0.2.10 已修）
+
+主机这边档位是全的：1M、2M、8M、20M、自动、自定义。桌面客户端切超清/原画都正常。
+
+iPhone 上不行（iOS 26.6.2，UU 远程 4.42.0）。「超清」「原画」两个按钮看得见，点下去没反应，主机日志里也找不到 quality=3/4 的请求。同一个账号连官方 Windows 被控端，这两个按钮是好的。所以不是客户端的问题，是主机发给它的东西有问题。
+
+上游 issue：[#49](https://github.com/VallierDev/uu-remote-linux/issues/49)。
+
+那时候的绕法是在主机侧直接钉死档位，改 `src/capture_setting.rs` 的 `apply_rpc()`，插在 `next.fps = next.fps.clamp(MIN_FPS, MAX_FPS);` 前面：
+
+```diff
+--- a/src/capture_setting.rs
++++ b/src/capture_setting.rs
+@@ -169,6 +169,19 @@
+     } else {
+         return None;
+     }
++    // Local override for clients that hide the high-bitrate presets.
++    if let Ok(value) = std::env::var("UU_FORCE_QUALITY") {
++        if let Ok(quality) = value.parse::<u64>() {
++            if (1..=6).contains(&quality) { next.quality = quality; }
++        }
++    }
++    if next.quality == QUALITY_CUSTOM {
++        if let Ok(value) = std::env::var("UU_FORCE_BITRATE") {
++            if let Ok(mbps) = value.parse::<u32>() {
++                if mbps > 0 { next.custom_mbps = mbps; }
++            }
++        }
++    }
+     next.fps = next.fps.clamp(MIN_FPS, MAX_FPS);
+```
+
+3 是超清 8M，4 是原画 20M。要自定义码率就 `UU_FORCE_QUALITY=6` 配 `UU_FORCE_BITRATE=30`。
+
+真正的原因在 issue 里后来捋清了：主机发过去的设备能力（`forward_setting` 里的 `device_capability`）是扁平结构，官方 Windows 被控端发的是 `data.device_capability` 嵌套格式，`type` 也在 `data` 里面。iPhone 解析不了就直接放弃，把画质锁在默认值。Mac 客户端不读这个字段，所以一直没事。
+
+v0.2.10 按官方格式发了，顺带补上编码器真实支持的 4:4:4 和 `sender_para_info`。升级之后 iPhone 上能切了，日志也对得上：
+
+```text
+quality=3 → max_kbps=8000
+quality=4 → max_kbps=20000
+```
+
+
+## 附二：那天晚上我是怎么查的
 
 这一段是过程，不是结论。想直接抄配置的可以跳过。
 
