@@ -342,6 +342,8 @@ a{sas}v 2  "" 1 "yes"  "com.yetone.alma" 1 "yes"
 
 记录落在 `~/.local/share/flatpak/db/kde-authorized`。目录名叫 flatpak 是历史遗留，真正写它的是 xdg-desktop-portal 里的 `xdg-permission-store`，路径硬编码在源码里。文件是 GVariant 二进制，别手改，就用上面那个 D-Bus 命令。重启、升级都不会丢，`flatpak permission-reset --all` 会清掉。
 
+上游 issue [#206](https://github.com/VallierDev/uu-remote-linux/issues/206) 记录的是同一类场景：第一次授权没人点，控制端一直停在「正在传输画面」，主机侧 120 秒后才报 `Portal permission request timed out (code 5)`。报告里走的是「到本机点一次」这条路。这里直接把授权提前写进去，那道门干脆不出现。
+
 #### 验证的时候要删令牌
 
 这条很关键，不然测出来是假的。
@@ -361,9 +363,10 @@ systemctl --user restart uuremote-native.service
 
 这话由我说出来有点微妙：按这条规则，我自己要抓这块屏也不需要问任何人。机器上如果还有别的远程工具在跑，这条要想清楚再写。
 
-撤销：
+撤销之前要先停掉健康检查的 timer，否则两分钟内会被写回来：
 
 ```bash
+systemctl --user stop uu-remote-health.timer
 busctl --user call org.freedesktop.impl.portal.PermissionStore \
   /org/freedesktop/impl/portal/PermissionStore \
   org.freedesktop.impl.portal.PermissionStore \
@@ -414,9 +417,9 @@ CLOSE-WAIT 82967 0 192.168.1.x:48048 <signaling>:443 users:(("uuremote-server",.
 set -u
 
 unit=uuremote-native.service
-window=8              # 看最近多少分钟的日志
-min_active=120        # 刚启动的 unit 先不碰
-min_restart_gap=900   # 15 分钟内最多重启一次
+window=8              # minutes of journal to inspect
+min_active=120        # leave a freshly started unit alone for a while
+min_restart_gap=900   # at most one restart per 15 minutes
 state=${XDG_RUNTIME_DIR:-/tmp}/uu-remote-health.last
 
 restart() {
@@ -452,40 +455,137 @@ has_estab() {
     ss -tnp 2>/dev/null | awk '/uuremote-server/ && $1=="ESTAB" && /:443 /{f=1} END {exit !f}'
 }
 
+bin=${UUREMOTE_SERVER_BIN:-/usr/bin/uuremote-server}
+markers=(
+    'desktop selection before capture'
+    'Portal authorization result'
+    'Portal desktop unavailable'
+)
+wl_file=${XDG_RUNTIME_DIR:-/tmp}/uu-remote-health.whitelist
+
+# 0 = blank-app-id entry present, 1 = absent, 2 = lookup failed
+whitelist_state() {
+    local out
+    out=$(busctl --user call org.freedesktop.impl.portal.PermissionStore \
+        /org/freedesktop/impl/portal/PermissionStore \
+        org.freedesktop.impl.portal.PermissionStore \
+        Lookup ss kde-authorized remote-desktop 2>/dev/null) || return 2
+    printf '%s\n' "$out" | grep -qF '"" 1 "yes"' && return 0
+    return 1
+}
+
+# The consent dialog opens on the host screen, so an unattended host can never
+# answer it. The blank app id is what a systemd user service looks like to the
+# portal, and this entry is the only way to skip the dialog without a restore
+# token. Put it back when it disappears, and stay quiet while repair fails so
+# the journal does not fill with one line every two minutes.
+ensure_whitelist() {
+    local prev
+    whitelist_state
+    case $? in
+        0) echo 0 >"$wl_file" 2>/dev/null || true
+           return 0 ;;
+        2) return 0 ;;
+    esac
+    prev=$(cat "$wl_file" 2>/dev/null || echo 2)
+    if busctl --user call org.freedesktop.impl.portal.PermissionStore \
+        /org/freedesktop/impl/portal/PermissionStore \
+        org.freedesktop.impl.portal.PermissionStore \
+        SetPermission sbssas kde-authorized true remote-desktop "" 1 "yes" \
+        >/dev/null 2>&1 && whitelist_state; then
+        logger -t uu-remote-health "portal whitelist entry was missing and has been restored (blank app id, remote-desktop)"
+        echo 0 >"$wl_file" 2>/dev/null || true
+        return 0
+    fi
+    if [ "$prev" != 1 ]; then
+        logger -t uu-remote-health "portal whitelist entry MISSING and auto-restore FAILED, re-add it manually (handoff.md 第五节)"
+    fi
+    echo 1 >"$wl_file" 2>/dev/null || true
+    return 1
+}
+
+# Run after an upgrade: the checks below match literal log strings, and a
+# reworded message would silently disable them.
+if [ "${1:-}" = "--selftest" ]; then
+    rc=0
+    if [ -x "$bin" ]; then
+        for m in "${markers[@]}"; do
+            if strings "$bin" 2>/dev/null | grep -qF "$m"; then
+                printf 'ok      %s\n' "$m"
+            else
+                printf 'MISSING %s\n' "$m"
+                rc=1
+            fi
+        done
+    else
+        printf 'MISSING binary %s\n' "$bin"
+        rc=1
+    fi
+    whitelist_state
+    case $? in
+        0) printf 'ok      portal whitelist (blank app id)\n' ;;
+        1) printf 'MISSING portal whitelist (blank app id)\n'; rc=1 ;;
+        2) printf 'unknown portal whitelist (lookup failed)\n' ;;
+    esac
+    exit "$rc"
+fi
+
+# Repair the whitelist before touching the unit. A restart cannot produce a
+# portal consent, so this is the only unattended recovery for a missing entry.
+ensure_whitelist
+
 systemctl --user is-active --quiet "$unit" || { restart "inactive"; exit 0; }
 
+# Do not fight the unit's own startup.
 if [ "$(unit_age)" -lt "$min_active" ]; then
     exit 0
 fi
 
-# 已知的卡死形态：半关闭且接收队列有积压
+# Known stuck state: half-closed socket with unread data.
 if ss -tnp 2>/dev/null | awk '/uuremote-server/ && $1=="CLOSE-WAIT" && $2>0 {f=1} END {exit !f}'; then
     restart "CLOSE-WAIT with unread data"
     exit 0
 fi
 
-log=$(journalctl --user -u "$unit" --since "-${window} min" -o cat 2>/dev/null)
+log=$(journalctl --user -u "$unit" --since "-${window} min" -o short-unix 2>/dev/null)
 
-# portal 拒绝采集，或者合成器没有输出
+# Portal refused the capture or lost the compositor output. With the
+# whitelist gone a restart only reopens a dialog nobody can answer, so let
+# ensure_whitelist decide whether restarting can help at all.
 if printf '%s\n' "$log" | grep -q 'Portal desktop unavailable'; then
-    restart "portal capture unavailable"
+    if ensure_whitelist; then
+        restart "portal capture unavailable"
+    fi
     exit 0
 fi
 
-# 主机报了显示器列表，采集却始终没开始：授权框开着，或者会话卡住了
-selected=$(printf '%s\n' "$log" | grep -c 'desktop selection before capture')
-started=$(printf '%s\n' "$log" | grep -cE 'Portal authorization result|Portal capture session restored')
-if [ "$selected" -gt 0 ] && [ "$started" -eq 0 ]; then
-    restart "portal handshake stuck"
+# The host announced the desktop list but capture never started: the consent
+# dialog is open somewhere, or the portal session is wedged. A selection logged
+# moments ago is just a handshake in flight (the portal call takes seconds), so
+# only one that has waited out the grace period without an answer counts.
+now=$(date +%s)
+stuck=$(printf '%s\n' "$log" | awk -v now="$now" -v grace=120 '
+    /desktop selection before capture/ { sel = $1 }
+    /Portal authorization result|Portal capture session restored/ { auth = $1 }
+    END {
+        if (sel == "" || now - sel < grace) print 0
+        else if (auth != "" && auth > sel) print 0
+        else print 1
+    }')
+if [ "$stuck" = 1 ]; then
+    if ensure_whitelist; then
+        restart "portal handshake stuck"
+    fi
     exit 0
 fi
 
-# 有 greeter 会话说明 VT 被抢了，重启没用，先记一笔
+# A leftover greeter session means the login manager grabbed the VT. A restart
+# will not help until the session is switched back, so only record it.
 if loginctl list-sessions --no-legend 2>/dev/null | grep -q ' greeter '; then
     logger -t uu-remote-health "greeter session present; VT may have been stolen from the desktop session"
 fi
 
-# 正常重连会短暂没有 ESTAB，等 10 秒再确认
+# A normal reconnect briefly drops ESTAB; confirm before restarting.
 if ! has_estab; then
     sleep 10
     has_estab || restart "no established signaling connection"
@@ -525,6 +625,12 @@ systemctl --user enable --now uu-remote-health.timer
 间隔 2 分钟，采集坏掉最多两分钟就能发现。日志读的是本地 `journalctl`，开销可以忽略。
 
 脚本里有两道保险：unit 启动不满 120 秒不碰，15 分钟内最多重启一次。加这两条是为了防止重启风暴：采集坏掉的时候如果重启解决不了问题（比如 greeter 一直在抢 VT），没有限制就会变成每 2 分钟重启一次的循环。这个坑没踩过，纯粹是写的时候想到了。
+
+后来又加了一段，守的是前面那条通配授权。每次运行先 Lookup `kde-authorized`，记录没了就用 `SetPermission` 写回去，日志记 `portal whitelist entry was missing and has been restored`。写不回去只记一条，不重启，也不刷屏。
+
+为什么不直接重启：重启造不出授权。白名单丢了的时候，重启只会把那个没人能点的框重新弹一次，正好又落回这个脚本本来要防的循环里。能救回来的只有把权限写回去。
+
+`uu-remote-health --selftest` 是给升级后用的，检查三个日志标记和当前白名单。上游改一次日志文案，底下的卡死检测就会静默失效，看起来一切正常，其实永远不会触发。
 
 ## 附一：iPhone 切不了画质（v0.2.10 已修）
 
