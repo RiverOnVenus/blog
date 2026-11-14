@@ -3,7 +3,7 @@ title: 系统：你对我做了什么？！
 description: 新装台式机上对 Arch Linux 做的一些优化、配置和软件安装。
 ogImage: "https://zhui.dev/images/posts/system-log/og.jpg"
 pubDatetime: 2025-03-16T00:00:00+08:00
-modDatetime: 2026-10-31T21:03:00+08:00
+modDatetime: 2026-11-14T16:58:00+08:00
 tags:
   - linux
   - kde
@@ -183,12 +183,15 @@ Include = /etc/pacman.d/mirrorlist
 [extra]
 Include = /etc/pacman.d/mirrorlist
 
-[cachyos-znver4]
-Include = /etc/pacman.d/cachyos-v4-mirrorlist
-
 [zhui-arch]
 SigLevel = Optional TrustAll
 Server = https://github.com/RiverOnVenus/AUR-packages/releases/download/zhui-arch
+
+[cachyos-znver4]
+Include = /etc/pacman.d/cachyos-v4-mirrorlist
+
+[cachyos]
+Include = /etc/pacman.d/cachyos-mirrorlist
 
 [archlinuxcn]
 Include = /etc/pacman.d/archlinuxcn-mirrorlist
@@ -231,6 +234,32 @@ ntsync
 ```
 
 ## 网络相关
+
+### BBR3 拥塞控制
+
+`/etc/modprobe.d/disable-tcp-bbr.conf`
+
+```ini
+blacklist tcp_bbr
+install tcp_bbr /bin/false
+```
+
+`/etc/modules-load.d/tcp_bbr3.conf`
+
+```text
+tcp_bbr3
+```
+
+`/etc/sysctl.d/90-tuning.conf`
+
+```ini
+net.core.default_qdisc = fq
+net.ipv4.tcp_congestion_control = bbr3
+
+net.core.netdev_max_backlog = 4096
+
+kernel.nmi_watchdog = 0
+```
 
 ### SmartDNS 接管 DNS
 
